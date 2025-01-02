@@ -54,7 +54,7 @@ const generateRefreshToken = async (data) => {
   const jwtToken = await new jose.SignJWT({ ...data })
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
-    .setExpirationTime("1h")
+    .setExpirationTime("72h")
     .sign(new TextEncoder().encode(process.env.RefreshTokenSecretKey));
 
   return jwtToken;
@@ -93,6 +93,13 @@ const valiadtePhone = (phone) => {
   return pattern.test(phone);
 };
 
+const valiadteOtp = (otp) => {
+  //const pattern = /((0?9)|(\+?989))\d{2}\W?\d{3}\W?\d{4}/g;
+  // const pattern = /(\+98|0)?9\d{9}/g;
+  const pattern = /^(?=.*?[0-9]).{5,5}$/g;
+  return pattern.test(otp);
+};
+
 const valiadtePassword = (password) => {
   const pattern = /^(?=.*?[a-zA-Z])(?=.*?[0-9]).{8,}$/g;
   //min 8 char includes number and character
@@ -124,7 +131,54 @@ const valiadteMeliCode = (meliCode) => {
   return pattern.test(meliCode);
 };
 
+const validateEngStr = (str) => {
+  const pattern = /^[A-Za-z]+$/g;
+  return pattern.test(str);
+};
+
+const validateFunc = (func, setInVal, value, key) => {
+  //? func : تابعی که کار اعتبارستجی رو انجام میده - set : تابع setter
+  if (!func(value) || value.length < 3) {
+    setInVal((prev) => {
+      return {
+        ...prev,
+        [`${key}`]: true,
+      };
+    });
+  } else {
+    setInVal((prev) => {
+      return {
+        ...prev,
+        [`${key}`]: false,
+      };
+    });
+  }
+};
+
+const validateValue = (state, setInVal, key, setIsError) => {
+  console.log("validateValue--->", state);
+  //? func : تابعی که کار اعتبارستجی رو انجام میده - set : تابع setter
+  if (state) {
+    setInVal((prev) => {
+      return {
+        ...prev,
+        [`${key}`]: true,
+      };
+    });
+    setIsError(true);
+  } else {
+    setInVal((prev) => {
+      return {
+        ...prev,
+        [`${key}`]: false,
+      };
+    });
+    setIsError(false);
+  }
+};
 export {
+  validateValue,
+  validateFunc,
   hashPassword,
   generateAccessToken,
   verifyPassword,
@@ -139,5 +193,7 @@ export {
   valiadtePrsCode,
   valiadteMeliCode,
   valiadteRegionCode,
-  valiadteProvinceCode
+  valiadteProvinceCode,
+  valiadteOtp,
+  validateEngStr,
 };

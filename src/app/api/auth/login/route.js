@@ -1,15 +1,14 @@
 import {
     generateAccessToken,
     generateRefreshToken,
-    hashPassword,
+ 
     valiadtePassword,
     valiadtePhone,
-    verifyAccessToken,
+ 
     verifyPassword,
-    verifyRefreshToken,
   } from "@/utils/auth";
   import UserModel from "@/models/base/User";
-  import modirUnitModel from "@/models/modiran/modirUnit";
+
   import connectToDB from "@/utils/db";
   
   export async function POST(req) {

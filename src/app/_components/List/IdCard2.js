@@ -8,7 +8,6 @@ import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { RiDiscountPercentFill, RiDiscountPercentLine } from "react-icons/ri";
 import { CiMoneyBill, CiUser } from "react-icons/ci";
 import { CiBookmark, CiBookmarkCheck } from "react-icons/ci";
-import { toast } from "react-toastify";
 import { CgDetailsMore } from "react-icons/cg";
 import { IoCallOutline } from "react-icons/io5";
 import { BookmarkIcon, BookmarkSlashIcon } from "@heroicons/react/24/outline";
@@ -22,6 +21,7 @@ import {
   useDisclosure,
   Tooltip,
 } from "@nextui-org/react";
+import toast, { Toaster } from "react-hot-toast";
 export default function IdCard2({ id }) {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const copyToClipboard = (text) => {
@@ -29,7 +29,7 @@ export default function IdCard2({ id }) {
     try {
       navigator.clipboard.writeText(text);
 
-      toast.success("آیدی کپی شد");
+      toast("آیدی کپی شد");
     } catch (err) {
       console.error(err);
     }
@@ -39,6 +39,7 @@ export default function IdCard2({ id }) {
 
     // </div>
     <>
+      <Toaster />
       <div
         className={` w-full col-span-1 md:h-60  relative bg-glass p-0 flex flex-col md:flex-row z-10 overflow-hidden `}
       >
@@ -139,7 +140,7 @@ export default function IdCard2({ id }) {
 
         <div
           className="cursor-pointer"
-          onClick={() => copyToClipboard("saeedjamalqi")}
+          onClick={() => copyToClipboard("saeedjamali")}
         >
           <div className="absolute w-10 h-10 rounded-full flex items-center justify-center top-6 left-4 bg-white ring-2 ring-white z-10">
             <Image alt={""} width={100} height={100} src={id.icon}></Image>

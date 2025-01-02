@@ -5,7 +5,7 @@ export const Id_PER_PAGE = 30;
 export const messengers = [
   {
     id: 1,
-    name: "تلگرام",
+    title: "تلگرام",
     latin: "Telegram",
     icon: "/images/messengers/icons/telegram-ic.png",
     thumbnail: "/images/messengers/thumbnail/.png",
@@ -18,7 +18,7 @@ export const messengers = [
   },
   {
     id: 2,
-    name: "واتساپ",
+    title: "واتساپ",
     latin: "Whatsapp",
     icon: "/images/messengers/icons/Whatsapp-ic.png",
     thumbnail: "/images/messengers/thumbnail/.png",
@@ -31,7 +31,7 @@ export const messengers = [
   },
   {
     id: 3,
-    name: "اینستاگرام",
+    title: "اینستاگرام",
     latin: "Instagram",
     icon: "/images/messengers/icons/instagram-ic.png",
     thumbnail: "/images/messengers/thumbnail/.png",
@@ -44,7 +44,7 @@ export const messengers = [
   },
   {
     id: 4,
-    name: "بله",
+    title: "بله",
     latin: "Bale",
     icon: "/images/messengers/icons/bale-ic.png",
     thumbnail: "/images/messengers/thumbnail/.png",
@@ -57,8 +57,8 @@ export const messengers = [
   },
 
   {
-    id: 7,
-    name: "سروش",
+    id: 5,
+    title: "سروش",
     latin: "Soroush",
     icon: "/images/messengers/icons/soroush-ic.png",
     thumbnail: "/images/messengers/thumbnail/.png",
@@ -70,8 +70,8 @@ export const messengers = [
     link: "",
   },
   {
-    id: 8,
-    name: "گپ",
+    id: 6,
+    title: "گپ",
     latin: "Gap",
     icon: "/images/messengers/icons/gap-ic.png",
     thumbnail: "/images/messengers/thumbnail/.png",
@@ -83,8 +83,8 @@ export const messengers = [
     link: "",
   },
   {
-    id: 9,
-    name: "آی گپ",
+    id: 7,
+    title: "آی گپ",
     latin: "iGap",
     icon: "/images/messengers/icons/igap-ic.png",
     thumbnail: "/images/messengers/thumbnail/.png",
@@ -96,8 +96,8 @@ export const messengers = [
     link: "",
   },
   {
-    id: 10,
-    name: "فیس بوک",
+    id: 8,
+    title: "فیس بوک",
     latin: "Facebook",
     icon: "/images/messengers/icons/facebook-ic.png",
     thumbnail: "/images/messengers/thumbnail/.png",
@@ -109,8 +109,8 @@ export const messengers = [
     link: "http://facebook.com/",
   },
   {
-    id: 11,
-    name: "تیک تاک",
+    id: 9,
+    title: "تیک تاک",
     latin: "TikTok",
     icon: "/images/messengers/icons/tiktok-ic.png",
     thumbnail: "/images/messengers/thumbnail/.png",
@@ -122,8 +122,8 @@ export const messengers = [
     link: "",
   },
   {
-    id: 12,
-    name: "ایکس",
+    id: 10,
+    title: "ایکس",
     latin: "X",
     icon: "/images/messengers/icons/x-ic.png",
     thumbnail: "/images/messengers/thumbnail/.png",
@@ -135,8 +135,8 @@ export const messengers = [
     link: "",
   },
   {
-    id: 13,
-    name: "یوتیوب",
+    id: 11,
+    title: "یوتیوب",
     latin: "Youtube",
     icon: "/images/messengers/icons/youtube-ic.png",
     thumbnail: "/images/messengers/thumbnail/.png",
@@ -148,8 +148,8 @@ export const messengers = [
     link: "",
   },
   {
-    id: 14,
-    name: "پینترست",
+    id: 12,
+    title: "پینترست",
     latin: "Pinterest",
     icon: "/images/messengers/icons/pinterest-ic.png",
     thumbnail: "/images/messengers/thumbnail/.png",
@@ -161,8 +161,8 @@ export const messengers = [
     link: "",
   },
   {
-    id: 15,
-    name: "آپارات",
+    id: 13,
+    title: "آپارات",
     latin: "Aparat",
     icon: "/images/messengers/icons/aparat-ic.png",
     thumbnail: "/images/messengers/thumbnail/.png",
@@ -174,8 +174,8 @@ export const messengers = [
     link: "",
   },
   {
-    id: 5,
-    name: "ایتا",
+    id: 14,
+    title: "ایتا",
     latin: "Eita",
     icon: "/images/messengers/icons/eita-ic.png",
     thumbnail: "/images/messengers/thumbnail/.png",
@@ -187,8 +187,8 @@ export const messengers = [
     link: "https://web.eitaa.com/#", //? https://web.eitaa.com/#@alisahebdel
   },
   {
-    id: 6,
-    name: "روبیکا",
+    id: 15,
+    title: "روبیکا",
     latin: "Rubika",
     icon: "/images/messengers/icons/rubika-ic.png",
     thumbnail: "/images/messengers/thumbnail/.png",
@@ -205,6 +205,7 @@ export const types = [
   { id: 1, type: "channel", title: "کانال", category: 2 },
   { id: 2, type: "group", title: "گروه", category: 2 },
   { id: 3, type: "private", title: "شخصی", category: 2 },
+  { id: 4, type: "page", title: "پیج", category: 2 },
 ];
 
 export const subjects = [
@@ -246,3 +247,74 @@ export const subjects = [
   { id: 18, title: "ترفندها", description: "", subTitle: [], category: 3 },
   { id: 19, title: "فیلم و سریال", description: "", subTitle: [], category: 3 },
 ];
+export const status = [
+  { id: 1, title: "فعال" },
+  { id: 2, title: "فروخته شد" },
+  { id: 3, title: "موقتا غیر فعال شود" },
+];
+
+export const years = [
+  { id: 2025, title: "2025" },
+  { id: 2024, title: "2024" },
+  { id: 2023, title: "2023" },
+  { id: 2022, title: "2022" },
+  { id: 2021, title: "2021" },
+  { id: 2020, title: "2020" },
+  { id: 2019, title: "2019" },
+  { id: 2018, title: "2018" },
+  { id: 2017, title: "2017" },
+  { id: 2016, title: "2016" },
+  { id: 2015, title: "2015" },
+  { id: 2014, title: "2014" },
+  { id: 2013, title: "2013" },
+  { id: 2012, title: "2012" },
+  { id: 2011, title: "2011" },
+  { id: 2010, title: "2010" },
+  { id: 2009, title: "2009" },
+  { id: 2008, title: "2008" },
+  { id: 2007, title: "2007" },
+  { id: 2006, title: "2006 و ماقبل" },
+
+];
+
+export const actions = [
+  { id: 1, title: "new without draft" },
+  { id: 2, title: "new with draft" },
+  { id: 3, title: "edit for user" },
+  { id: 4, title: "edit for admin" },
+];
+
+export const addss = {
+  registerId: "12145afdsa5sda5sda",
+  ownerIdCard: "12145afdsa5sda5sda",
+  isOwnerId: true,
+  ownerIdPhone: "09151208032",
+  code: 100001,
+  profile: "/images/3.jpg",
+  id: "saeedjamali",
+  provinvce: 2,
+  city: 83,
+  title: "مناسب برای ورزش",
+  messenger: 2,
+  type: 1,
+  subject: 5,
+  description: "این کانال بسیار مناسب است",
+  members: 1900,
+  agreedPrice: false,
+  price: 1750000,
+  discount: 50,
+  views: 1800,
+  bookmarks: 100,
+  isShowPhoneOwnerIdCard: true,
+  contactWithPhone: "09151208032",
+  isContactWithId: true,
+  contactWithId: "jasjam",
+  contactTypeMessenger: 4,
+  status: 1,
+  isDraft: false,
+  isRemoved: false,
+  isShow: true,
+  isConfirm: 0,
+  createdAt: "2024-06-05T13:28:58.842+00:00",
+  updatedAt: "2024-09-05T13:28:58.842+00:00",
+};

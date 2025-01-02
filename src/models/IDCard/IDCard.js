@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import User from "@/models/base/User";
-import { number } from "prop-types";
 
 const schema = mongoose.Schema(
   {
@@ -39,13 +38,13 @@ const schema = mongoose.Schema(
       default: [],
       required: false,
     },
-    provinvce: {
-      type: number,
-      required: true,
+    province: {
+      type: Number,
+      required: false,
     },
     city: {
-      type: number,
-      required: true,
+      type: Number,
+      required: false,
     },
     title: {
       type: String,
@@ -72,7 +71,7 @@ const schema = mongoose.Schema(
     members: {
       //? تعداد اعضا
       type: Number,
-      required: true,
+      required: false,
     },
     agreedPrice: {
       type: Boolean,
@@ -105,7 +104,12 @@ const schema = mongoose.Schema(
       required: true,
     },
 
-    isShowOwnerIdCard: {
+    createDate: {
+      type: Number,
+      default: "",
+      required: true,
+    },
+    isShowPhoneOwnerIdCard: {
       //? شماره مالک آیدی نشان داده شود؟
       type: Boolean,
       default: false,
@@ -129,7 +133,7 @@ const schema = mongoose.Schema(
     },
     contactTypeMessenger: {
       //? این فیلد نوع مسنجری که بعنوان آیدی تماس مشخص شده است را نگه میدارد
-      type: number,
+      type: Number,
       required: true,
     },
     status: {
