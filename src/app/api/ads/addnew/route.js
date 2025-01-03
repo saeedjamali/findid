@@ -30,6 +30,7 @@ export async function POST(req) {
   const members = formData.get("members");
   const agreedPrice = formData.get("agreedPrice");
   const price = formData.get("price");
+  const createDate = formData.get("createDate");
   const id = formData.get("id");
   const isShowPhoneOwnerIdCard = formData.get("isShowPhoneOwnerIdCard");
   const contactWithPhone = formData.get("contactWithPhone");
@@ -76,6 +77,7 @@ export async function POST(req) {
       agreedPrice,
       price,
       id,
+      createDate,
       isShowPhoneOwnerIdCard,
       contactWithPhone,
       isContactWithId,

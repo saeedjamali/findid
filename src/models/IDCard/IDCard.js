@@ -80,7 +80,7 @@ const schema = mongoose.Schema(
     },
     price: {
       //? قیمت
-      type: Number,
+      type: String,
       required: false,
     },
     discount: {

@@ -53,11 +53,11 @@ export default function Ads({ action, ads }) {
   const [subject, setSubject] = useState(ads?.subject || 0);
   const [id, setId] = useState(ads?.id);
   const [title, setTitle] = useState(ads?.title || "");
-  const [description, setDescription] = useState(ads?.description || "");
-  const [member, setMember] = useState(ads?.member || 0);
+  const [description, setDescription] = useState(ads?.description);
+  const [member, setMember] = useState(ads?.member);
   const [agreedPrice, setAgreedPrice] = useState(ads?.agreedPrice || false);
   const [phoneInp, setPhoneInp] = useState(phone);
-  const [createDate, setCreateDate] = useState(0);
+  const [createDate, setCreateDate] = useState(ads?.createDate);
   const [price, setPrice] = useState(ads?.price);
   const [isOwnerId, setIsOwnerId] = useState(ads?.isOwnerId || false);
   const [ownerIdPhone, setOwnerIdPhone] = useState(ads?.ownerIdPhone);
@@ -140,7 +140,7 @@ export default function Ads({ action, ads }) {
         "description",
         setIsError
       );
-      validateValue(member == 0, setIsInvalid, "member", setIsError);
+      validateValue(!member || member == 0, setIsInvalid, "member", setIsError);
 
       validateValue(
         !agreedPrice && (!price || price == 0),
@@ -164,7 +164,7 @@ export default function Ads({ action, ads }) {
       );
 
       validateValue(
-        createDate == 0 ? true : false,
+        !createDate || createDate == 0,
         setIsInvalid,
         "createDate",
         setIsError
@@ -207,8 +207,8 @@ export default function Ads({ action, ads }) {
       });
       const data = await res.json();
       if (data.status == 201) {
-        toast.success(data.message);
         router.push("/profile");
+        toast.success(data.message);
       } else {
         toast.error(data.message);
       }
