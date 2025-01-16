@@ -1,0 +1,33 @@
+version: "3.9"
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./.next:/app/.next  
+    environment:
+      - NODE_ENV=production
+      - MONGO_URL=your_mongodb_connection_string
+    depends_on:
+      - mongodb
+  nginx: 
+    image: nginx:latest
+    ports:
+      - "80:80"  
+      - "443:443" 
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf 
+    depends_on:
+      - web
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"  
+    volumes:
+      - mongodb_data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=your_mongodb_root_username
+      - MONGO_INITDB_ROOT_PASSWORD=your_mongodb_root_password
+volumes:
+  mongodb_data:
