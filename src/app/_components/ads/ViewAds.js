@@ -290,9 +290,14 @@ function ViewAds({ ads }) {
                         : "text-h1-color text-[14px]  gap-2"
                     }
                   >
-                    {ads?.agreedPrice
-                      ? "توافقی "
-                      : Number(ads?.price).toLocaleString()}
+                    {ads?.agreedPrice ? (
+                      "توافقی "
+                    ) : (
+                      <>
+                        {Number(ads?.price).toLocaleString()}{" "}
+                        <span className="text-[8px] "> تومان</span>
+                      </>
+                    )}
                   </span>
                 </span>
               </div>
