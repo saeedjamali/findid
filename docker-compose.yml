@@ -4,13 +4,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    volumes:
-      - ./.next:/app/.next  
-
     environment:
       - NODE_ENV=production
-      - MONGO_URL=mongodb://findid_user:PAssw0rd@mongodb:27017/findid.ir  
-
+      - MONGO_URL=mongodb://findid_user:PAssw0rd@mongodb:27017/findid.ir
     depends_on:
       - mongodb
 
@@ -24,12 +20,10 @@ services:
     depends_on:
       - web
 
-  mongodb:  
-
+  mongodb:
     image: mongo:latest
     ports:
-      - "27017:27017" 
-
+      - "27017:27017"
     volumes:
       - mongodb_data:/data/db
     environment:
