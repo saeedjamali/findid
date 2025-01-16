@@ -7,10 +7,12 @@ import { getIds } from "@/actions/getIds";
 import IdCard from "./IdCard";
 import IdCard2 from "./IdCard2";
 import { messengers } from "@/config/constants";
+import { off } from "process";
 
-export default function IdListInfinite({ initialIds }) {
+export default function IdListInfinite({ initialIds, bookmarksId }) {
   const [offset, setOffset] = useState(Id_PER_PAGE);
   const [ids, setIds] = useState(initialIds);
+  const [userBookmarks, setUserBookmarks] = useState(bookmarksId);
   const [hasMoreData, setHasMoreData] = useState(true);
   const scrollTrigger = useRef(null);
 
@@ -27,7 +29,13 @@ export default function IdListInfinite({ initialIds }) {
     }
   };
 
+  // useEffect(() => {
+  //   setOffset(Id_PER_PAGE);
+  // }, []);
   useEffect(() => {
+    console.log("scrollTrigger---->", scrollTrigger);
+
+    console.log("idsd--->", ids);
     if (typeof window === "undefined" || !window.IntersectionObserver) {
       return;
     }
@@ -53,7 +61,7 @@ export default function IdListInfinite({ initialIds }) {
   }, [hasMoreData, offset]);
 
   return (
-    <div >
+    <div>
       {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full gap-8">
         {messengers?.map((item) => (
           <Suspense key={item.id} fallback={<p>Ey babababa</p>}>
@@ -61,11 +69,18 @@ export default function IdListInfinite({ initialIds }) {
           </Suspense>
         ))}
       </div> */}
-  
+
       <div className="grid grid-cols-1 xl:grid-cols-2  w-full gap-8 container mx-auto ">
-        {messengers?.map((item) => (
-          <Suspense key={item.id} fallback={<p>Ey babababa</p>}>
-            <IdCard2 key={item.id} id={item} />
+        {ids?.map((item) => (
+          <Suspense
+            key={item._id}
+            fallback={
+              <p className="w-full flex items-center justify-center">
+                در انتظار دریافت
+              </p>
+            }
+          >
+            <IdCard2 key={item._id} item={item} bookmarks={bookmarksId} />
           </Suspense>
         ))}
       </div>

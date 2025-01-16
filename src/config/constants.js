@@ -1,7 +1,8 @@
 // config/constants.ts
 
-export const API_URL = "https://jsonplaceholder.typicode.com/posts";
-export const Id_PER_PAGE = 30;
+export const API_URL = "http://localhost:3000/api/ads/get/all/";
+export const BASE_URL = "http://localhost:3000/";
+export const Id_PER_PAGE = 4;
 export const messengers = [
   {
     id: 1,
@@ -248,33 +249,34 @@ export const subjects = [
   { id: 19, title: "فیلم و سریال", description: "", subTitle: [], category: 3 },
 ];
 export const status = [
+  { id: 0, title: "پیش فرض" },
   { id: 1, title: "فعال" },
   { id: 2, title: "فروخته شد" },
-  { id: 3, title: "موقتا غیر فعال شود" },
+  { id: 3, title: "موقتا غیر فعال " },
+  { id: 4, title: "حذف  " },
 ];
 
 export const years = [
-  { id: 2025, title: "2025" },
-  { id: 2024, title: "2024" },
-  { id: 2023, title: "2023" },
-  { id: 2022, title: "2022" },
-  { id: 2021, title: "2021" },
-  { id: 2020, title: "2020" },
-  { id: 2019, title: "2019" },
-  { id: 2018, title: "2018" },
-  { id: 2017, title: "2017" },
-  { id: 2016, title: "2016" },
-  { id: 2015, title: "2015" },
-  { id: 2014, title: "2014" },
-  { id: 2013, title: "2013" },
-  { id: 2012, title: "2012" },
-  { id: 2011, title: "2011" },
-  { id: 2010, title: "2010" },
-  { id: 2009, title: "2009" },
-  { id: 2008, title: "2008" },
-  { id: 2007, title: "2007" },
-  { id: 2006, title: "2006 و ماقبل" },
-
+  { id: 1, title: "2025" },
+  { id: 2, title: "2024" },
+  { id: 3, title: "2023" },
+  { id: 4, title: "2022" },
+  { id: 5, title: "2021" },
+  { id: 6, title: "2020" },
+  { id: 7, title: "2019" },
+  { id: 8, title: "2018" },
+  { id: 9, title: "2017" },
+  { id: 10, title: "2016" },
+  { id: 11, title: "2015" },
+  { id: 12, title: "2014" },
+  { id: 13, title: "2013" },
+  { id: 14, title: "2012" },
+  { id: 15, title: "2011" },
+  { id: 16, title: "2010" },
+  { id: 17, title: "2009" },
+  { id: 18, title: "2008" },
+  { id: 19, title: "2007" },
+  { id: 20, title: "2006 و ماقبل" },
 ];
 
 export const actions = [
@@ -317,4 +319,18 @@ export const addss = {
   isConfirm: 0,
   createdAt: "2024-06-05T13:28:58.842+00:00",
   updatedAt: "2024-09-05T13:28:58.842+00:00",
+};
+
+export const ObjectTitle = {
+  id: "آیدی",
+  createDate: "تاریخ ایجاد آیدی",
+  contactWithId: "آیدی پشتیبان",
+  contactTypeMessenger: "نوع پیام رسان آیدی پشتیبان",
+  price: "قیمت آیدی",
+  member: "تعداد اعضا",
+  description: "توضیحات",
+  title: "عنوان برای آیدی",
+  type: "نوع پیامرسان",
+  subject: "موضوع",
+  messenger: "نام پیام رسان",
 };

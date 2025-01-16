@@ -53,9 +53,9 @@ function Header({ isAuthenticateUser }) {
   };
   const handleProfile = async () => {
     if (isAuth) {
-      router.push("/profile");
+      router.push("/dashboard");
     } else {
-      setUrl("/profile");
+      setUrl("/dashboard");
       onOpen();
     }
   };
@@ -156,7 +156,7 @@ function Header({ isAuthenticateUser }) {
   }, [otp]);
 
   return (
-    <div className=" w-full h-20  bg-header pr-8 pl-2">
+    <div className=" w-full h-20  bg-header pr-8 pl-16">
       <div className="container flex justify-between items-center h-full mx-auto">
         <Image
           src={"/images/logo-text-right.png"}
@@ -164,7 +164,11 @@ function Header({ isAuthenticateUser }) {
           height={100}
           alt="logo-findid"
           className="cursor-pointer"
-          onClick={() => router.push("/")}
+          onClick={() => {
+            router.push("/",  { scroll: true });
+            // router.refresh();
+            // location.reload();
+          }}
         />
 
         <h1 className=" text-white font-shabnam text-[16px] mr-8 hidden md:flex">

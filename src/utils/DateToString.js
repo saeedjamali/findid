@@ -93,7 +93,7 @@ export const DateToString = (date) => {
       return "امروز";
     }
     if (currentHour - hour >= 1) {
-      return `ساعت گذشته ${NumToStr(currentHour - hour)}`;
+      return ` ${NumToStr(currentHour - hour)} ساعت گذشته`;
     }
     return `لحظاتی قبل`;
   }

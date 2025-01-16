@@ -132,19 +132,23 @@ const valiadteMeliCode = (meliCode) => {
 };
 
 const validateEngStr = (str) => {
-  const pattern = /^[A-Za-z]+$/g;
+  const pattern = /^[A-Za-z0-9_.]+$/g;
+
   return pattern.test(str);
 };
 
-const validateFunc = (func, setInVal, value, key) => {
+
+const validateValue = async (state, setInVal, key, setIsError) => {
   //? func : تابعی که کار اعتبارستجی رو انجام میده - set : تابع setter
-  if (!func(value) || value.length < 3) {
+  if (state) {
+    // console.log("InInvalid!!!!!!!!!!!! key");
     setInVal((prev) => {
       return {
         ...prev,
         [`${key}`]: true,
       };
     });
+    // setIsError(true);
   } else {
     setInVal((prev) => {
       return {
@@ -152,33 +156,18 @@ const validateFunc = (func, setInVal, value, key) => {
         [`${key}`]: false,
       };
     });
+    // setIsError(false);
   }
 };
 
-const validateValue = (state, setInVal, key, setIsError) => {
-  console.log("validateValue--->", state);
-  //? func : تابعی که کار اعتبارستجی رو انجام میده - set : تابع setter
-  if (state) {
-    setInVal((prev) => {
-      return {
-        ...prev,
-        [`${key}`]: true,
-      };
-    });
-    setIsError(true);
-  } else {
-    setInVal((prev) => {
-      return {
-        ...prev,
-        [`${key}`]: false,
-      };
-    });
-    setIsError(false);
-  }
-};
+const addCommas = (num) =>
+  num?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+const removeNonNumeric = (num) => num?.toString().replace(/[^0-9]/g, "");
 export {
+  addCommas,
+  removeNonNumeric,
   validateValue,
-  validateFunc,
+  
   hashPassword,
   generateAccessToken,
   verifyPassword,

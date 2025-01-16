@@ -1,16 +1,18 @@
 // components/PostCard.tsx
 "use client";
 import Image from "next/image";
-import { types, subjects } from "@/config/constants";
-import { FaEye } from "react-icons/fa";
-import { MdOutlineRemoveRedEye } from "react-icons/md";
+import { types, subjects, years } from "@/config/constants";
+import { FaBookmark, FaEye, FaRegBookmark } from "react-icons/fa";
+import { MdOutlineRemoveRedEye, MdUpdate } from "react-icons/md";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { RiDiscountPercentFill, RiDiscountPercentLine } from "react-icons/ri";
 import { CiMoneyBill, CiUser } from "react-icons/ci";
 import { CiBookmark, CiBookmarkCheck } from "react-icons/ci";
 import { CgDetailsMore } from "react-icons/cg";
-import { IoCallOutline } from "react-icons/io5";
+import { IoCallOutline, IoCopy } from "react-icons/io5";
 import { BookmarkIcon, BookmarkSlashIcon } from "@heroicons/react/24/outline";
+import Num2persian from "num2persian";
+import "react-lazy-load-image-component/src/effects/blur.css";
 import {
   Button,
   Modal,
@@ -20,24 +22,84 @@ import {
   ModalFooter,
   useDisclosure,
   Tooltip,
+  CircularProgress,
+  Skeleton,
 } from "@nextui-org/react";
 import toast, { Toaster } from "react-hot-toast";
-export default function IdCard2({ id }) {
+import { messengers } from "@/data/constant";
+import { DateToString } from "@/utils/DateToString";
+import { useRouter } from "next/navigation";
+import { memberToK } from "@/utils/helper";
+import { useEffect, useState } from "react";
+import { useAppProvider } from "@/app/context/AppProvider";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import ImageLoader from "../imageUploader/imageLoader";
+export default function IdCard2({ item, bookmarks }) {
+  const router = useRouter();
+  const { isAuthUser } = useAppProvider();
+  const { phone, _id, role } = isAuthUser;
+  // console.log("item--->", item);
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
-  const copyToClipboard = (text) => {
-    onOpen();
+
+  const [isBookmarkSend, setIsBookmarkSend] = useState(false);
+  const [isBookmarked, setIsBookmarked] = useState(false);
+
+  useEffect(() => {
+    setIsBookmarked(() => bookmarks?.some((bk) => bk.idCard == item._id));
+    console.log(
+      "isBookmarkSend--->",
+      bookmarks?.some((bk) => bk.idCard == item._id)
+    );
+  }, []);
+
+  const copyToClipboard = (text, value) => {
     try {
       navigator.clipboard.writeText(text);
-
-      toast("آیدی کپی شد");
+      toast(value, {
+        icon: "👏",
+      });
+      // toast(value);
     } catch (err) {
       console.error(err);
     }
   };
-  return (
-    // <div className="p-8 mb-1 relative border-l-8 transition-all bg-white border-slate-400 hover:border-cyan-400 [counter-increment:post-index] before:content-[counter(post-index)] before:p-2 before:leading-none before:absolute before:top-0 before:right-0 before:transition-all before:bg-slate-100 hover:before:bg-cyan-100 ">
 
-    // </div>
+  const showContact = () => {
+    onOpen();
+  };
+  const sendBookmark = async () => {
+    if (!isAuthUser) {
+      toast("برای نشان کردن آگهی ، ابتدا لاگین نمایید", {
+        icon: "👏",
+      });
+    }
+    setIsBookmarkSend(true);
+    try {
+      const response = await fetch(`/api/ads/bookmark`, {
+        method: "POST",
+        header: {
+          "content-Type": "application/json",
+        },
+        body: JSON.stringify({ userid: _id, adsid: item?._id }),
+      });
+      const data = await response.json();
+      if (data.status == 200) {
+        toast.success(data.message);
+        setIsBookmarked(true);
+        //router.push("/");
+      }
+
+      if (data.status == 201) {
+        toast.success(data.message);
+        setIsBookmarked(false);
+        //router.push("/");
+      }
+      setIsBookmarkSend(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  return (
     <>
       <Toaster />
       <div
@@ -45,46 +107,94 @@ export default function IdCard2({ id }) {
       >
         {/* //? Profile image */}
         <div className="w-full md:w-1/3 ">
+          {/* <Skeleton > */}
           <div className=" w-full h-52 md:h-full  rounded-full flex items-center justify-center bg-cover bg-center bg-no-repeat">
-            <Image
+            {/* <Image
               alt={""}
               width={100}
               height={100}
-              src={"/images/1.jpg"}
+              src={"/images/2.jpg"}
               className="g-cover bg-center bg-no-repeat w-full h-full"
-            ></Image>
+            ></Image> */}
+            {item?.profile?.length != 0 ? (
+              <ImageLoader imageUrl={item?.profile[0]} code={"profile"} />
+            ) : (
+              <>
+                <LazyLoadImage
+                  src={"/images/logo.png"}
+                  className=" h-64 w-96 rounded-lg object-fill opacity-10"
+                  width={100}
+                  height={100}
+                  alt="profile"
+                  // effect="blur"
+                  // wrapperProps={{
+                  //   // If you need to, you can tweak the effect transition using the wrapper style.
+                  //   style: {
+                  //     transitionDelay: "1s",
+                  //   },
+                  // }}
+                />
+                {/* <p className="absolute font-shabnam text-3xl text-gray-700 opacity-40">
+                  تصویر یافت نشد
+                </p> */}
+              </>
+            )}
+            {/* <LazyLoadImage
+              className="bg-center bg-no-repeat w-full h-full"
+              alt={""}
+              width={100}
+              height={100}
+              effect="blur"
+              wrapperProps={{
+                // If you need to, you can tweak the effect transition using the wrapper style.
+                style: { transitionDelay: "1s", width: "100%", height: "100%" },
+              }}
+              src={
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFJRTepR-nxfqB_ccp1FlfBPa88cbrycBF6w&s"
+              }
+              placeholderSrc="/images/logo.png"
+            ></LazyLoadImage> */}
           </div>
+          {/* </Skeleton> */}
         </div>
         {/* //? title - member - price - description and type */}
         <div className="w-full md:w-2/3 pr-8 p-4 box-border flex flex-col justify-between">
           <div>
-            <h1 className="font-shabnamBold text-[16px] mt-4 text-h1-color">
-              گیزمیز
-            </h1>
-            <h1 className="font-shabnam text-[8px] mt-2 text-h2-color">
-              لحظاتی قبل
+            <Skeleton className=" rounded-lg" isLoaded>
+              <h1 className="font-shabnamBold text-[16px] mt-4 text-h1-color">
+                {item?.title}
+              </h1>
+            </Skeleton>
+            <h1 className="font-shabnam text-[8px] mt-1 text-h2-color text-right">
+              {DateToString(item?.updatedAt)}
             </h1>
             <div className="flex items-center justify-start gap-1 mt-6 border-blue-100  ">
-              {types.map((item) => {
+              {types.map((type) => {
                 return (
                   <div
-                    key={item.id}
+                    key={type.id}
                     className={`border-1 px-2 rounded-xl text-[10px] ${
-                      item.id == 3 ? "bg-blue-500 text-white" : ""
+                      type.id == item?.type ? "bg-blue-500 text-white" : ""
                     }`}
                   >
-                    {item.title}
+                    {type.title}
                   </div>
                 );
               })}
             </div>
-            <div className="flex items-center justify-start flex-wrap gap-2 mt-4">
+            <div className="flex items-center justify-start flex-wrap gap-2 mt-2">
               <div className="w-fit px-2 gap-2 bg-btn-orange text-white rounded-lg  flex justify-between items-center">
                 <span className="text-white flex items-center justify-center">
                   <CiMoneyBill className="w-4 h-4 flex items-center justify-center " />
                 </span>
-                <p className="text-center flex items-center justify-center text-[12px]">
-                  1 میلیون تومان
+                <p className="text-center flex items-center justify-center text-[10px]">
+                  {item?.agreedPrice
+                    ? "قیمت توافقی"
+                    : item?.discount == 0
+                    ? item?.price.toString().num2persian() + " تومان"
+                    : (item?.price * (1 - item?.discount / 100))
+                        ?.toLocaleString()
+                        .num2persian() + " تومان"}
                 </p>
               </div>
               <div className="w-fit  px-2 gap-2 bg-header text-white   rounded-lg  flex justify-between items-center">
@@ -92,25 +202,33 @@ export default function IdCard2({ id }) {
                   <CiUser className="w-4 h-4 flex items-center justify-center " />
                 </span>
                 <p className="text-center flex items-center justify-center text-[12px]">
-                  2200
+                  {memberToK(item?.members) + " عضو"}
                 </p>
               </div>
-              <div className="flex items-center justify-start flex-wrap gap-1 border-1  rounded-xl text-[12px] text-header">
-                <span className="bg-header text-white overflow-hidden rounded-r-xl px-1">
+            </div>
+            <div className="flex items-center justify-start flex-wrap gap-2 mt-2">
+              <div className="w-auto flex items-center justify-start  gap-1 border-1 rounded-xl text-[12px] text-header ">
+                <span className="bg-header text-white overflow-hidden rounded-r-xl px-2">
                   {" "}
-                  موضوعات{" "}
+                  موضوع{" "}
                 </span>{" "}
-                <div className="px-1">
-                  {subjects
-                    .slice(0, 4)
-                    .map((item) => item.title)
-                    .join(",")}
-                </div>
+                <div className="px-2">{subjects[item?.subject - 1].title}</div>
                 {/* {subjects.slice(0, 2).map((item) => {
                 return <div key={item.id}>{item.title}</div>;
               })} */}
               </div>
+              <div className="relative w-fit  px-2 gap-2 bg-header text-white   rounded-lg  flex justify-between items-center">
+                <span className="text-white flex items-center justify-center">
+                  <MdUpdate className="w-4 h-4 flex items-center justify-center " />
+                </span>
+                <Tooltip className="bg-header text-white" content="سال ساخت">
+                  <p className="text-center flex items-center justify-center text-[12px]">
+                    {years[item?.createDate - 1].title}
+                  </p>
+                </Tooltip>
+              </div>
             </div>
+
             {/* <div className="w-full h-1 border-b-1 border-header border-dotted my-4 "></div> */}
 
             {/* <div className="h-auto flex items-center justify-start   border-1  rounded-xl text-[12px] text-header mt-2 ">
@@ -120,16 +238,46 @@ export default function IdCard2({ id }) {
             <span className="p-1"> این کانال با هدف آموزش و ساخت کاردستی ایجاد شده است</span>
           </div> */}
 
-            <div className="w-full flex items-center justify-end mt-4 gap-2 ">
-              <span className="rounded-full w-8 h-8 bg-header flex items-center justify-center text-[16px] text-white cursor-pointer">
-                <CiBookmark />
-              </span>
-              <span className="rounded-full w-8 h-8 bg-header flex items-center justify-center text-[16px] text-white cursor-pointer ">
-                <CgDetailsMore />
-              </span>
-              <span className="rounded-full w-8 h-8 bg-btn-orange flex items-center justify-center text-[16px] text-white cursor-pointer">
-                <IoCallOutline />
-              </span>
+            <div className="relative w-full flex items-center justify-end mt-4 gap-2 ">
+              <Tooltip className="bg-header text-white" content="نشان کردن">
+                <span
+                  className="relative rounded-full w-8 h-8 bg-header flex items-center justify-center text-[16px] text-white cursor-pointer"
+                  onClick={sendBookmark}
+                >
+                  {isBookmarkSend && (
+                    <span className="absolute">
+                      <CircularProgress
+                        color="primary"
+                        aria-label="Loading..."
+                        size="sm"
+                      />
+                    </span>
+                  )}
+                  {
+                    isBookmarked ? (
+                      <FaBookmark className="text-btn-orange" />
+                    ) : (
+                      // <CiBookmark className="bg-blue-400"  />
+                      <FaRegBookmark />
+                    )
+                    // <CiBookmark onClick={sendBookmark} />
+                  }
+                </span>
+              </Tooltip>
+              <Tooltip className="bg-btn-orange text-white" content="تماس">
+                <span className="rounded-full w-8 h-8 bg-btn-orange flex items-center justify-center text-[16px] text-white cursor-pointer">
+                  <IoCallOutline onClick={showContact} />
+                </span>
+              </Tooltip>
+              <Tooltip className="bg-header text-white" content="مشاهده جزییات">
+                <span className="rounded-full w-8 h-8 bg-header flex items-center justify-center text-[16px] text-white cursor-pointer ">
+                  <CgDetailsMore
+                    onClick={() =>
+                      router.push(`/view/${item?.title}?id=${item?._id}`)
+                    }
+                  />
+                </span>
+              </Tooltip>
             </div>
           </div>
 
@@ -139,17 +287,25 @@ export default function IdCard2({ id }) {
         {/* //? messenger icon */}
 
         <div
-          className="cursor-pointer"
-          onClick={() => copyToClipboard("saeedjamali")}
+          className="cursor-pointer "
+          onClick={() => copyToClipboard(item?.id, "آیدی کپی شد")}
         >
           <div className="absolute w-10 h-10 rounded-full flex items-center justify-center top-6 left-4 bg-white ring-2 ring-white z-10">
-            <Image alt={""} width={100} height={100} src={id.icon}></Image>
+            <Image
+              alt={""}
+              width={100}
+              height={100}
+              src={messengers[item?.messenger - 1].icon}
+            ></Image>
           </div>
           <div
-            className="absolute h-6  rounded-r-full flex items-center justify-center top-6 left-12  md:-z-10  text-[12px] font-bold px-8 border-2 bg-white"
-            style={{ border: `${id.color} solid 3px` }}
+            className="absolute h-6 w-auto rounded-r-full flex cursor-pointer items-center  justify-center top-6 left-12  md:-z-10  text-[12px] font-bold px-8 border-2 bg-white"
+            style={{
+              border: `${messengers[item?.messenger - 1].color} solid 3px`,
+            }}
+            onClick={() => copyToClipboard(item?.id)}
           >
-            gizmiztelomy
+            {item?.id}
           </div>
         </div>
 
@@ -160,54 +316,19 @@ export default function IdCard2({ id }) {
             </span>
 
             <div className=" rounded-r-full flex items-center justify-center   font-thin text-[10px]">
-              1,569
+              {memberToK(item?.views)}
             </div>
           </div>
-          <span className=" w-6 h-6 rounded-full text-header">
-            <RiDiscountPercentFill className="w-5 h-5" />
+          <span className="relative w-6 h-6 rounded-full text-btn-orange">
+            <Tooltip
+              className="bg-header text-white"
+              content={`${item?.discount} درصد تخفیف`}
+            >
+              {item?.discount != 0 && (
+                <RiDiscountPercentFill className="w-5 h-5" />
+              )}
+            </Tooltip>
           </span>
-        </div>
-
-        <div className="hidden">
-          <div className="h-1/2  w-full relative flex items-center justify-center">
-            <div className="w-32 h-32 rounded-full border-purple-500 flex items-center justify-center">
-              <Image alt={""} width={100} height={100} src={id.icon}></Image>
-            </div>
-            <span className="absolute top-4 right-3  w-6 h-6 rounded-full ">
-              <FaEye className="w-6 h-6" />
-            </span>
-            <span className="absolute top-4 left-3  w-6 h-6 rounded-full ">
-              <FaRegHeart className="w-6 h-6" />
-            </span>
-            <span className="absolute bottom-4 left-3  w-6 h-6 rounded-full ">
-              <RiDiscountPercentFill className="w-6 h-6" />
-            </span>
-          </div>
-          <div className="flex flex-col items-center justify-center">
-            <h1 className="font-bold">{id.name}</h1>
-            <h2 className="font-semibold text-header flex mt-2">
-              {id.latin}
-              <Image alt="1" width={20} height={20} src={id.icon}></Image>
-            </h2>
-          </div>
-          <div className="flex items-center justify-center gap-2 mt-4 border-blue-100 ">
-            {types.map((item) => {
-              return (
-                <div key={item.id} className="border-1 px-4 rounded-xl">
-                  {item.title}
-                </div>
-              );
-            })}
-          </div>
-          <div className="flex items-center justify-center gap-2 mt-4 border-blue-100 ">
-            <p>125 هزار تومان</p>
-          </div>
-          <div className="mt-8 flex items-center justify-center px-8">
-            <p>این کانال با هدف خرید و فروش کتاب ایجاد شده است</p>
-          </div>
-          <div className="absolute bottom-0 left-0 right-0 flex items-center justify-center h-12 hover:bg-blue-500">
-            ارتباط با دارنده
-          </div>
         </div>
       </div>
       <Modal
@@ -228,13 +349,56 @@ export default function IdCard2({ id }) {
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col justify-between items-start ">
-                مشاهده جزییات
+                تماس با آگهی گذار
               </ModalHeader>
               <ModalBody>
-                <p>Hi</p>
+                {item?.isShowPhoneOwnerIdCard && (
+                  <div className="flex justify-between items-center w-full h-12 bg-slate-400 rounded-md px-2">
+                    <span>شماره تماس </span>
+                    <span className="flex items-center gap-4">
+                      {item?.contactWithPhone}
+                      <IoCopy
+                        className="cursor-pointer w-3 h-3"
+                        onClick={() =>
+                          copyToClipboard(
+                            item?.contactWithPhone,
+                            "شماره تماس کپی شد"
+                          )
+                        }
+                      />
+                    </span>
+                  </div>
+                )}
+                {item?.isContactWithId && (
+                  <div
+                    className={`flex justify-between items-center w-full h-12  rounded-md px-2 bg-[${
+                      messengers[item?.contactTypeMessenger - 1]?.color
+                    }]`}
+                    style={{
+                      border: `${
+                        messengers[item?.contactTypeMessenger - 1].color
+                      } solid 1px`,
+                    }}
+                  >
+                    <span>آیدی شبکه اجتماعی </span>
+                    <span className="flex items-center gap-4 ">
+                      {item?.contactWithId} در{""}
+                      {messengers[item?.contactTypeMessenger - 1]?.name}
+                      <IoCopy
+                        className="cursor-pointer w-3 h-3"
+                        onClick={() =>
+                          copyToClipboard(
+                            item?.contactWithId,
+                            "آیدی آگهی گذار کپی شد"
+                          )
+                        }
+                      />
+                    </span>
+                  </div>
+                )}
               </ModalBody>
               <ModalFooter>
-                <Button color="foreground" variant="light">
+                <Button color="foreground" variant="light" onClick={onClose}>
                   بستن
                 </Button>
               </ModalFooter>

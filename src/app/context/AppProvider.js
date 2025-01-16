@@ -7,14 +7,13 @@ function AppProvider({ children, isAuthenticateUser }) {
   const [phone, setPhone] = useState("");
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
-  const [ads, setAds] = useState({});
+  const [currentAd, setCurrentAd] = useState({});
   const [isAuthUser, setIsAuthUser] = useState(isAuthenticateUser);
 
   // const [isShowSignInForm, setIsShowSignInForm] = useState("Hello");
   const [token, setToken] = useState("");
   const [signData, setSignData] = useState("");
-  // console.log("App Provider token--->", token)
-   console.log("App Provider signData--->", isAuthUser)
+
   useEffect(() => {
     setIsAuthUser(isAuthenticateUser);
   }, [isAuthUser]);
@@ -23,6 +22,8 @@ function AppProvider({ children, isAuthenticateUser }) {
     <>
       <AppContext.Provider
         value={{
+          currentAd,
+          setCurrentAd,
           token,
           signData,
           setToken,

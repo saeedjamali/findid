@@ -10,12 +10,12 @@ export const getIds = async (offset, limit) => {
   try {
     const response = await fetch(url);
     const data = await response.json();
-    console.log("Data is --->", data);
+    // console.log("Data is --->", data);
     if (!response.ok) {
       throw await handleError(response);
     }
-
-    return data;
+    const idsCard = data.idsCard;
+    return idsCard;
   } catch (error) {
     console.error(error);
     throw new Error(`An error happened: ${error}`);

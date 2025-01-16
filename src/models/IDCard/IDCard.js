@@ -14,11 +14,13 @@ const schema = mongoose.Schema(
       //? در لیست آگهی های هر شخص براساس این فیلد مالک آگهی مشخص و برایش آگهی های ثبت شده نمایش داده می شود.
       type: String, //? شماره تماس مالک آگهی
       required: false,
+      ref: "User",
     },
     ownerIdPhone: {
       //? شماره تماس مالک آیدی
       //? مالک آیدی
       type: String,
+      default: null,
       required: false,
     },
     isOwnerId: {
@@ -81,21 +83,25 @@ const schema = mongoose.Schema(
     price: {
       //? قیمت
       type: String,
+      default: null,
       required: false,
     },
     discount: {
       //? تخفیف
       type: Number,
+      default: 0,
       required: false,
     },
     views: {
       //? تعداد بازدید
       type: Number,
+      default: 0,
       required: false,
     },
     bookmarks: {
       //? تعداد بوکمارک شده ها
       type: Number,
+      default: 0,
       required: false,
     },
     id: {
@@ -117,7 +123,7 @@ const schema = mongoose.Schema(
     contactWithPhone: {
       //? ارتباط با مالگ آگهی از طریق تلفن
       type: String,
-      default: "",
+      default: null,
       required: false,
     },
     isContactWithId: {
@@ -136,6 +142,11 @@ const schema = mongoose.Schema(
       type: Number,
       required: true,
     },
+    registerAdsWith: {
+      type: String,
+
+      default: "USER",
+    },
     status: {
       //? انواع وضعیت سمت کاربر
       type: Number,
@@ -148,13 +159,13 @@ const schema = mongoose.Schema(
     isDraft: {
       //? آگهی بصورت پیش نویس ذخیره شده است
       type: Boolean,
-      default: true,
+      default: false,
     },
 
     isRemoved: {
       //? آگهی حذف شده است
       type: Boolean,
-      default: true,
+      default: false,
     },
     isShow: {
       //? آگهی نشان داده شود

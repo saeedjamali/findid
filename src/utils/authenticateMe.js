@@ -20,9 +20,9 @@ const authenticateUser = async () => {
   if (!refreshTokenPayload) {
     return false;
   }
-  if (refreshTokenPayload.role != "USER") {
-    return false;
-  }
+  // if (refreshTokenPayload.role != role ) {
+  //   return false;
+  // }
   // refreshTokenPayload.role;
   const user = await UserModel.findOne(
     {

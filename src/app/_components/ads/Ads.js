@@ -8,6 +8,7 @@ import {
   subjects,
   status,
   years,
+  ObjectTitle,
 } from "@/config/constants";
 import { cities } from "@/data/cities";
 import { provinces } from "@/data/province";
@@ -33,15 +34,28 @@ import {
 import CheckBox from "../checkbox/CheckBox";
 import AutoComplete from "../autoComplete/AutoComplete";
 import ImageUploader from "../imageUploader/ImageUploader";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useAppProvider } from "@/app/context/AppProvider";
-import { validateEngStr, validateFunc, validateValue } from "@/utils/auth";
+import {
+  addCommas,
+  removeNonNumeric,
+  valiadtePhone,
+  validateEngStr,
+  validateFunc,
+  validateValue,
+} from "@/utils/auth";
+import Num2persian from "num2persian";
+
+import ImageLoader from "../imageUploader/imageLoader";
 const maxFileSize = 2000000; //100KB
 const acceptType = "jpg";
-export default function Ads({ action, ads }) {
+export default function Ads({ action, ad }) {
   const { isAuthUser } = useAppProvider();
   const router = useRouter();
-  const { phone, _id } = isAuthUser;
+
+  const { phone, _id, role } = isAuthUser;
+  const [ads, setAds] = useState(ad);
+  const [isAdmin, setIsAdmin] = useState(role == "ADMIN" ? true : false);
   const [submitted, setSubmitted] = useState(null);
   const [errors, setErrors] = useState({});
   //   const [action, setAction] = useState(action);
@@ -54,18 +68,19 @@ export default function Ads({ action, ads }) {
   const [id, setId] = useState(ads?.id);
   const [title, setTitle] = useState(ads?.title || "");
   const [description, setDescription] = useState(ads?.description);
-  const [member, setMember] = useState(ads?.member);
+  const [member, setMember] = useState(ads?.members);
   const [agreedPrice, setAgreedPrice] = useState(ads?.agreedPrice || false);
   const [phoneInp, setPhoneInp] = useState(phone);
-  const [createDate, setCreateDate] = useState(ads?.createDate);
+  const [createDate, setCreateDate] = useState(ads?.createDate || 0);
   const [price, setPrice] = useState(ads?.price);
-  const [isOwnerId, setIsOwnerId] = useState(ads?.isOwnerId || false);
+  const [isOwnerId, setIsOwnerId] = useState(ads?.isOwnerId || true);
   const [ownerIdPhone, setOwnerIdPhone] = useState(ads?.ownerIdPhone);
   const [isShowPhoneOwnerIdCard, setIsShowPhoneOwnerIdCard] = useState(
     ads?.isShowPhoneOwnerIdCard || true
   );
+  const [ownerIdCardPhone, setOwnerIdCardPhone] = useState(""); //? fill in with admin
   const [contactWithPhone, setContactWithPhone] = useState(
-    ads?.contactWithPhone
+    isAdmin ? ownerIdCardPhone : phone
   );
   const [isContactWithId, setIsContactWithId] = useState(
     ads?.isContactWithId || false
@@ -77,100 +92,157 @@ export default function Ads({ action, ads }) {
   const [draft, setDraft] = useState(ads?.draft);
   const [idImage, setIdImage] = useState(ads?.idImage || []);
   const [province, setProvince] = useState(ads?.province || 1);
-  const [city, setCity] = useState(ads?.city || 1);
+  const [city, setCity] = useState(ads?.city || 0);
   const [discount, setDiscount] = useState(ads?.discount);
-  const [statusAds, setStatusAds] = useState(ads?.statusAds);
+  const [statusAds, setStatusAds] = useState(ads?.statusAds || 0);
   //   const [ads, setAds] = useState({});
   const [filterCity, setFilterCity] = useState([]);
   const [isInvalid, setIsInvalid] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(true);
+  const [isLoadingDraft, setIsLoadingDraft] = useState(false);
+  const [isLoadingDeleteDraft, setIsLoadingDeleteDraft] = useState(false);
+  const [isLoadingEdit, setIsLoadingEdit] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [isDisable, seIisDisable] = useState(true);
+  console.log("statusAds--->", statusAds);
+  useEffect(() => {
+    setAds(ad);
+    setTitle(ad?.title);
+    // setId(ads?.id);
+    // setMessenger(ads?.messenger);
+  }, [ads]);
+  useEffect(() => {
+    if (type == 3) {
+      seIisDisable(true);
+      setMember(1);
+      validateValue(false, setIsInvalid, "member", setIsError);
+    } else {
+      seIisDisable(false);
+      setMember();
+    }
+  }, [type]);
 
   useEffect(() => {
     setFilterCity(() => cities.filter((city) => city.province_id == province));
+    setCity(0);
   }, [province]);
-  const onSubmit = (e) => {
-    e.preventDefault();
-    const data = Object.fromEntries(new FormData(e.currentTarget));
 
-    // Custom validation checks
-    const newErrors = {};
+  useEffect(() => {
+    validateValue(messenger == 0, setIsInvalid, "messenger", setIsError);
+  }, [messenger]);
 
-    // Password validation
+  useEffect(() => {
+    validateValue(subject == 0, setIsInvalid, "subject", setIsError);
+  }, [subject]);
 
-    // Username validation
-    if (data.name === "admin") {
-      newErrors.name = "Nice try! Choose a different username";
-    }
+  useEffect(() => {
+    validateValue(type == 0, setIsInvalid, "type", setIsError);
+  }, [type]);
 
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-
-      return;
-    }
-
-    if (data.terms !== "true") {
-      setErrors({ terms: "Please accept the terms" });
-
-      return;
-    }
-
-    // Clear errors and submit
-    setErrors({});
-    setSubmitted(data);
-  };
+  useEffect(() => {
+    validateValue(
+      !createDate || createDate == 0,
+      setIsInvalid,
+      "createDate",
+      setIsError
+    );
+  }, [createDate]);
 
   const handleNewAds = async () => {
     try {
-      console.log("Message1", messenger);
-      validateValue(!id || id?.length < 3, setIsInvalid, "id", setIsError);
-      validateValue(messenger == 0, setIsInvalid, "messenger", setIsError);
-      validateValue(subject == 0, setIsInvalid, "subject", setIsError);
-      validateValue(type == 0, setIsInvalid, "type", setIsError);
-      validateValue(
+      await validateValue(
+        !id || id == "" || id?.length < 3 || !validateEngStr(id?.trim()),
+        setIsInvalid,
+        "id",
+        setIsError
+      );
+
+      await validateValue(
+        messenger == 0,
+        setIsInvalid,
+        "messenger",
+        setIsError
+      );
+
+      await validateValue(subject == 0, setIsInvalid, "subject", setIsError);
+      await validateValue(type == 0, setIsInvalid, "type", setIsError);
+      await validateValue(
         !title || title?.length < 3,
         setIsInvalid,
         "title",
         setIsError
       );
 
-      validateValue(
+      await validateValue(
         !description || description?.length < 20,
         setIsInvalid,
         "description",
         setIsError
       );
-      validateValue(!member || member == 0, setIsInvalid, "member", setIsError);
+      await validateValue(
+        !member || member == 0,
+        setIsInvalid,
+        "member",
+        setIsError
+      );
 
-      validateValue(
-        !agreedPrice && (!price || price == 0),
+      await validateValue(
+        !agreedPrice && !price,
         setIsInvalid,
         "price",
         setIsError
       );
 
-      validateValue(
+      await validateValue(
         isContactWithId && contactTypeMessenger == 0,
         setIsInvalid,
         "contactTypeMessenger",
         setIsError
       );
 
-      validateValue(
-        isContactWithId && (!contactWithId || contactWithId?.length < 3),
+      await validateValue(
+        isContactWithId &&
+          (!contactWithId ||
+            contactWithId == "" ||
+            contactWithId?.length < 3 ||
+            !validateEngStr(contactWithId?.trim())),
         setIsInvalid,
         "contactWithId",
         setIsError
       );
 
-      validateValue(
+      await validateValue(
         !createDate || createDate == 0,
         setIsInvalid,
         "createDate",
         setIsError
       );
+      console.log("InInvalid 2", isInvalid);
+      if (!isOwnerId) {
+        if (!valiadtePhone(ownerIdPhone)) {
+          setIsInvalid((prev) => {
+            return {
+              ...prev,
+              ownerIdPhone: true,
+            };
+          });
+        }
+      }
 
-      if (isError) return;
+      if (!isShowPhoneOwnerIdCard && !isContactWithId) {
+        toast.error("لطفا شماره تماس یا آیدی جهت ارتباط با مشتری درج نمایید");
+        return;
+      }
+      // if (isError) {
+      //? این فیلد بدردمون نخورد - چون در آخرین اعتبارسنجی اگه ترو میشد ارسال به پایگاه انجام میشد برای همین حلقه فور بعدیو گذاشتم
+      // }
+      for (const property in isInvalid) {
+        // console.log(`InInvalid --> ${property}: ${isInvalid[property]}`);
+        if (isInvalid[property]) {
+          toast.error("خطا در ثبت اطلاعات : " + ObjectTitle[property]);
+          return;
+        }
+      }
 
       setIsLoading(true);
       const formData = new FormData();
@@ -178,10 +250,13 @@ export default function Ads({ action, ads }) {
         formData.append("profile", image.file);
       }
 
+      // console.log("InInvalid 2", isInvalid);
+      formData.append("isAdmin", isAdmin);
+      formData.append("ownerIdCardPhone", ownerIdCardPhone);
       formData.append("registerId", registerId);
       formData.append("ownerIdCard", ownerIdCard);
       formData.append("isOwnerId", isOwnerId);
-      formData.append("ownerIdPhone", ownerIdPhone);
+      formData.append("ownerIdPhone", ownerIdPhone || "");
       // formData.append("code", code); Define in Backend
       formData.append("province", province);
       formData.append("city", city);
@@ -192,11 +267,14 @@ export default function Ads({ action, ads }) {
       formData.append("description", description);
       formData.append("members", member);
       formData.append("agreedPrice", agreedPrice);
-      formData.append("price", price);
+      formData.append("price", price || "");
       formData.append("id", id);
       formData.append("createDate", createDate);
       formData.append("isShowPhoneOwnerIdCard", isShowPhoneOwnerIdCard);
-      formData.append("contactWithPhone", contactWithPhone);
+      formData.append(
+        "contactWithPhone",
+        isAdmin ? ownerIdCardPhone : phone || ""
+      );
       formData.append("isContactWithId", isContactWithId);
       formData.append("contactWithId", contactWithId);
       formData.append("contactTypeMessenger", contactTypeMessenger);
@@ -207,8 +285,8 @@ export default function Ads({ action, ads }) {
       });
       const data = await res.json();
       if (data.status == 201) {
-        router.push("/profile");
         toast.success(data.message);
+        router.push("/");
       } else {
         toast.error(data.message);
       }
@@ -219,6 +297,224 @@ export default function Ads({ action, ads }) {
     setIsLoading(false);
   };
 
+  const handleEditAds = async () => {
+    try {
+      await validateValue(
+        !title || title?.length < 3,
+        setIsInvalid,
+        "title",
+        setIsError
+      );
+
+      await validateValue(
+        !description || description?.length < 20,
+        setIsInvalid,
+        "description",
+        setIsError
+      );
+      await validateValue(
+        !member || member == 0,
+        setIsInvalid,
+        "member",
+        setIsError
+      );
+
+      await validateValue(
+        !agreedPrice && !price,
+        setIsInvalid,
+        "price",
+        setIsError
+      );
+
+      await validateValue(
+        isContactWithId && contactTypeMessenger == 0,
+        setIsInvalid,
+        "contactTypeMessenger",
+        setIsError
+      );
+
+      await validateValue(
+        isContactWithId &&
+          (!contactWithId ||
+            contactWithId == "" ||
+            contactWithId?.length < 3 ||
+            !validateEngStr(contactWithId?.trim())),
+        setIsInvalid,
+        "contactWithId",
+        setIsError
+      );
+
+      await validateValue(
+        !createDate || createDate == 0,
+        setIsInvalid,
+        "createDate",
+        setIsError
+      );
+      console.log("InInvalid 2", isInvalid);
+      if (!isOwnerId) {
+        if (!valiadtePhone(ownerIdPhone)) {
+          setIsInvalid((prev) => {
+            return {
+              ...prev,
+              ownerIdPhone: true,
+            };
+          });
+        }
+      }
+
+      if (!isShowPhoneOwnerIdCard && !isContactWithId) {
+        toast.error("لطفا شماره تماس یا آیدی جهت ارتباط با مشتری درج نمایید");
+        return;
+      }
+      // if (isError) {
+      //? این فیلد بدردمون نخورد - چون در آخرین اعتبارسنجی اگه ترو میشد ارسال به پایگاه انجام میشد برای همین حلقه فور بعدیو گذاشتم
+      // }
+      for (const property in isInvalid) {
+        // console.log(`InInvalid --> ${property}: ${isInvalid[property]}`);
+        if (isInvalid[property]) {
+          toast.error("خطا در ثبت اطلاعات : " + ObjectTitle[property]);
+          return;
+        }
+      }
+
+      setIsLoadingEdit(true);
+      const formData = new FormData();
+      for (const image of idImage) {
+        formData.append("profile", image.file);
+      }
+
+      // console.log("InInvalid 2", isInvalid);
+      formData.append("adsId", ads?._id);
+      formData.append("isAdmin", isAdmin);
+      formData.append("ownerIdCardPhone", ownerIdCardPhone);
+      formData.append("registerId", registerId);
+      formData.append("ownerIdCard", ownerIdCard);
+      formData.append("isOwnerId", isOwnerId);
+      formData.append("ownerIdPhone", ownerIdPhone || "");
+      // // formData.append("code", code); Define in Backend
+      formData.append("province", province);
+      formData.append("city", city);
+      // formData.append("messenger", messenger);
+      // formData.append("type", type);
+      // formData.append("subject", subject);
+      formData.append("title", title);
+      formData.append("description", description);
+      formData.append("members", member);
+      formData.append("agreedPrice", agreedPrice);
+      formData.append("price", price || "");
+      formData.append("discount", discount || 0);
+      formData.append("statusAds", statusAds || 0);
+      // formData.append("id", id);
+      formData.append("createDate", createDate);
+      formData.append("isShowPhoneOwnerIdCard", isShowPhoneOwnerIdCard);
+      formData.append(
+        "contactWithPhone",
+        isAdmin ? ownerIdCardPhone : phone || ""
+      );
+      formData.append("isContactWithId", isContactWithId);
+      formData.append("contactWithId", contactWithId);
+      formData.append("contactTypeMessenger", contactTypeMessenger);
+      const res = await fetch("/api/ads/edit/update", {
+        method: "PUT",
+        header: { "Content-Type": "multipart/form-data" },
+        body: formData,
+      });
+      const data = await res.json();
+      if (data.status == 200) {
+        toast.success(data.message);
+        router.push("/");
+      } else {
+        toast.error(data.message);
+      }
+      setIsLoadingEdit(false);
+    } catch (error) {
+      console.log("Error from new ads ->", error);
+    }
+    setIsLoadingEdit(false);
+  };
+  const handleDraftAds = async () => {
+    try {
+      validateValue(
+        !id || id == "" || id?.length < 3 || !validateEngStr(id?.trim()),
+        setIsInvalid,
+        "id",
+        setIsError
+      );
+
+      if (isInvalid.id || !id) {
+        toast.error("برای ذخیره پیش نویس حداقل باید یک آیدی معتبر درج شود");
+        return;
+      }
+
+      setIsLoadingDraft(true);
+      const formData = new FormData();
+      for (const image of idImage) {
+        formData.append("profile", image.file);
+      }
+
+      console.log("InInvalid 2", isInvalid);
+      formData.append("registerId", registerId);
+      formData.append("ownerIdCard", ownerIdCard);
+      formData.append("isOwnerId", isOwnerId);
+      formData.append("ownerIdPhone", ownerIdPhone || "");
+      // formData.append("code", code); Define in Backend
+      formData.append("province", province);
+      formData.append("city", city);
+      formData.append("messenger", messenger);
+      formData.append("type", type);
+      formData.append("subject", subject);
+      formData.append("title", title || "");
+      formData.append("description", description || "");
+      formData.append("members", member || 0);
+      formData.append("agreedPrice", agreedPrice);
+      formData.append("price", price || "");
+      formData.append("id", id);
+      formData.append("createDate", createDate || 0);
+      formData.append("isShowPhoneOwnerIdCard", isShowPhoneOwnerIdCard);
+      formData.append("contactWithPhone", contactWithPhone || "");
+      formData.append("isContactWithId", isContactWithId);
+      formData.append("contactWithId", contactWithId);
+      formData.append("contactTypeMessenger", contactTypeMessenger);
+      const res = await fetch("/api/ads/adddraft", {
+        method: "PUT",
+        header: { "Content-Type": "multipart/form-data" },
+        body: formData,
+      });
+      const data = await res.json();
+      if (data.status == 201) {
+        toast.success(data.message);
+        router.push("/");
+      } else {
+        toast.error(data.message);
+      }
+      setIsLoadingDraft(false);
+    } catch (error) {
+      console.log("Error from new ads ->", error);
+    }
+    setIsLoadingDraft(false);
+  };
+
+  const handleDeleteDraftAds = async () => {
+    setIsLoadingDeleteDraft(true);
+
+    try {
+      const response = await fetch(`/api/ads/deletedraft/${ownerIdCard}`, {
+        method: "DELETE",
+      });
+
+      const data = await response.json();
+
+      if (data.status == 201) {
+        toast.success(data.message);
+        location.reload();
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.log("error from remove company Handler --->", error);
+    }
+    setIsLoadingDeleteDraft(false);
+  };
   const onChangeImage = (imageList) => {
     // data for submit
     if (imageList.length > 1) {
@@ -234,7 +530,7 @@ export default function Ads({ action, ads }) {
         <Card className=" mx-auto">
           <CardHeader className="flex gap-3">
             <Image
-              alt="findid logo"
+              alt="findid_logo"
               height={40}
               radius="sm"
               src="/images/logo.png"
@@ -247,20 +543,43 @@ export default function Ads({ action, ads }) {
             </div>
           </CardHeader>
           <Divider />
-          <CardBody className="mx-auto lg:w-1/2 md:w-full gap-4 py-8">
+          <CardBody className="mx-auto lg:w-1/2 md:w-full gap-4 py-8 ">
             <Form
               className="w-full justify-center items-center  space-y-4"
               validationBehavior="native"
               validationErrors={errors}
               onReset={() => setSubmitted(null)}
-              onSubmit={onSubmit}
             >
+              {isAdmin && action != 3 && (
+                <Input
+                  // label="شناسه (آیدی) "
+                  errorMessage="شماره مالک آگهی"
+                  description="این شماره توسط ادمین تکمیل می شود"
+                  color={isInvalid?.ownerIdCardPhone ? "danger" : "primary"}
+                  isInvalid={isInvalid?.ownerIdCardPhone}
+                  labelPlacement="outside"
+                  name="phone"
+                  type="phone"
+                  placeholder="شماره ای که آیدی بر روی آن تعریف شده است"
+                  value={ownerIdCardPhone}
+                  onValueChange={(key) => {
+                    validateValue(
+                      !valiadtePhone(key?.trim()),
+                      setIsInvalid,
+                      "ownerIdCardPhone",
+                      setIsError
+                    );
+
+                    setOwnerIdCardPhone(key?.trim());
+                  }}
+                />
+              )}
               <Input
                 dir="ltr"
-                className="text-right py-4"
-                errorMessage={"حداقل سه کاراکتر انگلیسی"}
+                className="text-right py-4 "
+                errorMessage={"حداقل سه کاراکتر انگلیسی بدون فاصله"}
                 isInvalid={isInvalid?.id}
-                color={isInvalid?.id ? "danger" : "success"}
+                color={isInvalid?.id ? "danger" : "primary"}
                 // isInvalid={isInvalid?.id}
                 isDisabled={action == 3}
                 isRequired
@@ -275,22 +594,33 @@ export default function Ads({ action, ads }) {
                 value={id}
                 variant="flat"
                 onValueChange={(value) => {
-                  setId(value);
-                  validateFunc(validateEngStr, setIsInvalid, value, "id");
+                  setId(value?.trim());
+                  validateValue(
+                    !value ||
+                      value == "" ||
+                      value?.length < 3 ||
+                      !validateEngStr(value?.trim()),
+                    setIsInvalid,
+                    "id",
+                    setIsError
+                  );
                 }}
               />
               <AutoComplete
+                isRequired
                 className=""
                 errorMessage={"پیام رسان را انتخاب نمایید"}
                 isInvalid={isInvalid?.messenger}
                 isDisabled={action == 3}
                 label="پیام رسان"
                 placeholder="آیدی در کدام پیام رسان است"
+                defaultValue={messenger}
                 arr={messengers}
                 selectedKey={messenger}
                 setSelectedKey={setMessenger}
               />
               <AutoComplete
+                isRequired
                 errorMessage="نوع فعالیت را مشخص نمایید"
                 isInvalid={isInvalid?.type}
                 isDisabled={action == 3}
@@ -301,6 +631,7 @@ export default function Ads({ action, ads }) {
                 setSelectedKey={setType}
               />
               <AutoComplete
+                isRequired
                 errorMessage="موضوع را مشخص نمایید"
                 isInvalid={isInvalid?.subject}
                 isDisabled={action == 3}
@@ -314,46 +645,82 @@ export default function Ads({ action, ads }) {
               <Input
                 isRequired
                 errorMessage="یک عنوان وارد نمایید(حداقل 3 کاراکتر)"
-                color={isInvalid.title ? "danger" : "success"}
+                color={isInvalid.title ? "danger" : "primary"}
                 isInvalid={isInvalid?.title}
-                labelPlacement="outside"
                 name="title"
-                placeholder="یک عنوان برای شناسه ثبت شده"
+                placeholder="یک عنوان برای شناسه"
                 value={title}
-                onValueChange={setTitle}
+                onValueChange={(key) => {
+                  validateValue(
+                    !key || key?.length < 3,
+                    setIsInvalid,
+                    "title",
+                    setIsError
+                  );
+                  setTitle(key);
+                }}
+                label="عنوان"
+                labelPlacement={"inside"}
               />
               <Textarea
+                isRequired
                 errorMessage="حداقل 20 کاراکتر درباره آیدی"
-                color={isInvalid?.description ? "danger" : "success"}
+                color={isInvalid?.description ? "danger" : "primary"}
                 isInvalid={isInvalid?.description}
                 label="توضیحات"
                 placeholder=""
                 value={description}
-                onValueChange={setDescription}
+                onValueChange={(key) => {
+                  validateValue(
+                    !key || key?.length < 20,
+                    setIsInvalid,
+                    "description",
+                    setIsError
+                  );
+                  setDescription(key);
+                }}
               />
               <Input
+                isDisabled={isDisable}
                 isRequired
+                label="تعداد اعضا"
+                labelPlacement="inside"
                 errorMessage="تعداد اعضا وارد نمایید"
-                color={isInvalid?.member ? "danger" : "success"}
+                color={isInvalid?.member ? "danger" : "primary"}
                 isInvalid={isInvalid?.member}
-                labelPlacement="outside"
                 name="member"
                 type="Number"
-                placeholder="تعداد اعضا کانال / گروه"
+                // placeholder="تعداد اعضا کانال / گروه"
                 value={member}
-                onValueChange={setMember}
+                onValueChange={(key) => {
+                  validateValue(
+                    !key || key == 0,
+                    setIsInvalid,
+                    "member",
+                    setIsError
+                  );
+                  setMember(key);
+                }}
               />
               <div className="bg-gray-100 rounded-lg w-full py-2 space-y-4 px-2">
                 <CheckBox
                   label={"قیمت توافقی"}
                   state={agreedPrice}
-                  set={setAgreedPrice}
+                  set={(key) => {
+                    setAgreedPrice(key);
+                    validateValue(
+                      !key && !price,
+                      setIsInvalid,
+                      "price",
+                      setIsError
+                    );
+                  }}
                 />
 
                 {!agreedPrice && (
                   <Input
                     errorMessage="قیمت وارد نمایید"
-                    color={isInvalid?.price ? "danger" : "success"}
+                    color={isInvalid?.price ? "danger" : "primary"}
                     isInvalid={isInvalid?.price}
                     // label="شناسه (آیدی) "
                     labelPlacement="outside"
@@ -361,7 +728,18 @@ export default function Ads({ action, ads }) {
                     type="Number"
                     placeholder="قیمت پیشنهادی"
                     value={price}
-                    onValueChange={setPrice}
+                    onValueChange={(p) => {
+                      validateValue(
+                        !agreedPrice && (!p || p == 0),
+                        setIsInvalid,
+                        "price",
+                        setIsError
+                      );
+                      setPrice(p);
+                    }}
+                    description={
+                      price ? price.toString().num2persian() + " تومان" : ""
+                    }
                   />
                 )}
               </div>
@@ -369,24 +747,45 @@ export default function Ads({ action, ads }) {
                 <CheckBox
                   label={`شناسه (آیدی) بر روی  شماره ${phone} تعریف شده است`}
                   state={isOwnerId}
-                  set={setIsOwnerId}
+                  set={(key) => {
+                    validateValue(
+                      !key && !valiadtePhone(ownerIdPhone?.trim()),
+                      setIsInvalid,
+                      "ownerIdPhone",
+                      setIsError
+                    );
+
+                    setIsOwnerId(key);
+                  }}
                 />
                 {!isOwnerId && (
                   <Input
                     // label="شناسه (آیدی) "
+                    errorMessage="شماره را صحیح وارد نمایید"
+                    description="این شماره در آگهی نمایش داده نمی شود"
+                    color={isInvalid?.ownerIdPhone ? "danger" : "primary"}
+                    isInvalid={isInvalid?.ownerIdPhone}
                     labelPlacement="outside"
-                    color="success"
-                    name="price"
+                    name="phone"
                     type="phone"
                     placeholder="شماره ای که آیدی بر روی آن تعریف شده است"
                     value={ownerIdPhone}
-                    onValueChange={setOwnerIdPhone}
+                    onValueChange={(key) => {
+                      validateValue(
+                        !isOwnerId && !valiadtePhone(key?.trim()),
+                        setIsInvalid,
+                        "ownerIdPhone",
+                        setIsError
+                      );
+
+                      setOwnerIdPhone(key?.trim());
+                    }}
                   />
                 )}
               </div>
               <div className="bg-gray-100 rounded-lg w-full py-2 space-y-4 px-2">
                 <CheckBox
-                  label={"شماره آگهی دهنده نمایش داده شود؟"}
+                  label={"شماره آگهی دهنده نمایش داده شود."}
                   state={isShowPhoneOwnerIdCard}
                   set={setIsShowPhoneOwnerIdCard}
                 />
@@ -395,11 +794,12 @@ export default function Ads({ action, ads }) {
                   <Input
                     isRequired
                     errorMessage="شماره همراه وارد نمایید"
-                    color={isInvalid.phone ? "danger" : "success"}
+                    color={isInvalid.phone ? "danger" : "primary"}
                     isInvalid={isInvalid.phone}
                     labelPlacement="outside"
-                    name="price"
+                    name="phone"
                     type="phone"
+                    isDisabled
                     placeholder="شماره مالک جهت نمایش در آگهی و تماس"
                     value={phoneInp}
                     onValueChange={setPhoneInp}
@@ -410,7 +810,26 @@ export default function Ads({ action, ads }) {
                 <CheckBox
                   label={"آیدی یک پیامرسان برای پاسخگویی نمایش داده شود؟"}
                   state={isContactWithId}
-                  set={setIsContactWithId}
+                  set={(key) => {
+                    validateValue(
+                      key &&
+                        (!contactWithId ||
+                          contactWithId == "" ||
+                          contactWithId?.length < 3 ||
+                          !validateEngStr(contactWithId?.trim())),
+                      setIsInvalid,
+                      "contactWithId",
+                      setIsError
+                    );
+                    validateValue(
+                      key && contactTypeMessenger == 0,
+                      setIsInvalid,
+                      "contactTypeMessenger",
+                      setIsError
+                    );
+
+                    setIsContactWithId(key);
+                  }}
                 />
 
                 {isContactWithId && (
@@ -429,7 +848,7 @@ export default function Ads({ action, ads }) {
                       className="text-right py-4"
                       endContent="@"
                       errorMessage=" یک آیدی معتبر وارد نمایید"
-                      color={isInvalid?.contactWithId ? "danger" : "success"}
+                      color={isInvalid?.contactWithId ? "danger" : "primary"}
                       isInvalid={isInvalid?.contactWithId}
                       labelPlacement="outside"
                       name="contactId"
@@ -438,11 +857,15 @@ export default function Ads({ action, ads }) {
                       value={contactWithId}
                       onValueChange={(value) => {
                         setContactWithId(value);
-                        validateFunc(
-                          validateEngStr,
+                        validateValue(
+                          isContactWithId &&
+                            (!contactWithId ||
+                              contactWithId == "" ||
+                              contactWithId?.length < 3 ||
+                              !validateEngStr(contactWithId?.trim())),
                           setIsInvalid,
-                          value,
-                          "contactWithId"
+                          "contactWithId",
+                          setIsError
                         );
                       }}
                     />
@@ -451,6 +874,7 @@ export default function Ads({ action, ads }) {
               </div>
 
               <AutoComplete
+                isRequired
                 errorMessage="یک سال انتخاب کنید"
                 isInvalid={isInvalid?.createDate}
                 label="سال ایجاد(تقریبی)"
@@ -468,7 +892,7 @@ export default function Ads({ action, ads }) {
               />
               <AutoComplete
                 label="شهر"
-                arr={filterCity}
+                arr={filterCity || city}
                 selectedKey={city}
                 setSelectedKey={setCity}
               />
@@ -477,7 +901,7 @@ export default function Ads({ action, ads }) {
                   تصویر منتخب پروفایل
                 </p>
                 <div className="gap-2 mt-4 flex justify-center bg-slate-100 rounded-md p-4">
-                  <div className="flex ">
+                  <div className="flex gap-2 flex-col md:flex-row">
                     <ImageUploader
                       imageItems={idImage}
                       onChange={onChangeImage}
@@ -487,6 +911,15 @@ export default function Ads({ action, ads }) {
                       // user={user}
                     />
                   </div>
+                  {ads?.profile?.length != 0 ||
+                    (!ads?.profile && (
+                      <div>
+                        <ImageLoader
+                          imageUrl={ads?.profile[0]}
+                          code={"profile"}
+                        />
+                      </div>
+                    ))}
                 </div>
                 <p className="text-[10px] text-gray-100 mt-1">
                   حجم تصویر حداکثر 2 مگابایت باشد.
@@ -541,7 +974,8 @@ export default function Ads({ action, ads }) {
                   labelPlacement="inside"
                   selectedKeys={statusAds}
                   variant="bordered"
-                  onSelectionChange={setStatusAds}
+                  // onSelectionChange={setStatusAds}
+                  onChange={(e) => setStatusAds(e.target.value)}
                 >
                   {status.map((st) => (
                     <SelectItem key={st.id}>{st.title}</SelectItem>
@@ -552,14 +986,31 @@ export default function Ads({ action, ads }) {
           </CardBody>
           <Divider />
           <CardFooter className="w-full flex justify-end items-center gap-2">
-            {(action == 1 || action == 2) && (
-              <Button className={"text-white bg-header"}>ذخیره پیش نویس</Button>
+            {(action == 1 || action == 2) && !isAdmin && (
+              <Button
+                className={"text-white bg-header"}
+                onPress={handleDraftAds}
+                isLoading={isLoadingDraft}
+              >
+                ذخیره پیش نویس
+              </Button>
             )}
-            {action == 2 && (
-              <Button className={"text-white bg-red-500"}>حذف پیش نویس</Button>
+            {action == 2 && !isAdmin && (
+              <Button
+                className={"text-white bg-red-500"}
+                onPress={handleDeleteDraftAds}
+                isLoading={isLoadingDeleteDraft}
+              >
+                حذف پیش نویس
+              </Button>
             )}
             {(action == 3 || action == 4) && (
-              <Button className={"text-white"} color="success">
+              <Button
+                className={"text-white"}
+                color="success"
+                onPress={handleEditAds}
+                isLoading={isLoadingEdit}
+              >
                 ذخیره تغییرات
               </Button>
             )}

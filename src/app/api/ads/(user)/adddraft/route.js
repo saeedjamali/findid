@@ -1,18 +1,17 @@
 import { authenticateUser } from "@/utils/authenticateMe";
 import connectToDB from "@/utils/db";
 import { getRndInteger } from "@/utils/random";
-import idCardModel from "@/models/IDCard/IDCard";
+import idDraftModel from "@/models/IDCard/Draft";
 
 import { writeFile } from "fs/promises";
 import path from "path";
 
-export async function POST(req) {
-  const { isConnected, message } = await connectToDB();
+export async function PUT(req) {
   if (!(await authenticateUser())) {
     return Response.json({ message: "دسترسی غیر مجاز", status: 500 });
   }
+  const { isConnected, message } = await connectToDB();
   const formData = await req.formData();
-  console.log("HiiiiiiBack--->", formData);
   const profile = formData.getAll("profile");
 
   const registerId = formData.get("registerId"); //? ثبت کننده آگهی
@@ -38,53 +37,74 @@ export async function POST(req) {
   const contactWithId = formData.get("contactWithId");
   const contactTypeMessenger = formData.get("contactTypeMessenger");
 
-  let limited = 1;
-  let quantity = 0;
-
   try {
     //Buffer
-    if (
-      !registerId ||
-      !ownerIdCard ||
-      !messenger ||
-      !type ||
-      !subject ||
-      !id ||
-      !members
-    ) {
+    if (!id) {
       return Response.json(
         {
-          message: "لطفا اطلاعات بطور کامل بررسی و مجدد ارسال شود",
+          message: "برای ذخیره پیش نویس حداقل باید یک آیدی معتبر درج شود",
         },
         { status: 401 }
       );
     }
 
-    const newAds = await idCardModel.create({
-      registerId,
-      ownerIdCard,
-      isOwnerId,
-      ownerIdPhone,
-      code,
-      province,
-      city,
-      messenger,
-      type,
-      subject,
-      title,
-      description,
-      members,
-      agreedPrice,
-      price,
-      id,
-      createDate,
-      isShowPhoneOwnerIdCard,
-      contactWithPhone,
-      isContactWithId,
-      contactWithId,
-      contactTypeMessenger,
-    });
+    let foundId = await idDraftModel.findOneAndUpdate(
+      { ownerIdCard },
+      {
+        registerId,
+        ownerIdCard,
+        isOwnerId,
+        ownerIdPhone,
+        code,
+        province,
+        city,
+        messenger,
+        type,
+        subject,
+        title,
+        description,
+        members,
+        agreedPrice,
+        price,
+        id,
+        createDate,
+        isShowPhoneOwnerIdCard,
+        contactWithPhone,
+        isContactWithId,
+        contactWithId,
+        contactTypeMessenger,
+      }
+    );
 
+    if (!foundId) {
+      foundId = await idDraftModel.create(
+        
+        {
+          registerId,
+          ownerIdCard,
+          isOwnerId,
+          ownerIdPhone,
+          code,
+          province,
+          city,
+          messenger,
+          type,
+          subject,
+          title,
+          description,
+          members,
+          agreedPrice,
+          price,
+          id,
+          createDate,
+          isShowPhoneOwnerIdCard,
+          contactWithPhone,
+          isContactWithId,
+          contactWithId,
+          contactTypeMessenger,
+        }
+      );
+    }
     profile?.map(async (img, index) => {
       const buffer = Buffer.from(await img.arrayBuffer());
       const filename =
@@ -92,8 +112,8 @@ export async function POST(req) {
       const imgPath = path.join(process.cwd(), "upload/profile/" + filename);
       await writeFile(imgPath, buffer);
 
-      await idCardModel.updateOne(
-        { _id: newAds._id },
+      await idDraftModel.updateOne(
+        { _id: foundId._id },
         {
           $push: {
             // imageContractList: `${process.env.LOCAL_URL}/upload/contract/${filename}`,
@@ -102,16 +122,21 @@ export async function POST(req) {
         }
       );
     });
+    
 
-    if (newAds) {
+    if (foundId) {
       return Response.json({
-        message: " آگهی با موفقیت ثبت شد",
+        message: " آگهی با موفقیت ذخیره شد",
         status: 201,
       });
     }
+   
   } catch (error) {
     console.log("error in api add image>>", error);
-    return Response.json({ message: "خطای ناشناخته", status: 501 });
+    return Response.json({
+      message: "خطای ناشناخته" + isConnected,
+      status: 501,
+    });
   }
 
   return Response.json({ message: "خطا در ارسال اطلاعات", status: 401 });

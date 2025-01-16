@@ -15,12 +15,16 @@ function AutoComplete({
   isDisabled,
   isInvalid,
   errorMessage,
+  isRequired,
+  defaultSelectedKeys,
 }) {
   return (
     <div className="w-full">
       <Autocomplete
+        emptyContent="نتیجه ای یافت نشد"
+        isRequired={isRequired}
         errorMessage={errorMessage}
-        color={isInvalid ? "danger" : "success"}
+        color={isInvalid ? "danger" : "primary"}
         isInvalid={isInvalid}
         isDisabled={isDisabled}
         className="text-sm"
@@ -29,8 +33,12 @@ function AutoComplete({
         placeholder={placeholder}
         selectedKey={selectedKey}
         onSelectionChange={(key) => {
+          // validateValue(subject == 0, setIsInvalid, "subject", setIsError);
           setSelectedKey(key);
         }}
+        defaultInputValue={
+          selectedKey != 0 ? `${arr[selectedKey - 1]?.title}` : ""
+        }
         isClearable={false}
       >
         {arr.map((item) => (
@@ -38,7 +46,7 @@ function AutoComplete({
             key={item.id}
             startContent={
               item?.icon ? (
-                <Avatar alt="Argentina" className="w-6 h-6" src={item?.icon} />
+                <Avatar alt="avatar" className="w-6 h-6" src={item?.icon} />
               ) : (
                 ""
               )

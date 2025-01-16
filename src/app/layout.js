@@ -14,10 +14,18 @@ export const metadata = {
 
 export default async function RootLayout({ children }) {
   const isAuthenticateUser = await authenticateUser();
+  const initialIds = await getIds(0, Id_PER_PAGE);
 
-  
   return (
     <html lang="fa" dir="rtl">
+      <head>
+        <link
+          rel="icon"
+          href="/images/logo.png"
+          sizes="any"
+          className="h-64 w-64"
+        />
+      </head>
       <body>
         <div>
           <Header
