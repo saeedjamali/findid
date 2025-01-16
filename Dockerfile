@@ -1,5 +1,5 @@
 
-FROM node:20-alpine as builder
+FROM node:lts-bookworm as builder
 
 WORKDIR /app
 
@@ -10,7 +10,7 @@ COPY . .
 
 RUN npm run build
 
-FROM node:20-alpine as runner
+FROM node:lts-bookworm as runner
 
 WORKDIR /app
 
