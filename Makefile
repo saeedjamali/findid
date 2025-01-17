@@ -1,2 +1,3 @@
 update:
-	docker compose up --build
+	git pull
+	docker compose up --build -d
