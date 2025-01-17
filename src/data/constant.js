@@ -243,8 +243,4 @@ export const subjects = [
   { id: 19, title: "فیلم و سریال", description: "", subTitle: [], category: 3 },
 ];
 
-export const status = [
-  { id: 1, title: "فعال" },
-  { id: 2, title: "فروخته شد" },
-  { id: 3, title: "موقتا غیر فعال شود" },
-];
+

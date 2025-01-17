@@ -7,6 +7,7 @@ import Nav from "./_components/nav/Nav";
 import { Toaster } from "react-hot-toast";
 import { authenticateUser } from "@/utils/authenticateMe";
 import bookmarkModel from "@/models/IDCard/Bookmarks";
+import { useAppProvider } from "./context/AppProvider";
 
 
 export default async function Home() {
@@ -16,7 +17,7 @@ export default async function Home() {
   if (authUser) {
     bookmarksId = await bookmarkModel.find({ user: authUser._id });
   }
-  // console.log("bookmarksId--->", bookmarksId);
+  
   return (
     <div>
      
@@ -27,6 +28,7 @@ export default async function Home() {
         <IdListInfinite
           initialIds={initialIds}
           bookmarksId={JSON.parse(JSON.stringify(bookmarksId))}
+          
         />
       </div>
     </div>

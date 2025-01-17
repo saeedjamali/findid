@@ -1,7 +1,7 @@
 import React from "react";
-import { types } from "@/data/constant";
 // import { CheckboxIcon } from "@nextui-org/react";
 import { Checkbox, Tooltip } from "@nextui-org/react";
+import { types } from "@/config/constants";
 // import { CheckboxIcon } from "@nextui-org/react/dist";
 function Types({ setFilterList }) {
   return (
@@ -13,12 +13,13 @@ function Types({ setFilterList }) {
             <div key={item.id} className="bg-cover flex ">
               <Checkbox
                 color="secondary"
+                size="sm"
                 onValueChange={(key) => {
                   const id = Number(item.id + "" + item.category);
                   if (key) {
                     setFilterList((prev) => [...prev, item]);
                   } else {
-                    console.log("Id--->", id);
+                   
                     // console.log("Category--->", item.category);
                     setFilterList((prev) =>
                       prev.filter((p) => Number(p.id + "" + p.category) != id)

@@ -2,7 +2,7 @@
 
 export const API_URL = "http://localhost:3000/api/ads/get/all/";
 export const BASE_URL = "http://localhost:3000/";
-export const Id_PER_PAGE = 4;
+export const Id_PER_PAGE = 2;
 export const messengers = [
   {
     id: 1,
@@ -21,7 +21,7 @@ export const messengers = [
     id: 2,
     title: "واتساپ",
     latin: "Whatsapp",
-    icon: "/images/messengers/icons/Whatsapp-ic.png",
+    icon: "/images/messengers/icons/whatsapp-ic.png",
     thumbnail: "/images/messengers/thumbnail/.png",
     description: "",
     status: false,
@@ -194,7 +194,7 @@ export const messengers = [
     icon: "/images/messengers/icons/rubika-ic.png",
     thumbnail: "/images/messengers/thumbnail/.png",
     description: "",
-    status: true,
+    status: false,
     type: 2,
     category: 1,
     color: "#7A4587",

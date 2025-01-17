@@ -911,15 +911,14 @@ export default function Ads({ action, ad }) {
                       // user={user}
                     />
                   </div>
-                  {ads?.profile?.length != 0 ||
-                    (!ads?.profile && (
-                      <div>
-                        <ImageLoader
-                          imageUrl={ads?.profile[0]}
-                          code={"profile"}
-                        />
-                      </div>
-                    ))}
+                  {(ads?.profile?.length != 0 || !ads?.profile) && (
+                    <div>
+                      <ImageLoader
+                        imageUrl={ads?.profile[0]}
+                        code={"profile"}
+                      />
+                    </div>
+                  )}
                 </div>
                 <p className="text-[10px] text-gray-100 mt-1">
                   حجم تصویر حداکثر 2 مگابایت باشد.

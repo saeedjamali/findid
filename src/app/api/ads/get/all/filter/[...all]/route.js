@@ -1,23 +1,25 @@
 import connectToDB from "@/utils/db";
 import idCardModel from "@/models/IDCard/IDCard";
 
-export async function GET(req, { params, searchParams }) {
-  const [offset, limit] = await params?.all;
 
+export async function POST(req, { params, searchParams }) {
+
+  
+  const [offset, limit] = await params?.all;
+  const formData = await req.formData();
+
+  
   try {
     const { isConnected, message } = await connectToDB();
     if (!isConnected) {
       return Response.json({ message: "خطا در اتصال به پایگاه", status: 500 });
     }
-    const ownerIdCard = await params.id;
-
+    const filters = formData.getAll("filters");   
+    console.log("formData--->", filters);
     //   console.log("ownerIdCard--->", ownerIdCard);
 
     const idsCard = await idCardModel
-      .find({ isShow: true })
-      .sort({ createdAt: -1 })
-      .skip(offset)
-      .limit(limit);
+      .find({ isShow: true }).sort({ createdAt: -1 }).skip(offset).limit(limit);
     // console.log("idsCard--->", idsCard);
     // const len = admins.length;
     return Response.json({

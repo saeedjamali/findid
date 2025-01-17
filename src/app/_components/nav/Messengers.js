@@ -1,8 +1,9 @@
+import { messengers } from "@/config/constants";
 import { Tooltip } from "@nextui-org/react";
 import Image from "next/image";
 import React, { useState } from "react";
 import { FaCheckCircle } from "react-icons/fa";
-import { messengers } from "@/data/constant";
+
 function Messengers({ setFilterList }) {
   const [messengerList, setMessengerList] = useState(messengers);
 
@@ -27,8 +28,8 @@ function Messengers({ setFilterList }) {
   };
   return (
     <div className="bg-glass">
-      <h2 className=" font-shabnam text-sm ">فیلتر براساس رسانه</h2>
-      <div className="flex flex-wrap items-center justify-center mt-4 p-4 gap-4 w-full">
+      <h2 className=" font-shabnam text-sm ">فیلتر براساس شبکه اجتماعی</h2>
+      <div className="flex flex-wrap items-center justify-center mt-4 p-1 gap-2 w-full">
         {messengerList.map((item) => {
           return (
             <div
@@ -36,7 +37,7 @@ function Messengers({ setFilterList }) {
               className="w-8 h-8 md:w-10 md:h-10 bg-cover relative"
               onClick={() => handleCheckedMessenger(item)}
             >
-              <Tooltip content={item.name}>
+              <Tooltip content={item.title}>
                 <Image
                   src={item.icon}
                   width={100}
@@ -47,7 +48,7 @@ function Messengers({ setFilterList }) {
               </Tooltip>
               <div className="absolute top-0">
                 {item.status && (
-                  <FaCheckCircle className="text-secondary text-xl" />
+                  <FaCheckCircle className="text-secondary text-sm" />
                 )}
               </div>
             </div>

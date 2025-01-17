@@ -8,6 +8,8 @@ import IdCard from "./IdCard";
 import IdCard2 from "./IdCard2";
 import { messengers } from "@/config/constants";
 import { off } from "process";
+import LOADING from "../pages/LOADING";
+import { useAppProvider } from "@/app/context/AppProvider";
 
 export default function IdListInfinite({ initialIds, bookmarksId }) {
   const [offset, setOffset] = useState(Id_PER_PAGE);
@@ -15,6 +17,12 @@ export default function IdListInfinite({ initialIds, bookmarksId }) {
   const [userBookmarks, setUserBookmarks] = useState(bookmarksId);
   const [hasMoreData, setHasMoreData] = useState(true);
   const scrollTrigger = useRef(null);
+  const { filterList } = useAppProvider();
+  console.log("filterList 111--->", filterList);
+
+  useEffect(() => {
+    setIds(() => initialIds.filter((item) => item.messenger == 1));
+  }, [filterList]);
 
   const loadMoreIds = async () => {
     if (hasMoreData) {
@@ -29,13 +37,10 @@ export default function IdListInfinite({ initialIds, bookmarksId }) {
     }
   };
 
-  // useEffect(() => {
-  //   setOffset(Id_PER_PAGE);
-  // }, []);
   useEffect(() => {
-    console.log("scrollTrigger---->", scrollTrigger);
-
-    console.log("idsd--->", ids);
+    console.log("filterList Effect--->", filterList);
+  }, []);
+  useEffect(() => {
     if (typeof window === "undefined" || !window.IntersectionObserver) {
       return;
     }
@@ -62,14 +67,6 @@ export default function IdListInfinite({ initialIds, bookmarksId }) {
 
   return (
     <div>
-      {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full gap-8">
-        {messengers?.map((item) => (
-          <Suspense key={item.id} fallback={<p>Ey babababa</p>}>
-            <IdCard key={item.id} id={item} />
-          </Suspense>
-        ))}
-      </div> */}
-
       <div className="grid grid-cols-1 xl:grid-cols-2  w-full gap-8 container mx-auto ">
         {ids?.map((item) => (
           <Suspense
@@ -87,7 +84,9 @@ export default function IdListInfinite({ initialIds, bookmarksId }) {
 
       <div className="text-center text-slate-600 mt-5">
         {hasMoreData ? (
-          <div ref={scrollTrigger}>در حال دریافت ...</div>
+          <div ref={scrollTrigger}>
+            <LOADING />
+          </div>
         ) : (
           <p className="text-slate-600">کل آیدی ها دریافت شد</p>
         )}

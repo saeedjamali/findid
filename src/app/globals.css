@@ -148,7 +148,7 @@ body {
   }
 
   .bg-glass {
-    @apply bg-white/50 backdrop-blur-md rounded-xl border border-white/20 shadow-lg p-6
+    @apply bg-white/50 backdrop-blur-md rounded-xl border border-white/20 shadow-lg p-2
   }
 
 }

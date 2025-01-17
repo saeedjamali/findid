@@ -6,7 +6,7 @@ import { handleError } from "@/utils/handleError";
 
 export const getIds = async (offset, limit) => {
   const url = getApiUrl(offset, limit);
-
+  // console.log("filterList--->", filterList);
   try {
     const response = await fetch(url);
     const data = await response.json();
@@ -15,6 +15,7 @@ export const getIds = async (offset, limit) => {
       throw await handleError(response);
     }
     const idsCard = data.idsCard;
+
     return idsCard;
   } catch (error) {
     console.error(error);

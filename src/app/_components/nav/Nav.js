@@ -10,14 +10,13 @@ import { Button } from "@headlessui/react";
 import Messengers from "./Messengers";
 import Types from "./Types";
 import Subjects from "./Subjects";
+import { useAppProvider } from "@/app/context/AppProvider";
 
 function Nav() {
   const [isFilter, setIsFilter] = useState(false);
   const [isChecked, setIsCheked] = useState(false);
-  const [filterList, setFilterList] = useState([]);
-
-  console.log(filterList);
-  //   const BV = new BVAmbient();
+  const { filterList, setFilterList } = useAppProvider();
+  
   return (
     <div className=" w-full   ">
       <div className=" w-full flex flex-col items-center  p-4">
@@ -31,10 +30,10 @@ function Nav() {
           />
         </div>
         {isFilter && (
-          <div className="mt-8 bg-gradient-to-r from-header to-pink-600 rounded-xl p-2 ">
+          <div className="mt-8 bg-gradient-to-r from-header to-pink-700 rounded-xl p-2 ">
             <div>
               <Messengers setFilterList={setFilterList} />
-              <div className="grid grid-cols-2 gap-2 w-full  mt-2">
+              <div className="grid grid-cols-1 gap-2 w-full  mt-2">
                 <Types setFilterList={setFilterList} />
                 <Subjects setFilterList={setFilterList} />
               </div>

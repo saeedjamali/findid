@@ -156,7 +156,7 @@ function Header({ isAuthenticateUser }) {
   }, [otp]);
 
   return (
-    <div className=" w-full h-20  bg-header pr-8 pl-16">
+    <div className=" w-full h-20  bg-header pr-4 pl-12">
       <div className="container flex justify-between items-center h-full mx-auto">
         <Image
           src={"/images/logo-text-right.png"}
@@ -165,7 +165,7 @@ function Header({ isAuthenticateUser }) {
           alt="logo-findid"
           className="cursor-pointer"
           onClick={() => {
-            router.push("/",  { scroll: true });
+            router.push("/", { scroll: true });
             // router.refresh();
             // location.reload();
           }}
@@ -176,13 +176,21 @@ function Header({ isAuthenticateUser }) {
         </h1>
         <div className="mr-auto flex items-center gap-2 text-xl text-font-light-color font-shabnamBold">
           {pathname != "/new" && (
-            <button
-              className="text-white  text-[14px] mx-4 md:ml-8 bg-btn-orange px-4 py-1 rounded-md flex items-center justify-between hover:text-header"
-              onClick={handleNewAds}
-            >
-              <IoMdAdd className="font-iranSans md:ml-2 text-2xl" />
-              <span className="hidden md:flex">درج آیدی</span>
-            </button>
+            <>
+              <button
+                className="hidden text-white  text-[14px] mx-4 md:ml-8 bg-btn-orange px-2 md:px-4 py-1 rounded-md md:flex items-center justify-between hover:text-header"
+                onClick={handleNewAds}
+              >
+                <IoMdAdd className="font-iranSans md:ml-2 text-2xl" />
+                <span className="hidden md:flex">درج آیدی</span>
+              </button>
+              <button
+                className="fixed bottom-8 left-8 z-50 text-white  text-[14px]  bg-btn-orange px-1  py-1 rounded-full md:hidden items-center justify-between hover:text-header"
+                onClick={handleNewAds}
+              >
+                <IoMdAdd className="font-iranSans text-2xl" />
+              </button>
+            </>
           )}
           <span className="  cursor-pointer " onClick={handleProfile}>
             {isAuth ? (

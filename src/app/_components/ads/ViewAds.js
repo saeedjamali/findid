@@ -435,9 +435,9 @@ function ViewAds({ ads }) {
                     //   },
                     // }}
                   />
-                  <p className="absolute font-shabnam text-3xl text-gray-700 opacity-40">
+                  {/* <p className="absolute font-shabnam text-3xl text-gray-700 opacity-40">
                     تصویر یافت نشد
-                  </p>
+                  </p> */}
                 </>
               )}
               <div className="hidden w-full lg:flex flex-col mt-8 justify-start items-start p-2 bg-slate-100 rounded-lg">
@@ -474,6 +474,7 @@ function ViewAds({ ads }) {
               </ModalHeader>
               <ModalBody>
                 <Textarea
+                  className="text-wrap text-right"
                   isRequired
                   errorMessage="حداقل 100 کاراکتر درباره آیدی"
                   label="توضیحات"
