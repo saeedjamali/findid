@@ -30,7 +30,7 @@ services:
     restart: always 
     image: mongo:latest
     ports:
-      - "127.0.0.1:27017:27017"
+      - "27017:27017"
     volumes:
       - mongodb_data:/data/db
       - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
