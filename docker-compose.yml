@@ -1,9 +1,7 @@
 services:
   web:
     restart: always 
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: findid:latest
     env_file:
       - .env
     environment:
