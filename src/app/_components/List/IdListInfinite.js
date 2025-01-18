@@ -20,9 +20,9 @@ export default function IdListInfinite({ initialIds, bookmarksId }) {
   const { filterList } = useAppProvider();
   console.log("filterList 111--->", filterList);
 
-  useEffect(() => {
-    setIds(() => initialIds.filter((item) => item.messenger == 1));
-  }, [filterList]);
+  // useEffect(() => {
+  //   setIds(() => initialIds.filter((item) => item.messenger == 1));
+  // }, [filterList]);
 
   const loadMoreIds = async () => {
     if (hasMoreData) {
