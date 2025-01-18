@@ -18,7 +18,7 @@ export default function Search({ placeholder, setIsFilter }) {
           handleSearch(e.target.value);
         }}
       />
-      <div className="absolute left-0 top-0 bottom-0 w-28   flex items-center justify-center rounded-l-md cursor-pointer">
+      <div className="absolute left-0 top-0 bottom-0 md:w-28 w-20   flex items-center justify-center rounded-l-md cursor-pointer">
         <span className="bg-btn-orange text-white peer-focus:text-gray-900 w-1/2 h-full flex items-center justify-center hover:bg-opacity-35">
           <FaSearch className="text-xl " />
         </span>

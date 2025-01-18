@@ -185,10 +185,10 @@ function Header({ isAuthenticateUser }) {
                 <span className="hidden md:flex">درج آیدی</span>
               </button>
               <button
-                className="fixed bottom-8 left-8 z-50 text-white  text-[14px]  bg-btn-orange px-1  py-1 rounded-full md:hidden items-center justify-between hover:text-header"
+                className="fixed bottom-10 left-12 z-50 text-white  text-[18px]   bg-btn-orange px-1  py-1 rounded-full md:hidden items-center justify-between hover:text-header"
                 onClick={handleNewAds}
               >
-                <IoMdAdd className="font-iranSans text-2xl" />
+                <IoMdAdd className="font-iranSans text-3xl" />
               </button>
             </>
           )}
@@ -346,11 +346,11 @@ function Header({ isAuthenticateUser }) {
                   </div>
                 </div>
               </ModalBody>
-              <ModalFooter>
+              {/* <ModalFooter>
                 <Button color="foreground" variant="light" onPress={onClose}>
                   بستن
                 </Button>
-              </ModalFooter>
+              </ModalFooter> */}
             </>
           )}
         </ModalContent>
