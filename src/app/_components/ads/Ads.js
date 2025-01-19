@@ -742,8 +742,51 @@ export default function Ads({ action, ad }) {
                       setPrice(p);
                     }}
                     description={
-                      price ? price.toString().num2persian() + " تومان" : ""
+                      discount == 0 || !discount 
+                        ? price?.toString().num2persian() + " تومان"
+                        : `با احتساب تخفیف ${(price * (1 - discount / 100))
+                            .toFixed(0)
+                            .toString()
+                            .num2persian()} تومان`
                     }
+                  />
+                )}
+                {(action == 3 || action == 4) && !agreedPrice && (
+                  <Slider
+                    isDisabled={agreedPrice}
+                    classNames={{
+                      base: "gap-3 bg-header p-8 rounded-lg text-white",
+                      track: "border-s-secondary-100",
+                      filler:
+                        "bg-gradient-to-r from-secondary-100 to-secondary-500",
+                    }}
+                    defaultValue={0}
+                    label="تخفیف بر روی آگهی اعمال شود؟"
+                    value={discount}
+                    onChange={setDiscount}
+                    marks={[
+                      {
+                        value: 20,
+                        label: "20%",
+                      },
+                      {
+                        value: 50,
+                        label: "50%",
+                      },
+                      {
+                        value: 80,
+                        label: "80%",
+                      },
+                    ]}
+                    renderThumb={(props) => (
+                      <div
+                        {...props}
+                        className="group p-1 top-1/2 bg-background border-small border-default-200 dark:border-default-400/50 shadow-medium rounded-full cursor-grab data-[dragging=true]:cursor-grabbing"
+                      >
+                        <span className="transition-transform bg-gradient-to-br shadow-small from-secondary-100 to-secondary-500 rounded-full w-5 h-5 block group-data-[dragging=true]:scale-80" />
+                      </div>
+                    )}
+                    size="sm"
                   />
                 )}
               </div>
@@ -844,7 +887,15 @@ export default function Ads({ action, ad }) {
                       placeholder="آیدی در کدام پیام رسان است"
                       arr={messengers}
                       selectedKey={contactTypeMessenger}
-                      setSelectedKey={setContactTypeMessenger}
+                      setSelectedKey={(value) => {
+                        setContactTypeMessenger(value);
+                        // validateValue(
+                        //   isContactWithId,
+                        //   setIsInvalid,
+                        //   "contactTypeMessenger",
+                        //   setIsError
+                        // );
+                      }}
                     />
 
                     <Input
@@ -932,47 +983,10 @@ export default function Ads({ action, ad }) {
                   پسوند فایل Jpg باشد.
                 </p>
               </div>
-              {(action == 3 || action == 4) && !ads?.agreedPrice && (
-                <Slider
-                  classNames={{
-                    base: "gap-3 bg-header p-8 rounded-lg text-white",
-                    track: "border-s-secondary-100",
-                    filler:
-                      "bg-gradient-to-r from-secondary-100 to-secondary-500",
-                  }}
-                  defaultValue={0}
-                  label="تخفیف بر روی آگهی اعمال شود؟"
-                  value={discount}
-                  onChange={setDiscount}
-                  marks={[
-                    {
-                      value: 20,
-                      label: "20%",
-                    },
-                    {
-                      value: 50,
-                      label: "50%",
-                    },
-                    {
-                      value: 80,
-                      label: "80%",
-                    },
-                  ]}
-                  renderThumb={(props) => (
-                    <div
-                      {...props}
-                      className="group p-1 top-1/2 bg-background border-small border-default-200 dark:border-default-400/50 shadow-medium rounded-full cursor-grab data-[dragging=true]:cursor-grabbing"
-                    >
-                      <span className="transition-transform bg-gradient-to-br shadow-small from-secondary-100 to-secondary-500 rounded-full w-5 h-5 block group-data-[dragging=true]:scale-80" />
-                    </div>
-                  )}
-                  size="sm"
-                />
-              )}
+
               {(action == 3 || action == 4) && (
                 <Select
                   defaultSelectedKeys={[0]}
-                  isDisabled={agreedPrice}
                   // description="The second most popular pet in the world"
                   label="وضعیت آگهی"
                   // placeholder="Select an animal"

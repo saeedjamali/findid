@@ -65,7 +65,7 @@ export async function PUT(req) {
         description,
         members,
         agreedPrice,
-        price,
+        price: agreedPrice ? 0 : price,
         id,
         createDate,
         isShowPhoneOwnerIdCard,
@@ -77,33 +77,29 @@ export async function PUT(req) {
     );
 
     if (!foundId) {
-      foundId = await idDraftModel.create(
-        
-        {
-          registerId,
-          ownerIdCard,
-          isOwnerId,
-          ownerIdPhone,
-          code,
-          province,
-          city,
-          messenger,
-          type,
-          subject,
-          title,
-          description,
-          members,
-          agreedPrice,
-          price,
-          id,
-          createDate,
-          isShowPhoneOwnerIdCard,
-          contactWithPhone,
-          isContactWithId,
-          contactWithId,
-          contactTypeMessenger,
-        }
-      );
+      foundId = await idDraftModel.create({
+        registerId,
+        ownerIdCard,
+        isOwnerId,
+        ownerIdPhone,
+        code,
+        province,
+        city,
+        messenger,
+        type,
+        subject,
+        title,
+        description,
+        members,
+        agreedPrice,
+        price: agreedPrice ? 0 : price,
+        createDate,
+        isShowPhoneOwnerIdCard,
+        contactWithPhone,
+        isContactWithId,
+        contactWithId,
+        contactTypeMessenger,
+      });
     }
     profile?.map(async (img, index) => {
       const buffer = Buffer.from(await img.arrayBuffer());
@@ -122,7 +118,6 @@ export async function PUT(req) {
         }
       );
     });
-    
 
     if (foundId) {
       return Response.json({
@@ -130,7 +125,6 @@ export async function PUT(req) {
         status: 201,
       });
     }
-   
   } catch (error) {
     console.log("error in api add image>>", error);
     return Response.json({
