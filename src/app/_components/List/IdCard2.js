@@ -1,7 +1,7 @@
 // components/PostCard.tsx
 "use client";
 import Image from "next/image";
-import { types, subjects, years } from "@/config/constants";
+import { types, subjects, years,messengers } from "@/config/constants";
 import { FaBookmark, FaEye, FaRegBookmark } from "react-icons/fa";
 import { MdOutlineRemoveRedEye, MdUpdate } from "react-icons/md";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
@@ -26,7 +26,7 @@ import {
   Skeleton,
 } from "@nextui-org/react";
 import toast, { Toaster } from "react-hot-toast";
-import { messengers } from "@/data/constant";
+
 import { DateToString } from "@/utils/DateToString";
 import { useRouter } from "next/navigation";
 import { memberToK } from "@/utils/helper";

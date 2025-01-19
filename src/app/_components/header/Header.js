@@ -185,7 +185,7 @@ function Header({ isAuthenticateUser }) {
                 <span className="hidden md:flex">درج آیدی</span>
               </button>
               <button
-                className="fixed bottom-10 left-12 z-50 text-white  text-[18px]   bg-btn-orange px-1  py-1 rounded-full md:hidden items-center justify-between hover:text-header"
+                className="fixed bottom-10 right-12 z-50 text-white  text-[18px]   bg-btn-orange px-1  py-1 rounded-full md:hidden items-center justify-between hover:text-header"
                 onClick={handleNewAds}
               >
                 <IoMdAdd className="font-iranSans text-3xl" />

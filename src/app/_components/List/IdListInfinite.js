@@ -37,9 +37,7 @@ export default function IdListInfinite({ initialIds, bookmarksId }) {
     }
   };
 
-  useEffect(() => {
-    console.log("filterList Effect--->", filterList);
-  }, []);
+  
   useEffect(() => {
     if (typeof window === "undefined" || !window.IntersectionObserver) {
       return;

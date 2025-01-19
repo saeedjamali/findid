@@ -911,7 +911,7 @@ export default function Ads({ action, ad }) {
                       // user={user}
                     />
                   </div>
-                  {(ads?.profile?.length != 0 || !ads?.profile) && (
+                  {ads?.profile?.length != 0 && (
                     <div>
                       <ImageLoader
                         imageUrl={ads?.profile[0]}
