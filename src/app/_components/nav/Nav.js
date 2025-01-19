@@ -15,8 +15,8 @@ import { useAppProvider } from "@/app/context/AppProvider";
 function Nav() {
   const [isFilter, setIsFilter] = useState(false);
   const [isChecked, setIsCheked] = useState(false);
-  const { filterList, setFilterList } = useAppProvider();
-  
+  const { filterList, setFilterList, setRefresh } = useAppProvider();
+
   return (
     <div className=" w-full   ">
       <div className=" w-full flex flex-col items-center  p-4">
@@ -40,6 +40,10 @@ function Nav() {
 
               <div className="mt-4 flex items-end justify-end">
                 <Button
+                  onClick={() => {
+                    console.log("filterList");
+                    setRefresh((prev) => !prev);
+                  }}
                   className={
                     "bg-white  text-header  px-8 py-2 rounded-md hover:opacity-80 text-[12px] "
                   }

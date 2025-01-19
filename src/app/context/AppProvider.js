@@ -10,7 +10,7 @@ function AppProvider({ children, isAuthenticateUser }) {
   const [currentAd, setCurrentAd] = useState({});
   const [isAuthUser, setIsAuthUser] = useState(isAuthenticateUser);
   const [filterList, setFilterList] = useState([]);
-
+  const [refresh, setRefresh] = useState(false);
   // const [isShowSignInForm, setIsShowSignInForm] = useState("Hello");
   const [token, setToken] = useState("");
   const [signData, setSignData] = useState("");
@@ -23,6 +23,8 @@ function AppProvider({ children, isAuthenticateUser }) {
     <>
       <AppContext.Provider
         value={{
+          refresh,
+          setRefresh,
           filterList,
           setFilterList,
           currentAd,

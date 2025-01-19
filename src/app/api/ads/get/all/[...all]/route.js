@@ -1,8 +1,8 @@
 import connectToDB from "@/utils/db";
 import idCardModel from "@/models/IDCard/IDCard";
-
+import bookmarkModel from "@/models/IDCard/Bookmarks";
 export async function GET(req, { params, searchParams }) {
-  const [offset, limit] = await params?.all;
+  const [offset, limit, userId] = await params?.all;
 
   try {
     const { isConnected, message } = await connectToDB();
@@ -18,12 +18,20 @@ export async function GET(req, { params, searchParams }) {
       .sort({ createdAt: -1 })
       .skip(offset)
       .limit(limit);
+
+    let bookmarksId = [];
+    if (userId) {
+      bookmarksId = await bookmarkModel.find({ user: userId });
+    }
+
+    console.log("Oarams--->", idsCard);
     // console.log("idsCard--->", idsCard);
     // const len = admins.length;
     return Response.json({
       message: "با موفقیت دریافت شد",
       status: 201,
       idsCard,
+      bookmarksId,
     });
   } catch (error) {
     console.log("error in get ids --->", error);
