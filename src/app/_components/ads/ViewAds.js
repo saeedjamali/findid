@@ -265,7 +265,7 @@ function ViewAds({ ads }) {
               </div>
               <Divider />
               <div className="flex justify-between items-center p-2">
-                <span className="text-h1-color text-[14px]">
+                <span className="text-h1-color text-[14px] text-right">
                   قیمت{" "}
                   <span className="text-[12px] text-green-600">
                     {ads?.discount == 0 || !ads?.discount
@@ -303,16 +303,18 @@ function ViewAds({ ads }) {
               </div>
               <Divider />
               <div className="flex justify-between items-center p-2">
-                <span className="text-h1-color text-[14px]">تعداد اعضا</span>
-                <span className="flex items-center justify-center gap-2 text-h2-color text-[14px]">
+                <span className="text-h1-color text-[14px] text-right">تعداد اعضا</span>
+                <span className="flex items-center justify-center gap-2 text-h2-color text-[14px] text-left">
                   {(ads?.members).toLocaleString()}
                   <PiUser />
                 </span>
               </div>
               <Divider />
               <div className="flex justify-between items-center p-2">
-                <span className="text-h1-color text-[14px]">سال ساخت</span>
-                <span className="flex items-center justify-center gap-2 text-h2-color text-[14px]">
+                <span className="text-h1-color text-[14px] text-right">
+                  سال ساخت
+                </span>
+                <span className="flex items-center justify-center gap-2 text-h2-color text-[14px] text-left">
                   {years[ads?.createDate - 1].title}
                   <MdUpdate />
                 </span>
@@ -320,39 +322,39 @@ function ViewAds({ ads }) {
 
               <Divider />
               <div className="flex justify-between items-center p-2">
-                <span className="text-h1-color text-[14px]">
+                <span className="text-h1-color text-[14px] text-right">
                   تعداد بازدید این صفحه
                 </span>
-                <span className="flex items-center justify-center gap-2 text-h2-color text-[14px]">
+                <span className="flex items-center justify-center gap-2 text-h2-color text-[14px] text-left">
                   {memberToK(ads?.views)}
                   <MdOutlineRemoveRedEye />
                 </span>
               </div>
               <Divider />
               <div className="flex justify-between items-center p-2">
-                <span className="text-h1-color text-[14px]">
+                <span className="text-h1-color text-[14px] text-right">
                   تعداد بوک مارک شده ها
                 </span>
-                <span className=" flex items-center justify-center gap-2 text-h2-color text-[14px]">
+                <span className=" flex items-center justify-center gap-2 text-h2-color text-[14px] text-left">
                   {(ads?.bookmarks).toLocaleString()}
                   <FaRegBookmark />
                 </span>
               </div>
               <Divider />
               <div className="flex justify-between items-center p-2 ">
-                <span className="text-h1-color text-[14px]">
+                <span className="text-h1-color text-[14px] text-right">
                   زمان انتشار آگهی
                 </span>
-                <span className="text-h2-color text-[14px] ">
+                <span className="text-h2-color text-[14px] text-left">
                   {new Date(ads?.createdAt).toLocaleDateString("fa-IR")}
                 </span>
               </div>
               <Divider />
               <div className="flex justify-between items-center p-2 ">
-                <span className="text-h1-color text-[14px]">
+                <span className="text-h1-color text-[14px] text-right">
                   زمان بروزرسانی آگهی
                 </span>
-                <span className="text-h2-color text-[14px] ">
+                <span className="text-h2-color text-[14px] text-left">
                   {new Date(ads?.updatedAt).toLocaleDateString("fa-IR")}
                 </span>
               </div>
@@ -369,10 +371,10 @@ function ViewAds({ ads }) {
               {ads?.isShowPhoneOwnerIdCard && (
                 <>
                   <div className="flex  justify-between items-center p-2 ">
-                    <span className="text-h1-color text-[14px]">
+                    <span className="text-h1-color text-[14px] text-right">
                       شماره تماس
                     </span>
-                    <p className=" flex items-center justify-center text-h2-color text-[12px] mt-2 gap-3">
+                    <p className=" flex items-center justify-center text-h2-color text-[12px] mt-2 gap-3 text-left">
                       {ads?.contactWithPhone}
                       <IoCopy
                         className="text-small cursor-pointer"
@@ -391,10 +393,10 @@ function ViewAds({ ads }) {
               {ads?.isContactWithId && (
                 <>
                   <div className="flex  justify-between items-center p-2 ">
-                    <span className="text-h1-color text-[14px]">
+                    <span className="text-h1-color text-[14px] text-right">
                       آیدی جهت ارتباط با مالک
                     </span>
-                    <p className="flex items-center justify-center text-h2-color text-[12px] mt-2  gap-3">
+                    <p className="flex items-center justify-center text-h2-color text-[12px] mt-2  gap-3 text-left">
                       {ads?.contactWithId} در پیام رسان{" "}
                       {messengers[ads?.messenger - 1]?.title}
                       <IoCopy
@@ -409,8 +411,10 @@ function ViewAds({ ads }) {
                 </>
               )}
               <div className="flex w-full lg:hidden flex-col mt-4 justify-start items-start p-2 bg-slate-100 rounded-lg ">
-                <span className="text-h1-color text-[14px]">توضیحات</span>
-                <p className="text-h2-color text-[12px] mt-2 p-2">
+                <span className="text-h1-color text-[14px] text-right">
+                  توضیحات
+                </span>
+                <p className="text-h2-color text-[12px] mt-2 p-2 text-right">
                   {ads?.description}
                 </p>
               </div>

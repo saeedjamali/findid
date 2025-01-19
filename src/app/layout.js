@@ -33,7 +33,7 @@ export default async function RootLayout({ children }) {
           />
 
           <div className="p-4 bg-header min-h-screen ">
-            <div className="bg-[url('/images/bg-nav.svg')] bg-fixed rounded-2xl ">
+            <div className="bg-[url('/images/bg-nav.svg')] bg-fixed rounded-2xl  min-h-screen ">
               <AppProvider
                 isAuthenticateUser={JSON.parse(
                   JSON.stringify(isAuthenticateUser)

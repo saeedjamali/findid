@@ -523,6 +523,8 @@ export default function Ads({ action, ad }) {
     }
     setIdImage(imageList);
   };
+
+  console.log(ads?.profile);
   return (
     <div>
       <Toaster />
@@ -538,7 +540,9 @@ export default function Ads({ action, ad }) {
               className=""
             />
             <div className="flex flex-col">
-              <p className="text-h1-color font-bold">آگهی جدید</p>
+              <p className="text-h1-color font-bold">
+                {action == 3 ? "ویرایش آگهی" : "آگهی جدید"}
+              </p>
               {/* <p className="text-small text-default-500">nextui.org</p> */}
             </div>
           </CardHeader>
@@ -900,8 +904,8 @@ export default function Ads({ action, ad }) {
                 <p className="text-right text-gray-50 text-[14px] font-bold p-2">
                   تصویر منتخب پروفایل
                 </p>
-                <div className="gap-2 mt-4 flex justify-center bg-slate-100 rounded-md p-4">
-                  <div className="flex gap-2 flex-col md:flex-row">
+                <div className="gap-2 mt-4 flex justify-center bg-slate-100 rounded-md p-4 ">
+                  <div className="flex gap-2 flex-col md:flex-row ">
                     <ImageUploader
                       imageItems={idImage}
                       onChange={onChangeImage}
@@ -910,15 +914,16 @@ export default function Ads({ action, ad }) {
                       maxFileSize={maxFileSize}
                       // user={user}
                     />
+
+                    {typeof ads?.profile != "undefined" && (
+                      <div>
+                        <ImageLoader
+                          imageUrl={ads?.profile[0]}
+                          code={"profile"}
+                        />
+                      </div>
+                    )}
                   </div>
-                  {ads?.profile?.length != 0 && (
-                    <div>
-                      <ImageLoader
-                        imageUrl={ads?.profile[0]}
-                        code={"profile"}
-                      />
-                    </div>
-                  )}
                 </div>
                 <p className="text-[10px] text-gray-100 mt-1">
                   حجم تصویر حداکثر 2 مگابایت باشد.
@@ -927,7 +932,7 @@ export default function Ads({ action, ad }) {
                   پسوند فایل Jpg باشد.
                 </p>
               </div>
-              {(action == 3 || action == 4) && (
+              {((action == 3 || action == 4) && !ads?.agreedPrice) && (
                 <Slider
                   classNames={{
                     base: "gap-3 bg-header p-8 rounded-lg text-white",

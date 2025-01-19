@@ -7,7 +7,6 @@ import { FaCloudUploadAlt } from "react-icons/fa";
 import { Button } from "@nextui-org/react";
 import { toast } from "react-toastify";
 
-
 function ImageUploader({
   imageItems,
   onChange,
@@ -21,9 +20,7 @@ function ImageUploader({
   const [error, setError] = useState(null);
   const [result, setResult] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  
 
-  
   return (
     <div>
       <ImageUploading
@@ -46,7 +43,7 @@ function ImageUploader({
           errors,
         }) => (
           // write your building UI
-          <div className="flex flex-col w-full ">
+          <div className="flex flex-col w-full bg-blue-100 rounded-md px-4">
             {errors && (
               <div className="flex w-full">
                 <div className="flex flex-col justify-between">
@@ -79,14 +76,17 @@ function ImageUploader({
               <div className="flex justify-between  flex-1">
                 <div className="flex gap-2">
                   {imageList?.length == 0 ? (
-                    <span className="text-red-500"> انتخاب نشده</span>
+                    <span className="text-btn-orange text-[12px] font-shabnam">
+                      {" "}
+                      انتخاب نشده
+                    </span>
                   ) : (
                     imageList.map((image, index) => (
                       <div
                         key={index}
-                        className="relative flex items-center w-24 h-24 "
+                        className="relative flex items-center justify-center w-28 h-28  "
                       >
-                        <div className="flex-1 ">
+                        <div className="flex-1 box-border flex items-center justify-center">
                           <img
                             src={image?.data_url}
                             alt=""
@@ -128,10 +128,9 @@ function ImageUploader({
               >
                 <div className=" flex-1 flex-center rounded-md ">
                   {imageItems?.length != maxNumber && (
-                    <Button className="bg-transparent">
+                    <Button className="bg-transparent" onPress={onImageUpload}>
                       <FaCloudUploadAlt
                         className="text-xl text-blue-500"
-                        onClick={onImageUpload}
                         {...dragProps}
                       />
                     </Button>
