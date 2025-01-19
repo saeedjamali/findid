@@ -4,9 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": " next build", 
-   
-    "start": " next start", 
+    "build": "NODE_OPTIONS='--max-old-space-size=2048' next build",
+    "start": "NODE_OPTIONS='--max-old-space-size=2048' next start",
     "lint": "next lint"
   },
   "dependencies": {
