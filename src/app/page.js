@@ -24,7 +24,7 @@ export default function Home() {
 
       // console.log("filterList--->", filterList);
       try {
-        const response = await fetch(`${url}/${isAuthUser._id}`);
+        const response = await fetch(`${url}/${isAuthUser?._id}`);
         const data = await response.json();
 
         if (data.status == 201) {
@@ -47,7 +47,7 @@ export default function Home() {
   // if (authUser) {
   //   bookmarksId = await bookmarkModel.find({ user: authUser._id });
   // }
-  console.log("data root--->", initialIds);
+ 
   return (
     <div>
       <Toaster />

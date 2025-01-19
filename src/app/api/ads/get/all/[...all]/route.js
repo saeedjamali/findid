@@ -24,9 +24,7 @@ export async function GET(req, { params, searchParams }) {
       bookmarksId = await bookmarkModel.find({ user: userId });
     }
 
-    console.log("Oarams--->", idsCard);
-    // console.log("idsCard--->", idsCard);
-    // const len = admins.length;
+   
     return Response.json({
       message: "با موفقیت دریافت شد",
       status: 201,
