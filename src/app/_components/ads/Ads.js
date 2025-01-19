@@ -932,7 +932,7 @@ export default function Ads({ action, ad }) {
                   پسوند فایل Jpg باشد.
                 </p>
               </div>
-              {((action == 3 || action == 4) && !ads?.agreedPrice) && (
+              {(action == 3 || action == 4) && !ads?.agreedPrice && (
                 <Slider
                   classNames={{
                     base: "gap-3 bg-header p-8 rounded-lg text-white",
@@ -972,6 +972,7 @@ export default function Ads({ action, ad }) {
               {(action == 3 || action == 4) && (
                 <Select
                   defaultSelectedKeys={[0]}
+                  isDisabled={agreedPrice}
                   // description="The second most popular pet in the world"
                   label="وضعیت آگهی"
                   // placeholder="Select an animal"
