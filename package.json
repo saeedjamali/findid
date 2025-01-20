@@ -8,6 +8,7 @@
     "start": "NODE_OPTIONS='--max-old-space-size=2048' next start",
     "lint": "next lint"
   },
+  
   "dependencies": {
     "@directus/sdk": "^18.0.0",
     "@emotion/react": "^11.11.4",

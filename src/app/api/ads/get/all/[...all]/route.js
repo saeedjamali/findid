@@ -6,6 +6,7 @@ export async function GET(req, { params, searchParams }) {
 
   try {
     const { isConnected, message } = await connectToDB();
+    console.log("get from server all ads....");
     if (!isConnected) {
       return Response.json({ message: "خطا در اتصال به پایگاه", status: 500 });
     }
@@ -24,7 +25,6 @@ export async function GET(req, { params, searchParams }) {
       bookmarksId = await bookmarkModel.find({ user: userId });
     }
 
-   
     return Response.json({
       message: "با موفقیت دریافت شد",
       status: 201,
