@@ -16,7 +16,7 @@ function Subjects({ setFilterList }) {
                 onValueChange={(key) => {
                   const id = Number(item.id + "" + item.category);
                   if (key) {
-                    setFilterList((prev) => [...prev, item]);
+                    setFilterList((prev) => [...prev, {category:item?.category,id:item?.id}]);
                   } else {
                     // console.log("Category--->", item.category);
                     setFilterList((prev) =>

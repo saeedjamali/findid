@@ -12,7 +12,7 @@ function Messengers({ setFilterList }) {
     const newMessageLeis = messengerList.map((m) => {
       if (m.id == item?.id) {
         if (!m.status) {
-          setFilterList((prev) => [...prev, item]);
+          setFilterList((prev) => [...prev, {category:item?.category,id:item?.id}]);
         } else {
           // console.log("Category--->", item.category);
           setFilterList((prev) =>

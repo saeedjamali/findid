@@ -6,7 +6,7 @@ import connectToDB from "@/utils/db";
 export async function POST(req) {
   const body = await req.json();
   const { phone, code } = body;
-  console.log(body);
+  // console.log(body);
   if (!phone) {
     throw new Error("phone is not corrected...");
   }
