@@ -319,7 +319,7 @@ export default function Ads({ action, ad }) {
       );
 
       await validateValue(
-        !agreedPrice && !price && price!=0,
+        !agreedPrice && (!price || price==0),
         setIsInvalid,
         "price",
         setIsError
