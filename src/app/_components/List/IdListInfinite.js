@@ -10,6 +10,7 @@ import { messengers } from "@/config/constants";
 import { off } from "process";
 import LOADING from "../pages/LOADING";
 import { useAppProvider } from "@/app/context/AppProvider";
+import { getApiUrl } from "@/utils/getApiUrl";
 
 export default function IdListInfinite({ initialIds, bookmarksId }) {
   const [offset, setOffset] = useState(Id_PER_PAGE);
@@ -17,16 +18,31 @@ export default function IdListInfinite({ initialIds, bookmarksId }) {
   const [userBookmarks, setUserBookmarks] = useState(bookmarksId);
   const [hasMoreData, setHasMoreData] = useState(true);
   const scrollTrigger = useRef(null);
-  const { filterList } = useAppProvider();
-  // console.log("filterList 111--->", filterList);
+  const { filterList, isAuthUser } = useAppProvider();
 
   // useEffect(() => {
   //   setIds(() => initialIds.filter((item) => item.messenger == 1));
   // }, [filterList]);
 
   const loadMoreIds = async () => {
+    const url = getApiUrl(offset, Id_PER_PAGE);
+    console.log("Running Page 2 load more url", url);
     if (hasMoreData) {
-      const apiIds = await getIds(offset, Id_PER_PAGE);
+      // console.log("offset-->data", data);
+      let apiIds = [];
+      try {
+        const response = await fetch(`${url}/${isAuthUser?._id}`);
+        const data = await response.json();
+        console.log("Running Page 2 load more data", data);
+        if (data.status == 201) {
+          apiIds = data.idsCard;
+        } else {
+          toast("داده ای یافت نشد");
+        }
+      } catch (error) {
+        console.log("error from main--->", error);
+      }
+      // const apiIds = await getIds(offset, Id_PER_PAGE);
 
       if (!apiIds.length) {
         setHasMoreData(false);
@@ -37,7 +53,6 @@ export default function IdListInfinite({ initialIds, bookmarksId }) {
     }
   };
 
-  
   useEffect(() => {
     if (typeof window === "undefined" || !window.IntersectionObserver) {
       return;

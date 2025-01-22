@@ -1,12 +1,17 @@
 import connectToDB from "@/utils/db";
 import idCardModel from "@/models/IDCard/IDCard";
 import bookmarkModel from "@/models/IDCard/Bookmarks";
+const mongoose = require('mongoose');
+
 export async function GET(req, { params, searchParams }) {
   const [offset, limit, userId] = await params?.all;
 
   try {
     const { isConnected, message } = await connectToDB();
-    console.log("get from server all ads....");
+    console.log(
+      "get from server all ads....",
+      mongoose.Types.ObjectId.isValid(userId)
+    );
     if (!isConnected) {
       return Response.json({ message: "خطا در اتصال به پایگاه", status: 500 });
     }
@@ -21,7 +26,7 @@ export async function GET(req, { params, searchParams }) {
       .limit(limit);
 
     let bookmarksId = [];
-    if (userId) {
+    if (mongoose.Types.ObjectId.isValid(userId)) {
       bookmarksId = await bookmarkModel.find({ user: userId });
     }
 

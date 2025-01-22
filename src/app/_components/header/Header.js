@@ -23,6 +23,7 @@ import toast from "react-hot-toast";
 import { CiEdit } from "react-icons/ci";
 import Countdown from "react-countdown";
 import { BiLogOutCircle } from "react-icons/bi";
+import { useAppProvider } from "@/app/context/AppProvider";
 const timeInterval = Date.now() + 120000;
 function Header({ isAuthenticateUser }) {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
@@ -42,6 +43,7 @@ function Header({ isAuthenticateUser }) {
   const [url, setUrl] = useState("/");
   const [waitForSendOtpCode, setWaitForSendOtpCode] = useState(false);
   const [waitForVerifyOtpCode, setWaitForVerifyOtpCode] = useState(false);
+  const { filterList, setFilterList, setRefresh } = useAppProvider();
 
   const handleNewAds = async () => {
     if (isAuth) {
@@ -165,6 +167,7 @@ function Header({ isAuthenticateUser }) {
           alt="logo-findid"
           className="cursor-pointer"
           onClick={() => {
+            setRefresh(false);
             router.push("/", { scroll: true });
             // router.refresh();
             // location.reload();
