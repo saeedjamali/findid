@@ -50,7 +50,7 @@ import ImageLoader from "../imageUploader/imageLoader";
 const maxFileSize = 2000000; //100KB
 const acceptType = "jpg";
 export default function Ads({ action, ad }) {
-  const { isAuthUser } = useAppProvider();
+  const { isAuthUser,setRefresh } = useAppProvider();
   const router = useRouter();
 
   const { phone, _id, role } = isAuthUser;
@@ -284,6 +284,7 @@ export default function Ads({ action, ad }) {
       const data = await res.json();
       if (data.status == 201) {
         toast.success(data.message);
+        setRefresh(false)
         router.push("/");
       } else {
         toast.error(data.message);
@@ -419,6 +420,7 @@ export default function Ads({ action, ad }) {
       const data = await res.json();
       if (data.status == 200) {
         toast.success(data.message);
+        setRefresh(false)
         router.push("/");
       } else {
         toast.error(data.message);
@@ -479,6 +481,7 @@ export default function Ads({ action, ad }) {
       const data = await res.json();
       if (data.status == 201) {
         toast.success(data.message);
+        setRefresh(false)
         router.push("/");
       } else {
         toast.error(data.message);
@@ -968,7 +971,7 @@ export default function Ads({ action, ad }) {
                       // user={user}
                     />
 
-                    {(typeof ads?.profile != "undefined" || ads?.profile?.length==0) && (
+                    {(typeof ads?.profile != "undefined" || ads?.profile.length!=0) && (
                       <div>
                         <ImageLoader
                           imageUrl={ads?.profile[0]}

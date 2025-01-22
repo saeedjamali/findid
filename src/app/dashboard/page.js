@@ -14,7 +14,6 @@ import { Toaster } from "react-hot-toast";
 import { MdOutlineReportGmailerrorred } from "react-icons/md";
 import Report from "../_components/dashboard/Report";
 
-
 function Dashboard() {
   const { isAuthUser } = useAppProvider();
   const { role } = isAuthUser;
@@ -23,6 +22,7 @@ function Dashboard() {
   const [view, setView] = useState(1); //? 1: My Ads - 2: My Bookmark
 
   if (!isAuthUser) {
+    setRefresh(false);
     router.push("/");
   }
 
@@ -71,7 +71,7 @@ function Dashboard() {
               <li>
                 <Button
                   className={`w-full flex text-[14px] text-header hover:text-white bg-orange-500 p-4 m-2 items-center lg:justify-start gap-x-2  rounded-lg justify-center active:bg-orange-700 ${
-                    view == 3&& "bg-orange-800 text-white"
+                    view == 3 && "bg-orange-800 text-white"
                   }`}
                   onPress={() => setView(3)}
                 >
@@ -90,15 +90,12 @@ function Dashboard() {
           ) : view == 2 ? (
             <div className=" h-full w-full">
               <MyBookmarks ownerIdCard={isAuthUser._id} goToAds={goToAds} />
-
             </div>
-          ) : 
-          view == 3 ? (
+          ) : view == 3 ? (
             <div className=" h-full w-full">
               <Report ownerIdCard={isAuthUser._id} goToAds={goToAds} />
-
             </div>
-          ) :null}
+          ) : null}
         </div>
       </div>
     </div>
