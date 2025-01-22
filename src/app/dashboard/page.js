@@ -23,7 +23,7 @@ function Dashboard() {
 
   if (!isAuthUser) {
     setRefresh(prev=>!prev)
-    router.push("/");
+    router.push("/", { scroll: true });
   }
 
   const goToAds = async (id, title) => {

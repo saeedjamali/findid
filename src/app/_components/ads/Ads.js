@@ -285,7 +285,7 @@ export default function Ads({ action, ad }) {
       if (data.status == 201) {
         toast.success(data.message);
         setRefresh(prev=>!prev)
-        router.push("/");
+        router.push("/", { scroll: true });
       } else {
         toast.error(data.message);
       }
@@ -421,7 +421,7 @@ export default function Ads({ action, ad }) {
       if (data.status == 200) {
         toast.success(data.message);
         setRefresh(prev=>!prev)
-        router.push("/");
+        router.push("/", { scroll: true });
       } else {
         toast.error(data.message);
       }
@@ -482,7 +482,7 @@ export default function Ads({ action, ad }) {
       if (data.status == 201) {
         toast.success(data.message);
         setRefresh(prev=>!prev)
-        router.push("/");
+        router.push("/", { scroll: true });
       } else {
         toast.error(data.message);
       }
