@@ -100,9 +100,7 @@ function ViewAds({ ads }) {
         toast.success(data.message);
         setIsBookmarked(true);
         //router.push("/");
-      }
-
-      if (data.status == 201) {
+      } else if (data.status == 201) {
         toast.success(data.message);
         setIsBookmarked(false);
         //router.push("/");
@@ -302,7 +300,9 @@ function ViewAds({ ads }) {
               </div>
               <Divider />
               <div className="flex justify-between items-center p-2">
-                <span className="text-h1-color text-[14px] text-right">تعداد اعضا</span>
+                <span className="text-h1-color text-[14px] text-right">
+                  تعداد اعضا
+                </span>
                 <span className="flex items-center justify-center gap-2 text-h2-color text-[14px] text-left">
                   {(ads?.members).toLocaleString()}
                   <PiUser />
