@@ -28,23 +28,20 @@ export default async function RootLayout({ children }) {
       </head>
       <body>
         <div>
-        <AppProvider
-                isAuthenticateUser={JSON.parse(
-                  JSON.stringify(isAuthenticateUser)
-                )}
-              >
-          <Header
+          <AppProvider
             isAuthenticateUser={JSON.parse(JSON.stringify(isAuthenticateUser))}
-          />
-
-          <div className="p-4 bg-header min-h-screen ">
-            <div className="bg-[url('/images/bg-nav.svg')] bg-fixed rounded-2xl  min-h-screen ">
-            
+          >
+            <Header
+              isAuthenticateUser={JSON.parse(
+                JSON.stringify(isAuthenticateUser)
+              )}
+            />
+            <div className="p-4 bg-header min-h-screen ">
+              <div className="bg-[url('/images/bg-nav.svg')] bg-fixed rounded-2xl  min-h-screen ">
                 {children}
-              
+              </div>
             </div>
-          </div>
-        </AppProvider>
+          </AppProvider>
         </div>
       </body>
     </html>

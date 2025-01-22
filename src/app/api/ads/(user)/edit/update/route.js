@@ -13,6 +13,7 @@ export async function PUT(req) {
   }
   const formData = await req.formData();
 
+  console.log("formData--->", formData);
   const profile = formData.getAll("profile");
   const isAdmin = formData.get("isAdmin");
   const ownerIdCardPhone = formData.get("ownerIdCardPhone"); //? ثبت کننده آگهی
@@ -41,6 +42,7 @@ export async function PUT(req) {
   const isContactWithId = formData.get("isContactWithId");
   const contactWithId = formData.get("contactWithId");
   const contactTypeMessenger = formData.get("contactTypeMessenger");
+
   try {
     if (!isConnected) {
       return Response.json({ message: "خطا در اتصال به پایگاه", status: 500 });
@@ -60,7 +62,7 @@ export async function PUT(req) {
           description,
           members,
           agreedPrice,
-          price: agreedPrice ? 0 : price,
+          price: agreedPrice == "true" ? 0 : price,
           createDate,
           isShowPhoneOwnerIdCard,
           contactWithPhone,
@@ -68,7 +70,7 @@ export async function PUT(req) {
           contactWithId,
           contactTypeMessenger,
           registerAdsWith: isAdmin && isAuth.role == "ADMIN" ? "ADMIN" : "USER",
-          discount: agreedPrice ? 0 : discount,
+          discount: (agreedPrice == "true" ? 0 : discount),
           status: statusAds,
           isShow: statusAds == 2 || statusAds == 3 ? false : true,
         }
@@ -88,7 +90,7 @@ export async function PUT(req) {
           description,
           members,
           agreedPrice,
-          price: agreedPrice ? 0 : price,
+          price: (agreedPrice == "true" ? 0 : price),
           createDate,
           isShowPhoneOwnerIdCard,
           contactWithPhone,
@@ -96,7 +98,7 @@ export async function PUT(req) {
           contactWithId,
           contactTypeMessenger,
           registerAdsWith: isAdmin && isAuth.role == "ADMIN" ? "ADMIN" : "USER",
-          discount: agreedPrice ? 0 : discount,
+          discount: (agreedPrice == "true" ? 0 : discount),
           status: statusAds,
           isShow: statusAds == 2 || statusAds == 3 ? false : true,
         }

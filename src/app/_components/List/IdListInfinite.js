@@ -11,6 +11,9 @@ import { off } from "process";
 import LOADING from "../pages/LOADING";
 import { useAppProvider } from "@/app/context/AppProvider";
 import { getApiUrl } from "@/utils/getApiUrl";
+import { Switch } from "@heroui/switch";
+import { MoonIcon, SunIcon } from "@heroicons/react/24/outline";
+import { CiImageOff, CiImageOn } from "react-icons/ci";
 
 export default function IdListInfinite({ initialIds, bookmarksId }) {
   const [offset, setOffset] = useState(Id_PER_PAGE);
@@ -19,10 +22,17 @@ export default function IdListInfinite({ initialIds, bookmarksId }) {
   const [hasMoreData, setHasMoreData] = useState(true);
   const scrollTrigger = useRef(null);
   const { filterList, isAuthUser } = useAppProvider();
+  const [showImage, setShowImage] = useState(true);
+  // useEffect(() => {
+  //   let value = localStorage.getItem("showImage") || true;
+  //   console.log("showImage first-->", showImage);
+  //   setShowImage(value);
+  // }, []);
 
   // useEffect(() => {
-  //   setIds(() => initialIds.filter((item) => item.messenger == 1));
-  // }, [filterList]);
+  //   localStorage.setItem("showImage", showImage);
+  //   console.log("showImage sec-->", showImage);
+  // }, [showImage]);
 
   const loadMoreIds = async () => {
     const url = getApiUrl(offset, Id_PER_PAGE);
@@ -79,7 +89,19 @@ export default function IdListInfinite({ initialIds, bookmarksId }) {
 
   return (
     <div>
-      <div className="grid grid-cols-1 xl:grid-cols-2  w-full gap-8 container mx-auto ">
+      <Switch
+        isSelected={showImage}
+        onValueChange={setShowImage}
+        defaultSelected={false}
+        className="text-[12px] p-4"
+        color="success"
+        endContent={<CiImageOff />}
+        size="sm"
+        startContent={<CiImageOn />}
+      >
+        نمایش تصاویر
+      </Switch>
+      <div className="grid grid-cols-1  xl:grid-cols-2  w-full gap-8 container mx-auto ">
         {ids?.map((item) => (
           <Suspense
             key={item._id}
@@ -89,7 +111,12 @@ export default function IdListInfinite({ initialIds, bookmarksId }) {
               </p>
             }
           >
-            <IdCard2 key={item._id} item={item} bookmarks={bookmarksId} />
+            <IdCard2
+              key={item._id}
+              item={item}
+              bookmarks={bookmarksId}
+              showImage={showImage}
+            />
           </Suspense>
         ))}
       </div>

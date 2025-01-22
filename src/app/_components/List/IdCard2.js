@@ -1,7 +1,7 @@
 // components/PostCard.tsx
 "use client";
 import Image from "next/image";
-import { types, subjects, years,messengers } from "@/config/constants";
+import { types, subjects, years, messengers } from "@/config/constants";
 import { FaBookmark, FaEye, FaRegBookmark } from "react-icons/fa";
 import { MdOutlineRemoveRedEye, MdUpdate } from "react-icons/md";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
@@ -34,7 +34,7 @@ import { useEffect, useState } from "react";
 import { useAppProvider } from "@/app/context/AppProvider";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import ImageLoader from "../imageUploader/imageLoader";
-export default function IdCard2({ item, bookmarks }) {
+export default function IdCard2({ item, bookmarks, showImage }) {
   const router = useRouter();
   const { isAuthUser } = useAppProvider();
   const { phone, _id, role } = isAuthUser;
@@ -46,7 +46,6 @@ export default function IdCard2({ item, bookmarks }) {
 
   useEffect(() => {
     setIsBookmarked(() => bookmarks?.some((bk) => bk.idCard == item._id));
-  
   }, []);
 
   const copyToClipboard = (text, value) => {
@@ -103,40 +102,41 @@ export default function IdCard2({ item, bookmarks }) {
         className={` w-full col-span-1 md:h-60  relative bg-glass p-0 flex flex-col md:flex-row z-10 overflow-hidden `}
       >
         {/* //? Profile image */}
-        <div className="w-full md:w-1/3 ">
-          {/* <Skeleton > */}
-          <div className=" w-full h-52 md:h-full  rounded-full flex items-center justify-center bg-cover bg-center bg-no-repeat">
-            {/* <Image
+        {showImage && (
+          <div className="w-full md:w-1/3 ">
+            {/* <Skeleton > */}
+            <div className=" w-full h-52 md:h-full  rounded-full flex items-center justify-center bg-cover bg-center bg-no-repeat">
+              {/* <Image
               alt={""}
               width={100}
               height={100}
               src={"/images/2.jpg"}
               className="g-cover bg-center bg-no-repeat w-full h-full"
             ></Image> */}
-            {item?.profile?.length != 0 ? (
-              <ImageLoader imageUrl={item?.profile[0]} code={"profile"} />
-            ) : (
-              <>
-                <LazyLoadImage
-                  src={"/images/logo.png"}
-                  className=" h-64 w-96 rounded-lg object-fill opacity-10"
-                  width={100}
-                  height={100}
-                  alt="profile"
-                  // effect="blur"
-                  // wrapperProps={{
-                  //   // If you need to, you can tweak the effect transition using the wrapper style.
-                  //   style: {
-                  //     transitionDelay: "1s",
-                  //   },
-                  // }}
-                />
-                {/* <p className="absolute font-shabnam text-3xl text-gray-700 opacity-40">
+              {item?.profile?.length != 0 ? (
+                <ImageLoader imageUrl={item?.profile[0]} code={"profile"} />
+              ) : (
+                <>
+                  <Image
+                    src={"/images/logo.png"}
+                    className=" h-64 w-96 rounded-lg object-fill opacity-10 p-8"
+                    width={100}
+                    height={100}
+                    alt="profile"
+                    // effect="blur"
+                    // wrapperProps={{
+                    //   // If you need to, you can tweak the effect transition using the wrapper style.
+                    //   style: {
+                    //     transitionDelay: "1s",
+                    //   },
+                    // }}
+                  />
+                  {/* <p className="absolute font-shabnam text-3xl text-gray-700 opacity-40">
                   تصویر یافت نشد
                 </p> */}
-              </>
-            )}
-            {/* <LazyLoadImage
+                </>
+              )}
+              {/* <LazyLoadImage
               className="bg-center bg-no-repeat w-full h-full"
               alt={""}
               width={100}
@@ -151,14 +151,15 @@ export default function IdCard2({ item, bookmarks }) {
               }
               placeholderSrc="/images/logo.png"
             ></LazyLoadImage> */}
+            </div>
+            {/* </Skeleton> */}
           </div>
-          {/* </Skeleton> */}
-        </div>
+        )}
         {/* //? title - member - price - description and type */}
         <div className="w-full md:w-2/3 pr-8 p-4 box-border flex flex-col justify-between">
           <div>
             <Skeleton className=" rounded-lg" isLoaded>
-              <h1 className="font-shabnamBold text-[16px] mt-4 text-h1-color">
+              <h1 className="font-bold text-[16px] mt-4 text-h1-color">
                 {item?.title}
               </h1>
             </Skeleton>
@@ -235,7 +236,22 @@ export default function IdCard2({ item, bookmarks }) {
             <span className="p-1"> این کانال با هدف آموزش و ساخت کاردستی ایجاد شده است</span>
           </div> */}
 
-            <div className="relative w-full flex items-center justify-end mt-4 gap-2 ">
+            <div
+              className={` w-full flex items-center justify-end mt-4 gap-2 ${
+                !showImage && "absolute left-6 bottom-6"
+              }`}
+            >
+              {!showImage && item?.profile?.length != 0 && (
+                <Tooltip className="bg-header text-white" content="تصویر">
+                  <span className="rounded-full w-8 h-8 bg-header flex items-center justify-center text-[16px] text-white cursor-pointer overflow-hidden object-fill">
+                    <ImageLoader
+                      imageUrl={item?.profile[0]}
+                      code={"profile"}
+                      size={"48px"}
+                    />
+                  </span>
+                </Tooltip>
+              )}
               <Tooltip className="bg-header text-white" content="نشان کردن">
                 <span
                   className="relative rounded-full w-8 h-8 bg-header flex items-center justify-center text-[16px] text-white cursor-pointer"
@@ -306,27 +322,51 @@ export default function IdCard2({ item, bookmarks }) {
           </div>
         </div>
 
-        <div className="flex items-center justify-center absolute right-4 top-0  mt-4 gap-2">
-          <div className="flex items-center justify-center bg-font-light-color rounded-lg px-2">
-            <span className=" w-6 h-6 rounded-full ">
-              <MdOutlineRemoveRedEye className="w-5 h-5" />
-            </span>
+        {showImage ? (
+          <div className="flex items-center justify-center absolute right-4 top-0  mt-4 gap-2">
+            <div className="flex items-center justify-center bg-font-light-color rounded-lg px-2">
+              <span className=" w-6 h-6 rounded-full ">
+                <MdOutlineRemoveRedEye className="w-5 h-5" />
+              </span>
 
-            <div className=" rounded-r-full flex items-center justify-center   font-thin text-[10px]">
-              {memberToK(item?.views)}
+              <div className=" rounded-r-full flex items-center justify-center   font-thin text-[10px]">
+                {memberToK(item?.views)}
+              </div>
             </div>
+            <span className="relative w-6 h-6 rounded-full text-btn-orange">
+              <Tooltip
+                className="bg-header text-white"
+                content={`${item?.discount} درصد تخفیف`}
+              >
+                {item?.discount != 0 && (
+                  <RiDiscountPercentFill className="w-5 h-5" />
+                )}
+              </Tooltip>
+            </span>
           </div>
-          <span className="relative w-6 h-6 rounded-full text-btn-orange">
-            <Tooltip
-              className="bg-header text-white"
-              content={`${item?.discount} درصد تخفیف`}
-            >
-              {item?.discount != 0 && (
-                <RiDiscountPercentFill className="w-5 h-5" />
-              )}
-            </Tooltip>
-          </span>
-        </div>
+        ) : (
+          <div className="flex flex-col items-center justify-center absolute left-4 top-14  mt-4 gap-2">
+            <div className="flex items-center justify-center bg-font-light-color rounded-lg px-2">
+              <span className=" w-6 h-6 rounded-full ">
+                <MdOutlineRemoveRedEye className="w-5 h-5" />
+              </span>
+
+              <div className=" rounded-r-full flex items-center justify-center   font-thin text-[10px]">
+                {memberToK(item?.views)}
+              </div>
+            </div>
+            <span className="relative w-6 h-6 rounded-full text-btn-orange">
+              <Tooltip
+                className="bg-header text-white"
+                content={`${item?.discount} درصد تخفیف`}
+              >
+                {item?.discount != 0 && (
+                  <RiDiscountPercentFill className="w-5 h-5" />
+                )}
+              </Tooltip>
+            </span>
+          </div>
+        )}
       </div>
       <Modal
         backdrop="opaque"

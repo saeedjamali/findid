@@ -109,7 +109,7 @@ export async function POST(req) {
       description,
       members,
       agreedPrice,
-      price: agreedPrice ? 0 : price,
+      price:agreedPrice == "true" ? 0 : price,
       id,
       createDate,
       isShowPhoneOwnerIdCard,

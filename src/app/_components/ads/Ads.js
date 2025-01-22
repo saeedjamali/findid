@@ -72,7 +72,7 @@ export default function Ads({ action, ad }) {
   const [agreedPrice, setAgreedPrice] = useState(ads?.agreedPrice || false);
   const [phoneInp, setPhoneInp] = useState(phone);
   const [createDate, setCreateDate] = useState(ads?.createDate || 0);
-  const [price, setPrice] = useState(ads?.price);
+  const [price, setPrice] = useState(ads?.price || 0);
   const [isOwnerId, setIsOwnerId] = useState(ads?.isOwnerId || true);
   const [ownerIdPhone, setOwnerIdPhone] = useState(ads?.ownerIdPhone);
   const [isShowPhoneOwnerIdCard, setIsShowPhoneOwnerIdCard] = useState(
@@ -186,7 +186,7 @@ export default function Ads({ action, ad }) {
       );
 
       await validateValue(
-        !agreedPrice && !price,
+        !agreedPrice && (!price || price == 0),
         setIsInvalid,
         "price",
         setIsError
@@ -642,6 +642,7 @@ export default function Ads({ action, ad }) {
               />
 
               <Input
+                isClearable
                 isRequired
                 errorMessage="یک عنوان وارد نمایید(حداقل 3 کاراکتر)"
                 color={isInvalid.title ? "danger" : "primary"}
@@ -662,6 +663,7 @@ export default function Ads({ action, ad }) {
                 labelPlacement={"inside"}
               />
               <Textarea
+                isClearable
                 isRequired
                 errorMessage="حداقل 20 کاراکتر درباره آیدی"
                 color={isInvalid?.description ? "danger" : "primary"}
@@ -680,6 +682,7 @@ export default function Ads({ action, ad }) {
                 }}
               />
               <Input
+                isClearable
                 isDisabled={isDisable}
                 isRequired
                 label="تعداد اعضا"
@@ -718,6 +721,7 @@ export default function Ads({ action, ad }) {
 
                 {!agreedPrice && (
                   <Input
+                    isClearable
                     errorMessage="قیمت وارد نمایید"
                     color={isInvalid?.price ? "danger" : "primary"}
                     isInvalid={isInvalid?.price}
@@ -737,7 +741,7 @@ export default function Ads({ action, ad }) {
                       setPrice(p);
                     }}
                     description={
-                      discount == 0 || !discount 
+                      discount == 0 || !discount
                         ? price?.toString().num2persian() + " تومان"
                         : `با احتساب تخفیف ${(price * (1 - discount / 100))
                             .toFixed(0)
@@ -802,6 +806,7 @@ export default function Ads({ action, ad }) {
                 />
                 {!isOwnerId && (
                   <Input
+                    isClearable
                     // label="شناسه (آیدی) "
                     errorMessage="شماره را صحیح وارد نمایید"
                     description="این شماره در آگهی نمایش داده نمی شود"
@@ -834,6 +839,7 @@ export default function Ads({ action, ad }) {
 
                 {isShowPhoneOwnerIdCard && (
                   <Input
+                    isClearable
                     isRequired
                     errorMessage="شماره همراه وارد نمایید"
                     color={isInvalid.phone ? "danger" : "primary"}
@@ -894,6 +900,7 @@ export default function Ads({ action, ad }) {
                     />
 
                     <Input
+                      isClearable
                       dir="ltr"
                       className="text-right py-4"
                       endContent="@"

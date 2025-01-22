@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { FaCloudDownloadAlt } from "react-icons/fa";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
-function ImageLoader({ imageUrl, code }) {
+function ImageLoader({ imageUrl, code, size }) {
   const [image, setImage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
@@ -26,8 +26,7 @@ function ImageLoader({ imageUrl, code }) {
   }, []);
   return (
     <div>
-   
-        {/* <img
+      {/* <img
           src={image}
           alt=""
           width="100"
@@ -35,23 +34,22 @@ function ImageLoader({ imageUrl, code }) {
           className="w-6 h-6 rounded-full"
         /> */}
 
-        <LazyLoadImage
-          effect="blur"
-          wrapperProps={{
-            // If you need to, you can tweak the effect transition using the wrapper style.
-            style: {
-              transitionDelay: "1s",
-              width: "100%",
-              height: "100%",
-            },
-          }}
-          src={image}
-          className=" h-64 w-96 rounded-lg object-fill"
-          width={100}
-          height={100}
-          alt="profile"
-        />
-      
+      <LazyLoadImage
+        effect="blur"
+        wrapperProps={{
+          // If you need to, you can tweak the effect transition using the wrapper style.
+          style: {
+            transitionDelay: "1s",
+            width: "100%",
+            height: "100%",
+          },
+        }}
+        src={image}
+        className={`${size ? `h-[${size}] w-[${size}]` : "h-64 w-64"} rounded-lg object-fill`}
+        width={100}
+        height={100}
+        alt="profile"
+      />
     </div>
   );
 }
