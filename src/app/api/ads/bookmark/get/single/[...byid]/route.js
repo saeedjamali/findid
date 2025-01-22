@@ -6,7 +6,6 @@ import connectToDB from "@/utils/db";
 import { authenticateUser } from "@/utils/authenticateMe";
 
 export async function GET(req, { params }) {
-  console.log("Psraarms------>", await params?.byid)
   try {
     const authUser = await authenticateUser();
     if (!authUser) {
@@ -17,7 +16,6 @@ export async function GET(req, { params }) {
       return Response.json({ message: "خطا در ارتباط با پایگاه", status: 419 });
     }
     const [userid, adsid] = await params?.byid;
-    console.log("body--->", userid);
     // console.log("authUser--->", authUser);
 
     const findBookmark = await bookmarkModel.findOne({

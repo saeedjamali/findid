@@ -8,7 +8,7 @@ import { content } from "../../../../tailwind.config";
 export default function Search({ placeholder, setIsFilter }) {
   const { filterList } = useAppProvider();
   function handleSearch(term) {
-    console.log(term);
+    // console.log(term);
   }
 
   return (

@@ -15,7 +15,6 @@ export async function POST(req, { params, searchParams }) {
       return Response.json({ message: "خطا در اتصال به پایگاه", status: 500 });
     }
     const filters = formData.getAll("filters");   
-    console.log("formData--->", filters);
     //   console.log("ownerIdCard--->", ownerIdCard);
 
     const idsCard = await idCardModel

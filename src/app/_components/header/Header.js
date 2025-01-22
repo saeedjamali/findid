@@ -85,7 +85,6 @@ function Header({ isAuthenticateUser }) {
       body: JSON.stringify({ phone: phoneInp }),
     });
     const dataP = await res.json();
-    console.log(dataP);
     if (dataP.status == 200) {
       // setIsSendSms(true);
       toast.success("کد به شماره همراه ثبت شده ارسال شد.");

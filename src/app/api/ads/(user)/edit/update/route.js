@@ -41,7 +41,6 @@ export async function PUT(req) {
   const isContactWithId = formData.get("isContactWithId");
   const contactWithId = formData.get("contactWithId");
   const contactTypeMessenger = formData.get("contactTypeMessenger");
-  console.log("statusAds--->", statusAds);
   try {
     if (!isConnected) {
       return Response.json({ message: "خطا در اتصال به پایگاه", status: 500 });

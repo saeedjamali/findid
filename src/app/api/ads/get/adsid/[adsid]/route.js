@@ -6,7 +6,6 @@ export async function GET(req, { params }) {
   //   if (!(await authenticateUser())) {
   //     return Response.json({ message: "دسترسی غیر مجاز", status: 500 });
   //   }
-  console.log("idsCard.views------------->");
   try {
     const { isConnected, message } = await connectToDB();
     if (!isConnected) {

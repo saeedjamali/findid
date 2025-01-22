@@ -161,7 +161,6 @@ function MyAds({ ownerIdCard, goToAds }) {
   }, [refresh]);
 
   const deleteMyAds = async () => {
-    console.log("ownerIdCard:", ownerIdCard);
     onClose();
     setIsLoadingDelete(true);
     try {

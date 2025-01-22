@@ -126,7 +126,6 @@ function Report({ ownerIdCard, goToAds }) {
   const [isLoadingDelete, setIsLoadingDelete] = useState(false);
   const [isLoadingShow, setIsLoadingShow] = useState(false);
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
-  console.log("idsCard---->", isAuthUser);
 
   useEffect(() => {
     // let url =
@@ -158,7 +157,6 @@ function Report({ ownerIdCard, goToAds }) {
               reportCode: prev?.code,
             };
           });
-          console.log("idsCard---->", newAds);
           setAds(newAds);
         } else {
           toast.error(data?.message);

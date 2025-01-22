@@ -70,7 +70,6 @@ function ViewAds({ ads }) {
         `/api/ads/bookmark/get/single/${_id}/${ads._id}`
       );
       const data = await response.json();
-      console.log("Data---->", data.findBookmark);
       if (data?.findBookmark) {
         setIsBookmarked(true);
       } else {

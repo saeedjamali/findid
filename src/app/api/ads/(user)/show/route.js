@@ -6,7 +6,6 @@ export async function PUT(req) {
   const body = await req.json();
   const { ownerIdCard, adsId, isShowFromUser } = body;
   const authUser = await authenticateUser();
-  console.log("authUser--->", body);
 
   const { _id, role } = authUser;
   try {

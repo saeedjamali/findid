@@ -6,7 +6,6 @@ import connectToDB from "@/utils/db";
 import { authenticateUser } from "@/utils/authenticateMe";
 
 export async function GET(req, { params }) {
-  console.log("bookmarks---->", "bookmarks");
   try {
     const authUser = await authenticateUser();
     const { _id } = authUser;
@@ -23,7 +22,6 @@ export async function GET(req, { params }) {
       .find({ user: userId })
       .populate("idCard");
     const idsCard = bookmarks.map((bk) => bk.idCard);
-    console.log("bookmarks---->", idsCard);
     return Response.json({
       message: "آگهی های نشان شده دریافت شد",
       status: 200,

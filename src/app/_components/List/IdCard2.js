@@ -46,10 +46,7 @@ export default function IdCard2({ item, bookmarks }) {
 
   useEffect(() => {
     setIsBookmarked(() => bookmarks?.some((bk) => bk.idCard == item._id));
-    console.log(
-      "isBookmarkSend--->",
-      bookmarks?.some((bk) => bk.idCard == item._id)
-    );
+  
   }, []);
 
   const copyToClipboard = (text, value) => {

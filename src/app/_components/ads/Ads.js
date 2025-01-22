@@ -104,7 +104,6 @@ export default function Ads({ action, ad }) {
   const [isLoadingEdit, setIsLoadingEdit] = useState(false);
   const [isError, setIsError] = useState(false);
   const [isDisable, seIisDisable] = useState(true);
-  console.log("statusAds--->", statusAds);
   useEffect(() => {
     setAds(ad);
     setTitle(ad?.title);
@@ -217,7 +216,6 @@ export default function Ads({ action, ad }) {
         "createDate",
         setIsError
       );
-      console.log("InInvalid 2", isInvalid);
       if (!isOwnerId) {
         if (!valiadtePhone(ownerIdPhone)) {
           setIsInvalid((prev) => {
@@ -350,7 +348,6 @@ export default function Ads({ action, ad }) {
         "createDate",
         setIsError
       );
-      console.log("InInvalid 2", isInvalid);
       if (!isOwnerId) {
         if (!valiadtePhone(ownerIdPhone)) {
           setIsInvalid((prev) => {
@@ -452,7 +449,6 @@ export default function Ads({ action, ad }) {
         formData.append("profile", image.file);
       }
 
-      console.log("InInvalid 2", isInvalid);
       formData.append("registerId", registerId);
       formData.append("ownerIdCard", ownerIdCard);
       formData.append("isOwnerId", isOwnerId);
@@ -524,7 +520,6 @@ export default function Ads({ action, ad }) {
     setIdImage(imageList);
   };
 
-  console.log(ads?.profile);
   return (
     <div>
       <Toaster />

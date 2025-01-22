@@ -12,7 +12,6 @@ export async function POST(req) {
     connectToDB();
     const body = await req.json();
     const { phone } = body;
-    console.log("Phone---->", phone);
     if (!phone) {
       throw new Error("This api protected and you can't access it !!");
     }

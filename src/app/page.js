@@ -18,7 +18,6 @@ export default function Home() {
   const { isAuthUser, filterList, refresh, setRefresh } = useAppProvider();
 
   useEffect(() => {
-    console.log("Running Page 1");
     const getAds = async () => {
       const url = getApiUrl(0, Id_PER_PAGE);
       // /api/ads/get/all/${offset}/${limit}

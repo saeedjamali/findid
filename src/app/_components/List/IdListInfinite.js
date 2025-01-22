@@ -33,7 +33,6 @@ export default function IdListInfinite({ initialIds, bookmarksId }) {
       try {
         const response = await fetch(`${url}/${isAuthUser?._id}`);
         const data = await response.json();
-        console.log("Running Page 2 load more data", data);
         if (data.status == 201) {
           apiIds = data.idsCard;
         } else {

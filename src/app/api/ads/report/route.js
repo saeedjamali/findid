@@ -12,7 +12,6 @@ export async function POST(req) {
       return Response.json({ message: "خطا در ارتباط با پایگاه", status: 419 });
     }
     const body = await req.json();
-    console.log("body--->", body);
     // console.log("authUser--->", authUser);
     const { userid, adsid, description } = body;
     const maxCode = await reportModel.find().sort({ code: -1 }).limit(1);

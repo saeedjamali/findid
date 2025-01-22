@@ -36,7 +36,6 @@ function View() {
 
     getAds(searchParams.get("id"));
   }, [searchParams]);
-  console.log("Ads--->", ads);
   return (
     <div className="min-h-screen w-full ">
       {!ads || ads == null ? (
