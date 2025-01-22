@@ -750,7 +750,7 @@ export default function Ads({ action, ad }) {
                     }
                   />
                 )}
-                {(action == 3 || action == 4) && !agreedPrice && (
+                {(action == 3 || action == 4) && !agreedPrice && price != 0 && (
                   <Slider
                     isDisabled={agreedPrice}
                     classNames={{
