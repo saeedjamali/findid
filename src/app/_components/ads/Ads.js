@@ -318,7 +318,7 @@ export default function Ads({ action, ad }) {
       );
 
       await validateValue(
-        !agreedPrice && !price,
+        !agreedPrice && !price && price!=0,
         setIsInvalid,
         "price",
         setIsError
@@ -968,7 +968,7 @@ export default function Ads({ action, ad }) {
                       // user={user}
                     />
 
-                    {typeof ads?.profile != "undefined" && (
+                    {(typeof ads?.profile != "undefined" || ads?.profile?.length==0) && (
                       <div>
                         <ImageLoader
                           imageUrl={ads?.profile[0]}
