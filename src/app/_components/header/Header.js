@@ -166,7 +166,7 @@ function Header({ isAuthenticateUser }) {
           alt="logo-findid"
           className="cursor-pointer"
           onClick={() => {
-            setRefresh(false);
+            setRefresh((prev) => !prev);
             router.push("/", { scroll: true });
             // router.refresh();
             // location.reload();

@@ -22,7 +22,7 @@ function Dashboard() {
   const [view, setView] = useState(1); //? 1: My Ads - 2: My Bookmark
 
   if (!isAuthUser) {
-    setRefresh(false);
+    setRefresh(prev=>!prev)
     router.push("/");
   }
 

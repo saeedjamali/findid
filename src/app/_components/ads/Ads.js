@@ -284,7 +284,7 @@ export default function Ads({ action, ad }) {
       const data = await res.json();
       if (data.status == 201) {
         toast.success(data.message);
-        setRefresh(false)
+        setRefresh(prev=>!prev)
         router.push("/");
       } else {
         toast.error(data.message);
@@ -420,7 +420,7 @@ export default function Ads({ action, ad }) {
       const data = await res.json();
       if (data.status == 200) {
         toast.success(data.message);
-        setRefresh(false)
+        setRefresh(prev=>!prev)
         router.push("/");
       } else {
         toast.error(data.message);
@@ -481,7 +481,7 @@ export default function Ads({ action, ad }) {
       const data = await res.json();
       if (data.status == 201) {
         toast.success(data.message);
-        setRefresh(false)
+        setRefresh(prev=>!prev)
         router.push("/");
       } else {
         toast.error(data.message);
@@ -971,7 +971,7 @@ export default function Ads({ action, ad }) {
                       // user={user}
                     />
 
-                    {(typeof ads?.profile != "undefined" || ads?.profile.length!=0) && (
+                    {(typeof ads?.profile != "undefined" || ads?.profile.length!=0 || !ads?.profile) && (
                       <div>
                         <ImageLoader
                           imageUrl={ads?.profile[0]}
