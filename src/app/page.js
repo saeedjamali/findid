@@ -13,7 +13,7 @@ import { useAppProvider } from "./context/AppProvider";
 export default function Home() {
   const [initialIds, setinitialIds] = useState([]);
   const [bookmarks, setIsBookmarks] = useState([]);
-
+  const [sort, setSort] = useState(0);
   // const [filterList, setFilterList] = useState([]);
   const { isAuthUser, filterList, refresh, setRefresh } = useAppProvider();
 
@@ -24,14 +24,14 @@ export default function Home() {
 
       // console.log("filterList--->", filterList);
       try {
-        const response = await fetch(`${url}/${isAuthUser?._id}`);
+        const response = await fetch(`${url}/${isAuthUser?._id}/${sort}`);
         const data = await response.json();
-
+console.log("data--->",data)
         if (data.status == 201) {
           setinitialIds(data.idsCard);
           setIsBookmarks(data.bookmarksId);
 
-          setRefresh(true);
+          // setRefresh(true);
         } else {
           toast("داده ای یافت نشد");
         }
@@ -60,6 +60,9 @@ export default function Home() {
           <IdListInfinite
             initialIds={initialIds}
             bookmarksId={JSON.parse(JSON.stringify(bookmarks))}
+            setSort={setSort}
+            sort={sort}
+            setRefresh={setRefresh}
           />
         )}
       </div>

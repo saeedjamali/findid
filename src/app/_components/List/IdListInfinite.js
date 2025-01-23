@@ -2,7 +2,7 @@
 
 "use client";
 import React, { useState, useRef, useEffect, Suspense } from "react";
-import { Id_PER_PAGE } from "@/config/constants";
+import { Id_PER_PAGE, sorts } from "@/config/constants";
 import { getIds } from "@/actions/getIds";
 import IdCard from "./IdCard";
 import IdCard2 from "./IdCard2";
@@ -14,9 +14,17 @@ import { getApiUrl } from "@/utils/getApiUrl";
 import { Switch } from "@heroui/switch";
 import { MoonIcon, SunIcon } from "@heroicons/react/24/outline";
 import { CiImageOff, CiImageOn } from "react-icons/ci";
+import { Select, SelectSection, SelectItem } from "@heroui/select";
 
-export default function IdListInfinite({ initialIds, bookmarksId }) {
+export default function IdListInfinite({
+  initialIds,
+  bookmarksId,
+  setSort,
+  sort,
+  setRefresh,
+}) {
   const [offset, setOffset] = useState(Id_PER_PAGE);
+
   const [ids, setIds] = useState(initialIds);
   const [userBookmarks, setUserBookmarks] = useState(bookmarksId);
   const [hasMoreData, setHasMoreData] = useState(true);
@@ -87,20 +95,42 @@ export default function IdListInfinite({ initialIds, bookmarksId }) {
     };
   }, [hasMoreData, offset]);
 
+  console.log(sort);
   return (
     <div>
-      <Switch
-        isSelected={showImage}
-        onValueChange={setShowImage}
-        defaultSelected={false}
-        className="text-[12px] p-4"
-        color="success"
-        endContent={<CiImageOff />}
-        size="sm"
-        startContent={<CiImageOn />}
-      >
-        نمایش تصاویر
-      </Switch>
+      <div className="flex justify-between items-center w-full my-4">
+        <Select
+          className={"w-40"}
+          defaultSelectedKeys={0}
+          // label="مرتب سازی"
+          placeholder="مرتب سازی"
+          labelPlacement="outside-left"
+          SelectItem={sort}
+          variant="bordered"
+          onChange={(e) => {
+            setSort(e.target.value);
+            setRefresh((prev) => !prev);
+          }}
+        >
+          {sorts.map((st) => (
+            <SelectItem key={st.id}>{st.title}</SelectItem>
+          ))}
+        </Select>
+
+        <Switch
+          isSelected={showImage}
+          onValueChange={setShowImage}
+          defaultSelected={false}
+          className="text-[12px] p-4"
+          color="success"
+          endContent={<CiImageOff />}
+          size="sm"
+          startContent={<CiImageOn />}
+        >
+          نمایش تصاویر
+        </Switch>
+      </div>
+
       <div className="grid grid-cols-1  lg:grid-cols-2  w-full gap-2 xl:gap-4 container mx-auto ">
         {ids?.map((item) => (
           <Suspense

@@ -255,6 +255,13 @@ export const status = [
   { id: 3, title: "موقتا غیر فعال " },
   { id: 4, title: "حذف  " },
 ];
+export const sorts = [
+  { id: 0, title: "تاریخ ثبت" },
+  { id: 1, title: "تاریخ بروزرسانی" },
+  { id: 2, title: "تعداد اعضا" },
+  { id: 3, title: "تعداد مشاهده " },
+];
+
 
 export const years = [
   { id: 1, title: "2025" },

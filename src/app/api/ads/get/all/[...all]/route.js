@@ -4,14 +4,11 @@ import bookmarkModel from "@/models/IDCard/Bookmarks";
 const mongoose = require('mongoose');
 
 export async function GET(req, { params, searchParams }) {
-  const [offset, limit, userId] = await params?.all;
+  const [offset, limit, userId,sort] = await params?.all;
 
   try {
     const { isConnected, message } = await connectToDB();
-    console.log(
-      "get from server all ads....",
-      mongoose.Types.ObjectId.isValid(userId)
-    );
+   const sorts =['createdAt','updatedAt','members','views']
     if (!isConnected) {
       return Response.json({ message: "خطا در اتصال به پایگاه", status: 500 });
     }
@@ -21,7 +18,7 @@ export async function GET(req, { params, searchParams }) {
 
     const idsCard = await idCardModel
       .find({ isShow: true })
-      .sort({ createdAt: -1 })
+      .sort({ [`${sorts[sort]}`]: -1 })
       .skip(offset)
       .limit(limit);
 

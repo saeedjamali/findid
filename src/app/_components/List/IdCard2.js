@@ -99,7 +99,7 @@ export default function IdCard2({ item, bookmarks, showImage }) {
     <>
       <Toaster />
       <div
-        className={` w-full col-span-1 md:h-62  relative bg-glass p-0 flex flex-col md:flex-row z-10 overflow-hidden `}
+        className={` w-full col-span-1 md:h-62  relative bg-glass p-0 flex flex-col md:flex-row z-10  shadow-gray-400  mt-4 md:mt-0`}
       >
         {/* //? Profile image */}
         {showImage && (
@@ -311,10 +311,12 @@ export default function IdCard2({ item, bookmarks, showImage }) {
         {/* //? messenger icon */}
 
         <div
-          className="cursor-pointer "
+          className="cursor-pointer z-10 "
+        
           onClick={() => copyToClipboard(item?.id, "آیدی کپی شد")}
         >
-          <div className="absolute w-10 h-10 rounded-full flex items-center justify-center top-6 left-4 bg-white ring-2 ring-white z-10">
+          <div className={`absolute w-10 h-10 rounded-full flex items-center justify-center left-4 bg-white ring-2 ring-white z-10   ${!showImage ? " -top-2 md:top-6" :"top-6" }`}
+           >
             <Image
               alt={""}
               width={100}
@@ -323,7 +325,7 @@ export default function IdCard2({ item, bookmarks, showImage }) {
             ></Image>
           </div>
           <div
-            className="absolute h-6 w-auto rounded-r-full flex cursor-pointer items-center  justify-center top-6 left-12  md:-z-10  text-[12px] font-bold px-8 border-2 bg-white"
+            className={`absolute h-6 w-auto rounded-r-full flex cursor-pointer items-center  justify-center left-12  md:-z-10  text-[12px] font-bold px-8 border-2 bg-white  ${!showImage ? " -top-2 md:top-6" :"top-6" } `}
             style={{
               border: `${messengers[item?.messenger - 1].color} solid 3px`,
             }}
@@ -356,7 +358,7 @@ export default function IdCard2({ item, bookmarks, showImage }) {
             </span>
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center absolute left-4 top-14  mt-4 gap-2">
+          <div className="flex flex-col items-center justify-center absolute left-4 top-6 md:top-14  mt-4 gap-2">
             <div className="flex items-center justify-center bg-font-light-color rounded-lg px-2">
               <span className=" w-6 h-6 rounded-full ">
                 <MdOutlineRemoveRedEye className="w-5 h-5" />
