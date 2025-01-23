@@ -67,6 +67,9 @@ function Header({ isAuthenticateUser }) {
     location.reload();
     toast.success("خارج شدید");
   };
+
+  console.log("resend--->", resend);
+  console.log("validOtp-->", validOtp);
   const handleSendOtp = async (event) => {
     if (!valiadtePhone(phoneInp?.trim())) {
       toast.error("شماره همراه وارد شده صحیح نمی باشد.");
@@ -308,7 +311,10 @@ function Header({ isAuthenticateUser }) {
                             <Countdown
                               date={time}
                               renderer={renderer}
-                              onComplete={() => setResend(true)}
+                              onComplete={() => {
+                                setValidOtp(false);
+                                setResend(true);
+                              }}
                             />{" "}
                             ثانیه
                           </>

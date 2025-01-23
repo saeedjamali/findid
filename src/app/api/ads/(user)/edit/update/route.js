@@ -42,7 +42,7 @@ export async function PUT(req) {
   const isContactWithId = formData.get("isContactWithId");
   const contactWithId = formData.get("contactWithId");
   const contactTypeMessenger = formData.get("contactTypeMessenger");
-
+  console.log("profile--->", profile);
   try {
     if (!isConnected) {
       return Response.json({ message: "خطا در اتصال به پایگاه", status: 500 });
@@ -62,6 +62,7 @@ export async function PUT(req) {
           description,
           members,
           agreedPrice,
+          profile: profile.length == 0 && [],
           price: agreedPrice == "true" ? 0 : price,
           createDate,
           isShowPhoneOwnerIdCard,
@@ -70,7 +71,7 @@ export async function PUT(req) {
           contactWithId,
           contactTypeMessenger,
           registerAdsWith: isAdmin && isAuth.role == "ADMIN" ? "ADMIN" : "USER",
-          discount: (agreedPrice == "true" ? 0 : discount),
+          discount: agreedPrice == "true" ? 0 : discount,
           status: statusAds,
           isShow: statusAds == 2 || statusAds == 3 ? false : true,
         }
@@ -89,8 +90,9 @@ export async function PUT(req) {
           title,
           description,
           members,
+          profile: profile?.length == 0 && [],
           agreedPrice,
-          price: (agreedPrice == "true" ? 0 : price),
+          price: agreedPrice == "true" ? 0 : price,
           createDate,
           isShowPhoneOwnerIdCard,
           contactWithPhone,
@@ -98,7 +100,7 @@ export async function PUT(req) {
           contactWithId,
           contactTypeMessenger,
           registerAdsWith: isAdmin && isAuth.role == "ADMIN" ? "ADMIN" : "USER",
-          discount: (agreedPrice == "true" ? 0 : discount),
+          discount: agreedPrice == "true" ? 0 : discount,
           status: statusAds,
           isShow: statusAds == 2 || statusAds == 3 ? false : true,
         }

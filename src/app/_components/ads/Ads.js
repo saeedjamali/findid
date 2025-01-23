@@ -47,6 +47,9 @@ import {
 import Num2persian from "num2persian";
 
 import ImageLoader from "../imageUploader/imageLoader";
+import { RiCandleFill, RiRecycleFill } from "react-icons/ri";
+import { TrashIcon } from "@heroicons/react/24/outline";
+import { FaTrashAlt } from "react-icons/fa";
 const maxFileSize = 2000000; //100KB
 const acceptType = "jpg";
 export default function Ads({ action, ad }) {
@@ -90,7 +93,7 @@ export default function Ads({ action, ad }) {
     ads?.contactTypeMessenger || 0
   );
   const [draft, setDraft] = useState(ads?.draft);
-  const [idImage, setIdImage] = useState(ads?.idImage || []);
+  const [idImage, setIdImage] = useState([]);
   const [province, setProvince] = useState(ads?.province || 1);
   const [city, setCity] = useState(ads?.city || 0);
   const [discount, setDiscount] = useState(ads?.discount);
@@ -101,15 +104,18 @@ export default function Ads({ action, ad }) {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingDraft, setIsLoadingDraft] = useState(false);
   const [isLoadingDeleteDraft, setIsLoadingDeleteDraft] = useState(false);
+  const [isLoadingDeleteProfile, setIsLoadingDeleteProfile] = useState(false);
   const [isLoadingEdit, setIsLoadingEdit] = useState(false);
   const [isError, setIsError] = useState(false);
   const [isDisable, seIisDisable] = useState(true);
+
+  console.log("idImage--->", idImage);
   useEffect(() => {
     setAds(ad);
     setTitle(ad?.title);
     // setId(ads?.id);
     // setMessenger(ads?.messenger);
-  }, [ads]);
+  }, []);
   useEffect(() => {
     if (type == 3) {
       seIisDisable(true);
@@ -493,6 +499,30 @@ export default function Ads({ action, ad }) {
     setIsLoadingDraft(false);
   };
 
+  const handleDeleteProfile = async () => {
+    setAds((prev) => {
+      return { ...prev, profile: [] };
+    });
+    setIsLoadingDeleteProfile(true);
+
+    try {
+      const response = await fetch(`/api/ads/deleteprofile/${ads?._id}`, {
+        method: "PUT",
+      });
+
+      const data = await response.json();
+
+      if (data.status == 201) {
+        toast.success(data.message);
+        // location.reload();
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.log("error from remove company Handler --->", error);
+    }
+    setIsLoadingDeleteDraft(false);
+  };
   const handleDeleteDraftAds = async () => {
     setIsLoadingDeleteDraft(true);
 
@@ -971,14 +1001,28 @@ export default function Ads({ action, ad }) {
                       // user={user}
                     />
 
-                    {(typeof ads?.profile != "undefined" ||
-                      ads?.profile.length != 0 ||
-                      !ads?.profile) && (
-                      <div>
+                    {/* typeof ads?.profile != "undefined" || */}
+                    {ads && ads?.profile.length == 1 && (
+                      <div className="relative">
                         <ImageLoader
                           imageUrl={ads?.profile[0]}
                           code={"profile"}
+                          size={"24px"}
                         />
+                        {(action == 3 || action == 4 || action == 2) && (
+                          <span
+                            className="absolute top-2 left-2 text-red-500 font-bold w-5 h-5 cursor-pointer"
+                            // onClick={handleDeleteProfile}
+                            onClick={() => {
+                              console.log(ads);
+                              setAds((prev) => {
+                                return { ...prev, profile: [] };
+                              });
+                            }}
+                          >
+                            {<FaTrashAlt />}
+                          </span>
+                        )}{" "}
                       </div>
                     )}
                   </div>

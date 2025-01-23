@@ -6,6 +6,7 @@ import { CiTrash } from "react-icons/ci";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { Button } from "@nextui-org/react";
 import { toast } from "react-toastify";
+import ImageLoader from "./imageLoader";
 
 function ImageUploader({
   imageItems,
@@ -20,7 +21,7 @@ function ImageUploader({
   const [error, setError] = useState(null);
   const [result, setResult] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
+  console.log("imageItems--->", imageItems);
   return (
     <div>
       <ImageUploading
@@ -81,12 +82,12 @@ function ImageUploader({
                       انتخاب نشده
                     </span>
                   ) : (
-                    imageList.map((image, index) => (
+                    imageList?.map((image, index) => (
                       <div
                         key={index}
-                        className="relative flex items-center justify-center w-28 h-28  "
+                        className="relative flex items-center justify-center w-28 h-28   "
                       >
-                        <div className="flex-1 box-border flex items-center justify-center">
+                        <div className="flex-1 box-border flex items-center justify-center ">
                           <img
                             src={image?.data_url}
                             alt=""
@@ -94,13 +95,30 @@ function ImageUploader({
                             height="100"
                             className="w-24 h-24  rounded-md"
                           />
+                          {/* {typeof image === "object" && image !== null ? (
+                            <img
+                              src={image?.data_url}
+                              alt=""
+                              width="100"
+                              height="100"
+                              className="w-24 h-24  rounded-md"
+                            />
+                          ) : (
+                            <ImageLoader
+                              imageUrl={image}
+                              code={"profile"}
+                              size={"128px"}
+                            />
+                          )} */}
                         </div>
 
                         {!result && (
                           <div className=" text-[12px]  w-24 absolute  bottom-1 flex items-center justify-center">
                             <button
                               className="bg-green-300 rounded-md p-[4px] text-white font-bold text-md"
-                              onClick={() => onImageUpdate(index)}
+                              onClick={() => {
+                                onImageUpdate(index);
+                              }}
                             >
                               <MdOutlineModeEdit />
                             </button>

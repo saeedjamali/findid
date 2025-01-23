@@ -45,7 +45,7 @@ function ImageLoader({ imageUrl, code, size }) {
           },
         }}
         src={image}
-        className={`${size ? `h-[${size}] w-[${size}]` : "h-64 w-screen "} md:rounded-lg object-cover `}
+        className={`${size ? `h-[${size}] w-[${size}]` : "h-64 w-screen "}  rounded-lg object-center `}
         width={100}
         height={100}
         alt="profile"
