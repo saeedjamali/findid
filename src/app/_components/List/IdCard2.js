@@ -103,9 +103,9 @@ export default function IdCard2({ item, bookmarks, showImage }) {
       >
         {/* //? Profile image */}
         {showImage && (
-          <div className="w-full md:w-1/3 ">
+          <div className="w-full md:w-1/3  ">
             {/* <Skeleton > */}
-            <div className=" w-full h-52 md:h-full  rounded-full flex items-center justify-center bg-cover bg-center bg-no-repeat">
+            <div className=" w-full h-64 md:h-full  rounded-full flex items-center justify-center bg-cover bg-center bg-no-repeat ">
               {/* <Image
               alt={""}
               width={100}
@@ -158,7 +158,7 @@ export default function IdCard2({ item, bookmarks, showImage }) {
         {/* //? title - member - price - description and type */}
         <div
           className={`w-full  pr-8 p-4 box-border flex flex-col justify-between ${
-            showImage ? "w-2/3" :" w - full"
+            showImage ? "md:w-2/3" :" w - full"
           }`}
         >
           <div>

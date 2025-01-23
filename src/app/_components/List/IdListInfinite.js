@@ -101,7 +101,7 @@ export default function IdListInfinite({ initialIds, bookmarksId }) {
       >
         نمایش تصاویر
       </Switch>
-      <div className="grid grid-cols-1  lg:grid-cols-2 xl:grid-cols-3  w-full lg:gap-2 xl:gap-4 container mx-auto ">
+      <div className="grid grid-cols-1  lg:grid-cols-2 xl:grid-cols-3  w-full gap-2 xl:gap-4 container mx-auto ">
         {ids?.map((item) => (
           <Suspense
             key={item._id}
