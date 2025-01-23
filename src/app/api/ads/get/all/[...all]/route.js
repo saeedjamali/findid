@@ -1,18 +1,17 @@
 import connectToDB from "@/utils/db";
 import idCardModel from "@/models/IDCard/IDCard";
 import bookmarkModel from "@/models/IDCard/Bookmarks";
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 export async function GET(req, { params, searchParams }) {
-  const [offset, limit, userId,sort] = await params?.all;
+  const [offset, limit, userId, sort] = await params?.all;
 
   try {
     const { isConnected, message } = await connectToDB();
-   const sorts =['createdAt','updatedAt','members','views']
+    const sorts = ["createdAt", "updatedAt", "members", "views"];
     if (!isConnected) {
       return Response.json({ message: "خطا در اتصال به پایگاه", status: 500 });
     }
-    const ownerIdCard = await params.id;
 
     //   console.log("ownerIdCard--->", ownerIdCard);
 
@@ -22,6 +21,7 @@ export async function GET(req, { params, searchParams }) {
       .skip(offset)
       .limit(limit);
 
+    console.log("idsCard--->", idsCard);
     let bookmarksId = [];
     if (mongoose.Types.ObjectId.isValid(userId)) {
       bookmarksId = await bookmarkModel.find({ user: userId });

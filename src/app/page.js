@@ -14,6 +14,7 @@ export default function Home() {
   const [initialIds, setinitialIds] = useState([]);
   const [bookmarks, setIsBookmarks] = useState([]);
   const [sort, setSort] = useState(0);
+  const [firstFetch, setFirstFetch] = useState(false);
   // const [filterList, setFilterList] = useState([]);
   const { isAuthUser, filterList, refresh, setRefresh } = useAppProvider();
 
@@ -26,12 +27,12 @@ export default function Home() {
       try {
         const response = await fetch(`${url}/${isAuthUser?._id}/${sort}`);
         const data = await response.json();
-console.log("data--->",data)
+        console.log("data--->", data);
         if (data.status == 201) {
           setinitialIds(data.idsCard);
           setIsBookmarks(data.bookmarksId);
 
-          // setRefresh(true);
+          setFirstFetch(true);
         } else {
           toast("داده ای یافت نشد");
         }
@@ -54,7 +55,7 @@ console.log("data--->",data)
       {/* <IdListInfinite initialIds={initialIds} /> */}
       <Nav />
       <div className=" container p-5 mx-auto mt-4  rounded-lg h-full">
-        {!refresh ? (
+        {!firstFetch ? (
           <LOADING />
         ) : (
           <IdListInfinite
