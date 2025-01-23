@@ -109,13 +109,23 @@ export default function Ads({ action, ad }) {
   const [isError, setIsError] = useState(false);
   const [isDisable, seIisDisable] = useState(true);
 
-  
   useEffect(() => {
     setAds(ad);
     setTitle(ad?.title);
     // setId(ads?.id);
     // setMessenger(ads?.messenger);
   }, []);
+
+  // useEffect(() => {
+  //   console.log(title);
+  //   validateValue(
+  //     title?.length < 3 || title?.length > 20,
+  //     setIsInvalid,
+  //     "title",
+  //     setIsError
+  //   );
+  // }, [title]);
+
   useEffect(() => {
     if (type == 3) {
       seIisDisable(true);
@@ -172,7 +182,7 @@ export default function Ads({ action, ad }) {
       await validateValue(subject == 0, setIsInvalid, "subject", setIsError);
       await validateValue(type == 0, setIsInvalid, "type", setIsError);
       await validateValue(
-        !title || (title?.length < 3 && title?.length > 20),
+        !title || title?.length < 3 || title?.length > 20,
         setIsInvalid,
         "title",
         setIsError
@@ -305,7 +315,7 @@ export default function Ads({ action, ad }) {
   const handleEditAds = async () => {
     try {
       await validateValue(
-        !title || (title?.length < 3) & (title?.length > 20),
+        !title || title?.length < 3 || title?.length > 20,
         setIsInvalid,
         "title",
         setIsError
@@ -677,6 +687,7 @@ export default function Ads({ action, ad }) {
               <Input
                 isClearable
                 isRequired
+                description={` ${title ? title?.length + " کاراکتر  " : ""}  `}
                 errorMessage="یک عنوان وارد نمایید(حداقل 3 و حداکثر 20 کاراکتر)"
                 color={isInvalid.title ? "danger" : "primary"}
                 isInvalid={isInvalid?.title}
@@ -685,7 +696,7 @@ export default function Ads({ action, ad }) {
                 value={title}
                 onValueChange={(key) => {
                   validateValue(
-                    !key || (key?.length < 3) & (key?.length > 20),
+                    !key || key?.length < 3 || key?.length > 20,
                     setIsInvalid,
                     "title",
                     setIsError
@@ -698,6 +709,9 @@ export default function Ads({ action, ad }) {
               <Textarea
                 isClearable
                 isRequired
+                description={` ${
+                  description ? description?.length + " کاراکتر  " : ""
+                }  `}
                 errorMessage="حداقل 20 کاراکتر درباره آیدی"
                 color={isInvalid?.description ? "danger" : "primary"}
                 isInvalid={isInvalid?.description}
@@ -742,9 +756,11 @@ export default function Ads({ action, ad }) {
                   label={"قیمت توافقی"}
                   state={agreedPrice}
                   set={(key) => {
+                    console.log("agreedPrice price--->",price)
                     setAgreedPrice(key);
+                    console.log("agreedPrice--->",key)
                     validateValue(
-                      !key && !price,
+                      !key && (!price || price==0),
                       setIsInvalid,
                       "price",
                       setIsError

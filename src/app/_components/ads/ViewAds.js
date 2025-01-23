@@ -85,6 +85,7 @@ function ViewAds({ ads }) {
       toast("برای نشان کردن آگهی ، ابتدا لاگین نمایید", {
         icon: "👏",
       });
+      return;
     }
     setIsBookmarkSend(true);
     try {

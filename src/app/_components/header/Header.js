@@ -93,6 +93,7 @@ function Header({ isAuthenticateUser }) {
       toast.success("کد به شماره همراه ثبت شده ارسال شد.");
       setTime(Date.now() + 120000);
       setOtp();
+      setResend(false);
       setView(2); //? Verify Otp View
     } else {
       toast.error("خطا در ارسال کد");
