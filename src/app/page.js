@@ -53,7 +53,7 @@ export default function Home() {
       <Toaster />
       {/* <IdListInfinite initialIds={initialIds} /> */}
       <Nav />
-      <div className=" container p-5 mx-auto mt-4  rounded-lg ">
+      <div className=" container p-5 mx-auto mt-4  rounded-lg h-full">
         {!refresh ? (
           <LOADING />
         ) : (
