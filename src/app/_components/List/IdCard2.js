@@ -156,7 +156,11 @@ export default function IdCard2({ item, bookmarks, showImage }) {
           </div>
         )}
         {/* //? title - member - price - description and type */}
-        <div className="w-full md:w-2/3 pr-8 p-4 box-border flex flex-col justify-between">
+        <div
+          className={`w-full  pr-8 p-4 box-border flex flex-col justify-between ${
+            showImage ? "w-2/3" :" w - full"
+          }`}
+        >
           <div>
             <Skeleton className=" rounded-lg" isLoaded>
               <h1 className="font-bold text-[16px] mt-4 text-h1-color">
@@ -238,7 +242,7 @@ export default function IdCard2({ item, bookmarks, showImage }) {
 
             <div
               className={` w-full flex items-center justify-end mt-4 gap-2 ${
-                !showImage && "absolute left-6 bottom-6"
+                !showImage && "mt-6"
               }`}
             >
               {!showImage && item?.profile?.length != 0 && (
