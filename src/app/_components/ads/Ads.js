@@ -109,7 +109,7 @@ export default function Ads({ action, ad }) {
   const [isError, setIsError] = useState(false);
   const [isDisable, seIisDisable] = useState(true);
 
-  console.log("idImage--->", idImage);
+  
   useEffect(() => {
     setAds(ad);
     setTitle(ad?.title);

@@ -169,8 +169,8 @@ function ViewAds({ ads }) {
               </div>
             </div>
             <div className="flex flex-col justify-center items-center h-full gap-3 ml-4">
-              <span className=" flex gap-4 ">
-                <span className="relative rounded-full w-8 h-8 bg-header flex items-center justify-center text-[16px] text-white cursor-pointer">
+              <span className=" flex gap-2 md:gap-4 ">
+                <span className="relative rounded-full w-6 h-6 md:w-8  md:h-8 bg-header flex items-center justify-center text-[16px] text-white cursor-pointer">
                   {isBookmarkSend && (
                     <span className="absolute">
                       <CircularProgress
@@ -190,7 +190,7 @@ function ViewAds({ ads }) {
                     <FaRegBookmark onClick={sendBookmark} />
                   )}
                 </span>
-                <span className="relative rounded-full w-8 h-8 bg-header flex items-center justify-center text-[16px] text-white cursor-pointer">
+                <span className="relative rounded-full w-6 h-6 md:w-8  md:h-8 bg-header flex items-center justify-center text-[16px] text-white cursor-pointer">
                   <CiShare2
                     className="font-bold cursor-pointer w-full h-full p-1 flex justify-center items-center"
                     onClick={() =>
@@ -201,7 +201,7 @@ function ViewAds({ ads }) {
                     }
                   />
                 </span>
-                <span className="relative rounded-full w-8 h-8 bg-header flex items-center justify-center text-[16px] text-white cursor-pointer">
+                <span className="relative rounded-full w-6 h-6 md:w-8  md:h-8 bg-header flex items-center justify-center text-[16px] text-white cursor-pointer">
                   <Tooltip
                     className="bg-header text-white"
                     content="گزارش تخلف"
