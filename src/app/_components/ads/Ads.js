@@ -50,7 +50,7 @@ import ImageLoader from "../imageUploader/imageLoader";
 const maxFileSize = 2000000; //100KB
 const acceptType = "jpg";
 export default function Ads({ action, ad }) {
-  const { isAuthUser,setRefresh } = useAppProvider();
+  const { isAuthUser, setRefresh } = useAppProvider();
   const router = useRouter();
 
   const { phone, _id, role } = isAuthUser;
@@ -166,7 +166,7 @@ export default function Ads({ action, ad }) {
       await validateValue(subject == 0, setIsInvalid, "subject", setIsError);
       await validateValue(type == 0, setIsInvalid, "type", setIsError);
       await validateValue(
-        !title || title?.length < 3,
+        !title || (title?.length < 3 && title?.length > 20),
         setIsInvalid,
         "title",
         setIsError
@@ -284,7 +284,7 @@ export default function Ads({ action, ad }) {
       const data = await res.json();
       if (data.status == 201) {
         toast.success(data.message);
-        setRefresh(prev=>!prev)
+        setRefresh((prev) => !prev);
         router.push("/", { scroll: true });
       } else {
         toast.error(data.message);
@@ -299,7 +299,7 @@ export default function Ads({ action, ad }) {
   const handleEditAds = async () => {
     try {
       await validateValue(
-        !title || title?.length < 3,
+        !title || (title?.length < 3) & (title?.length > 20),
         setIsInvalid,
         "title",
         setIsError
@@ -319,7 +319,7 @@ export default function Ads({ action, ad }) {
       );
 
       await validateValue(
-        !agreedPrice && (!price || price==0),
+        !agreedPrice && (!price || price == 0),
         setIsInvalid,
         "price",
         setIsError
@@ -420,7 +420,7 @@ export default function Ads({ action, ad }) {
       const data = await res.json();
       if (data.status == 200) {
         toast.success(data.message);
-        setRefresh(prev=>!prev)
+        setRefresh((prev) => !prev);
         router.push("/", { scroll: true });
       } else {
         toast.error(data.message);
@@ -481,7 +481,7 @@ export default function Ads({ action, ad }) {
       const data = await res.json();
       if (data.status == 201) {
         toast.success(data.message);
-        setRefresh(prev=>!prev)
+        setRefresh((prev) => !prev);
         router.push("/", { scroll: true });
       } else {
         toast.error(data.message);
@@ -647,7 +647,7 @@ export default function Ads({ action, ad }) {
               <Input
                 isClearable
                 isRequired
-                errorMessage="یک عنوان وارد نمایید(حداقل 3 کاراکتر)"
+                errorMessage="یک عنوان وارد نمایید(حداقل 3 و حداکثر 20 کاراکتر)"
                 color={isInvalid.title ? "danger" : "primary"}
                 isInvalid={isInvalid?.title}
                 name="title"
@@ -655,7 +655,7 @@ export default function Ads({ action, ad }) {
                 value={title}
                 onValueChange={(key) => {
                   validateValue(
-                    !key || key?.length < 3,
+                    !key || (key?.length < 3) & (key?.length > 20),
                     setIsInvalid,
                     "title",
                     setIsError
@@ -971,7 +971,9 @@ export default function Ads({ action, ad }) {
                       // user={user}
                     />
 
-                    {(typeof ads?.profile != "undefined" || ads?.profile.length!=0 || !ads?.profile) && (
+                    {(typeof ads?.profile != "undefined" ||
+                      ads?.profile.length != 0 ||
+                      !ads?.profile) && (
                       <div>
                         <ImageLoader
                           imageUrl={ads?.profile[0]}

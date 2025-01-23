@@ -99,7 +99,7 @@ export default function IdCard2({ item, bookmarks, showImage }) {
     <>
       <Toaster />
       <div
-        className={` w-full col-span-1 md:h-60  relative bg-glass p-0 flex flex-col md:flex-row z-10 overflow-hidden `}
+        className={` w-full col-span-1 md:h-62  relative bg-glass p-0 flex flex-col md:flex-row z-10 overflow-hidden `}
       >
         {/* //? Profile image */}
         {showImage && (
@@ -157,77 +157,84 @@ export default function IdCard2({ item, bookmarks, showImage }) {
         )}
         {/* //? title - member - price - description and type */}
         <div
-          className={`w-full  pr-8 p-4 box-border flex flex-col justify-between ${
-            showImage ? "md:w-2/3" :" w - full"
+          className={`w-full  pr-4 p-4 box-border flex flex-col justify-between ${
+            showImage ? "md:w-2/3" : " w - full"
           }`}
         >
-          <div>
-            <Skeleton className=" rounded-lg" isLoaded>
+          <div className="flex flex-col justify-around h-full ">
+            <div>
               <h1 className="font-bold text-[16px] mt-4 text-h1-color">
                 {item?.title}
               </h1>
-            </Skeleton>
-            <h1 className="font-shabnam text-[8px] mt-1 text-h2-color text-right">
-              {DateToString(item?.updatedAt)}
-            </h1>
-            <div className="flex items-center justify-start gap-1 mt-6 border-blue-100  ">
-              {types.map((type) => {
-                return (
-                  <div
-                    key={type.id}
-                    className={`border-1 px-2 rounded-xl text-[10px] ${
-                      type.id == item?.type ? "bg-blue-500 text-white" : ""
-                    }`}
-                  >
-                    {type.title}
+
+              <h1 className="font-shabnam text-[8px] mt-1 text-h2-color text-right">
+                {DateToString(item?.updatedAt)}
+              </h1>
+              <div
+                className={`flex items-center justify-start gap-1  border-blue-100 ${
+                  showImage ? "mt-6" : "mt-9"
+                }`}
+              >
+                {types.map((type) => {
+                  return (
+                    <div
+                      key={type.id}
+                      className={`border-1 px-2 rounded-xl text-[10px] ${
+                        type.id == item?.type ? "bg-blue-500 text-white" : ""
+                      }`}
+                    >
+                      {type.title}
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="flex items-center justify-start flex-wrap gap-2 mt-2">
+                <div className="w-fit px-2 gap-2 bg-btn-orange text-white rounded-lg  flex justify-between items-center">
+                  <span className="text-white flex items-center justify-center">
+                    <CiMoneyBill className="w-4 h-4 flex items-center justify-center " />
+                  </span>
+                  <p className="text-center flex items-center justify-center text-[10px]">
+                    {item?.agreedPrice
+                      ? "قیمت توافقی"
+                      : item?.discount == 0
+                      ? item?.price.toString().num2persian() + " تومان"
+                      : (item?.price * (1 - item?.discount / 100))
+                          ?.toLocaleString()
+                          .num2persian() + " تومان"}
+                  </p>
+                </div>
+                <div className="w-fit  px-2 gap-2 bg-header text-white   rounded-lg  flex justify-between items-center">
+                  <span className="text-white flex items-center justify-center">
+                    <CiUser className="w-4 h-4 flex items-center justify-center " />
+                  </span>
+                  <p className="text-center flex items-center justify-center text-[12px]">
+                    {memberToK(item?.members) + " عضو"}
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center justify-start flex-wrap gap-2 mt-2">
+                <div className="w-auto flex items-center justify-start  gap-1 border-1 rounded-xl text-[12px] text-header ">
+                  <span className="bg-header text-white overflow-hidden rounded-r-xl px-2">
+                    {" "}
+                    موضوع{" "}
+                  </span>{" "}
+                  <div className="px-2">
+                    {subjects[item?.subject - 1].title}
                   </div>
-                );
-              })}
-            </div>
-            <div className="flex items-center justify-start flex-wrap gap-2 mt-2">
-              <div className="w-fit px-2 gap-2 bg-btn-orange text-white rounded-lg  flex justify-between items-center">
-                <span className="text-white flex items-center justify-center">
-                  <CiMoneyBill className="w-4 h-4 flex items-center justify-center " />
-                </span>
-                <p className="text-center flex items-center justify-center text-[10px]">
-                  {item?.agreedPrice
-                    ? "قیمت توافقی"
-                    : item?.discount == 0
-                    ? item?.price.toString().num2persian() + " تومان"
-                    : (item?.price * (1 - item?.discount / 100))
-                        ?.toLocaleString()
-                        .num2persian() + " تومان"}
-                </p>
-              </div>
-              <div className="w-fit  px-2 gap-2 bg-header text-white   rounded-lg  flex justify-between items-center">
-                <span className="text-white flex items-center justify-center">
-                  <CiUser className="w-4 h-4 flex items-center justify-center " />
-                </span>
-                <p className="text-center flex items-center justify-center text-[12px]">
-                  {memberToK(item?.members) + " عضو"}
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center justify-start flex-wrap gap-2 mt-2">
-              <div className="w-auto flex items-center justify-start  gap-1 border-1 rounded-xl text-[12px] text-header ">
-                <span className="bg-header text-white overflow-hidden rounded-r-xl px-2">
-                  {" "}
-                  موضوع{" "}
-                </span>{" "}
-                <div className="px-2">{subjects[item?.subject - 1].title}</div>
-                {/* {subjects.slice(0, 2).map((item) => {
+                  {/* {subjects.slice(0, 2).map((item) => {
                 return <div key={item.id}>{item.title}</div>;
               })} */}
-              </div>
-              <div className="relative w-fit  px-2 gap-2 bg-header text-white   rounded-lg  flex justify-between items-center">
-                <span className="text-white flex items-center justify-center">
-                  <MdUpdate className="w-4 h-4 flex items-center justify-center " />
-                </span>
-                <Tooltip className="bg-header text-white" content="سال ساخت">
-                  <p className="text-center flex items-center justify-center text-[12px]">
-                    {years[item?.createDate - 1].title}
-                  </p>
-                </Tooltip>
+                </div>
+                <div className="relative w-fit  px-2 gap-2 bg-header text-white   rounded-lg  flex justify-between items-center">
+                  <span className="text-white flex items-center justify-center">
+                    <MdUpdate className="w-4 h-4 flex items-center justify-center " />
+                  </span>
+                  <Tooltip className="bg-header text-white" content="سال ساخت">
+                    <p className="text-center flex items-center justify-center text-[12px]">
+                      {years[item?.createDate - 1].title}
+                    </p>
+                  </Tooltip>
+                </div>
               </div>
             </div>
 
@@ -241,8 +248,8 @@ export default function IdCard2({ item, bookmarks, showImage }) {
           </div> */}
 
             <div
-              className={` w-full flex items-center justify-end mt-4 gap-2 ${
-                !showImage && "mt-6"
+              className={` w-full flex items-center justify-end mt-4 gap-2  ${
+                !showImage && "mt-6 "
               }`}
             >
               {!showImage && item?.profile?.length != 0 && (
