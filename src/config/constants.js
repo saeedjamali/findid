@@ -2,7 +2,7 @@
 
 export const API_URL = "/api/ads/get/all";
 export const BASE_URL = "http://localhost:3000/";
-export const Id_PER_PAGE = 2;
+export const Id_PER_PAGE = 10;
 export const messengers = [
   {
     id: 1,
