@@ -47,7 +47,6 @@ export default function IdListInfinite({
       const url = getApiUrl(0, Id_PER_PAGE);
       // /api/ads/get/all/${offset}/${limit}
 
-      console.log("Running Page 1 load more url", url);
       try {
         const response = await fetch(`${url}/${isAuthUser?._id}/${sort}`);
         const data = await response.json();
@@ -65,16 +64,11 @@ export default function IdListInfinite({
       }
     };
     getAds();
-    console.log("Running Page 1 hasmoreData", hasMoreData);
-    console.log("Running Page 1 Sort", sort);
   }, [sort]);
 
   const loadMoreIds = async () => {
-    console.log("Running Page 2 Sort", sort);
-    console.log("Running Page 2 hasmoreData", hasMoreData);
 
     const url = getApiUrl(offset, Id_PER_PAGE);
-    console.log("Running Page 2 load more url", url);
     if (hasMoreData) {
       // console.log("offset-->data", data);
       let apiIds = [];
@@ -101,8 +95,6 @@ export default function IdListInfinite({
   };
 
   useEffect(() => {
-    console.log("Running Page 3 Sort", sort);
-    console.log("Running Page 3 hasmoreData", hasMoreData);
 
     if (typeof window === "undefined" || !window.IntersectionObserver) {
       return;

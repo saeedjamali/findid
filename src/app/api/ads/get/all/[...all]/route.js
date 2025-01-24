@@ -21,7 +21,7 @@ export async function GET(req, { params, searchParams }) {
       .skip(offset)
       .limit(limit);
 
-    console.log("idsCard--->", idsCard);
+    // console.log("idsCard--->", idsCard);
     let bookmarksId = [];
     if (mongoose.Types.ObjectId.isValid(userId)) {
       bookmarksId = await bookmarkModel.find({ user: userId });
