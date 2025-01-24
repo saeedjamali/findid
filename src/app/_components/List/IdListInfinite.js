@@ -50,7 +50,7 @@ export default function IdListInfinite({
       try {
         const response = await fetch(`${url}/${isAuthUser?._id}/${sort}`);
         const data = await response.json();
-        // console.log("Running Page 1 data--->", data.idsCard);
+         console.log("Running Page 1 data--->",data);
         if (data.status == 201) {
           setIds(data.idsCard);
           setIsBookmarks(data.bookmarksId);
@@ -166,7 +166,7 @@ export default function IdListInfinite({
             <IdCard2
               key={item._id}
               item={item}
-              bookmarks={userBookmarks}
+              bookmarks={bookmarks}
               showImage={showImage}
             />
           </Suspense>
