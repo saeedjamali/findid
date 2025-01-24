@@ -1,6 +1,7 @@
 import bookmarkModel from "@/models/IDCard/Bookmarks";
 import idCardModel from "@/models/IDCard/IDCard";
 import { authenticateUser } from "@/utils/authenticateMe";
+import counterModel from "@/models/IDCard/Counter";
 import connectToDB from "@/utils/db";
 
 export async function DELETE(req, { params }) {
@@ -21,15 +22,18 @@ export async function DELETE(req, { params }) {
       $and: [{ user: ownerIdCard }, { idCard: adsId }],
     });
 
-   
     // return Response.json({ message: "کاربری با این شماره قبلا ثبت نام نموده است", status: 401, foundedUser });
     if (!deletedBookmark) {
       return Response.json({ message: "خطا در حذف نشان", status: 401 });
     }
 
-    const decToIds = await idCardModel.findOneAndUpdate(
-      { _id: adsId },
-      { $inc: { bookmarks: -1 } }
+    const decToIds = await counterModel.findOneAndUpdate(
+      { idCard: adsId },
+      { $inc: { bookmarks: -1 } },
+      {
+        new: true,
+        upsert: true, // Make this update into an upsert
+      }
     );
     return Response.json({
       message: " آگهی از نشان شده ها حذف شد",

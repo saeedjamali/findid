@@ -15,12 +15,14 @@ export async function GET(req, { params, searchParams }) {
 
     //   console.log("ownerIdCard--->", ownerIdCard);
 
-    const idsCard = await idCardModel
+    let idsCard = await idCardModel
       .find({ isShow: true })
       .sort({ [`${sorts[sort]}`]: -1 })
       .skip(offset)
-      .limit(limit);
+      .limit(limit)
+      .populate("counter");
 
+  
     // console.log("idsCard--->", idsCard);
     let bookmarksId = [];
     if (mongoose.Types.ObjectId.isValid(userId)) {

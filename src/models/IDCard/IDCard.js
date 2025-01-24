@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import User from "@/models/base/User";
+import Counter from "@/models/IDCard/Counter";
 
 const schema = mongoose.Schema(
   {
@@ -16,6 +17,12 @@ const schema = mongoose.Schema(
       required: false,
       ref: "User",
     },
+    counter: {
+      type: String, //? اطلاعات آگهی مثل تعداد بازدید و بوکمارک
+      required: false,
+      ref: "Counter",
+    },
+
     ownerIdPhone: {
       //? شماره تماس مالک آیدی
       //? مالک آیدی
@@ -92,18 +99,18 @@ const schema = mongoose.Schema(
       default: 0,
       required: false,
     },
-    views: {
-      //? تعداد بازدید
-      type: Number,
-      default: 0,
-      required: false,
-    },
-    bookmarks: {
-      //? تعداد بوکمارک شده ها
-      type: Number,
-      default: 0,
-      required: false,
-    },
+    // views: {
+    //   //? تعداد بازدید
+    //   type: Number,
+    //   default: 0,
+    //   required: false,
+    // },
+    // bookmarks: {
+    //   //? تعداد بوکمارک شده ها
+    //   type: Number,
+    //   default: 0,
+    //   required: false,
+    // },
     id: {
       type: String,
       default: "",

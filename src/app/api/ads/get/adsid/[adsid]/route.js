@@ -1,5 +1,6 @@
 import connectToDB from "@/utils/db";
 import idCardModel from "@/models/IDCard/IDCard";
+import counterModel from "@/models/IDCard/Counter";
 import { authenticateUser } from "@/utils/authenticateMe";
 
 export async function GET(req, { params }) {
@@ -12,8 +13,8 @@ export async function GET(req, { params }) {
       return Response.json({ message: "خطا در اتصال به پایگاه", status: 500 });
     }
     const _id = await params.adsid;
-    const fonuded = await idCardModel.findOneAndUpdate(
-      { _id },
+    const fonuded = await counterModel.findOneAndUpdate(
+      { idCard: _id },
       { $inc: { views: 1 } }
       // { views: idsCard.views + 1 }
     );
@@ -27,11 +28,7 @@ export async function GET(req, { params }) {
     //   );
     // }
 
-    const idsCard = await idCardModel.findOne(
-      { _id }
-
-      // { views: idsCard.views + 1 }
-    );
+    const idsCard = await idCardModel.findOne({ _id }).populate("counter");
 
     // const len = admins.length;
     return Response.json({

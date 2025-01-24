@@ -168,7 +168,7 @@ export default function IdCard2({ item, bookmarks, showImage }) {
               </h1>
 
               <h1 className="font-shabnam text-[8px] mt-1 text-h2-color text-right">
-                {DateToString(item?.updatedAt)}
+                {DateToString(item?.createdAt)}
               </h1>
               <div
                 className={`flex items-center justify-start gap-1  border-blue-100 ${
@@ -343,7 +343,7 @@ export default function IdCard2({ item, bookmarks, showImage }) {
               </span>
 
               <div className=" rounded-r-full flex items-center justify-center   font-thin text-[10px]">
-                {memberToK(item?.views)}
+                {memberToK(item?.counter?.views)}
               </div>
             </div>
             <span className="relative w-6 h-6 rounded-full text-btn-orange">
@@ -365,7 +365,7 @@ export default function IdCard2({ item, bookmarks, showImage }) {
               </span>
 
               <div className=" rounded-r-full flex items-center justify-center   font-thin text-[10px]">
-                {memberToK(item?.views)}
+                {memberToK(item?.counter.views)}
               </div>
             </div>
             <span className="relative w-6 h-6 rounded-full text-btn-orange">

@@ -1,6 +1,7 @@
 import { verifyPassword } from "@/utils/auth";
 import idCard from "@/models/IDCard/IDCard";
 import bookmarkModel from "@/models/IDCard/Bookmarks";
+import counterModel from "@/models/IDCard/Counter";
 
 import connectToDB from "@/utils/db";
 import { authenticateUser } from "@/utils/authenticateMe";
@@ -16,8 +17,6 @@ export async function POST(req) {
       return Response.json({ message: "خطا در ارتباط با پایگاه", status: 419 });
     }
     const body = await req.json();
-    // console.log("body--->", body);
-    // console.log("authUser--->", authUser);
     const { userid, adsid } = body;
 
     const deleteBookmark = await bookmarkModel.findOneAndDelete({
@@ -31,9 +30,13 @@ export async function POST(req) {
         user: userid,
       });
       // console.log("addBookmark--->", addBookmark);
-      const incToIds = await idCard.findOneAndUpdate(
-        { _id: adsid },
-        { $inc: { bookmarks: 1 } }
+      const incToIds = await counterModel.findOneAndUpdate(
+        { idCard: adsid },
+        { $inc: { bookmarks: 1 } },
+        {
+          new: true,
+          upsert: true, // Make this update into an upsert
+        }
       );
       return Response.json({
         message:
@@ -42,9 +45,13 @@ export async function POST(req) {
       });
     }
 
-    const decToIds = await idCard.findOneAndUpdate(
-      { _id: adsid },
-      { $inc: { bookmarks: -1 } }
+    const decToIds = await counterModel.findOneAndUpdate(
+      { idCard: adsid },
+      { $inc: { bookmarks: -1 } },
+      {
+        new: true,
+        upsert: true, // Make this update into an upsert
+      }
     );
 
     return Response.json({

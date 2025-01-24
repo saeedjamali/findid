@@ -2,6 +2,7 @@ import { authenticateUser } from "@/utils/authenticateMe";
 import connectToDB from "@/utils/db";
 import { getRndInteger } from "@/utils/random";
 import idCardModel from "@/models/IDCard/IDCard";
+import counterModel from "@/models/IDCard/Counter";
 import idDraftModel from "@/models/IDCard/Draft";
 import userModel from "@/models/base/User";
 
@@ -109,7 +110,7 @@ export async function POST(req) {
       description,
       members,
       agreedPrice,
-      price:agreedPrice == "true" ? 0 : price,
+      price: agreedPrice == "true" ? 0 : price,
       id,
       createDate,
       isShowPhoneOwnerIdCard,
@@ -119,6 +120,17 @@ export async function POST(req) {
       contactTypeMessenger,
       registerAdsWith: isAdmin && isAuth.role == "ADMIN" ? "ADMIN" : "USER",
     });
+
+    const addCounter = await counterModel.create({
+      idCard: newAds,
+      views: 0,
+      bookmarks: 0,
+    });
+
+    await idCardModel.findOneAndUpdate(
+      { _id: newAds._id },
+      { counter: addCounter._id }
+    );
 
     profile?.map(async (img, index) => {
       const buffer = Buffer.from(await img.arrayBuffer());

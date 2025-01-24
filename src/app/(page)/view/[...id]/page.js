@@ -25,6 +25,7 @@ function View() {
         const data = await response.json();
         if (data.status == 201) {
           setAds(data?.idsCard);
+          console.log(data);
         } else {
           setAds(null);
         }

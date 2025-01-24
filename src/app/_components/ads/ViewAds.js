@@ -326,7 +326,7 @@ function ViewAds({ ads }) {
                   تعداد بازدید این صفحه
                 </span>
                 <span className="flex items-center justify-center gap-2 text-h2-color text-[14px] text-left">
-                  {memberToK(ads?.views)}
+                  {memberToK(ads?.counter?.views)}
                   <MdOutlineRemoveRedEye />
                 </span>
               </div>
@@ -336,7 +336,7 @@ function ViewAds({ ads }) {
                   تعداد بوک مارک شده ها
                 </span>
                 <span className=" flex items-center justify-center gap-2 text-h2-color text-[14px] text-left">
-                  {(ads?.bookmarks).toLocaleString()}
+                  {(ads?.counter?.bookmarks)?.toLocaleString()}
                   <FaRegBookmark />
                 </span>
               </div>
