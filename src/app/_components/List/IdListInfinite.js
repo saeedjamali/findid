@@ -50,7 +50,7 @@ export default function IdListInfinite({
       try {
         const response = await fetch(`${url}/${isAuthUser?._id}/${sort}`);
         const data = await response.json();
-         console.log("Running Page 1 data--->",data);
+        console.log("Running Page 1 data--->", data);
         if (data.status == 201) {
           setIds(data.idsCard);
           setIsBookmarks(data.bookmarksId);
@@ -67,7 +67,6 @@ export default function IdListInfinite({
   }, [sort]);
 
   const loadMoreIds = async () => {
-
     const url = getApiUrl(offset, Id_PER_PAGE);
     if (hasMoreData) {
       // console.log("offset-->data", data);
@@ -95,7 +94,6 @@ export default function IdListInfinite({
   };
 
   useEffect(() => {
-
     if (typeof window === "undefined" || !window.IntersectionObserver) {
       return;
     }
@@ -122,7 +120,17 @@ export default function IdListInfinite({
 
   return (
     <div>
-      <div className="flex justify-between items-center w-full my-4">
+      <div className="flex justify-end items-center w-full my-4">
+        <Switch
+          isSelected={showImage}
+          onValueChange={setShowImage}
+          defaultSelected={false}
+          className="text-[12px] p-4"
+          color="success"
+          endContent={<CiImageOff />}
+          size="sm"
+          startContent={<CiImageOn />}
+        ></Switch>
         <Select
           className={"w-40"}
           defaultSelectedKeys={0}
@@ -140,17 +148,6 @@ export default function IdListInfinite({
             <SelectItem key={st.id}>{st.title}</SelectItem>
           ))}
         </Select>
-
-        <Switch
-          isSelected={showImage}
-          onValueChange={setShowImage}
-          defaultSelected={false}
-          className="text-[12px] p-4"
-          color="success"
-          endContent={<CiImageOff />}
-          size="sm"
-          startContent={<CiImageOn />}
-        ></Switch>
       </div>
 
       <div className="grid grid-cols-1  lg:grid-cols-2  w-full gap-2 xl:gap-4 container mx-auto ">
