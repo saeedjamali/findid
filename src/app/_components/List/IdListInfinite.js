@@ -17,16 +17,16 @@ import { CiImageOff, CiImageOn } from "react-icons/ci";
 import { Select, SelectSection, SelectItem } from "@heroui/select";
 
 export default function IdListInfinite({
-  initialIds,
-  bookmarksId,
+  // initialIds,
+  // bookmarksId,
   setSort,
   sort,
   setRefresh,
 }) {
   const [offset, setOffset] = useState(Id_PER_PAGE);
-
-  const [ids, setIds] = useState(initialIds);
-  const [userBookmarks, setUserBookmarks] = useState(bookmarksId);
+  const [bookmarks, setIsBookmarks] = useState([]);
+  const [ids, setIds] = useState([]);
+  const [userBookmarks, setUserBookmarks] = useState([]);
   const [hasMoreData, setHasMoreData] = useState(true);
   const scrollTrigger = useRef(null);
   const { filterList, isAuthUser } = useAppProvider();
@@ -42,14 +42,44 @@ export default function IdListInfinite({
   //   console.log("showImage sec-->", showImage);
   // }, [showImage]);
 
+  useEffect(() => {
+    const getAds = async () => {
+      const url = getApiUrl(0, Id_PER_PAGE);
+      // /api/ads/get/all/${offset}/${limit}
+
+      console.log("Running Page 1 load more url", url);
+      try {
+        const response = await fetch(`${url}/${isAuthUser?._id}/${sort}`);
+        const data = await response.json();
+        // console.log("Running Page 1 data--->", data.idsCard);
+        if (data.status == 201) {
+          setIds(data.idsCard);
+          setIsBookmarks(data.bookmarksId);
+          setHasMoreData(true);
+          setOffset(Id_PER_PAGE);
+        } else {
+          toast("داده ای یافت نشد");
+        }
+      } catch (error) {
+        console.log("error from main--->", error);
+      }
+    };
+    getAds();
+    console.log("Running Page 1 hasmoreData", hasMoreData);
+    console.log("Running Page 1 Sort", sort);
+  }, [sort]);
+
   const loadMoreIds = async () => {
+    console.log("Running Page 2 Sort", sort);
+    console.log("Running Page 2 hasmoreData", hasMoreData);
+
     const url = getApiUrl(offset, Id_PER_PAGE);
     console.log("Running Page 2 load more url", url);
     if (hasMoreData) {
       // console.log("offset-->data", data);
       let apiIds = [];
       try {
-        const response = await fetch(`${url}/${isAuthUser?._id}`);
+        const response = await fetch(`${url}/${isAuthUser?._id}/${sort}`);
         const data = await response.json();
         if (data.status == 201) {
           apiIds = data.idsCard;
@@ -71,6 +101,9 @@ export default function IdListInfinite({
   };
 
   useEffect(() => {
+    console.log("Running Page 3 Sort", sort);
+    console.log("Running Page 3 hasmoreData", hasMoreData);
+
     if (typeof window === "undefined" || !window.IntersectionObserver) {
       return;
     }
@@ -95,7 +128,6 @@ export default function IdListInfinite({
     };
   }, [hasMoreData, offset]);
 
-  console.log(sort);
   return (
     <div>
       <div className="flex justify-between items-center w-full my-4">
@@ -105,7 +137,7 @@ export default function IdListInfinite({
           // label="مرتب سازی"
           placeholder="مرتب سازی"
           labelPlacement="outside-left"
-          SelectItem={sort}
+          selectedKeys={sort}
           variant="bordered"
           onChange={(e) => {
             setSort(e.target.value);
@@ -126,9 +158,7 @@ export default function IdListInfinite({
           endContent={<CiImageOff />}
           size="sm"
           startContent={<CiImageOn />}
-        >
-          نمایش تصاویر
-        </Switch>
+        ></Switch>
       </div>
 
       <div className="grid grid-cols-1  lg:grid-cols-2  w-full gap-2 xl:gap-4 container mx-auto ">
@@ -144,7 +174,7 @@ export default function IdListInfinite({
             <IdCard2
               key={item._id}
               item={item}
-              bookmarks={bookmarksId}
+              bookmarks={userBookmarks}
               showImage={showImage}
             />
           </Suspense>

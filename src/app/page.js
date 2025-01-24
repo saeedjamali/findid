@@ -18,30 +18,30 @@ export default function Home() {
   // const [filterList, setFilterList] = useState([]);
   const { isAuthUser, filterList, refresh, setRefresh } = useAppProvider();
 
-  useEffect(() => {
-    const getAds = async () => {
-      const url = getApiUrl(0, Id_PER_PAGE);
-      // /api/ads/get/all/${offset}/${limit}
+  // useEffect(() => {
+  //   const getAds = async () => {
+  //     const url = getApiUrl(0, Id_PER_PAGE);
+  //     // /api/ads/get/all/${offset}/${limit}
 
-      // console.log("filterList--->", filterList);
-      try {
-        const response = await fetch(`${url}/${isAuthUser?._id}/${sort}`);
-        const data = await response.json();
-        console.log("data--->", data);
-        if (data.status == 201) {
-          setinitialIds(data.idsCard);
-          setIsBookmarks(data.bookmarksId);
+  //     console.log("Running Page 1 load more url", url);
+  //     try {
+  //       const response = await fetch(`${url}/${isAuthUser?._id}/${sort}`);
+  //       const data = await response.json();
+  //       console.log("data--->", data);
+  //       if (data.status == 201) {
+  //         setinitialIds(data.idsCard);
+  //         setIsBookmarks(data.bookmarksId);
 
-          setFirstFetch(true);
-        } else {
-          toast("داده ای یافت نشد");
-        }
-      } catch (error) {
-        console.log("error from main--->", error);
-      }
-    };
-    getAds();
-  }, [refresh]);
+  //         setRefresh(true);
+  //       } else {
+  //         toast("داده ای یافت نشد");
+  //       }
+  //     } catch (error) {
+  //       console.log("error from main--->", error);
+  //     }
+  //   };
+  //   getAds();
+  // }, [refresh]);
 
   // const authUser = await authenticateUser();
   // let bookmarksId = [];
@@ -55,9 +55,7 @@ export default function Home() {
       {/* <IdListInfinite initialIds={initialIds} /> */}
       <Nav />
       <div className=" container p-5 mx-auto mt-4  rounded-lg h-full">
-        {!firstFetch ? (
-          <LOADING />
-        ) : (
+       
           <IdListInfinite
             initialIds={initialIds}
             bookmarksId={JSON.parse(JSON.stringify(bookmarks))}
@@ -65,7 +63,6 @@ export default function Home() {
             sort={sort}
             setRefresh={setRefresh}
           />
-        )}
       </div>
     </div>
   );
