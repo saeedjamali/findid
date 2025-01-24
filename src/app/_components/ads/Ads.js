@@ -949,7 +949,7 @@ export default function Ads({ action, ad }) {
                     />
 
                     <Input
-                      isClearable
+                      // isClearable
                       dir="ltr"
                       className="text-right py-4"
                       endContent="@"
