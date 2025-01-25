@@ -57,6 +57,7 @@ export default function Ads({ action, ad }) {
   const router = useRouter();
 
   const { phone, _id, role } = isAuthUser;
+  console.log("role--->", role);
   const [ads, setAds] = useState(ad);
   const [isAdmin, setIsAdmin] = useState(role == "ADMIN" ? true : false);
   const [submitted, setSubmitted] = useState(null);
@@ -73,7 +74,7 @@ export default function Ads({ action, ad }) {
   const [description, setDescription] = useState(ads?.description);
   const [member, setMember] = useState(ads?.members);
   const [agreedPrice, setAgreedPrice] = useState(ads?.agreedPrice || false);
-  const [phoneInp, setPhoneInp] = useState(phone);
+  // const [phoneInp, setPhoneInp] = useState(phone);
   const [createDate, setCreateDate] = useState(ads?.createDate || 0);
   const [price, setPrice] = useState(ads?.price || 0);
   const [isOwnerId, setIsOwnerId] = useState(ads?.isOwnerId || true);
@@ -85,6 +86,7 @@ export default function Ads({ action, ad }) {
   const [contactWithPhone, setContactWithPhone] = useState(
     isAdmin ? ownerIdCardPhone : phone
   );
+  console.log("role in Admin--->", isAdmin, contactWithPhone);
   const [isContactWithId, setIsContactWithId] = useState(
     ads?.isContactWithId || false
   );
@@ -611,8 +613,8 @@ export default function Ads({ action, ad }) {
                       "ownerIdCardPhone",
                       setIsError
                     );
-
                     setOwnerIdCardPhone(key?.trim());
+                    setContactWithPhone(key?.trim());
                   }}
                 />
               )}
@@ -756,11 +758,11 @@ export default function Ads({ action, ad }) {
                   label={"قیمت توافقی"}
                   state={agreedPrice}
                   set={(key) => {
-                    console.log("agreedPrice price--->",price)
+                    console.log("agreedPrice price--->", price);
                     setAgreedPrice(key);
-                    console.log("agreedPrice--->",key)
+                    console.log("agreedPrice--->", key);
                     validateValue(
-                      !key && (!price || price==0),
+                      !key && (!price || price == 0),
                       setIsInvalid,
                       "price",
                       setIsError
@@ -898,8 +900,8 @@ export default function Ads({ action, ad }) {
                     type="phone"
                     isDisabled
                     placeholder="شماره مالک جهت نمایش در آگهی و تماس"
-                    value={phoneInp}
-                    onValueChange={setPhoneInp}
+                    value={contactWithPhone}
+                    onValueChange={setContactWithPhone}
                   />
                 )}
               </div>

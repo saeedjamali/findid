@@ -1,6 +1,7 @@
 "use client";
 import ViewAds from "@/app/_components/ads/ViewAds";
 import DELETED from "@/app/_components/pages/DELETED";
+import LOADING from "@/app/_components/pages/LOADING";
 import NOTACTIVE from "@/app/_components/pages/NOTACTIVE";
 import NOTFOUND from "@/app/_components/pages/NOTFOUND";
 import { useAppProvider } from "@/app/context/AppProvider";
@@ -11,6 +12,7 @@ import React, { useEffect, useState } from "react";
 function View() {
   const [ads, setAds] = useState([]);
   const searchParams = useSearchParams();
+  const [isLoading, setIsLoading] = useState(false);
   // const pathname = usePathname();
   // const params = useParams();
 
@@ -25,13 +27,15 @@ function View() {
         const data = await response.json();
         if (data.status == 201) {
           setAds(data?.idsCard);
-          console.log(data);
         } else {
           setAds(null);
         }
+
+        setIsLoading(true);
         // console.log("data--->", data);
       } catch (error) {
         console.log("error from getAds by id--->", error);
+        setIsLoading(true);
       }
     };
 
@@ -39,15 +43,19 @@ function View() {
   }, [searchParams]);
   return (
     <div className="min-h-screen w-full ">
-      {!ads || ads == null ? (
-        <NOTFOUND />
-      ) : ads?.isRemoved ? (
-        <DELETED />
-      ) : !ads?.isShow ? (
-        <NOTACTIVE />
+      {isLoading ? (
+        !ads || ads == null ? (
+          <NOTFOUND />
+        ) : ads?.isRemoved ? (
+          <DELETED />
+        ) : !ads?.isShow ? (
+          <NOTACTIVE />
+        ) : (
+          // : "zfsdfsd"
+          <ViewAds ads={ads} />
+        )
       ) : (
-        // : "zfsdfsd"
-        <ViewAds ads={ads} />
+        <LOADING />
       )}
     </div>
   );

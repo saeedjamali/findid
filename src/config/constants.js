@@ -256,7 +256,7 @@ export const status = [
   { id: 4, title: "حذف  " },
 ];
 export const sorts = [
-  { id: 0, title: "تاریخ ثبت" },
+  { id: 0, title: "تاریخ ثبت آگهی" },
   { id: 1, title: "تاریخ بروزرسانی" },
   { id: 2, title: "تعداد اعضا" },
   { id: 3, title: "تعداد مشاهده " },
