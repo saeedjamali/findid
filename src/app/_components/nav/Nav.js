@@ -30,16 +30,20 @@ function Nav() {
             setIsFilter={setIsFilter}
           />
         </div>
-        {isFilter && (
-          <div className="mt-8 bg-gradient-to-r from-header to-pink-700 rounded-xl p-2 ">
-            <div>
-              <Messengers setFilterList={setFilterList} />
-              <div className="grid grid-cols-1 gap-2 w-full  mt-2">
-                <Types setFilterList={setFilterList} />
-                <Subjects setFilterList={setFilterList} />
-              </div>
 
-              {/* <div className="mt-4 flex items-end justify-end">
+        <div
+          className={`mt-8 bg-gradient-to-r from-header to-pink-700 rounded-xl p-2 ${
+            !isFilter && "hidden"
+          } `}
+        >
+          <div>
+            <Messengers />
+            <div className="grid grid-cols-1 gap-2 w-full  mt-2">
+              <Types />
+              <Subjects />
+            </div>
+
+            {/* <div className="mt-4 flex items-end justify-end">
                 <Button
                   onClick={() => {
                     setRefresh((prev) => !prev);
@@ -54,9 +58,8 @@ function Nav() {
                   }`}
                 </Button>
               </div> */}
-            </div>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );

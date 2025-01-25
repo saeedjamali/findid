@@ -2,7 +2,9 @@ import React from "react";
 
 import { Checkbox } from "@nextui-org/react";
 import { subjects } from "@/config/constants";
-function Subjects({ setFilterList }) {
+import { useAppProvider } from "@/app/context/AppProvider";
+function Subjects() {
+  const {  setFilterList } = useAppProvider();
   return (
     <div className="bg-glass">
       <h2 className=" font-shabnam text-sm">فیلتر براساس موضوع</h2>

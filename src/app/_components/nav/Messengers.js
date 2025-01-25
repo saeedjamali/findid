@@ -1,12 +1,13 @@
+import { useAppProvider } from "@/app/context/AppProvider";
 import { messengers } from "@/config/constants";
 import { Tooltip } from "@nextui-org/react";
 import Image from "next/image";
 import React, { useState } from "react";
 import { FaCheckCircle } from "react-icons/fa";
 
-function Messengers({ setFilterList }) {
+function Messengers() {
   const [messengerList, setMessengerList] = useState(messengers);
-
+  const {  setFilterList } = useAppProvider();
   const handleCheckedMessenger = (item) => {
     const id = Number(item.id + "" + item.category);
     const newMessageLeis = messengerList.map((m) => {

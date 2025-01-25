@@ -2,8 +2,10 @@ import React from "react";
 // import { CheckboxIcon } from "@nextui-org/react";
 import { Checkbox, Tooltip } from "@nextui-org/react";
 import { types } from "@/config/constants";
+import { useAppProvider } from "@/app/context/AppProvider";
 // import { CheckboxIcon } from "@nextui-org/react/dist";
-function Types({ setFilterList }) {
+function Types() {
+  const {  setFilterList } = useAppProvider();
   return (
     <div className="bg-glass">
       <h2 className=" font-shabnam text-sm">فیلتر براساس نوع</h2>
