@@ -27,7 +27,7 @@ function Nav() {
         <div className="w-full md:w-1/2 md:mt-28 mt-8">
           <Search
             placeholder={"جستجو بر حسب آیدی یا عنوان"}
-           
+            setIsFilter={setIsFilter}
           />
         </div>
         {isFilter && (
@@ -39,7 +39,7 @@ function Nav() {
                 <Subjects setFilterList={setFilterList} />
               </div>
 
-              <div className="mt-4 flex items-end justify-end">
+              {/* <div className="mt-4 flex items-end justify-end">
                 <Button
                   onClick={() => {
                     setRefresh((prev) => !prev);
@@ -53,7 +53,7 @@ function Nav() {
                     filterList.length != 0 ? "(" + filterList.length + ")" : ""
                   }`}
                 </Button>
-              </div>
+              </div> */}
             </div>
           </div>
         )}

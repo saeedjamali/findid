@@ -5,7 +5,7 @@ import { MdFilterListAlt } from "react-icons/md";
 import { FaSearch } from "react-icons/fa";
 import { useAppProvider } from "@/app/context/AppProvider";
 import { content } from "../../../../tailwind.config";
-export default function Search({ placeholder }) {
+export default function Search({ placeholder ,setIsFilter}) {
   const { search, setSearch,filterList } = useAppProvider();
 
   function handleSearch(term) {
@@ -26,7 +26,7 @@ export default function Search({ placeholder }) {
         </span>
         <span
           className="relative bg-header rounded-l-md text-white peer-focus:text-gray-900  w-1/2 h-full flex items-center justify-center hover:bg-opacity-65"
-          onClick={() => setSearch((prev) => !prev)}
+          onClick={() => setIsFilter((prev) => !prev)}
         >
           <MdFilterListAlt className="text-xl " />
           {filterList?.length != 0 && (
