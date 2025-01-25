@@ -13,7 +13,6 @@ export async function PUT(req) {
   }
   const formData = await req.formData();
 
-  console.log("formData--->", formData);
   const profile = formData.getAll("profile");
   const isAdmin = formData.get("isAdmin");
   const ownerIdCardPhone = formData.get("ownerIdCardPhone"); //? ثبت کننده آگهی
@@ -42,7 +41,6 @@ export async function PUT(req) {
   const isContactWithId = formData.get("isContactWithId");
   const contactWithId = formData.get("contactWithId");
   const contactTypeMessenger = formData.get("contactTypeMessenger");
-  console.log("profile--->", profile);
   try {
     if (!isConnected) {
       return Response.json({ message: "خطا در اتصال به پایگاه", status: 500 });

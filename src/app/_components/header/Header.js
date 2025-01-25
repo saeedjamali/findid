@@ -68,8 +68,6 @@ function Header({ isAuthenticateUser }) {
     toast.success("خارج شدید");
   };
 
-  console.log("resend--->", resend);
-  console.log("validOtp-->", validOtp);
   const handleSendOtp = async (event) => {
     if (!valiadtePhone(phoneInp?.trim())) {
       toast.error("شماره همراه وارد شده صحیح نمی باشد.");
@@ -152,7 +150,6 @@ function Header({ isAuthenticateUser }) {
     }
   }, [phoneInp]);
   useEffect(() => {
-    console.log(otp);
     if (valiadteOtp(otp)) {
       setValidOtp(true);
     } else {

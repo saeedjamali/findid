@@ -42,7 +42,6 @@ function Nav() {
               <div className="mt-4 flex items-end justify-end">
                 <Button
                   onClick={() => {
-                    console.log("filterList");
                     setRefresh((prev) => !prev);
                   }}
                   className={

@@ -21,7 +21,6 @@ function ImageUploader({
   const [error, setError] = useState(null);
   const [result, setResult] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  console.log("imageItems--->", imageItems);
   return (
     <div>
       <ImageUploading

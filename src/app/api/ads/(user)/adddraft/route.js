@@ -12,7 +12,6 @@ export async function PUT(req) {
   }
   const { isConnected, message } = await connectToDB();
   const formData = await req.formData();
-  console.log(formData.get("id"));
   const profile = formData.getAll("profile");
 
   const registerId = formData.get("registerId"); //? ثبت کننده آگهی

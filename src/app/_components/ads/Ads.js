@@ -57,7 +57,6 @@ export default function Ads({ action, ad }) {
   const router = useRouter();
 
   const { phone, _id, role } = isAuthUser;
-  console.log("role--->", role);
   const [ads, setAds] = useState(ad);
   const [isAdmin, setIsAdmin] = useState(role == "ADMIN" ? true : false);
   const [submitted, setSubmitted] = useState(null);
@@ -758,9 +757,7 @@ export default function Ads({ action, ad }) {
                   label={"قیمت توافقی"}
                   state={agreedPrice}
                   set={(key) => {
-                    console.log("agreedPrice price--->", price);
                     setAgreedPrice(key);
-                    console.log("agreedPrice--->", key);
                     validateValue(
                       !key && (!price || price == 0),
                       setIsInvalid,
@@ -1032,7 +1029,6 @@ export default function Ads({ action, ad }) {
                             className="absolute top-2 left-2 text-red-500 font-bold w-5 h-5 cursor-pointer"
                             // onClick={handleDeleteProfile}
                             onClick={() => {
-                              console.log(ads);
                               setAds((prev) => {
                                 return { ...prev, profile: [] };
                               });

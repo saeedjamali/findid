@@ -33,7 +33,7 @@ export async function POST(req, { params, searchParams }) {
   const regex = new RegExp(search, "i"); // i for case insensitive
   // Posts.find({ title: { $regex: regex } });
 
-  console.log("messengers------->", messengers);
+  // console.log("messengers------->", messengers);
   // console.log("types------->", types);
   // console.log("subjects------->", subjects);
   try {
@@ -60,7 +60,6 @@ export async function POST(req, { params, searchParams }) {
       .limit(limit)
       .populate("counter");
 
-    console.log("idsCard--->", idsCard.length);
     let bookmarksId = [];
     if (mongoose.Types.ObjectId.isValid(userId)) {
       bookmarksId = await bookmarkModel.find({ user: userId });
