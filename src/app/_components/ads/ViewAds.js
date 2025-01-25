@@ -221,8 +221,10 @@ function ViewAds({ ads }) {
           <CardBody className=" w-full gap-4 py-8 flex flex-col-reverse lg:flex-row">
             <div className="w-full col-span-1  lg:flex-1 rounded-lg mt-4 lg:mt-0">
               <div className="flex justify-between items-center p-2">
-                <span className="text-h1-color text-[14px]">شناسه (آیدی) </span>
-                <div className="text-h2-color text-[14px]  flex items-center justify-center gap-3 font-semibold text-center">
+                <span className="text-h1-color text-responsive">
+                  شناسه (آیدی){" "}
+                </span>
+                <div className="text-h2-color text-responsive  flex items-center justify-center gap-3 font-semibold text-center">
                   <span className="flex items-center justify-center h-ful">
                     {" "}
                     {ads?.id}
@@ -235,7 +237,7 @@ function ViewAds({ ads }) {
               </div>
               <Divider />
               <div className="flex justify-between items-center p-2">
-                <span className="text-h1-color text-[14px]">پیام رسان</span>
+                <span className="text-h1-color text-responsive">پیام رسان</span>
                 <span className="flex items-center justify-center gap-2 text-[12px] font-semibold">
                   {messengers[ads?.messenger - 1]?.latin}
                   <Image
@@ -249,21 +251,21 @@ function ViewAds({ ads }) {
               </div>
               <Divider />
               <div className="flex justify-between items-center p-2">
-                <span className="text-h1-color text-[14px]">نوع رسانه</span>
-                <span className="text-h2-color text-[14px]">
+                <span className="text-h1-color text-responsive">نوع رسانه</span>
+                <span className="text-h2-color text-responsive">
                   {types[ads?.type - 1]?.title}
                 </span>
               </div>
               <Divider />
               <div className="flex justify-between items-center p-2">
-                <span className="text-h1-color text-[14px]">موضوع</span>
-                <span className="text-h2-color text-[14px]">
+                <span className="text-h1-color text-responsive">موضوع</span>
+                <span className="text-h2-color text-responsive">
                   {subjects[ads?.subject - 1]?.title}
                 </span>
               </div>
               <Divider />
               <div className="flex justify-between items-center p-2">
-                <span className="text-h1-color text-[14px] text-right">
+                <span className="text-h1-color text-responsive text-right">
                   قیمت{" "}
                   <span className="text-[12px] text-green-600">
                     {ads?.discount == 0 || !ads?.discount
@@ -273,48 +275,52 @@ function ViewAds({ ads }) {
                 </span>
                 <span>
                   {ads?.discount != 0 && (
-                    <span className="text-[14px] mx-2 text-green-600 no-underline">
+                    <span className="text-responsive mx-2 text-green-600 no-underline">
                       {(
                         ads?.price *
                         (1 - ads?.discount / 100)
                       )?.toLocaleString()}
-                      <span className="text-[8px] "> تومان</span>
+                      {/* <span className="text-[8px] "> تومان</span> */}
                     </span>
                   )}
-                  <span
-                    className={
-                      ads?.discount != 0
-                        ? "`text-red-600 text-[14px] text-danger line-through  gap-2"
-                        : "text-h1-color text-[14px]  gap-2"
-                    }
-                  >
-                    {ads?.agreedPrice ? (
-                      "توافقی "
-                    ) : (
-                      <>
-                        {Number(ads?.price).toLocaleString()}{" "}
-                        <span className="text-[8px] "> تومان</span>
-                      </>
-                    )}
-                  </span>
+
+                  {ads?.agreedPrice ? (
+                    "توافقی "
+                  ) : (
+                    <>
+                      <span
+                        className={
+                          ads?.discount != 0
+                            ? "`text-red-600 text-responsive text-danger line-through  gap-2"
+                            : "text-h1-color text-responsive  gap-2"
+                        }
+                      >
+                        {Number(ads?.price).toLocaleString()}
+                      </span>
+                      <span className="text-[8px] text-h1-color no-underline ">
+                        {" "}
+                        تومان
+                      </span>
+                    </>
+                  )}
                 </span>
               </div>
               <Divider />
               <div className="flex justify-between items-center p-2">
-                <span className="text-h1-color text-[14px] text-right">
+                <span className="text-h1-color text-responsive text-right">
                   تعداد اعضا
                 </span>
-                <span className="flex items-center justify-center gap-2 text-h2-color text-[14px] text-left">
+                <span className="flex items-center justify-center gap-2 text-h2-color text-responsive text-left">
                   {(ads?.members).toLocaleString()}
                   <PiUser />
                 </span>
               </div>
               <Divider />
               <div className="flex justify-between items-center p-2">
-                <span className="text-h1-color text-[14px] text-right">
+                <span className="text-h1-color text-responsive text-right">
                   سال ساخت
                 </span>
-                <span className="flex items-center justify-center gap-2 text-h2-color text-[14px] text-left">
+                <span className="flex items-center justify-center gap-2 text-h2-color text-responsive text-left">
                   {years[ads?.createDate - 1].title}
                   <MdUpdate />
                 </span>
@@ -322,39 +328,39 @@ function ViewAds({ ads }) {
 
               <Divider />
               <div className="flex justify-between items-center p-2">
-                <span className="text-h1-color text-[14px] text-right">
+                <span className="text-h1-color text-responsive text-right">
                   تعداد بازدید این صفحه
                 </span>
-                <span className="flex items-center justify-center gap-2 text-h2-color text-[14px] text-left">
+                <span className="flex items-center justify-center gap-2 text-h2-color text-responsive text-left">
                   {memberToK(ads?.counter?.views)}
                   <MdOutlineRemoveRedEye />
                 </span>
               </div>
               <Divider />
               <div className="flex justify-between items-center p-2">
-                <span className="text-h1-color text-[14px] text-right">
+                <span className="text-h1-color text-responsive text-right">
                   تعداد بوک مارک شده ها
                 </span>
-                <span className=" flex items-center justify-center gap-2 text-h2-color text-[14px] text-left">
-                  {(ads?.counter?.bookmarks)?.toLocaleString()}
+                <span className=" flex items-center justify-center gap-2 text-h2-color text-responsive text-left">
+                  {ads?.counter?.bookmarks?.toLocaleString()}
                   <FaRegBookmark />
                 </span>
               </div>
               <Divider />
               <div className="flex justify-between items-center p-2 ">
-                <span className="text-h1-color text-[14px] text-right">
+                <span className="text-h1-color text-responsive text-right">
                   زمان انتشار آگهی
                 </span>
-                <span className="text-h2-color text-[14px] text-left">
+                <span className="text-h2-color text-responsive text-left">
                   {new Date(ads?.createdAt).toLocaleDateString("fa-IR")}
                 </span>
               </div>
               <Divider />
               <div className="flex justify-between items-center p-2 ">
-                <span className="text-h1-color text-[14px] text-right">
+                <span className="text-h1-color text-responsive text-right">
                   زمان بروزرسانی آگهی
                 </span>
-                <span className="text-h2-color text-[14px] text-left">
+                <span className="text-h2-color text-responsive text-left">
                   {new Date(ads?.updatedAt).toLocaleDateString("fa-IR")}
                 </span>
               </div>
@@ -362,7 +368,7 @@ function ViewAds({ ads }) {
               {/* //? توضیحات */}
               {/* <Divider />
               <div className="flex flex-col justify-start items-start p-2 ">
-                <span className="text-h1-color text-[14px]">توضیحات</span>
+                <span className="text-h1-color text-responsive">توضیحات</span>
                 <p className="text-h2-color text-[12px] mt-2 p-2">
                   {ads?.description}
                 </p>
@@ -371,7 +377,7 @@ function ViewAds({ ads }) {
               {ads?.isShowPhoneOwnerIdCard && (
                 <>
                   <div className="flex  justify-between items-center p-2 ">
-                    <span className="text-h1-color text-[14px] text-right">
+                    <span className="text-h1-color text-responsive text-right">
                       شماره تماس
                     </span>
                     <p className=" flex items-center justify-center text-h2-color text-[12px] mt-2 gap-3 text-left">
@@ -393,7 +399,7 @@ function ViewAds({ ads }) {
               {ads?.isContactWithId && (
                 <>
                   <div className="flex  justify-between items-center p-2 ">
-                    <span className="text-h1-color text-[14px] text-right">
+                    <span className="text-h1-color text-responsive text-right">
                       آیدی جهت ارتباط با مالک
                     </span>
                     <p className="flex items-center justify-center text-h2-color text-[12px] mt-2  gap-3 text-left">
@@ -411,7 +417,7 @@ function ViewAds({ ads }) {
                 </>
               )}
               <div className="flex w-full lg:hidden flex-col mt-4 justify-start items-start p-2 bg-slate-100 rounded-lg ">
-                <span className="text-h1-color text-[14px] text-right">
+                <span className="text-h1-color text-responsive text-right">
                   توضیحات
                 </span>
                 <p className="text-h2-color text-[12px] mt-2 p-2 text-right">

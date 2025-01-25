@@ -151,6 +151,9 @@ body {
     @apply bg-white/50 backdrop-blur-md rounded-xl border border-white/20 shadow-lg p-2
   }
 
+  .text-responsive {
+    @apply text-[10px] md:text-[12px]
+  }
 }
 
 
