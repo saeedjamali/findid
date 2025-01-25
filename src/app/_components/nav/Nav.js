@@ -24,7 +24,7 @@ function Nav() {
         <h1 className="text-header md:hidden my-8 font-bold text-2xl">
           مرجع تبادل شناسه های اینترنتی{" "}
         </h1>
-        <div className="w-full md:w-1/2 md:mt-28 mt-8">
+        <div className="w-full md:w-1/2 md:mt-12 mt-8">
           <Search
             placeholder={"جستجو بر حسب آیدی یا عنوان"}
             setIsFilter={setIsFilter}

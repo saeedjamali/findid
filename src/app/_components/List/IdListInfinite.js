@@ -29,7 +29,7 @@ export default function IdListInfinite({
   const [userBookmarks, setUserBookmarks] = useState([]);
   const [hasMoreData, setHasMoreData] = useState(true);
   const scrollTrigger = useRef(null);
-  const { filterList, isAuthUser,search } = useAppProvider();
+  const { filterList, isAuthUser, search } = useAppProvider();
   const [showImage, setShowImage] = useState(true);
 
   //  console.log("filterList", search);
@@ -53,12 +53,16 @@ export default function IdListInfinite({
       for (const filter of filterList) {
         formData.append("filter", JSON.stringify(filter));
       }
+      const char = search.length > 2 ? search : "";
       try {
-        const response = await fetch(`${url}/${isAuthUser?._id}/${sort}/${search}`, {
-          method: "POST",
-          header: { "Content-Type": "multipart/form-data" },
-          body: formData,
-        });
+        const response = await fetch(
+          `${url}/${isAuthUser?._id}/${sort}/${char}`,
+          {
+            method: "POST",
+            header: { "Content-Type": "multipart/form-data" },
+            body: formData,
+          }
+        );
         const data = await response.json();
         // console.log("Running Page 1 data--->", data);
         if (data.status == 201) {
@@ -74,7 +78,7 @@ export default function IdListInfinite({
       }
     };
     getAds();
-  }, [sort, filterList,search]);
+  }, [sort, filterList, search]);
 
   const loadMoreIds = async () => {
     const url = getApiUrl(offset, Id_PER_PAGE);
@@ -86,11 +90,15 @@ export default function IdListInfinite({
         for (const filter of filterList) {
           formData.append("filter", filter);
         }
-        const response = await fetch(`${url}/${isAuthUser?._id}/${sort}/${search}`, {
-          method: "POST",
-          header: { "Content-Type": "multipart/form-data" },
-          body: {},
-        });
+        const char = search.length > 2 ? search : "";
+        const response = await fetch(
+          `${url}/${isAuthUser?._id}/${sort}/${char}`,
+          {
+            method: "POST",
+            header: { "Content-Type": "multipart/form-data" },
+            body: {},
+          }
+        );
         const data = await response.json();
         if (data.status == 201) {
           apiIds = data.idsCard;
@@ -138,7 +146,7 @@ export default function IdListInfinite({
 
   return (
     <div>
-      <div className="flex justify-end items-center w-full my-4">
+      <div className="flex justify-end items-center w-full">
         <Switch
           isSelected={showImage}
           onValueChange={setShowImage}
