@@ -2,7 +2,7 @@
 
 export const API_URL = "/api/ads/get/all";
 export const BASE_URL = "http://localhost:3000/";
-export const Id_PER_PAGE = 10;
+export const Id_PER_PAGE = 50;
 export const messengers = [
   {
     id: 1,
@@ -261,7 +261,6 @@ export const sorts = [
   { id: 2, title: "تعداد اعضا" },
   { id: 3, title: "تعداد مشاهده " },
 ];
-
 
 export const years = [
   { id: 1, title: "2025" },

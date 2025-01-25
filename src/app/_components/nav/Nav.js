@@ -15,7 +15,8 @@ import { useAppProvider } from "@/app/context/AppProvider";
 function Nav() {
   const [isFilter, setIsFilter] = useState(false);
   const [isChecked, setIsCheked] = useState(false);
-  const { filterList, setFilterList, setRefresh } = useAppProvider();
+  const { filterList, setFilterList, setRefresh, search, setSearch } =
+    useAppProvider();
 
   return (
     <div className=" w-full   ">
@@ -26,7 +27,7 @@ function Nav() {
         <div className="w-full md:w-1/2 md:mt-28 mt-8">
           <Search
             placeholder={"جستجو بر حسب آیدی یا عنوان"}
-            setIsFilter={setIsFilter}
+           
           />
         </div>
         {isFilter && (

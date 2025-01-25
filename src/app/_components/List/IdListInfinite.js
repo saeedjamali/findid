@@ -29,8 +29,10 @@ export default function IdListInfinite({
   const [userBookmarks, setUserBookmarks] = useState([]);
   const [hasMoreData, setHasMoreData] = useState(true);
   const scrollTrigger = useRef(null);
-  const { filterList, isAuthUser } = useAppProvider();
+  const { filterList, isAuthUser,search } = useAppProvider();
   const [showImage, setShowImage] = useState(true);
+
+  //  console.log("filterList", search);
   // useEffect(() => {
   //   let value = localStorage.getItem("showImage") || true;
   //   console.log("showImage first-->", showImage);
@@ -47,10 +49,18 @@ export default function IdListInfinite({
       const url = getApiUrl(0, Id_PER_PAGE);
       // /api/ads/get/all/${offset}/${limit}
 
+      const formData = new FormData();
+      for (const filter of filterList) {
+        formData.append("filter", JSON.stringify(filter));
+      }
       try {
-        const response = await fetch(`${url}/${isAuthUser?._id}/${sort}`);
+        const response = await fetch(`${url}/${isAuthUser?._id}/${sort}/${search}`, {
+          method: "POST",
+          header: { "Content-Type": "multipart/form-data" },
+          body: formData,
+        });
         const data = await response.json();
-        console.log("Running Page 1 data--->", data);
+        // console.log("Running Page 1 data--->", data);
         if (data.status == 201) {
           setIds(data.idsCard);
           setIsBookmarks(data.bookmarksId);
@@ -64,7 +74,7 @@ export default function IdListInfinite({
       }
     };
     getAds();
-  }, [sort]);
+  }, [sort, filterList,search]);
 
   const loadMoreIds = async () => {
     const url = getApiUrl(offset, Id_PER_PAGE);
@@ -72,7 +82,15 @@ export default function IdListInfinite({
       // console.log("offset-->data", data);
       let apiIds = [];
       try {
-        const response = await fetch(`${url}/${isAuthUser?._id}/${sort}`);
+        const formData = new FormData();
+        for (const filter of filterList) {
+          formData.append("filter", filter);
+        }
+        const response = await fetch(`${url}/${isAuthUser?._id}/${sort}/${search}`, {
+          method: "POST",
+          header: { "Content-Type": "multipart/form-data" },
+          body: {},
+        });
         const data = await response.json();
         if (data.status == 201) {
           apiIds = data.idsCard;
@@ -175,6 +193,8 @@ export default function IdListInfinite({
           <div ref={scrollTrigger}>
             <LOADING />
           </div>
+        ) : (filterList.length != 0 || search != "") && ids.length == 0 ? (
+          <p className="text-slate-600">نتیجه ای یافت نشد</p>
         ) : (
           <p className="text-slate-600">کل آیدی ها دریافت شد</p>
         )}

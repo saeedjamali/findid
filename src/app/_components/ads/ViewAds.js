@@ -285,7 +285,9 @@ function ViewAds({ ads }) {
                   )}
 
                   {ads?.agreedPrice ? (
-                    "توافقی "
+                    <span className="text-h1-color text-responsive  gap-2">
+                      توافقی
+                    </span>
                   ) : (
                     <>
                       <span

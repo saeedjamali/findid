@@ -3,9 +3,39 @@ import idCardModel from "@/models/IDCard/IDCard";
 import bookmarkModel from "@/models/IDCard/Bookmarks";
 const mongoose = require("mongoose");
 
-export async function GET(req, { params, searchParams }) {
-  const [offset, limit, userId, sort] = await params?.all;
+export async function POST(req, { params, searchParams }) {
+  const [offset, limit, userId, sort,search] = await params?.all;
+  let messengers = [],
+    types = [],
+    subjects = [];
+  const formData = await req.formData();
 
+  const filters = formData.getAll("filter");
+  if (filters.length != 0) {
+    const filterss = filters?.map((item) => JSON.parse(item));
+    messengers = filterss
+      .filter((item) => item.category == 1)
+      .map((item) => {
+        return { messenger: item.id };
+      });
+    types = filterss
+      .filter((item) => item.category == 2)
+      .map((item) => {
+        return { type: item.id };
+      });
+    subjects = filterss
+      .filter((item) => item.category == 3)
+      .map((item) => {
+        return { subject: item.id };
+      });
+  }
+  
+  const regex = new RegExp(search, "i"); // i for case insensitive
+  // Posts.find({ title: { $regex: regex } });
+
+  console.log("messengers------->", messengers);
+  // console.log("types------->", types);
+  // console.log("subjects------->", subjects);
   try {
     const { isConnected, message } = await connectToDB();
     const sorts = ["createdAt", "updatedAt", "members", "views"];
@@ -16,14 +46,21 @@ export async function GET(req, { params, searchParams }) {
     //   console.log("ownerIdCard--->", ownerIdCard);
 
     let idsCard = await idCardModel
-      .find({ isShow: true })
+      .find({
+        $and: [
+          { isShow: true },
+          { $or: messengers },
+          { $or: types },
+          { $or: subjects },
+          { $or: [{ title: { $regex: regex } }, { id: { $regex: regex } }] },
+        ],
+      })
       .sort({ [`${sorts[sort]}`]: -1 })
       .skip(offset)
       .limit(limit)
       .populate("counter");
 
-  
-    // console.log("idsCard--->", idsCard);
+    console.log("idsCard--->", idsCard.length);
     let bookmarksId = [];
     if (mongoose.Types.ObjectId.isValid(userId)) {
       bookmarksId = await bookmarkModel.find({ user: userId });

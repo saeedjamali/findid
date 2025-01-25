@@ -12,6 +12,7 @@ export async function PUT(req) {
   }
   const { isConnected, message } = await connectToDB();
   const formData = await req.formData();
+  console.log(formData.get("id"));
   const profile = formData.getAll("profile");
 
   const registerId = formData.get("registerId"); //? ثبت کننده آگهی
@@ -78,6 +79,7 @@ export async function PUT(req) {
 
     if (!foundId) {
       foundId = await idDraftModel.create({
+        id,
         registerId,
         ownerIdCard,
         isOwnerId,
@@ -126,9 +128,9 @@ export async function PUT(req) {
       });
     }
   } catch (error) {
-    console.log("error in api add image>>", error);
+    console.log("error in api add draft>>", error);
     return Response.json({
-      message: "خطای ناشناخته" + isConnected,
+      message: "خطای ناشناخته",
       status: 501,
     });
   }

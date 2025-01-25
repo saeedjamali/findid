@@ -14,6 +14,7 @@ function AppProvider({ children, isAuthenticateUser }) {
   // const [isShowSignInForm, setIsShowSignInForm] = useState("Hello");
   const [token, setToken] = useState("");
   const [signData, setSignData] = useState("");
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     setIsAuthUser(isAuthenticateUser);
@@ -23,6 +24,8 @@ function AppProvider({ children, isAuthenticateUser }) {
     <>
       <AppContext.Provider
         value={{
+          search,
+          setSearch,
           refresh,
           setRefresh,
           filterList,
