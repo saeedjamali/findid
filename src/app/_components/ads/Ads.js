@@ -83,9 +83,8 @@ export default function Ads({ action, ad }) {
   );
   const [ownerIdCardPhone, setOwnerIdCardPhone] = useState(""); //? fill in with admin
   const [contactWithPhone, setContactWithPhone] = useState(
-    isAdmin ? ownerIdCardPhone : phone
+    isAdmin ? (action == 3 ? ads?.contactWithPhone : ownerIdCardPhone) : phone
   );
-  console.log("role in Admin--->", isAdmin, contactWithPhone);
   const [isContactWithId, setIsContactWithId] = useState(
     ads?.isContactWithId || false
   );
@@ -424,7 +423,11 @@ export default function Ads({ action, ad }) {
       formData.append("isShowPhoneOwnerIdCard", isShowPhoneOwnerIdCard);
       formData.append(
         "contactWithPhone",
-        isAdmin ? ownerIdCardPhone : phone || ""
+        isAdmin
+          ? action == 3
+            ? ads?.contactWithPhone
+            : ownerIdCardPhone
+          : phone
       );
       formData.append("isContactWithId", isContactWithId);
       formData.append("contactWithId", contactWithId);
