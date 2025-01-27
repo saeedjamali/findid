@@ -1,6 +1,6 @@
 "use client";
 import { getIds } from "@/actions/getIds";
-import { Id_PER_PAGE } from "@/config/constants";
+import { Id_PER_PAGE, messengers } from "@/config/constants";
 // import IdList from "../_components/List/IdList(workwithbuttonLoadMore)";
 import IdListInfinite from "./_components/List/IdListInfinite";
 import Nav from "./_components/nav/Nav";
@@ -9,6 +9,8 @@ import { useEffect, useState } from "react";
 import { getApiUrl } from "@/utils/getApiUrl";
 import LOADING from "./_components/pages/LOADING";
 import { useAppProvider } from "./context/AppProvider";
+import IdCard from "./_components/List/IdCard";
+import SwiperTop10 from "./_components/swiper/SwiperTop10";
 
 export default function Home() {
   const [initialIds, setinitialIds] = useState([]);
@@ -55,14 +57,14 @@ export default function Home() {
       {/* <IdListInfinite initialIds={initialIds} /> */}
       <Nav />
       <div className=" container p-5 mx-auto  rounded-lg h-full">
-       
-          <IdListInfinite
-            initialIds={initialIds}
-            bookmarksId={JSON.parse(JSON.stringify(bookmarks))}
-            setSort={setSort}
-            sort={sort}
-            setRefresh={setRefresh}
-          />
+        <SwiperTop10 />
+        <IdListInfinite
+          initialIds={initialIds}
+          bookmarksId={JSON.parse(JSON.stringify(bookmarks))}
+          setSort={setSort}
+          sort={sort}
+          setRefresh={setRefresh}
+        />
       </div>
     </div>
   );
