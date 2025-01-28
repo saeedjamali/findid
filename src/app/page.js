@@ -56,7 +56,7 @@ export default function Home() {
       <Toaster />
       {/* <IdListInfinite initialIds={initialIds} /> */}
       <Nav />
-      <div className=" container p-5 mx-auto  rounded-lg h-full">
+      <div className="lg:container p-5 mx-auto  rounded-lg h-full">
         <SwiperTop10 />
         <IdListInfinite
           initialIds={initialIds}

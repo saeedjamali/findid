@@ -2,18 +2,22 @@
 
 "use client";
 import Image from "next/image";
-import { types } from "@/config/constants";
+import { messengers, types } from "@/config/constants";
 import { FaEye } from "react-icons/fa";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { RiDiscountPercentFill, RiDiscountPercentLine } from "react-icons/ri";
 import { CiMoneyBill, CiUser } from "react-icons/ci";
 import { MdOutlineRemoveRedEye, MdUpdate } from "react-icons/md";
 import { memberToK } from "@/utils/helper";
-import { useState } from "react";
-export default function IdCard({ id }) {
-  const [isMember, setIsMember] = useState(false);
-  const [isView, setIsView] = useState(false);
-  const [isPrice, setIsPrice] = useState(true);
+import { useEffect, useState } from "react";
+import ImageLoader from "../imageUploader/imageLoader";
+export default function IdCard({ ads, action }) {
+  console.log(ads);
+  const [isShow, setIsShow] = useState(action || 1); //? 1 : member  -  2: views  -  3: price
+
+  useEffect(() => {
+    setIsShow(action);
+  }, [action]);
   return (
     // <div className="p-8 mb-1 relative border-l-8 transition-all bg-white border-slate-400 hover:border-cyan-400 [counter-increment:post-index] before:content-[counter(post-index)] before:p-2 before:leading-none before:absolute before:top-0 before:right-0 before:transition-all before:bg-slate-100 hover:before:bg-cyan-100 ">
 
@@ -21,11 +25,35 @@ export default function IdCard({ id }) {
     <div className="p-2">
       <div
         className={` w-full col-span-1 h-[180px]   shadow-2xl relative bg-glass bg-white`}
-        style={{ boxShadow: `2px 2px  5px ${id?.color}` }}
+        style={{
+          boxShadow: `2px 2px  5px ${messengers[ads?.messenger - 1]?.color}`,
+        }}
       >
         <div className=" w-full relative flex items-center justify-center text-[12px]">
           <div className="w-16 h-16   flex items-center justify-center p-2">
-            <Image alt={""} width={100} height={100} src={id?.icon}></Image>
+            {ads?.profile?.length != 0 ? (
+              <ImageLoader imageUrl={ads?.profile[0]} code={"profile"}  size={"48px"}/>
+            ) : (
+              <>
+                <Image
+                  src={"/images/logo.png"}
+                  className=" h-8 w-8 rounded-full object-fill p-1 opacity-25"
+                  width={100}
+                  height={100}
+                  alt="profile"
+                  // effect="blur"
+                  // wrapperProps={{
+                  //   // If you need to, you can tweak the effect transition using the wrapper style.
+                  //   style: {
+                  //     transitionDelay: "1s",
+                  //   },
+                  // }}
+                />
+                {/* <p className="absolute font-shabnam text-3xl text-gray-700 opacity-40">
+                  تصویر یافت نشد
+                </p> */}
+              </>
+            )}
           </div>
           {/* <span className="absolute top-4 right-3  w-6 h-6 rounded-full ">
           <FaEye className="w-6 h-6"/>
@@ -39,28 +67,34 @@ export default function IdCard({ id }) {
         </div>
         <div className="w-full flex flex-col items-center justify-center">
           <h2 className="font-semibold text-header flex items-center justify-center mt-2 text-[12px] h-4 w-4">
-            {id?.latin}
-            <Image alt="1" width={20} height={20} src={id?.icon}></Image>
+            {ads?.id}
+            <Image
+              alt="1"
+              width={20}
+              height={20}
+              src={messengers[ads?.messenger - 1]?.icon}
+            ></Image>
           </h2>
         </div>
-        <div className="flex items-center justify-center gap-2 mt-2 font-iranyekanBold ">
-          سرگرمی
+        <div className="flex items-center justify-center gap-2 mt-2 font-iranyekanBold text-[12px] ">
+          {ads?.title}
         </div>
-        {isView && (
-          <div className="flex items-center justify-center gap-1 mt-2 text-[12px] ">
-            <p> {memberToK(150000)}</p>
-            <MdOutlineRemoveRedEye />
-          </div>
-        )}
-        {isMember && (
+
+        {isShow == 1 && (
           <div className="flex items-center justify-center gap-1 mt-2 text-[12px] font-bold">
             <p> {memberToK(150000)}</p>
             <CiUser className="font-bold" />
           </div>
         )}
-        {isPrice && (
+        {isShow == 2 && (
+          <div className="flex items-center justify-center gap-1 mt-2 text-[10px] ">
+            <p> {memberToK(150000)}</p>
+            <MdOutlineRemoveRedEye />
+          </div>
+        )}
+        {isShow == 3 && (
           <div className="flex items-center justify-center gap-1 mt-2 text-[12px] font-bold">
-            <p> {(150000).toLocaleString() + " تومان"} </p>
+            <p> {ads?.price?.toLocaleString() + " تومان"} </p>
             {/* <CiMoneyBill className="font-bold" /> */}
           </div>
         )}

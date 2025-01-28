@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -15,21 +15,46 @@ import IdCard from "../List/IdCard";
 import { messengers } from "@/config/constants";
 import { Button } from "@nextui-org/react";
 import Image from "next/image";
+import toast from "react-hot-toast";
 
 export default function SwiperTop10() {
   const [swiperRef, setSwiperRef] = useState(null);
+  const [action, setAction] = useState(1); //? 1 : member  -  2: views  -  3: price
+  const [topTen, setTopTen] = useState();
+  useEffect(() => {
+    const getTop10 = async () => {
+      const response = await fetch(`/api/ads/top10/${action}/0/10`);
+      const data = await response.json();
+      // console.log(data);
+      if (data.status == 201) {
+        setTopTen(data?.idsCard);
+      } else {
+        toast.error("خطای دریافت  Top10");
+      }
+    };
 
+    getTop10();
+  }, [action]);
   return (
-    <div className="bg-header p-4 rounded-lg">
+    <div className="bg-header rounded-lg pb-4 px-4">
       <div className="flex justify-between items-center ">
-        <div className="flex flex-grow gap-1 md:gap-2 px-2 ">
-          <span className="hover:bg-slate-100 hover:text-orange-700 text-white bg-btn-orange cursor-pointer p-2  text-[12px] rounded-lg">
+        <div className="flex flex-grow gap-1 md:gap-8 mr-8 ">
+          <span
+            className="hover:bg-slate-100 hover:text-orange-700 text-white bg-btn-orange cursor-pointer p-2 px-4 text-[12px] rounded-b-lg "
+            onClick={() => setAction(1)}
+          >
             عضو
           </span>
-          <span className="hover:bg-slate-100 hover:text-orange-700  text-white bg-btn-orange cursor-pointer p-2  text-[12px] rounded-lg">
+          <span
+            className="hover:bg-slate-100 hover:text-orange-700  text-white bg-btn-orange cursor-pointer p-2 px-4 text-[12px] rounded-b-lg"
+            onClick={() => setAction(2)}
+          >
             مشاهده
           </span>
-          <span className="hover:bg-slate-100 hover:text-orange-700 text-white bg-btn-orange cursor-pointer p-2  text-[12px] rounded-lg">
+          <span
+            className="hover:bg-slate-100 hover:text-orange-700 text-white bg-btn-orange cursor-pointer p-2 px-4 text-[12px] rounded-b-lg"
+            onClick={() => setAction(3)}
+          >
             قیمت
           </span>
         </div>
@@ -86,10 +111,10 @@ export default function SwiperTop10() {
         // navigation={true}
         modules={[Autoplay, Navigation]}
       >
-        {messengers.map((item) => {
+        {topTen?.map((item) => {
           return (
             <SwiperSlide className="rounded-lg  bg-transparent">
-              <IdCard id={item} />
+              <IdCard ads={item} action={action} />
             </SwiperSlide>
           );
         })}
