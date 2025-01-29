@@ -45,9 +45,9 @@ function ImageLoader({ imageUrl, code, size }) {
           },
         }}
         src={image}
-        className={`${
+        className={` rounded-t-lg md:rounded-tr-lg md:rounded-br-lg md:rounded-t-none  object-center ${
           size ? `h-[${size}] w-[${size}]` : "h-64 w-screen "
-        }  rounded-t-lg md:rounded-tr-lg md:rounded-br-lg md:rounded-t-none  object-center `}
+        }  `}
         width={100}
         height={100}
         alt="profile"

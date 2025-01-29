@@ -3,7 +3,7 @@
 "use client";
 import Image from "next/image";
 import { messengers, types } from "@/config/constants";
-import { FaEye } from "react-icons/fa";
+import { FaEye, FaUser } from "react-icons/fa";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { RiDiscountPercentFill, RiDiscountPercentLine } from "react-icons/ri";
 import { CiMoneyBill, CiUser } from "react-icons/ci";
@@ -11,7 +11,10 @@ import { MdOutlineRemoveRedEye, MdUpdate } from "react-icons/md";
 import { memberToK } from "@/utils/helper";
 import { useEffect, useState } from "react";
 import ImageLoader from "../imageUploader/imageLoader";
-export default function IdCard({ ads, action }) {
+import { GrView } from "react-icons/gr";
+import { Skeleton } from "@nextui-org/react";
+export default function IdCard({ ads, action, isLoaded }) {
+  // const [isLoaded, setIsLoaded] = useState(false);
   console.log(ads);
   const [isShow, setIsShow] = useState(action || 1); //? 1 : member  -  2: views  -  3: price
 
@@ -29,32 +32,38 @@ export default function IdCard({ ads, action }) {
           boxShadow: `2px 2px  5px ${messengers[ads?.messenger - 1]?.color}`,
         }}
       >
-        <div className=" w-full relative flex items-center justify-center text-[12px]">
-          <div className="w-16 h-16   flex items-center justify-center p-2">
-            {ads?.profile?.length != 0 ? (
-              <ImageLoader imageUrl={ads?.profile[0]} code={"profile"}  size={"48px"}/>
-            ) : (
-              <>
-                <Image
-                  src={"/images/logo.png"}
-                  className=" h-8 w-8 rounded-full object-fill p-1 opacity-25"
-                  width={100}
-                  height={100}
-                  alt="profile"
-                  // effect="blur"
-                  // wrapperProps={{
-                  //   // If you need to, you can tweak the effect transition using the wrapper style.
-                  //   style: {
-                  //     transitionDelay: "1s",
-                  //   },
-                  // }}
+        <div className=" w-full relative flex items-center justify-center ">
+          <Skeleton className="rounded-full h-12" isLoaded={isLoaded}>
+            <div className="rounded-full w-12 h-12 flex items-center justify-center  cursor-pointer overflow-hidden object-fill">
+              {ads?.profile?.length != 0 ? (
+                <ImageLoader
+                  imageUrl={ads?.profile[0]}
+                  code={"profile"}
+                  size={"48px"}
                 />
-                {/* <p className="absolute font-shabnam text-3xl text-gray-700 opacity-40">
+              ) : (
+                <>
+                  <Image
+                    src={"/images/logo.png"}
+                    className=" h-8 w-8 rounded-full object-fill p-1 opacity-25"
+                    width={100}
+                    height={100}
+                    alt="profile"
+                    // effect="blur"
+                    // wrapperProps={{
+                    //   // If you need to, you can tweak the effect transition using the wrapper style.
+                    //   style: {
+                    //     transitionDelay: "1s",
+                    //   },
+                    // }}
+                  />
+                  {/* <p className="absolute font-shabnam text-3xl text-gray-700 opacity-40">
                   تصویر یافت نشد
                 </p> */}
-              </>
-            )}
-          </div>
+                </>
+              )}
+            </div>
+          </Skeleton>
           {/* <span className="absolute top-4 right-3  w-6 h-6 rounded-full ">
           <FaEye className="w-6 h-6"/>
         </span>
@@ -65,39 +74,53 @@ export default function IdCard({ ads, action }) {
           <RiDiscountPercentFill className="w-6 h-6"/>
         </span> */}
         </div>
-        <div className="w-full flex flex-col items-center justify-center">
-          <h2 className="font-semibold text-header flex items-center justify-center mt-2 text-[12px] h-4 w-4">
-            {ads?.id}
-            <Image
-              alt="1"
-              width={20}
-              height={20}
-              src={messengers[ads?.messenger - 1]?.icon}
-            ></Image>
-          </h2>
-        </div>
-        <div className="flex items-center justify-center gap-2 mt-2 font-iranyekanBold text-[12px] ">
-          {ads?.title}
-        </div>
+        <Skeleton className="rounded-md mt-1 h-5" isLoaded={isLoaded}>
+          <div className="w-full flex flex-col items-center justify-center">
+            <h2 className="font-semibold text-header flex items-center justify-center mt-2 text-[12px] h-4 w-4">
+              {ads?.id}
+              <Image
+                alt="1"
+                width={20}
+                height={20}
+                src={messengers[ads?.messenger - 1]?.icon}
+              ></Image>
+            </h2>
+          </div>
+        </Skeleton>
+        <Skeleton className="rounded-md mt-1 h-6" isLoaded={isLoaded}>
+          <div className="flex items-center justify-center mt-2 font-iranyekanBold text-[10px] ">
+            {ads?.title}
+          </div>
+        </Skeleton>
 
-        {isShow == 1 && (
-          <div className="flex items-center justify-center gap-1 mt-2 text-[12px] font-bold">
+        <Skeleton className="rounded-md mt-1 h-16" isLoaded={isLoaded}>
+          <div
+            className={`flex items-center justify-center gap-1 mt-3 text-[10px] ${
+              isShow == 1 && "font-extrabold "
+            }`}
+          >
             <p> {memberToK(150000)}</p>
-            <CiUser className="font-bold" />
+            <FaUser className="font-bold" />
           </div>
-        )}
-        {isShow == 2 && (
-          <div className="flex items-center justify-center gap-1 mt-2 text-[10px] ">
+
+          <div
+            className={`flex items-center justify-center gap-1 mt-1 text-[10px] ${
+              isShow == 2 && "font-extrabold "
+            }`}
+          >
             <p> {memberToK(150000)}</p>
-            <MdOutlineRemoveRedEye />
+            <GrView />
           </div>
-        )}
-        {isShow == 3 && (
-          <div className="flex items-center justify-center gap-1 mt-2 text-[12px] font-bold">
-            <p> {ads?.price?.toLocaleString() + " تومان"} </p>
+
+          <div
+            className={`flex items-center justify-center gap-1 mt-1 text-[10px] ${
+              isShow == 3 && "font-extrabold "
+            }`}
+          >
+            <p> {Number(ads?.price)?.toLocaleString() + " تومان"} </p>
             {/* <CiMoneyBill className="font-bold" /> */}
           </div>
-        )}
+        </Skeleton>
         {/* <div className="absolute bottom-0 left-0 right-0 flex items-center justify-center h-12 hover:bg-blue-500">
         ارتباط با دارنده
       </div> */}

@@ -16,11 +16,15 @@ import { messengers } from "@/config/constants";
 import { Button } from "@nextui-org/react";
 import Image from "next/image";
 import toast from "react-hot-toast";
+import { CiMoneyBill, CiUser } from "react-icons/ci";
+import { FaMoneyBillWave, FaUser } from "react-icons/fa";
+import { GrView } from "react-icons/gr";
 
 export default function SwiperTop10() {
   const [swiperRef, setSwiperRef] = useState(null);
   const [action, setAction] = useState(1); //? 1 : member  -  2: views  -  3: price
   const [topTen, setTopTen] = useState();
+  const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
     const getTop10 = async () => {
       const response = await fetch(`/api/ads/top10/${action}/0/10`);
@@ -28,34 +32,45 @@ export default function SwiperTop10() {
       // console.log(data);
       if (data.status == 201) {
         setTopTen(data?.idsCard);
+        setIsLoaded(true);
       } else {
         toast.error("خطای دریافت  Top10");
+        setIsLoaded(false);
       }
     };
 
     getTop10();
   }, [action]);
   return (
-    <div className="bg-header rounded-lg pb-4 px-4">
+    <div className="bg-header/10 rounded-lg pb-4 px-4">
       <div className="flex justify-between items-center ">
-        <div className="flex flex-grow gap-1 md:gap-8 mr-8 ">
+        <div className="flex flex-grow gap-1  mr-4 md:mr-8 ">
           <span
-            className="hover:bg-slate-100 hover:text-orange-700 text-white bg-btn-orange cursor-pointer p-2 px-4 text-[12px] rounded-b-lg "
+            className="hover:bg-slate-100 hover:text-orange-700 text-white bg-btn-orange cursor-pointer p-2 md:px-4 text-[12px] rounded-b-lg "
             onClick={() => setAction(1)}
           >
-            عضو
+            <span className="hidden md:flex">اعضا</span>
+            <span className="flex md:hidden text-white text-[14px] font-bold text-3xl">
+              <FaUser className=" text-white font-bold" />
+            </span>
           </span>
           <span
-            className="hover:bg-slate-100 hover:text-orange-700  text-white bg-btn-orange cursor-pointer p-2 px-4 text-[12px] rounded-b-lg"
+            className="hover:bg-slate-100 hover:text-orange-700  text-white bg-btn-orange cursor-pointer p-2 md:px-4 text-[12px] rounded-b-lg"
             onClick={() => setAction(2)}
           >
-            مشاهده
+            <span className="hidden md:flex">مشاهده</span>
+            <span className="flex md:hidden text-white text-[14px] font-bold text-3xl">
+              <GrView className=" text-white font-bold" />
+            </span>
           </span>
           <span
-            className="hover:bg-slate-100 hover:text-orange-700 text-white bg-btn-orange cursor-pointer p-2 px-4 text-[12px] rounded-b-lg"
+            className="hover:bg-slate-100 hover:text-orange-700 text-white bg-btn-orange cursor-pointer p-2 md:px-4 text-[12px] rounded-b-lg"
             onClick={() => setAction(3)}
           >
-            قیمت
+            <span className="hidden md:flex">قیمت</span>
+            <span className="flex md:hidden text-white text-[14px] font-bold text-3xl">
+              <FaMoneyBillWave className=" text-white font-bold" />
+            </span>
           </span>
         </div>
         <Image
@@ -63,7 +78,7 @@ export default function SwiperTop10() {
           width={100}
           height={100}
           alt="Top10"
-          className="w-8 h-8"
+          className="w-8 h-8 mt-4"
         />
       </div>
       <Swiper
@@ -99,12 +114,16 @@ export default function SwiperTop10() {
             slidesPerView: 4,
             spaceBetween: 5,
           },
-          1280: {
+          960: {
             slidesPerView: 5,
+            spaceBetween: 5,
+          },
+          1280: {
+            slidesPerView: 6,
             spaceBetween: 10,
           },
           1480: {
-            slidesPerView: 6,
+            slidesPerView: 7,
             spaceBetween: 10,
           },
         }}
@@ -114,7 +133,7 @@ export default function SwiperTop10() {
         {topTen?.map((item) => {
           return (
             <SwiperSlide className="rounded-lg  bg-transparent">
-              <IdCard ads={item} action={action} />
+              <IdCard ads={item} action={action} isLoaded={isLoaded} />
             </SwiperSlide>
           );
         })}

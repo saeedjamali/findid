@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 
 export async function GET(req, { params, searchParams }) {
   const [action, offset, limit] = await params?.action;
-  const actions = ["members", "views", "price"];
+  const actions = ["members", "counter.views", "price"];
 
   try {
     const { isConnected, message } = await connectToDB();
@@ -22,13 +22,10 @@ export async function GET(req, { params, searchParams }) {
       .limit(limit)
       .populate("counter");
 
- 
-
     return Response.json({
       message: "با موفقیت دریافت شد",
       status: 201,
       idsCard,
-      
     });
   } catch (error) {
     console.log("error in get top10 --->", error);
