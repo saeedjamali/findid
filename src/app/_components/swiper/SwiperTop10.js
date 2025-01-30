@@ -93,7 +93,7 @@ export default function SwiperTop10() {
         slidesPerView={5}
         centeredSlides={false}
         autoplay={{
-          delay: 2500,
+          delay: 3500,
           disableOnInteraction: false,
         }}
         freeMode={true}

@@ -96,9 +96,9 @@ export default function IdCard({ ads, action, isLoaded }) {
         </Skeleton>
 
         <Skeleton className="rounded-md mt-1 h-16" isLoaded={isLoaded}>
-          <div className="flex items-center justify-between text-header">
+          <div className="flex items-center justify-between text-header flex-grow">
             <span
-              className={`flex items-center justify-center gap-1  text-[10px] bg-blue-100 rounded-lg p-2 min-w-16 w-auto ${
+              className={`flex items-center justify-center gap-1  text-[10px] bg-blue-100 rounded-lg p-2 min-w-0 md:min-w-16 w-auto ${
                 isShow == 1 && "font-extrabold "
               }`}
             >
@@ -110,7 +110,7 @@ export default function IdCard({ ads, action, isLoaded }) {
             </span>
 
             <div
-              className={`flex items-center justify-center gap-1 mt-1 text-[10px] bg-blue-100 rounded-lg p-2 min-w-16 w-auto ${
+              className={`flex items-center justify-center gap-1 mt-1 text-[10px] bg-blue-100 rounded-lg p-2 min-w-0 md:min-w-16 w-auto ${
                 isShow == 3 && "font-extrabold "
               }`}
             >
