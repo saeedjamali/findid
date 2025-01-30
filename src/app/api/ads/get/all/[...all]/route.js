@@ -38,7 +38,7 @@ export async function POST(req, { params, searchParams }) {
   // console.log("subjects------->", subjects);
   try {
     const { isConnected, message } = await connectToDB();
-    const sorts = ["createdAt", "updatedAt", "members", "views"];
+    const sorts = ["createdAt", "updatedAt", "members", "price"];
     if (!isConnected) {
       return Response.json({ message: "خطا در اتصال به پایگاه", status: 500 });
     }

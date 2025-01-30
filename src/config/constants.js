@@ -259,7 +259,7 @@ export const sorts = [
   { id: 0, title: "تاریخ ثبت آگهی" },
   { id: 1, title: "تاریخ بروزرسانی" },
   { id: 2, title: "تعداد اعضا" },
-  { id: 3, title: "تعداد مشاهده " },
+  { id: 3, title: "قیمت" },
 ];
 
 export const years = [

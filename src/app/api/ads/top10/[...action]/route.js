@@ -5,22 +5,44 @@ const mongoose = require("mongoose");
 
 export async function GET(req, { params, searchParams }) {
   const [action, offset, limit] = await params?.action;
-  const actions = ["members", "counter.views", "price"];
+  const actions = ["members", "price", "counter.views"];
 
   try {
     const { isConnected, message } = await connectToDB();
     if (!isConnected) {
       return Response.json({ message: "خطا در اتصال به پایگاه", status: 500 });
     }
+    let idsCard = [];
+    let counters = [];
 
-    //   console.log("ownerIdCard--->", ownerIdCard);
+    if (action == 3) {
+      counters = await counterModel
+        .find({})
+        .sort({ views: -1 })
+        .skip(offset)
+        .limit(limit)
+        .populate("idCard").lean();
 
-    let idsCard = await idCardModel
+      idsCard = counters.map((item) => {
+        return {
+          ...item.idCard,
+          counter: { views: item.views },
+        };
+      });
+      return Response.json({
+        message: "با موفقیت دریافت شد",
+        status: 201,
+        idsCard
+      });
+    }
+    idsCard = await idCardModel
       .find({ isShow: true })
       .sort({ [`${actions[action - 1]}`]: -1 })
       .skip(offset)
       .limit(limit)
       .populate("counter");
+
+    // console.log("action ======-->", counters);
 
     return Response.json({
       message: "با موفقیت دریافت شد",

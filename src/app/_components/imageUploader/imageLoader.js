@@ -44,13 +44,19 @@ function ImageLoader({ imageUrl, code, size }) {
             height: "100%",
           },
         }}
+        style={{
+          width: `full`,
+          height: `${size || "full"}`,
+          objectFit: "fill"
+        }}
         src={image}
-        className={` rounded-t-lg md:rounded-tr-lg md:rounded-br-lg md:rounded-t-none  object-center ${
+        className={` rounded-t-lg md:rounded-tr-lg md:rounded-br-lg md:rounded-t-none  object-fill  ${
           size ? `h-[${size}] w-[${size}]` : "h-64 w-screen "
         }  `}
         width={100}
         height={100}
         alt="profile"
+       
       />
     </div>
   );

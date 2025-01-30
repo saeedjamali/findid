@@ -89,7 +89,7 @@ const schema = mongoose.Schema(
     },
     price: {
       //? قیمت
-      type: String,
+      type: Number,
       default: null,
       required: false,
     },

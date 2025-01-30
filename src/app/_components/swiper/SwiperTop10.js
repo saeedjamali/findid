@@ -22,14 +22,14 @@ import { GrView } from "react-icons/gr";
 
 export default function SwiperTop10() {
   const [swiperRef, setSwiperRef] = useState(null);
-  const [action, setAction] = useState(1); //? 1 : member  -  2: views  -  3: price
+  const [action, setAction] = useState(1); //? 1 : member  -  2: price  -  3: views
   const [topTen, setTopTen] = useState();
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
     const getTop10 = async () => {
       const response = await fetch(`/api/ads/top10/${action}/0/10`);
       const data = await response.json();
-      // console.log(data);
+      //  console.log("Datazzz--->",data);
       if (data.status == 201) {
         setTopTen(data?.idsCard);
         setIsLoaded(true);
@@ -46,30 +46,36 @@ export default function SwiperTop10() {
       <div className="flex justify-between items-center ">
         <div className="flex flex-grow gap-1  mr-4 md:mr-8 ">
           <span
-            className="hover:bg-slate-100 hover:text-orange-700 text-white bg-btn-orange cursor-pointer p-2 md:px-4 text-[12px] rounded-b-lg "
+            className={` text-white bg-btn-orange cursor-pointer p-2 md:px-4 text-[12px] rounded-b-lg ${
+              action != 1 && "bg-btn-orange/60"
+            }`}
             onClick={() => setAction(1)}
           >
-            <span className="hidden md:flex">اعضا</span>
+            <span className="hidden md:flex">کاربران</span>
             <span className="flex md:hidden text-white text-[14px] font-bold text-3xl">
               <FaUser className=" text-white font-bold" />
             </span>
           </span>
           <span
-            className="hover:bg-slate-100 hover:text-orange-700  text-white bg-btn-orange cursor-pointer p-2 md:px-4 text-[12px] rounded-b-lg"
+            className={` text-white bg-btn-orange cursor-pointer p-2 md:px-4 text-[12px] rounded-b-lg ${
+              action != 2 && "bg-btn-orange/60"
+            }`}
             onClick={() => setAction(2)}
-          >
-            <span className="hidden md:flex">مشاهده</span>
-            <span className="flex md:hidden text-white text-[14px] font-bold text-3xl">
-              <GrView className=" text-white font-bold" />
-            </span>
-          </span>
-          <span
-            className="hover:bg-slate-100 hover:text-orange-700 text-white bg-btn-orange cursor-pointer p-2 md:px-4 text-[12px] rounded-b-lg"
-            onClick={() => setAction(3)}
           >
             <span className="hidden md:flex">قیمت</span>
             <span className="flex md:hidden text-white text-[14px] font-bold text-3xl">
               <FaMoneyBillWave className=" text-white font-bold" />
+            </span>
+          </span>
+          <span
+            className={`  text-white bg-btn-orange cursor-pointer p-2 md:px-4 text-[12px] rounded-b-lg ${
+              action != 3 && "bg-btn-orange/60 "
+            }`}
+            onClick={() => setAction(3)}
+          >
+            <span className="hidden md:flex">مشاهده</span>
+            <span className="flex md:hidden text-white text-[14px] font-bold text-3xl">
+              <GrView className=" text-white font-bold" />
             </span>
           </span>
         </div>

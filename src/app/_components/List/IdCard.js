@@ -13,9 +13,10 @@ import { useEffect, useState } from "react";
 import ImageLoader from "../imageUploader/imageLoader";
 import { GrView } from "react-icons/gr";
 import { Skeleton } from "@nextui-org/react";
+import { useRouter } from "next/navigation";
 export default function IdCard({ ads, action, isLoaded }) {
   // const [isLoaded, setIsLoaded] = useState(false);
-  console.log(ads);
+  const router = useRouter();
   const [isShow, setIsShow] = useState(action || 1); //? 1 : member  -  2: views  -  3: price
 
   useEffect(() => {
@@ -27,19 +28,20 @@ export default function IdCard({ ads, action, isLoaded }) {
     // </div>
     <div className="p-2">
       <div
-        className={` w-full col-span-1 h-[180px]   shadow-2xl relative bg-glass bg-white`}
+        className={` w-full col-span-1 h-[180px]   shadow-2xl relative bg-glass bg-white cursor-pointer`}
         style={{
           boxShadow: `2px 2px  5px ${messengers[ads?.messenger - 1]?.color}`,
         }}
+        onClick={() => router.push(`/view/${ads?.title}?id=${ads?._id}`)}
       >
         <div className=" w-full relative flex items-center justify-center ">
           <Skeleton className="rounded-full h-12" isLoaded={isLoaded}>
-            <div className="rounded-full w-12 h-12 flex items-center justify-center  cursor-pointer overflow-hidden object-fill">
+            <span className="rounded-full w-12 h-12 flex items-center justify-center  cursor-pointer overflow-hidden object-fill relative">
               {ads?.profile?.length != 0 ? (
                 <ImageLoader
                   imageUrl={ads?.profile[0]}
                   code={"profile"}
-                  size={"48px"}
+                  size={"64px"}
                 />
               ) : (
                 <>
@@ -62,7 +64,7 @@ export default function IdCard({ ads, action, isLoaded }) {
                 </p> */}
                 </>
               )}
-            </div>
+            </span>
           </Skeleton>
           {/* <span className="absolute top-4 right-3  w-6 h-6 rounded-full ">
           <FaEye className="w-6 h-6"/>
@@ -94,30 +96,39 @@ export default function IdCard({ ads, action, isLoaded }) {
         </Skeleton>
 
         <Skeleton className="rounded-md mt-1 h-16" isLoaded={isLoaded}>
-          <div
-            className={`flex items-center justify-center gap-1 mt-3 text-[10px] ${
-              isShow == 1 && "font-extrabold "
-            }`}
-          >
-            <p> {memberToK(150000)}</p>
-            <FaUser className="font-bold" />
-          </div>
+          <div className="flex items-center justify-between text-header">
+            <span
+              className={`flex items-center justify-center gap-1  text-[10px] bg-blue-100 rounded-lg p-2 min-w-16 w-auto ${
+                isShow == 1 && "font-extrabold "
+              }`}
+            >
+              <p className="my-auto h-3">
+                {" "}
+                {memberToK(ads?.members)}
+              </p>
+              <FaUser className="font-bold h-3" />
+            </span>
 
+            <div
+              className={`flex items-center justify-center gap-1 mt-1 text-[10px] bg-blue-100 rounded-lg p-2 min-w-16 w-auto ${
+                isShow == 3 && "font-extrabold "
+              }`}
+            >
+              <p className="my-auto h-3"> {memberToK(ads?.counter.views)}</p>
+              <GrView />
+            </div>
+          </div>
           <div
-            className={`flex items-center justify-center gap-1 mt-1 text-[10px] ${
+            className={`flex items-center justify-center gap-1  text-[10px] bg-blue-100 rounded-lg p-1  w-auto mt-1 ${
               isShow == 2 && "font-extrabold "
             }`}
           >
-            <p> {memberToK(150000)}</p>
-            <GrView />
-          </div>
-
-          <div
-            className={`flex items-center justify-center gap-1 mt-1 text-[10px] ${
-              isShow == 3 && "font-extrabold "
-            }`}
-          >
-            <p> {Number(ads?.price)?.toLocaleString() + " تومان"} </p>
+            <p className="my-auto h-3">
+              {" "}
+              {ads?.agreedPrice
+                ? "قیمت توافقی"
+                : Number(ads?.price)?.toLocaleString() + " تومان"}{" "}
+            </p>
             {/* <CiMoneyBill className="font-bold" /> */}
           </div>
         </Skeleton>
