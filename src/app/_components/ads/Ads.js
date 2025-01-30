@@ -690,6 +690,7 @@ export default function Ads({ action, ad }) {
 
               <Input
                 isClearable
+                className="text-right"
                 isRequired
                 description={` ${title ? title?.length + " کاراکتر  " : ""}  `}
                 errorMessage="یک عنوان وارد نمایید(حداقل 3 و حداکثر 20 کاراکتر)"
@@ -712,6 +713,7 @@ export default function Ads({ action, ad }) {
               />
               <Textarea
                 isClearable
+                className="text-right"
                 isRequired
                 description={` ${
                   description ? description?.length + " کاراکتر  " : ""
@@ -842,6 +844,7 @@ export default function Ads({ action, ad }) {
               </div>
               <div className="bg-gray-100 rounded-lg w-full py-2 space-y-4 px-2">
                 <CheckBox
+                  className="text-right"
                   label={`شناسه (آیدی) بر روی  شماره ${phone} تعریف شده است`}
                   state={isOwnerId}
                   set={(key) => {
@@ -883,6 +886,7 @@ export default function Ads({ action, ad }) {
               </div>
               <div className="bg-gray-100 rounded-lg w-full py-2 space-y-4 px-2">
                 <CheckBox
+                  className="text-right"
                   label={"شماره آگهی دهنده نمایش داده شود."}
                   state={isShowPhoneOwnerIdCard}
                   set={setIsShowPhoneOwnerIdCard}
@@ -907,6 +911,7 @@ export default function Ads({ action, ad }) {
               </div>
               <div className="bg-gray-100 rounded-lg w-full py-2 space-y-4 px-2">
                 <CheckBox
+                 className="text-right"
                   label={"آیدی یک پیامرسان برای پاسخگویی نمایش داده شود؟"}
                   state={isContactWithId}
                   set={(key) => {
