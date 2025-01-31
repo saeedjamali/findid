@@ -33,7 +33,7 @@ function View() {
         }
 
         setIsLoading(true);
-        console.log("data--->", data);
+        // console.log("data--->", data);
       } catch (error) {
         console.log("error from getAds by id--->", error);
         setIsLoading(true);
@@ -85,12 +85,12 @@ function View() {
 
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={addBreadCrumbsJsonLd(ads?.title, ads?._id)}
+        dangerouslySetInnerHTML={()=>addBreadCrumbsJsonLd(ads?.title, ads?._id)}
         key="breadcrumbs-jsonld"
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={addProductJsonLd(
+        dangerouslySetInnerHTML={()=>addProductJsonLd(
           ads?.id,
           ads?.title,
           ads?.counter?.views,

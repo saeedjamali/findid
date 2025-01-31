@@ -13,7 +13,6 @@ export function addSiteJsonLd() {
                 "url": "https:/findid.ir/",
                 "sameAs": [
                    "http://ble.ir/findid",
-                   "https://www.t.me/findidir",
                 ],
                 "logo": {
                    "@type": "ImageObject",
