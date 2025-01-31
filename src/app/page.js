@@ -17,39 +17,8 @@ export default function Home() {
   const [bookmarks, setIsBookmarks] = useState([]);
   const [sort, setSort] = useState(0);
   const [firstFetch, setFirstFetch] = useState(false);
-  // const [filterList, setFilterList] = useState([]);
+
   const { isAuthUser, filterList, refresh, setRefresh } = useAppProvider();
-
-  // useEffect(() => {
-  //   const getAds = async () => {
-  //     const url = getApiUrl(0, Id_PER_PAGE);
-  //     // /api/ads/get/all/${offset}/${limit}
-
-  //     console.log("Running Page 1 load more url", url);
-  //     try {
-  //       const response = await fetch(`${url}/${isAuthUser?._id}/${sort}`);
-  //       const data = await response.json();
-  //       console.log("data--->", data);
-  //       if (data.status == 201) {
-  //         setinitialIds(data.idsCard);
-  //         setIsBookmarks(data.bookmarksId);
-
-  //         setRefresh(true);
-  //       } else {
-  //         toast("داده ای یافت نشد");
-  //       }
-  //     } catch (error) {
-  //       console.log("error from main--->", error);
-  //     }
-  //   };
-  //   getAds();
-  // }, [refresh]);
-
-  // const authUser = await authenticateUser();
-  // let bookmarksId = [];
-  // if (authUser) {
-  //   bookmarksId = await bookmarkModel.find({ user: authUser._id });
-  // }
 
   return (
     <div>

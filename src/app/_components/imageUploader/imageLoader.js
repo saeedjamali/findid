@@ -45,9 +45,9 @@ function ImageLoader({ imageUrl, code, size }) {
           },
         }}
         style={{
-          width: `full`,
+          width: `${size || "full"}`,
           height: `${size || "full"}`,
-          objectFit: "fill"
+          objectFit: "fill",
         }}
         src={image}
         className={` rounded-t-lg md:rounded-tr-lg md:rounded-br-lg md:rounded-t-none  object-fill  ${
@@ -56,7 +56,6 @@ function ImageLoader({ imageUrl, code, size }) {
         width={100}
         height={100}
         alt="profile"
-       
       />
     </div>
   );

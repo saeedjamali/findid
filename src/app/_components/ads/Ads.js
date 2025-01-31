@@ -30,6 +30,7 @@ import {
   Textarea,
   Autocomplete,
   AutocompleteItem,
+  cn,
 } from "@nextui-org/react";
 import CheckBox from "../checkbox/CheckBox";
 import AutoComplete from "../autoComplete/AutoComplete";
@@ -785,6 +786,7 @@ export default function Ads({ action, ad }) {
                     placeholder="قیمت پیشنهادی"
                     value={price}
                     onValueChange={(p) => {
+                      setPrice(null);
                       validateValue(
                         !agreedPrice && (!p || p == 0),
                         setIsInvalid,
@@ -842,7 +844,7 @@ export default function Ads({ action, ad }) {
                   />
                 )}
               </div>
-              <div className="bg-gray-100 rounded-lg w-full py-2 space-y-4 px-2">
+              <div className="bg-gray-100 rounded-lg w-full py-2 space-y-4 px-2 text-right">
                 <CheckBox
                   className="text-right"
                   label={`شناسه (آیدی) بر روی  شماره ${phone} تعریف شده است`}
@@ -884,7 +886,7 @@ export default function Ads({ action, ad }) {
                   />
                 )}
               </div>
-              <div className="bg-gray-100 rounded-lg w-full py-2 space-y-4 px-2">
+              <div className="bg-gray-100 rounded-lg w-full py-2 space-y-4 px-2 text-right">
                 <CheckBox
                   className="text-right"
                   label={"شماره آگهی دهنده نمایش داده شود."}
@@ -909,9 +911,9 @@ export default function Ads({ action, ad }) {
                   />
                 )}
               </div>
-              <div className="bg-gray-100 rounded-lg w-full py-2 space-y-4 px-2">
+              <div className="bg-gray-100 rounded-lg w-full py-2 space-y-4 px-2 text-right">
                 <CheckBox
-                 className="text-right"
+                  className="text-right"
                   label={"آیدی یک پیامرسان برای پاسخگویی نمایش داده شود؟"}
                   state={isContactWithId}
                   set={(key) => {

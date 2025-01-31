@@ -14,19 +14,25 @@ import ImageLoader from "../imageUploader/imageLoader";
 import { GrView } from "react-icons/gr";
 import { Skeleton } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
-export default function IdCard({ ads, action, isLoaded }) {
+export default function IdCard({ ads, action, isLoaded, rate }) {
   // const [isLoaded, setIsLoaded] = useState(false);
   const router = useRouter();
   const [isShow, setIsShow] = useState(action || 1); //? 1 : member  -  2: views  -  3: price
 
+  console.log("Key---->", rate);
   useEffect(() => {
     setIsShow(action);
   }, [action]);
   return (
-    // <div className="p-8 mb-1 relative border-l-8 transition-all bg-white border-slate-400 hover:border-cyan-400 [counter-increment:post-index] before:content-[counter(post-index)] before:p-2 before:leading-none before:absolute before:top-0 before:right-0 before:transition-all before:bg-slate-100 hover:before:bg-cyan-100 ">
-
-    // </div>
-    <div className="p-2">
+    <div className="p-2 relative">
+      <spna
+        className="absolute top-1 right-1 w-5 h-5 z-40 rounded-full bg-white flex items-center justify-center ring-1 text-center font-bold text-header text-[10px]"
+        style={{
+          boxShadow: `2px 2px  5px ${messengers[ads?.messenger - 1]?.color}`,
+        }}
+      >
+        {rate}
+      </spna>
       <div
         className={` w-full col-span-1 h-[180px]   shadow-2xl relative bg-glass bg-white cursor-pointer`}
         style={{
@@ -102,10 +108,7 @@ export default function IdCard({ ads, action, isLoaded }) {
                 isShow == 1 && "font-extrabold "
               }`}
             >
-              <p className="my-auto h-3">
-                {" "}
-                {memberToK(ads?.members)}
-              </p>
+              <p className="my-auto h-3"> {memberToK(ads?.members)}</p>
               <FaUser className="font-bold h-3" />
             </span>
 

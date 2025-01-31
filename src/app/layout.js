@@ -41,6 +41,8 @@ export default async function RootLayout({ children }) {
                 {children}
               </div>
             </div>
+
+           
           </AppProvider>
         </div>
       </body>

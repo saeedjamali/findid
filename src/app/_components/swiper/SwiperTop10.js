@@ -136,10 +136,16 @@ export default function SwiperTop10() {
         // navigation={true}
         modules={[Autoplay, Navigation]}
       >
-        {topTen?.map((item) => {
+        {topTen?.map((item, index) => {
+         
           return (
-            <SwiperSlide className="rounded-lg  bg-transparent">
-              <IdCard ads={item} action={action} isLoaded={isLoaded} />
+            <SwiperSlide key={index} className="rounded-lg  bg-transparent">
+              <IdCard
+                ads={item}
+                action={action}
+                isLoaded={isLoaded}
+                rate={index+1}
+              />
             </SwiperSlide>
           );
         })}
