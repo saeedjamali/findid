@@ -6,6 +6,7 @@ import { getIds } from "@/actions/getIds";
 import AppProvider from "./context/AppProvider";
 import { Id_PER_PAGE } from "@/config/constants";
 import { authenticateUser } from "@/utils/authenticateMe";
+import { addSiteJsonLd } from "@/utils/schemasSeo";
 
 export const metadata = {
   title: "مرجع تبادل شناسه های  اینترنتی FindId",
@@ -65,6 +66,11 @@ export default async function RootLayout({ children }) {
             </main>
           </AppProvider>
         </div>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={addSiteJsonLd()}
+          key="site-jsonld"
+        />
       </body>
     </html>
   );

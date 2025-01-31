@@ -6,6 +6,7 @@ import NOTACTIVE from "@/app/_components/pages/NOTACTIVE";
 import NOTFOUND from "@/app/_components/pages/NOTFOUND";
 import { useAppProvider } from "@/app/context/AppProvider";
 import { addss } from "@/config/constants";
+import { addBreadCrumbsJsonLd, addProductJsonLd } from "@/utils/schemasSeo";
 import { useParams, usePathname, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
@@ -32,7 +33,7 @@ function View() {
         }
 
         setIsLoading(true);
-        // console.log("data--->", data);
+        console.log("data--->", data);
       } catch (error) {
         console.log("error from getAds by id--->", error);
         setIsLoading(true);
@@ -81,6 +82,23 @@ function View() {
       ) : (
         <LOADING />
       )}
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={addBreadCrumbsJsonLd(ads?.title, ads?._id)}
+        key="breadcrumbs-jsonld"
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={addProductJsonLd(
+          ads?.id,
+          ads?.title,
+          ads?.counter?.views,
+          ads?.description,
+          ads?.price
+        )}
+        key="product-jsonld"
+      />
     </div>
   );
 }

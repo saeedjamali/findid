@@ -2,6 +2,7 @@ import { getIds } from "@/actions/getIds";
 import AppProvider from "@/app/context/AppProvider";
 import { Id_PER_PAGE } from "@/config/constants";
 import { authenticateUser } from "@/utils/authenticateMe";
+import { addSiteJsonLd } from "@/utils/schemasSeo";
 import { redirect } from "next/navigation";
 
 export const metadata = {
@@ -22,6 +23,11 @@ export default async function RootLayout({ children }) {
       >
         {children}
       </AppProvider>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={addSiteJsonLd()}
+        key="site-jsonld"
+      />
     </div>
   );
 }
