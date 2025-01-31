@@ -43,26 +43,30 @@ function View() {
   }, [searchParams]);
   return (
     <div className="min-h-screen w-full ">
-      <title>FindId : {ads?.title}</title>
-      <meta
-        name="description"
-        content={`مرجع تبادل شناسه های  اینترنتی FindId ${ads?.description}`}
-      />
+      <>
+        <title>FindId : {ads?.title}</title>
+        <meta
+          name="description"
+          content={`مرجع تبادل شناسه های  اینترنتی FindId ${ads?.description}`}
+        />
 
-      <meta name="robots" content="index, follow" />
-      <link rel="canonical" href="https://findid.ir/view" />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://findid.ir/view" />
 
-      <meta property="og:site_name" value="Findid" />
-      <meta
-        property="og:title"
-        content={`مرجع تبادل شناسه های  اینترنتی FindId ${ads?.id}`}
-      />
-      <meta
-        property="og:description"
-        content={`بزرگترین بستر تبادل آیدی و صفحات اینترنتی ${ads?.description}`}
-      />
-      <meta property="og:url" content={`https://findid.ir/${ads?.title}?id=${ads._id}`} />
-
+        <meta property="og:site_name" value="Findid" />
+        <meta
+          property="og:title"
+          content={`مرجع تبادل شناسه های  اینترنتی FindId ${ads?.id}`}
+        />
+        <meta
+          property="og:description"
+          content={`بزرگترین بستر تبادل آیدی و صفحات اینترنتی ${ads?.description}`}
+        />
+        <meta
+          property="og:url"
+          content={`https://findid.ir/${ads?.title}?id=${ads._id}`}
+        />
+      </>
       {isLoading ? (
         !ads || ads == null ? (
           <NOTFOUND />

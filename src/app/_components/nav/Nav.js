@@ -19,7 +19,7 @@ function Nav() {
     useAppProvider();
 
   return (
-    <div className=" w-full   ">
+    <section className=" w-full   ">
       <div className=" w-full flex flex-col items-center  p-4">
         <h1 className="text-header md:hidden my-8 font-bold text-2xl">
           مرجع تبادل شناسه های اینترنتی{" "}
@@ -61,7 +61,7 @@ function Nav() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

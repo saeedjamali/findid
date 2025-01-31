@@ -158,7 +158,7 @@ function Header({ isAuthenticateUser }) {
   }, [otp]);
 
   return (
-    <div className=" w-full h-20  bg-header pr-4 pl-12">
+    <header className=" w-full h-20  bg-header pr-4 pl-12">
       <div className="container flex justify-between items-center h-full mx-auto">
         <Image
           src={"/images/logo-text-right.png"}
@@ -361,7 +361,7 @@ function Header({ isAuthenticateUser }) {
           )}
         </ModalContent>
       </Modal>
-    </div>
+    </header>
   );
 }
 

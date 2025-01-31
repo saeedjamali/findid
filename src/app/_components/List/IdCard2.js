@@ -98,7 +98,7 @@ export default function IdCard2({ item, bookmarks, showImage }) {
   return (
     <>
       <Toaster />
-      <div
+      <article
         className={` w-full col-span-1 md:h-62  relative bg-glass p-0 flex flex-col md:flex-row z-10  shadow-gray-400  mt-4 md:mt-0`}
       >
         {/* //? Profile image */}
@@ -380,7 +380,7 @@ export default function IdCard2({ item, bookmarks, showImage }) {
             </span>
           </div>
         )}
-      </div>
+      </article>
       <Modal
         backdrop="opaque"
         isOpen={isOpen}

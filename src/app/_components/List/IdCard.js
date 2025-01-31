@@ -23,7 +23,7 @@ export default function IdCard({ ads, action, isLoaded, rate }) {
     setIsShow(action);
   }, [action]);
   return (
-    <div className="p-2 relative">
+    <article className="p-2 relative">
       <span
         className="absolute top-1 right-1 w-5 h-5 z-40 rounded-full bg-white flex items-center justify-center ring-1 text-center font-bold text-header text-[10px]"
         style={{
@@ -142,6 +142,6 @@ export default function IdCard({ ads, action, isLoaded, rate }) {
         <p> {(150000).toLocaleString() + " تومان"} </p>
         <p> {(150000).toLocaleString() + " تومان"} </p>
       </div> */}
-    </div>
+    </article>
   );
 }
