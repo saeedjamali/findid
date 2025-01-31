@@ -44,6 +44,7 @@ import {
   MdUpdate,
 } from "react-icons/md";
 import ImageLoader from "../imageUploader/imageLoader";
+import ImageLoaderView from "../imageUploader/imafgeLoaderView";
 function ViewAds({ ads }) {
   const [isReportSend, setIsReportSend] = useState(false);
   const [isBookmarkSend, setIsBookmarkSend] = useState(false);
@@ -430,7 +431,7 @@ function ViewAds({ ads }) {
 
             <div className="w-full col-span-1 lg:flex-1  md:p-0 flex flex-col items-center  ">
               {ads?.profile?.length != 0 ? (
-                <ImageLoader imageUrl={ads?.profile[0]} code={"profile"} />
+                <ImageLoaderView imageUrl={ads?.profile[0]} code={"profile"} />
               ) : (
                 <>
                   <LazyLoadImage
