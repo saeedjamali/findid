@@ -45,6 +45,7 @@ import {
 } from "react-icons/md";
 import ImageLoader from "../imageUploader/imageLoader";
 import ImageLoaderView from "../imageUploader/imafgeLoaderView";
+import { addBreadCrumbsJsonLd, addProductJsonLd } from "@/utils/schemasSeo";
 function ViewAds({ ads }) {
   const [isReportSend, setIsReportSend] = useState(false);
   const [isBookmarkSend, setIsBookmarkSend] = useState(false);
@@ -511,6 +512,27 @@ function ViewAds({ ads }) {
           )}
         </ModalContent>
       </Modal>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={() =>
+          addBreadCrumbsJsonLd(ads?.title, ads?._id)
+        }
+        key="breadcrumbs-jsonld"
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={() =>
+          addProductJsonLd(
+            ads?.id,
+            ads?.title,
+            ads?.counter?.views,
+            ads?.description,
+            ads?.price
+          )
+        }
+        key="product-jsonld"
+      />
     </div>
   );
 }

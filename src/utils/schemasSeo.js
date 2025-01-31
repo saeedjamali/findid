@@ -11,9 +11,7 @@ export function addSiteJsonLd() {
                 "@id": "https://findid.ir/#organization",
                 "name": "FindId مرجع تبادل شناسه های اینترنتی ",
                 "url": "https:/findid.ir/",
-                "sameAs": [
-                   "http://ble.ir/findid",
-                ],
+                
                 "logo": {
                    "@type": "ImageObject",
                    "@id": "https://findid.ir/#logo",
@@ -25,6 +23,9 @@ export function addSiteJsonLd() {
        `,
   };
 }
+// "sameAs": [
+//    "http://ble.ir/findid",
+// ],
 
 export function addBreadCrumbsJsonLd(title, id) {
   return {
