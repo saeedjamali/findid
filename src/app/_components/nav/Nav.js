@@ -21,8 +21,8 @@ function Nav() {
   return (
     <section className=" w-full   ">
       <div className=" w-full flex flex-col items-center  p-4">
-        <h1 className="text-header md:hidden my-8 font-bold text-2xl">
-          مرجع تبادل شناسه های اینترنتی{" "}
+        <h1 className="text-header md:hidden my-8 font-bold text-2xl ">
+         <strong> مرجع تبادل شناسه های اینترنتی{" "}</strong>
         </h1>
         <div className="w-full md:w-1/2 md:mt-12 mt-8">
           <Search

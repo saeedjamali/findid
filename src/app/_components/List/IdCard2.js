@@ -163,13 +163,13 @@ export default function IdCard2({ item, bookmarks, showImage }) {
         >
           <div className="flex flex-col justify-around h-full ">
             <div>
-              <h1 className="font-bold text-[16px] mt-4 text-h1-color">
+              <h2 className="font-bold text-[16px] mt-4 text-h1-color">
                 {item?.title}
-              </h1>
+              </h2>
 
-              <h1 className="font-shabnam text-[8px] mt-1 text-h2-color text-right">
+              <h2 className="font-shabnam text-[8px] mt-1 text-h2-color text-right">
                 {DateToString(item?.createdAt)}
-              </h1>
+              </h2>
               <div
                 className={`flex items-center justify-start gap-1  border-blue-100 ${
                   showImage ? "mt-6" : "mt-9"
@@ -177,14 +177,14 @@ export default function IdCard2({ item, bookmarks, showImage }) {
               >
                 {types.map((type) => {
                   return (
-                    <div
+                    <h3
                       key={type.id}
                       className={`border-1 px-2 rounded-xl text-[10px] ${
                         type.id == item?.type ? "bg-blue-500 text-white" : ""
                       }`}
                     >
                       {type.title}
-                    </div>
+                    </h3>
                   );
                 })}
               </div>
@@ -193,7 +193,7 @@ export default function IdCard2({ item, bookmarks, showImage }) {
                   <span className="text-white flex items-center justify-center">
                     <CiMoneyBill className="w-4 h-4 flex items-center justify-center " />
                   </span>
-                  <p className="text-center flex items-center justify-center text-[10px]">
+                  <h3 className="text-center flex items-center justify-center text-[10px]">
                     {item?.agreedPrice
                       ? "قیمت توافقی"
                       : item?.discount == 0
@@ -201,26 +201,26 @@ export default function IdCard2({ item, bookmarks, showImage }) {
                       : (item?.price * (1 - item?.discount / 100))
                           ?.toLocaleString()
                           .num2persian() + " تومان"}
-                  </p>
+                  </h3>
                 </div>
                 <div className="w-fit  px-2 gap-2 bg-header text-white   rounded-lg  flex justify-between items-center">
                   <span className="text-white flex items-center justify-center">
                     <CiUser className="w-4 h-4 flex items-center justify-center " />
                   </span>
-                  <p className="text-center flex items-center justify-center text-[12px]">
+                  <h3 className="text-center flex items-center justify-center text-[12px]">
                     {memberToK(item?.members) + " عضو"}
-                  </p>
+                  </h3>
                 </div>
               </div>
               <div className="flex items-center justify-start flex-wrap gap-2 mt-2">
                 <div className="w-auto flex items-center justify-start  gap-1 border-1 rounded-xl text-[12px] text-header ">
-                  <span className="bg-header text-white overflow-hidden rounded-r-xl px-2">
+                  <h3 className="bg-header text-white overflow-hidden rounded-r-xl px-2">
                     {" "}
                     موضوع{" "}
-                  </span>{" "}
-                  <div className="px-2">
+                  </h3>{" "}
+                  <h3 className="px-2">
                     {subjects[item?.subject - 1].title}
-                  </div>
+                  </h3>
                   {/* {subjects.slice(0, 2).map((item) => {
                 return <div key={item.id}>{item.title}</div>;
               })} */}
@@ -230,9 +230,9 @@ export default function IdCard2({ item, bookmarks, showImage }) {
                     <MdUpdate className="w-4 h-4 flex items-center justify-center " />
                   </span>
                   <Tooltip className="bg-header text-white" content="سال ساخت">
-                    <p className="text-center flex items-center justify-center text-[12px]">
+                    <h4 className="text-center flex items-center justify-center text-[12px]">
                       {years[item?.createDate - 1].title}
-                    </p>
+                    </h4>
                   </Tooltip>
                 </div>
               </div>
@@ -342,9 +342,9 @@ export default function IdCard2({ item, bookmarks, showImage }) {
                 <MdOutlineRemoveRedEye className="w-5 h-5" />
               </span>
 
-              <div className=" rounded-r-full flex items-center justify-center   font-thin text-[10px]">
+              <h3 className=" rounded-r-full flex items-center justify-center   font-thin text-[10px]">
                 {memberToK(item?.counter?.views)}
-              </div>
+              </h3>
             </div>
             <span className="relative w-6 h-6 rounded-full text-btn-orange">
               <Tooltip

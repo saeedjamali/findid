@@ -8,10 +8,10 @@ import { Id_PER_PAGE } from "@/config/constants";
 import { authenticateUser } from "@/utils/authenticateMe";
 import { addSiteJsonLd } from "@/utils/schemasSeo";
 
-export const metadata = {
-  title: "مرجع تبادل شناسه های  اینترنتی FindId",
-  description: "بزرگترین بستر تبادل آیدی و صفحات اینترنتی ",
-};
+// export const metadata = {
+//   title: "مرجع تبادل شناسه های  اینترنتی FindId",
+//   description: "بزرگترین بستر تبادل آیدی و صفحات اینترنتی ",
+// };
 
 export default async function RootLayout({ children }) {
   const isAuthenticateUser = await authenticateUser();
@@ -32,7 +32,7 @@ export default async function RootLayout({ children }) {
         <title>مرجع تبادل شناسه های اینترنتی FindId</title>
         <meta
           name="description"
-          content="بزرگترین بستر تبادل آیدی و صفحات اینترنتی"
+          content="- بزرگترین بستر تبادل آیدی و صفحات اینترنتی- خرید و فروش کانال،پیج،گروه و آیدی های پیامرسان های مختلف"
         />
 
         <meta name="robots" content="index, follow" />

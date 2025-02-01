@@ -513,26 +513,7 @@ function ViewAds({ ads }) {
         </ModalContent>
       </Modal>
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={
-          addBreadCrumbsJsonLd(ads?.title, ads?._id)
-        }
-        key="breadcrumbs-jsonld"
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={
-          addProductJsonLd(
-            ads?.id,
-            ads?.title,
-            ads?.counter?.views,
-            ads?.description,
-            ads?.price
-          )
-        }
-        key="product-jsonld"
-      />
+     
     </div>
   );
 }

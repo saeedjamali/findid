@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 
 export const metadata = {
   title: "ثبت آگهی جدید",
-  description: "ّFindId مرجع تبادل شناسه های اینترنتی",
+  description: "ّFindId مرجع تبادل شناسه های اینترنتی- بزرگترین بستر تبادل آیدی و صفحات اینترنتی- خرید و فروش کانال،پیج،گروه و آیدی های پیامرسان های مختلف",
 };
 
 export default async function newLayout({ children }) {

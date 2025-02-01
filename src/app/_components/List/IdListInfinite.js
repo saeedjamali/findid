@@ -202,9 +202,9 @@ export default function IdListInfinite({
             <LOADING />
           </div>
         ) : (filterList.length != 0 || search != "") && ids.length == 0 ? (
-          <p className="text-slate-600">نتیجه ای یافت نشد</p>
+          <h3 className="text-slate-600">نتیجه ای یافت نشد</h3>
         ) : (
-          <p className="text-slate-600">کل آیدی ها دریافت شد</p>
+          <h3 className="text-slate-600">کل آیدی ها دریافت شد</h3>
         )}
       </div>
     </div>

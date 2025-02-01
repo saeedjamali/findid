@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 
 export const metadata = {
   title: "ویرایش آگهی ",
-  description: "FindId مرجع تبادل شناسه های اینترنتی",
+  description: "- بزرگترین بستر تبادل آیدی و صفحات اینترنتی- خرید و فروش کانال،پیج،گروه و آیدی های پیامرسان های مختلف",
 };
 
 export default async function newLayout({ children }) {
@@ -15,11 +15,7 @@ export default async function newLayout({ children }) {
   return (
     <>
       <>
-        <meta
-          name="description"
-          content={`مرجع تبادل شناسه های  اینترنتی FindId `}
-        />
-
+        
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://findid.ir/edit" />
 
