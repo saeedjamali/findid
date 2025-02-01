@@ -515,14 +515,14 @@ function ViewAds({ ads }) {
 
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={() =>
+        dangerouslySetInnerHTML={
           addBreadCrumbsJsonLd(ads?.title, ads?._id)
         }
         key="breadcrumbs-jsonld"
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={() =>
+        dangerouslySetInnerHTML={
           addProductJsonLd(
             ads?.id,
             ads?.title,
