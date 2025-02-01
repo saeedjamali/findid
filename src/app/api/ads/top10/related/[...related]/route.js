@@ -4,11 +4,10 @@ import bookmarkModel from "@/models/IDCard/Bookmarks";
 const mongoose = require("mongoose");
 
 export async function GET(req, { params, searchParams }) {
-  const [messenger, type, subject] = await params?.related;
+  const [messenger, type, subject, id] = await params?.related;
 
   try {
     const { isConnected, message } = await connectToDB();
-    const sorts = ["createdAt", "updatedAt", "members", "price"];
     if (!isConnected) {
       return Response.json({ message: "خطا در اتصال به پایگاه", status: 500 });
     }
@@ -19,7 +18,8 @@ export async function GET(req, { params, searchParams }) {
       .find({
         $and: [
           { isShow: true },
-          { $or: [{ messenger }, { type }, { subject }] },
+          { _id: { $ne: id } },
+          { $and: [{ messenger }, { type }, { subject }] },
         ],
       })
       .populate("counter");

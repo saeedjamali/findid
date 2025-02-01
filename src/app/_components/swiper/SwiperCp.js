@@ -23,7 +23,7 @@ function SwiperCp({ ids, action, isLoaded }) {
       {!isLoaded ? (
         <LOADINGMINI />
       ) : ids?.length == 0 ? (
-        <span className="font-iranyekanBold text-header">داده ای یافت نشد</span>
+        <span className="font-iranyekanBold text-header py-4"> یافت نشد</span>
       ) : (
         <Swiper
           loop

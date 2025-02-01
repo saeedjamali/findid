@@ -87,10 +87,10 @@ function ViewAds({ ads }) {
 
     const fetchAdsRelated = async () => {
       const response = await fetch(
-        `/api/ads/top10/related/${ads?.messenger}/${ads?.type}/${ads.subject}`
+        `/api/ads/top10/related/${ads?.messenger}/${ads?.type}/${ads.subject}/${ads?._id}`
       );
       const data = await response.json();
-  
+
       if (data?.status == 201) {
         setRelatedAds(data?.idsCard);
         setIsLoaded(true);
