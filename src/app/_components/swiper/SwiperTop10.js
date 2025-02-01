@@ -19,9 +19,9 @@ import toast from "react-hot-toast";
 import { CiMoneyBill, CiUser } from "react-icons/ci";
 import { FaMoneyBillWave, FaUser } from "react-icons/fa";
 import { GrView } from "react-icons/gr";
+import SwiperCp from "./SwiperCp";
 
 export default function SwiperTop10() {
-  const [swiperRef, setSwiperRef] = useState(null);
   const [action, setAction] = useState(1); //? 1 : member  -  2: price  -  3: views
   const [topTen, setTopTen] = useState();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -87,69 +87,7 @@ export default function SwiperTop10() {
           className="w-8 h-8 mt-4"
         />
       </div>
-      <Swiper
-        loop
-        onSwiper={setSwiperRef}
-        slidesPerView={5}
-        centeredSlides={false}
-        autoplay={{
-          delay: 3500,
-          disableOnInteraction: false,
-        }}
-        freeMode={true}
-        // centeredSlides={true}
-        spaceBetween={50}
-        pagination={{
-          clickable: true,
-          type: "bullets",
-        }}
-        breakpoints={{
-          0: {
-            slidesPerView: 1,
-            spaceBetween: 5,
-          },
-          320: {
-            slidesPerView: 2,
-            spaceBetween: 0,
-          },
-          540: {
-            slidesPerView: 3,
-            spaceBetween: 0,
-          },
-          768: {
-            slidesPerView: 4,
-            spaceBetween: 5,
-          },
-          960: {
-            slidesPerView: 5,
-            spaceBetween: 5,
-          },
-          1280: {
-            slidesPerView: 6,
-            spaceBetween: 10,
-          },
-          1480: {
-            slidesPerView: 7,
-            spaceBetween: 10,
-          },
-        }}
-        // navigation={true}
-        modules={[Autoplay, Navigation]}
-      >
-        {topTen?.map((item, index) => {
-         
-          return (
-            <SwiperSlide key={index} className="rounded-lg  bg-transparent">
-              <IdCard
-                ads={item}
-                action={action}
-                isLoaded={isLoaded}
-                rate={index+1}
-              />
-            </SwiperSlide>
-          );
-        })}
-      </Swiper>
+     <SwiperCp ids={topTen} action={action} isLoaded={isLoaded} />
     </div>
   );
 }

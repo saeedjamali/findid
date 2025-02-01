@@ -46,10 +46,13 @@ import {
 import ImageLoader from "../imageUploader/imageLoader";
 import ImageLoaderView from "../imageUploader/imafgeLoaderView";
 import { addBreadCrumbsJsonLd, addProductJsonLd } from "@/utils/schemasSeo";
+import SwiperCp from "../swiper/SwiperCp";
 function ViewAds({ ads }) {
   const [isReportSend, setIsReportSend] = useState(false);
   const [isBookmarkSend, setIsBookmarkSend] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
+  const [relatedAds, setRelatedAds] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
   const [report, setReport] = useState("");
   const { isAuthUser } = useAppProvider();
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
@@ -81,6 +84,21 @@ function ViewAds({ ads }) {
     if (isAuthUser) {
       fetchBookmark();
     }
+
+    const fetchAdsRelated = async () => {
+      const response = await fetch(
+        `/api/ads/top10/${ads?.messenger}/${ads?.type}/${ads.subject}`
+      );
+      const data = await response.json();
+  
+      if (data?.status == 201) {
+        setRelatedAds(data?.idsCard);
+        setIsLoaded(true);
+      } else {
+        setIsLoaded(false);
+      }
+    };
+    fetchAdsRelated();
   }, []);
   const sendBookmark = async () => {
     if (!isAuthUser) {
@@ -428,6 +446,15 @@ function ViewAds({ ads }) {
                   {ads?.description}
                 </p>
               </div>
+              <div className=" w-full lg:hidden  mt-4 ">
+                <h3 className="p-2 font-iranyekanBold text-[12px] w-full text-right">
+                  آگهی های مرتبط
+                </h3>
+
+                <div className=" w-full flex  lg:hidden items-center justify-center bg-gray-50 mt-4 rounded-lg">
+                  <SwiperCp ids={relatedAds} isLoaded={isLoaded} />
+                </div>
+              </div>
             </div>
 
             <div className="w-full col-span-1 lg:flex-1  md:p-0 flex flex-col items-center  ">
@@ -459,6 +486,10 @@ function ViewAds({ ads }) {
                 <p className="text-h2-color text-[12px] mt-2 p-2">
                   {ads?.description}
                 </p>
+              </div>
+
+              <div className="w-full hidden  lg:flex items-center justify-center bg-gray-50 mt-4  rounded-lg ">
+                <SwiperCp ids={relatedAds} isLoaded={isLoaded} />
               </div>
             </div>
           </CardBody>
@@ -512,8 +543,6 @@ function ViewAds({ ads }) {
           )}
         </ModalContent>
       </Modal>
-
-     
     </div>
   );
 }
