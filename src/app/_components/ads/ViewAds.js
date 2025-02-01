@@ -87,7 +87,7 @@ function ViewAds({ ads }) {
 
     const fetchAdsRelated = async () => {
       const response = await fetch(
-        `/api/ads/top10/${ads?.messenger}/${ads?.type}/${ads.subject}`
+        `/api/ads/top10/related/${ads?.messenger}/${ads?.type}/${ads.subject}`
       );
       const data = await response.json();
   
