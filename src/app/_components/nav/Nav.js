@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "@/lib/directus";
 import Search from "../search/Search";
 import Image from "next/image";
@@ -11,27 +11,61 @@ import Messengers from "./Messengers";
 import Types from "./Types";
 import Subjects from "./Subjects";
 import { useAppProvider } from "@/app/context/AppProvider";
+import { TbFilterSearch } from "react-icons/tb";
 
 function Nav() {
-  const [isFilter, setIsFilter] = useState(false);
-  const [isChecked, setIsCheked] = useState(false);
-  const { filterList, setFilterList, setRefresh, search, setSearch } =
-    useAppProvider();
+  const [outScrool, setOutScrool] = useState(false);
+  const {
+    isFilter,
+    setIsFilter,
+    filterList,
+    setFilterList,
+    setRefresh,
+    search,
+    setSearch,
+  } = useAppProvider();
 
+  const onScroll = useCallback((event) => {
+    const { scrollY, screen, outerHeight, pageYOffset } = window;
+
+    if (screen.height < pageYOffset) {
+      setOutScrool(true);
+    } else {
+      setOutScrool(false);
+    }
+
+    console.log(scrollY, screen, outerHeight, pageYOffset);
+  }, []);
+
+  useEffect(() => {
+    //add eventlistener to window
+    window.addEventListener("scroll", onScroll, { passive: true });
+    // remove event on unmount to prevent a memory leak with the cleanup
+    return () => {
+      window.removeEventListener("scroll", onScroll, { passive: true });
+    };
+  }, []);
   return (
     <section className=" w-full   ">
       <div className=" w-full flex flex-col items-center  p-4">
         <h1 className="text-header md:hidden my-8 font-bold text-2xl ">
-         <strong> مرجع تبادل شناسه های اینترنتی{" "}</strong>
+          <strong> مرجع تبادل شناسه های اینترنتی </strong>
         </h1>
-        <div className="w-full md:w-1/2 md:mt-12 mt-8">
+        <div className="w-full  md:flex md:w-1/2 md:mt-12 mt-8">
           <Search
             placeholder={"جستجو بر حسب آیدی یا عنوان"}
             setIsFilter={setIsFilter}
           />
         </div>
-
-        <div
+        {outScrool && (
+          <span
+            className="bg-header rounded-full  fixed p-2 text-btn-orange text-3xl left-12 bottom-8 cursor-pointer hover:opacity-80 z-50"
+            onClick={() => setIsFilter((prev) => !prev)}
+          >
+            <TbFilterSearch />
+          </span>
+        )}
+        {/* <div
           className={`mt-8 bg-gradient-to-r from-header to-pink-700 rounded-xl p-2 ${
             !isFilter && "hidden"
           } `}
@@ -43,23 +77,9 @@ function Nav() {
               <Subjects />
             </div>
 
-            {/* <div className="mt-4 flex items-end justify-end">
-                <Button
-                  onClick={() => {
-                    setRefresh((prev) => !prev);
-                  }}
-                  className={
-                    "bg-white  text-header  px-8 py-2 rounded-md hover:opacity-80 text-[12px] "
-                  }
-                >
-                  اعمال فیلتر{" "}
-                  {`${
-                    filterList.length != 0 ? "(" + filterList.length + ")" : ""
-                  }`}
-                </Button>
-              </div> */}
+            
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );

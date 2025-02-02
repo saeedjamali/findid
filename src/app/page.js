@@ -5,12 +5,15 @@ import { Id_PER_PAGE, messengers } from "@/config/constants";
 import IdListInfinite from "./_components/List/IdListInfinite";
 import Nav from "./_components/nav/Nav";
 import toast, { Toaster } from "react-hot-toast";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getApiUrl } from "@/utils/getApiUrl";
 import LOADING from "./_components/pages/LOADING";
 import { useAppProvider } from "./context/AppProvider";
 import IdCard from "./_components/List/IdCard";
 import SwiperTop10 from "./_components/swiper/SwiperTop10";
+import Aside from "./_components/aside/Aside";
+import OutsideClick from "./hook/OutsideClick";
+import { TbFilterSearch } from "react-icons/tb";
 
 export default function Home() {
   const [initialIds, setinitialIds] = useState([]);
@@ -18,14 +21,18 @@ export default function Home() {
   const [sort, setSort] = useState(0);
   const [firstFetch, setFirstFetch] = useState(false);
 
-  const { isAuthUser, filterList, refresh, setRefresh } = useAppProvider();
+  const { isFilter, isAuthUser, filterList, refresh, setRefresh } =
+    useAppProvider();
 
   return (
     <div>
       <Toaster />
       {/* <IdListInfinite initialIds={initialIds} /> */}
+
       <Nav />
-      <div className="lg:container p-5 mx-auto  rounded-lg h-full">
+      <div className="lg:container p-5 mx-auto  rounded-lg h-full ">
+        
+        <Aside show={isFilter} />
         <SwiperTop10 />
         <IdListInfinite
           initialIds={initialIds}

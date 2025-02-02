@@ -176,7 +176,11 @@ export default function IdListInfinite({
         </Select>
       </div>
 
-      <div className="grid grid-cols-1  lg:grid-cols-2  w-full gap-2 xl:gap-4 container mx-auto ">
+      <div
+        className={`grid grid-cols-1  w-full gap-2 xl:gap-4 container mx-auto ${
+          showImage ? "lg:grid-cols-2 " : "lg:grid-cols-3 "
+        } `}
+      >
         {ids?.map((item) => (
           <Suspense
             key={item._id}
