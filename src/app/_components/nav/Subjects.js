@@ -6,7 +6,7 @@ import { useAppProvider } from "@/app/context/AppProvider";
 function Subjects() {
   const {  setFilterList } = useAppProvider();
   return (
-    <div className="bg-glass ">
+    <div className="bg-glass overflow-y-auto ">
       <h2 className=" font-shabnam text-sm">فیلتر براساس موضوع</h2>
       <div className="flex flex-wrap items-center justify-start p-2  mt-4 gap-4 w-full">
         {subjects.map((item) => {

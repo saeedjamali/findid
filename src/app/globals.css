@@ -151,6 +151,10 @@ body {
     @apply bg-white/50 backdrop-blur-md rounded-xl border border-white/20 shadow-lg p-2
   }
 
+  .bg-glass-dark {
+    @apply bg-white/90 backdrop-blur-md rounded-xl border border-white/20 shadow-lg p-2
+  }
+
   .text-responsive {
     @apply text-[10px] md:text-[12px]
   }
@@ -161,6 +165,15 @@ body {
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    /* -ms-overflow-style: none; */
+    /* IE and Edge */
+    scrollbar-color: "#cc3355";
+    /* Firefox */
   }
 }
 

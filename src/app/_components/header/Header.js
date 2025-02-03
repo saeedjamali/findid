@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { IoMdAdd } from "react-icons/io";
 import { CiUser } from "react-icons/ci";
 import { FaUserCheck } from "react-icons/fa";
@@ -38,7 +38,7 @@ function Header({ isAuthenticateUser }) {
   const [otp, setOtp] = useState();
   const [time, setTime] = useState(0);
   const [resend, setResend] = useState(false);
-
+  const [outScroll, setOutScroll] = useState(false);
   const [view, setView] = useState(1); //? 1: sentOtp  2: verifyOtp
   const [url, setUrl] = useState("/");
   const [waitForSendOtpCode, setWaitForSendOtpCode] = useState(false);
@@ -157,6 +157,27 @@ function Header({ isAuthenticateUser }) {
     }
   }, [otp]);
 
+  const onScroll = useCallback((event) => {
+    const { scrollY, screen, outerHeight, pageYOffset } = window;
+
+    if (screen.height < pageYOffset) {
+      setOutScroll(true);
+    } else {
+      setOutScroll(false);
+    }
+
+    console.log(scrollY, screen, outerHeight, pageYOffset);
+  }, []);
+
+  useEffect(() => {
+    //add eventlistener to window
+    window.addEventListener("scroll", onScroll, { passive: true });
+    // remove event on unmount to prevent a memory leak with the cleanup
+    return () => {
+      window.removeEventListener("scroll", onScroll, { passive: true });
+    };
+  }, []);
+
   return (
     <header className=" w-full h-20  bg-header pr-4 pl-12">
       <div className="container flex justify-between items-center h-full mx-auto">
@@ -188,7 +209,7 @@ function Header({ isAuthenticateUser }) {
                 <span className="hidden md:flex">درج آیدی</span>
               </button>
               <button
-                className="fixed bottom-10 right-12 z-50 text-white  text-[18px]   bg-btn-orange px-1  py-1 rounded-full md:hidden items-center justify-between hover:text-header"
+                className={`fixed bottom-10 right-12 z-50 text-white  text-[18px]   bg-btn-orange px-1  py-1 rounded-full items-center justify-between hover:text-header  ${ !outScroll && "md:hidden" }`}
                 onClick={handleNewAds}
               >
                 <IoMdAdd className="font-iranSans text-3xl" />

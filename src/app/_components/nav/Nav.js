@@ -57,14 +57,14 @@ function Nav() {
             setIsFilter={setIsFilter}
           />
         </div>
-        {outScrool && (
+        {/* {outScrool && (
           <span
             className="bg-header rounded-full  fixed p-2 text-btn-orange text-3xl left-12 bottom-8 cursor-pointer hover:opacity-80 z-50"
             onClick={() => setIsFilter((prev) => !prev)}
           >
             <TbFilterSearch />
           </span>
-        )}
+        )} */}
         {/* <div
           className={`mt-8 bg-gradient-to-r from-header to-pink-700 rounded-xl p-2 ${
             !isFilter && "hidden"

@@ -31,7 +31,6 @@ export default function Home() {
 
       <Nav />
       <div className="lg:container p-5 mx-auto  rounded-lg h-full ">
-        
         <Aside show={isFilter} />
         <SwiperTop10 />
         <IdListInfinite
