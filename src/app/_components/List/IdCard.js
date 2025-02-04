@@ -14,7 +14,7 @@ import ImageLoader from "../imageUploader/imageLoader";
 import { GrView } from "react-icons/gr";
 import { Skeleton } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
-export default function IdCard({ ads, action, isLoaded, rate }) {
+export default function IdCard({ ads, action, isLoaded, rate, counter }) {
   // const [isLoaded, setIsLoaded] = useState(false);
   const router = useRouter();
   const [isShow, setIsShow] = useState(action || 1); //? 1 : member  -  2: views  -  3: price
@@ -24,14 +24,16 @@ export default function IdCard({ ads, action, isLoaded, rate }) {
   }, [action]);
   return (
     <article className="p-2 relative">
-      <span
-        className="absolute top-1 right-1 w-5 h-5 z-40 rounded-full bg-white flex items-center justify-center ring-1 text-center font-bold text-header text-[10px]"
-        style={{
-          boxShadow: `2px 2px  5px ${messengers[ads?.messenger - 1]?.color}`,
-        }}
-      >
-        {rate}
-      </span>
+      {counter && (
+        <span
+          className="absolute top-1 right-1 w-5 h-5 z-40 rounded-full bg-white flex items-center justify-center ring-1 text-center font-bold text-header text-[10px]"
+          style={{
+            boxShadow: `2px 2px  5px ${messengers[ads?.messenger - 1]?.color}`,
+          }}
+        >
+          {rate}
+        </span>
+      )}
       <div
         className={` w-full col-span-1 h-[180px]   shadow-2xl relative bg-glass bg-white cursor-pointer`}
         style={{

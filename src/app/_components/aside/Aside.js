@@ -23,19 +23,19 @@ function Aside({ show }) {
   return (
     <>
       <div
-        className={`sticky w-12 flex top-28 -right-1 cursor-pointer  z-50   bg-glass-dark rounded-r-none  p-1  `}
+        className={`fixed w-12 flex top-28 right-0 cursor-pointer  z-50   bg-glass-dark rounded-r-none  p-1  `}
         onClick={() => setIsFilter((prev) => !prev)}
       >
         <TbFilterSearch className="text-btn-orange text-3xl" />
       </div>
 
       <aside
-        className={`w-[90%] md:w-1/2 lg:w-1/3 fixed top-0 left-0 min-h-screen  z-50  rounded-r-none  transition-all delay-150000 duration-300 ease-in-out  overflow-y-auto flex justify-end ${
+        className={`w-[80%] md:w-1/2 lg:w-1/3 fixed top-0 left-0 min-h-screen  z-50    transition-all delay-150000 duration-300 ease-in-out  overflow-y-auto flex justify-end ${
           !show && "hidden"
         }`}
       >
         <div
-          className={`w-[90%] min-h-screen gap-4 bg-glass-dark overflow-y-auto   `}
+          className={`w-full min-h-screen gap-4 bg-glass-dark overflow-y-auto rounded-l-none   `}
         >
           <Search
             placeholder={"جستجو بر حسب آیدی یا عنوان"}

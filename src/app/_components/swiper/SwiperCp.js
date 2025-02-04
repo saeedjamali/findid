@@ -16,7 +16,7 @@ import { FaMoneyBillWave, FaUser } from "react-icons/fa";
 import { GrView } from "react-icons/gr";
 import LOADINGMINI from "../pages/LAODINGMINI";
 
-function SwiperCp({ ids, action, isLoaded }) {
+function SwiperCp({ ids, action, isLoaded,counter }) {
   const [swiperRef, setSwiperRef] = useState(null);
   return (
     <div className="w-full h-full flex items-center justify-center">
@@ -82,6 +82,7 @@ function SwiperCp({ ids, action, isLoaded }) {
                   action={action}
                   isLoaded={isLoaded}
                   rate={index+1}
+                  counter={counter}
                 />
               </SwiperSlide>
             );
