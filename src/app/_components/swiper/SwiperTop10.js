@@ -87,7 +87,7 @@ export default function SwiperTop10() {
           className="w-8 h-8 mt-4"
         />
       </div>
-     <SwiperCp ids={topTen} action={action} isLoaded={isLoaded} counter={true}/>
+     <SwiperCp ids={topTen} action={action} isLoaded={isLoaded} counter={true} location={1}/>
     </div>
   );
 }

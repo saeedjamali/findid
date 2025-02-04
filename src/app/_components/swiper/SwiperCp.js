@@ -16,7 +16,7 @@ import { FaMoneyBillWave, FaUser } from "react-icons/fa";
 import { GrView } from "react-icons/gr";
 import LOADINGMINI from "../pages/LAODINGMINI";
 
-function SwiperCp({ ids, action, isLoaded,counter }) {
+function SwiperCp({ ids, action, isLoaded, counter, location }) {
   const [swiperRef, setSwiperRef] = useState(null);
   return (
     <div className="w-full h-full flex items-center justify-center">
@@ -28,7 +28,7 @@ function SwiperCp({ ids, action, isLoaded,counter }) {
         <Swiper
           loop
           onSwiper={setSwiperRef}
-          slidesPerView={5}
+          slidesPerView={location == 1 ? 6 : 3} //? location 1: main page ----- 2 : view page
           centeredSlides={false}
           autoplay={{
             delay: 3500,
@@ -41,36 +41,57 @@ function SwiperCp({ ids, action, isLoaded,counter }) {
             clickable: true,
             type: "bullets",
           }}
-          breakpoints={{
-            0: {
-              slidesPerView: 1,
-              spaceBetween: 5,
-            },
-            320: {
-              slidesPerView: 2,
-              spaceBetween: 0,
-            },
-            540: {
-              slidesPerView: 3,
-              spaceBetween: 0,
-            },
-            768: {
-              slidesPerView: 4,
-              spaceBetween: 5,
-            },
-            960: {
-              slidesPerView: 5,
-              spaceBetween: 5,
-            },
-            1280: {
-              slidesPerView: 6,
-              spaceBetween: 10,
-            },
-            1480: {
-              slidesPerView: 7,
-              spaceBetween: 10,
-            },
-          }}
+          breakpoints={
+            location == 1
+              ? {
+                  0: {
+                    slidesPerView: 1,
+                    spaceBetween: 5,
+                  },
+                  320: {
+                    slidesPerView: 2,
+                    spaceBetween: 5,
+                  },
+                  540: {
+                    slidesPerView: 3,
+                    spaceBetween: 5,
+                  },
+                  768: {
+                    slidesPerView: 4,
+                    spaceBetween: 5,
+                  },
+                  960: {
+                    slidesPerView: 5,
+                    spaceBetween: 5,
+                  },
+                  1024: {
+                    slidesPerView: 5,
+                    spaceBetween: 5,
+                  },
+                  1280: {
+                    slidesPerView: 6,
+                    spaceBetween: 5,
+                  },
+                }
+              : {
+                  0: {
+                    slidesPerView: 1,
+                    spaceBetween: 5,
+                  },
+                  320: {
+                    slidesPerView: 2,
+                    spaceBetween: 5,
+                  },
+                  540: {
+                    slidesPerView: 3,
+                    spaceBetween: 5,
+                  },
+                  768: {
+                    slidesPerView: 4,
+                    spaceBetween: 5,
+                  },
+                }
+          }
           // navigation={true}
           modules={[Autoplay, Navigation]}
         >
@@ -81,7 +102,7 @@ function SwiperCp({ ids, action, isLoaded,counter }) {
                   ads={item}
                   action={action}
                   isLoaded={isLoaded}
-                  rate={index+1}
+                  rate={index + 1}
                   counter={counter}
                 />
               </SwiperSlide>

@@ -489,7 +489,13 @@ function ViewAds({ ads }) {
               </div>
 
               <div className="w-full hidden  lg:flex items-center justify-center bg-gray-50 mt-4  rounded-lg ">
-                <SwiperCp ids={relatedAds} isLoaded={isLoaded} counter={false}/>
+                <SwiperCp
+                  ids={relatedAds}
+                  isLoaded={isLoaded}
+                  counter={false}
+                  location={2}
+                />{" "}
+                {/* //? location show page */}
               </div>
             </div>
           </CardBody>
