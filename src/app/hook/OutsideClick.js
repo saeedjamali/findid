@@ -8,6 +8,7 @@ export default function OutsideClick(ref, setIsFilter) {
         setIsFilter(false);
       }
     }
+    console.log("isoutside");
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);

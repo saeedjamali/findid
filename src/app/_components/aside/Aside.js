@@ -21,9 +21,15 @@ function Aside({ show }) {
   OutsideClick(boxRef, setIsFilter);
   return (
     <>
+      {/* {show && (
+        <div
+          className="w-screen h-screen z-10 bg-transparent fixed top-0 right-0 left-0 bottom-0"
+         
+        ></div>
+      )} */}
       <div
         className={`fixed w-12 flex top-28 cursor-pointer  z-50   bg-glass-dark rounded-r-none  p-1 pr-2 ${
-          show ? "-right-1" : "right-0"
+          show ? "-right-9" : "right-0"
         }`}
         onClick={() => setIsFilter((prev) => !prev)}
       >
