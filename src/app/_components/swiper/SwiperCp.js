@@ -81,7 +81,7 @@ function SwiperCp({ ids, action, isLoaded }) {
                   ads={item}
                   action={action}
                   isLoaded={isLoaded}
-                  rate={0}
+                  rate={index+1}
                 />
               </SwiperSlide>
             );

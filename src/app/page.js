@@ -25,13 +25,12 @@ export default function Home() {
     useAppProvider();
 
   return (
-    <div>
+    <div className="relative">
       <Toaster />
       {/* <IdListInfinite initialIds={initialIds} /> */}
-
-      <Nav />
+      <Aside show={isFilter} />
+      {/* <Nav /> */}
       <div className="lg:container p-5 mx-auto  rounded-lg h-full ">
-        <Aside show={isFilter} />
         <SwiperTop10 />
         <IdListInfinite
           initialIds={initialIds}
