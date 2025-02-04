@@ -16,6 +16,7 @@ function AppProvider({ children, isAuthenticateUser }) {
   const [signData, setSignData] = useState("");
   const [search, setSearch] = useState("");
   const [isFilter, setIsFilter] = useState(false);
+
   useEffect(() => {
     setIsAuthUser(isAuthenticateUser);
   }, [isAuthUser]);

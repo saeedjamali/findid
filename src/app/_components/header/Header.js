@@ -165,8 +165,6 @@ function Header({ isAuthenticateUser }) {
     } else {
       setOutScroll(false);
     }
-
-    console.log(scrollY, screen, outerHeight, pageYOffset);
   }, []);
 
   useEffect(() => {

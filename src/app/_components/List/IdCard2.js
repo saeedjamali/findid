@@ -105,7 +105,7 @@ export default function IdCard2({ item, bookmarks, showImage }) {
         {showImage && (
           <div className="w-full md:w-1/3  ">
             {/* <Skeleton > */}
-            <div className=" w-full h-64 md:h-full  rounded-full flex items-center justify-center bg-cover bg-center bg-no-repeat ">
+            <div className=" w-full h-64 md:h-full  rounded-full flex items-center justify-center bg-cover bg-center bg-no-repeat p-1 ">
               {/* <Image
               alt={""}
               width={100}
