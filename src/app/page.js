@@ -22,9 +22,18 @@ export default function Home() {
   const [sort, setSort] = useState(0);
   const [firstFetch, setFirstFetch] = useState(false);
 
-  const { isFilter, isAuthUser, filterList, refresh, setRefresh } =
-    useAppProvider();
+  const {
+    isFilter,
+    isAuthUser,
+    filterList,
+    refresh,
+    setRefresh,
+    setFilterList,
+  } = useAppProvider();
 
+  useEffect(() => {
+    setFilterList([]);
+  }, []);
   return (
     <div className="relative">
       <Toaster />
