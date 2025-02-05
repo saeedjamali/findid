@@ -21,12 +21,13 @@ function Aside({ show }) {
   OutsideClick(boxRef, setIsFilter);
   return (
     <>
-      {/* {show && (
-        <div
-          className="w-screen h-screen z-10 bg-transparent fixed top-0 right-0 left-0 bottom-0"
-         
-        ></div>
-      )} */}
+      {show && (
+        <div className="w-[85%] md:w-1/2 lg:w-1/3  h-screen z-40 bg-transparent fixed top-5  left-0 bottom-0">
+          <span className="text-slate-200 absolute -right-8 text-xl bg-glass px-2 rounded-l-none cursor-pointer">
+            <ImCancelCircle />
+          </span>
+        </div>
+      )}
       <div
         className={`fixed w-12 flex top-28 cursor-pointer  z-50   bg-glass-dark rounded-r-none  p-1 pr-2 ${
           show ? "-right-9" : "right-0"
@@ -42,7 +43,7 @@ function Aside({ show }) {
       </div>
 
       <aside
-        className={`w-[80%] md:w-1/2 lg:w-1/3 fixed top-0 left-0 min-h-screen  z-50    transition-all delay-150000 duration-300 ease-in-out  overflow-y-auto flex justify-end ${
+        className={`w-[85%] md:w-1/2 lg:w-1/3 fixed top-0 left-0 min-h-screen  z-50    transition-all delay-150000 duration-300 ease-in-out  overflow-y-auto flex justify-end ${
           !show && "hidden"
         }`}
         ref={boxRef}
