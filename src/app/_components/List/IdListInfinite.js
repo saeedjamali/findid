@@ -194,7 +194,8 @@ export default function IdListInfinite({
           <div ref={scrollTrigger}>
             <LOADING />
           </div>
-        ) : (filterList.length != 0 || search != "") && ids.length == 0 ? (
+        ) : (filterList.length != 0 || search != "" || service != 0) &&
+          ids.length == 0 ? (
           <h3 className="text-slate-600">نتیجه ای یافت نشد</h3>
         ) : (
           <h3 className="text-slate-600">کل آیدی ها دریافت شد</h3>
