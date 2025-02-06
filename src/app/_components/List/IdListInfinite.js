@@ -22,6 +22,7 @@ export default function IdListInfinite({
   setSort,
   sort,
   setRefresh,
+  service,
 }) {
   const [offset, setOffset] = useState(Id_PER_PAGE);
   const [bookmarks, setIsBookmarks] = useState([]);
@@ -31,18 +32,6 @@ export default function IdListInfinite({
   const scrollTrigger = useRef(null);
   const { filterList, isAuthUser, search } = useAppProvider();
   const [showImage, setShowImage] = useState(true);
-
-  //  console.log("filterList", search);
-  // useEffect(() => {
-  //   let value = localStorage.getItem("showImage") || true;
-  //   console.log("showImage first-->", showImage);
-  //   setShowImage(value);
-  // }, []);
-
-  // useEffect(() => {
-  //   localStorage.setItem("showImage", showImage);
-  //   console.log("showImage sec-->", showImage);
-  // }, [showImage]);
 
   useEffect(() => {
     const getAds = async () => {
@@ -56,7 +45,7 @@ export default function IdListInfinite({
       const char = search.length > 2 ? search : "";
       try {
         const response = await fetch(
-          `${url}/${isAuthUser?._id}/${sort}/${char}`,
+          `${url}/${isAuthUser?._id}/${sort}/${service}/${char}`,
           {
             method: "POST",
             header: { "Content-Type": "multipart/form-data" },
@@ -78,7 +67,7 @@ export default function IdListInfinite({
       }
     };
     getAds();
-  }, [sort, filterList, search]);
+  }, [sort, filterList, search, service]);
 
   const loadMoreIds = async () => {
     const url = getApiUrl(offset, Id_PER_PAGE);
@@ -92,7 +81,7 @@ export default function IdListInfinite({
         }
         const char = search.length > 2 ? search : "";
         const response = await fetch(
-          `${url}/${isAuthUser?._id}/${sort}/${char}`,
+          `${url}/${isAuthUser?._id}/${sort}/${service}/${char}`,
           {
             method: "POST",
             header: { "Content-Type": "multipart/form-data" },

@@ -4,10 +4,13 @@ import bookmarkModel from "@/models/IDCard/Bookmarks";
 const mongoose = require("mongoose");
 
 export async function POST(req, { params, searchParams }) {
-  const [offset, limit, userId, sort,search] = await params?.all;
+  const [offset, limit, userId, sort, service, search] = await params?.all;
   let messengers = [],
     types = [],
     subjects = [];
+  let idsCard = [];
+  console.log("ownerIdCard--->", service);
+
   const formData = await req.formData();
 
   const filters = formData.getAll("filter");
@@ -29,7 +32,7 @@ export async function POST(req, { params, searchParams }) {
         return { subject: item.id };
       });
   }
-  
+
   const regex = new RegExp(search, "i"); // i for case insensitive
   // Posts.find({ title: { $regex: regex } });
 
@@ -43,22 +46,38 @@ export async function POST(req, { params, searchParams }) {
       return Response.json({ message: "خطا در اتصال به پایگاه", status: 500 });
     }
 
-    //   console.log("ownerIdCard--->", ownerIdCard);
-
-    let idsCard = await idCardModel
-      .find({
-        $and: [
-          { isShow: true },
-          { $or: messengers },
-          { $or: types },
-          { $or: subjects },
-          { $or: [{ title: { $regex: regex } }, { id: { $regex: regex } }] },
-        ],
-      })
-      .sort({ [`${sorts[sort]}`]: -1 })
-      .skip(offset)
-      .limit(limit)
-      .populate("counter");
+    if (service == 0) {
+      idsCard = await idCardModel
+        .find({
+          $and: [
+            { isShow: true },
+            { $or: messengers },
+            { $or: types },
+            { $or: subjects },
+            { $or: [{ title: { $regex: regex } }, { id: { $regex: regex } }] },
+          ],
+        })
+        .sort({ [`${sorts[sort]}`]: -1 })
+        .skip(offset)
+        .limit(limit)
+        .populate("counter");
+    } else {
+      idsCard = await idCardModel
+        .find({
+          $and: [
+            { isShow: true },
+            { service },
+            { $or: messengers },
+            { $or: types },
+            { $or: subjects },
+            { $or: [{ title: { $regex: regex } }, { id: { $regex: regex } }] },
+          ],
+        })
+        .sort({ [`${sorts[sort]}`]: -1 })
+        .skip(offset)
+        .limit(limit)
+        .populate("counter");
+    }
 
     let bookmarksId = [];
     if (mongoose.Types.ObjectId.isValid(userId)) {

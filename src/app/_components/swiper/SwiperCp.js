@@ -82,12 +82,8 @@ function SwiperCp({ ids, action, isLoaded, counter, location }) {
                     slidesPerView: 2,
                     spaceBetween: 5,
                   },
-                  540: {
+                  1320: {
                     slidesPerView: 3,
-                    spaceBetween: 5,
-                  },
-                  768: {
-                    slidesPerView: 4,
                     spaceBetween: 5,
                   },
                 }

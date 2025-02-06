@@ -72,6 +72,11 @@ const schema = mongoose.Schema(
       type: Number,
       required: true,
     },
+    service: {
+      //? 1:Buy/sell 2: Admin 3:tabadol  4:tabliq
+      type: Number,
+      required: true,
+    },
 
     description: {
       type: String,

@@ -14,6 +14,7 @@ export async function PUT(req) {
   const formData = await req.formData();
 
   const profile = formData.getAll("profile");
+  const service = formData.get("service");
   const isAdmin = formData.get("isAdmin");
   const ownerIdCardPhone = formData.get("ownerIdCardPhone"); //? ثبت کننده آگهی
   const adsId = formData.get("adsId"); //?آیدی آگهی
@@ -51,6 +52,7 @@ export async function PUT(req) {
       updateAds = await idCardModel.findOneAndUpdate(
         { _id: adsId },
         {
+          service,
           registerId,
           isOwnerId,
           ownerIdPhone,
@@ -80,6 +82,7 @@ export async function PUT(req) {
       updateAds = await idCardModel.findOneAndUpdate(
         { $and: [{ _id: adsId }, { ownerIdCard: userFound._id }] },
         {
+          service,
           registerId,
           isOwnerId,
           ownerIdPhone,

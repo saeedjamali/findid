@@ -9,6 +9,7 @@ import {
   status,
   years,
   ObjectTitle,
+  services,
 } from "@/config/constants";
 import { cities } from "@/data/cities";
 import { provinces } from "@/data/province";
@@ -51,6 +52,8 @@ import ImageLoader from "../imageUploader/imageLoader";
 import { RiCandleFill, RiRecycleFill } from "react-icons/ri";
 import { TrashIcon } from "@heroicons/react/24/outline";
 import { FaTrashAlt } from "react-icons/fa";
+import ServiceCard from "../card/ServiceCard";
+
 const maxFileSize = 2000000; //100KB
 const acceptType = "jpg";
 export default function Ads({ action, ad }) {
@@ -96,6 +99,7 @@ export default function Ads({ action, ad }) {
   const [draft, setDraft] = useState(ads?.draft);
   const [idImage, setIdImage] = useState([]);
   const [province, setProvince] = useState(ads?.province || 1);
+  const [service, setService] = useState(0);
   const [city, setCity] = useState(ads?.city || 0);
   const [discount, setDiscount] = useState(ads?.discount);
   const [statusAds, setStatusAds] = useState(ads?.statusAds || 0);
@@ -108,24 +112,18 @@ export default function Ads({ action, ad }) {
   const [isLoadingDeleteProfile, setIsLoadingDeleteProfile] = useState(false);
   const [isLoadingEdit, setIsLoadingEdit] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [isErrorService, setIsErrorService] = useState(false);
   const [isDisable, seIisDisable] = useState(true);
+
 
   useEffect(() => {
     setAds(ad);
     setTitle(ad?.title);
-    // setId(ads?.id);
-    // setMessenger(ads?.messenger);
+
   }, []);
 
-  // useEffect(() => {
-  //   console.log(title);
-  //   validateValue(
-  //     title?.length < 3 || title?.length > 20,
-  //     setIsInvalid,
-  //     "title",
-  //     setIsError
-  //   );
-  // }, [title]);
+
+
 
   useEffect(() => {
     if (type == 3) {
@@ -259,6 +257,10 @@ export default function Ads({ action, ad }) {
         }
       }
 
+      if (service == 0) {
+        toast.error("سرویس مورد نظر را انتخاب نمایید");
+        setIsErrorService(true);
+      }
       setIsLoading(true);
       const formData = new FormData();
       for (const image of idImage) {
@@ -266,6 +268,7 @@ export default function Ads({ action, ad }) {
       }
 
       // console.log("InInvalid 2", isInvalid);
+      formData.append("service", service);
       formData.append("isAdmin", isAdmin);
       formData.append("ownerIdCardPhone", ownerIdCardPhone);
       formData.append("registerId", registerId);
@@ -392,6 +395,10 @@ export default function Ads({ action, ad }) {
         }
       }
 
+      if (service == 0) {
+        toast.error("سرویس مورد نظر را انتخاب نمایید");
+        setIsErrorService(true);
+      }
       setIsLoadingEdit(true);
       const formData = new FormData();
       for (const image of idImage) {
@@ -399,6 +406,7 @@ export default function Ads({ action, ad }) {
       }
 
       // console.log("InInvalid 2", isInvalid);
+      formData.append("service", ads?.service);
       formData.append("adsId", ads?._id);
       formData.append("isAdmin", isAdmin);
       formData.append("ownerIdCardPhone", ownerIdCardPhone);
@@ -472,6 +480,7 @@ export default function Ads({ action, ad }) {
         formData.append("profile", image.file);
       }
 
+      formData.append("service", service);
       formData.append("registerId", registerId);
       formData.append("ownerIdCard", ownerIdCard);
       formData.append("isOwnerId", isOwnerId);
@@ -514,30 +523,6 @@ export default function Ads({ action, ad }) {
     setIsLoadingDraft(false);
   };
 
-  const handleDeleteProfile = async () => {
-    setAds((prev) => {
-      return { ...prev, profile: [] };
-    });
-    setIsLoadingDeleteProfile(true);
-
-    try {
-      const response = await fetch(`/api/ads/deleteprofile/${ads?._id}`, {
-        method: "PUT",
-      });
-
-      const data = await response.json();
-
-      if (data.status == 201) {
-        toast.success(data.message);
-        // location.reload();
-      } else {
-        toast.error(data.message);
-      }
-    } catch (error) {
-      console.log("error from remove company Handler --->", error);
-    }
-    setIsLoadingDeleteDraft(false);
-  };
   const handleDeleteDraftAds = async () => {
     setIsLoadingDeleteDraft(true);
 
@@ -597,6 +582,23 @@ export default function Ads({ action, ad }) {
               validationErrors={errors}
               onReset={() => setSubmitted(null)}
             >
+              <div
+                className={`w-full ring-1  rounded-lg p-2 ${
+                  isErrorService ? "ring-rose-950" : "ring-cyan-950"
+                }`}
+              >
+                <h2 className="w-full text-right text-[12px] mb-3 ">
+                  سرویس درخواستی
+                </h2>
+                <ServiceCard
+                  services={services}
+                  server={true} //? برای نمایش عنوان در سرویس اsj
+                  setService={setService}
+                  current={service}
+                  isErrorService={isErrorService}
+                />
+              </div>
+
               {isAdmin && action != 3 && (
                 <Input
                   // label="شناسه (آیدی) "

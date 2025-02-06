@@ -14,6 +14,7 @@ export async function PUT(req) {
   const formData = await req.formData();
   const profile = formData.getAll("profile");
 
+  const service = formData.get("service"); //? ثبت کننده آگهی
   const registerId = formData.get("registerId"); //? ثبت کننده آگهی
   const ownerIdCard = formData.get("ownerIdCard"); //? مالک آگهی
   const isOwnerId = formData.get("isOwnerId");
@@ -51,6 +52,7 @@ export async function PUT(req) {
     let foundId = await idDraftModel.findOneAndUpdate(
       { ownerIdCard },
       {
+        service,
         registerId,
         ownerIdCard,
         isOwnerId,
@@ -79,6 +81,7 @@ export async function PUT(req) {
     if (!foundId) {
       foundId = await idDraftModel.create({
         id,
+        service,
         registerId,
         ownerIdCard,
         isOwnerId,

@@ -1,7 +1,13 @@
 // components/PostCard.tsx
 "use client";
 import Image from "next/image";
-import { types, subjects, years, messengers } from "@/config/constants";
+import {
+  types,
+  subjects,
+  years,
+  messengers,
+  services,
+} from "@/config/constants";
 import { FaBookmark, FaEye, FaRegBookmark } from "react-icons/fa";
 import { MdOutlineRemoveRedEye, MdUpdate } from "react-icons/md";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
@@ -123,36 +129,10 @@ export default function IdCard2({ item, bookmarks, showImage }) {
                     width={100}
                     height={100}
                     alt="profile"
-                    // effect="blur"
-                    // wrapperProps={{
-                    //   // If you need to, you can tweak the effect transition using the wrapper style.
-                    //   style: {
-                    //     transitionDelay: "1s",
-                    //   },
-                    // }}
                   />
-                  {/* <p className="absolute font-shabnam text-3xl text-gray-700 opacity-40">
-                  تصویر یافت نشد
-                </p> */}
                 </>
               )}
-              {/* <LazyLoadImage
-              className="bg-center bg-no-repeat w-full h-full"
-              alt={""}
-              width={100}
-              height={100}
-              effect="blur"
-              wrapperProps={{
-                // If you need to, you can tweak the effect transition using the wrapper style.
-                style: { transitionDelay: "1s", width: "100%", height: "100%" },
-              }}
-              src={
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFJRTepR-nxfqB_ccp1FlfBPa88cbrycBF6w&s"
-              }
-              placeholderSrc="/images/logo.png"
-            ></LazyLoadImage> */}
             </div>
-            {/* </Skeleton> */}
           </div>
         )}
         {/* //? title - member - price - description and type */}
@@ -163,13 +143,14 @@ export default function IdCard2({ item, bookmarks, showImage }) {
         >
           <div className="flex flex-col justify-around h-full ">
             <div>
-              <h2 className="font-bold text-[16px] mt-4 text-h1-color">
-                {item?.title}
+              <h2 className="font-bold text-[16px] mt-4 text-h1-color flex gap-2">
+                {item?.title} {services[item?.service - 1]?.icon}
               </h2>
 
-              <h2 className="font-shabnam text-[8px] mt-1 text-h2-color text-right">
+              <span className="font-shabnam text-[8px] mt-1 text-h2-color text-right">
                 {DateToString(item?.createdAt)}
-              </h2>
+              </span>
+             
               <div
                 className={`flex items-center justify-start gap-1  border-blue-100 ${
                   showImage ? "mt-6" : "mt-9"
@@ -218,9 +199,7 @@ export default function IdCard2({ item, bookmarks, showImage }) {
                     {" "}
                     موضوع{" "}
                   </h3>{" "}
-                  <h3 className="px-2">
-                    {subjects[item?.subject - 1].title}
-                  </h3>
+                  <h3 className="px-2">{subjects[item?.subject - 1].title}</h3>
                   {/* {subjects.slice(0, 2).map((item) => {
                 return <div key={item.id}>{item.title}</div>;
               })} */}
@@ -312,11 +291,13 @@ export default function IdCard2({ item, bookmarks, showImage }) {
 
         <div
           className="cursor-pointer z-10 "
-        
           onClick={() => copyToClipboard(item?.id, "آیدی کپی شد")}
         >
-          <div className={`absolute w-10 h-10 rounded-full flex items-center justify-center left-4 bg-white ring-2 ring-white z-10   ${!showImage ? " -top-2 md:top-6" :"top-6" }`}
-           >
+          <div
+            className={`absolute w-10 h-10 rounded-full flex items-center justify-center left-4 bg-white ring-2 ring-white z-10   ${
+              !showImage ? " -top-2 md:top-6" : "top-6"
+            }`}
+          >
             <Image
               alt={""}
               width={100}
@@ -325,7 +306,9 @@ export default function IdCard2({ item, bookmarks, showImage }) {
             ></Image>
           </div>
           <div
-            className={`absolute h-6 w-auto rounded-r-full flex cursor-pointer items-center  justify-center left-12  md:-z-10  text-[12px] font-bold px-8 border-2 bg-white  ${!showImage ? " -top-2 md:top-6" :"top-6" } `}
+            className={`absolute h-6 w-auto rounded-r-full flex cursor-pointer items-center  justify-center left-12  md:-z-10  text-[12px] font-bold px-8 border-2 bg-white  ${
+              !showImage ? " -top-2 md:top-6" : "top-6"
+            } `}
             style={{
               border: `${messengers[item?.messenger - 1].color} solid 3px`,
             }}

@@ -23,7 +23,7 @@ function Aside({ show }) {
     <>
       {show && (
         <div className="w-[85%] md:w-1/2 lg:w-1/3  h-screen z-40 bg-transparent fixed top-5  left-0 bottom-0">
-          <span className="text-slate-200 absolute -right-8 text-xl bg-glass px-2 rounded-l-none cursor-pointer">
+          <span className="text-slate-500 absolute -right-8 text-xl bg-glass px-2 rounded-l-none cursor-pointer">
             <ImCancelCircle />
           </span>
         </div>

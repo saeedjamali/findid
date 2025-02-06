@@ -2,6 +2,7 @@
 import {
   BASE_URL,
   messengers,
+  services,
   subjects,
   types,
   years,
@@ -254,6 +255,15 @@ function ViewAds({ ads }) {
                     onClick={() => copyToClipboard(ads?.id, "آیدی کپی شد")}
                   />
                 </div>
+              </div>
+              <Divider />
+              <div className="flex justify-between items-center p-2">
+                <span className="text-h1-color text-responsive">
+                  سرویس درخواستی
+                </span>
+                <span className="text-h2-color text-responsive">
+                  {services[ads?.service - 1]?.title1}
+                </span>
               </div>
               <Divider />
               <div className="flex justify-between items-center p-2">

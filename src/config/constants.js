@@ -1,5 +1,12 @@
 // config/constants.ts
 
+import {
+  MdOutlineAdminPanelSettings,
+  MdOutlineShoppingCart,
+} from "react-icons/md";
+import { RiAdvertisementLine } from "react-icons/ri";
+import { TbExchange } from "react-icons/tb";
+
 export const API_URL = "/api/ads/get/all";
 export const BASE_URL = "http://localhost:3000/";
 export const Id_PER_PAGE = 50;
@@ -290,6 +297,33 @@ export const actions = [
   { id: 2, title: "new with draft" },
   { id: 3, title: "edit for user" },
   { id: 4, title: "edit for admin" },
+];
+
+export const services = [
+  {
+    id: 1,
+    title1: "خرید/فروش",
+    title2: "خرید/فروش",
+    icon: <MdOutlineShoppingCart />,
+  },
+  {
+    id: 2,
+    title1: "درخواست ادمین",
+    title2: "درخواست ادمین",
+    icon: <MdOutlineAdminPanelSettings />,
+  },
+  {
+    id: 3,
+    title1: "درخواست تبادل",
+    title2: "متقاضی تبادل",
+    icon: <TbExchange />,
+  },
+  {
+    id: 4,
+    title1: "معرفی بستر برای درج تبلیغات",
+    title2: "تبلیغات",
+    icon: <RiAdvertisementLine />,
+  },
 ];
 
 export const addss = {

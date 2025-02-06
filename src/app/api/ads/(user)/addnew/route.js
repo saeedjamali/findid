@@ -21,6 +21,7 @@ export async function POST(req) {
 
   const isAdmin = formData.get("isAdmin"); //? ثبت کننده آگهی
   const ownerIdCardPhone = formData.get("ownerIdCardPhone"); //? ثبت کننده آگهی
+  const service = formData.get("service"); //? ثبت کننده آگهی
   const registerId = formData.get("registerId"); //? ثبت کننده آگهی
   let ownerIdCard = formData.get("ownerIdCard"); //? مالک آگهی
   const isOwnerId = formData.get("isOwnerId");
@@ -67,7 +68,8 @@ export async function POST(req) {
       !type ||
       !subject ||
       !id ||
-      !members
+      !members ||
+      service == 0
     ) {
       return Response.json(
         {
@@ -92,6 +94,7 @@ export async function POST(req) {
     const maxCode = await idCardModel.find().sort({ code: -1 }).limit(1);
 
     const newAds = await idCardModel.create({
+      service,
       registerId,
       ownerIdCard:
         isAdmin && isAuth.role == "ADMIN" ? userFound?._id : ownerIdCard,
