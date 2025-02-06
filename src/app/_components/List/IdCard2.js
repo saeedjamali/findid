@@ -143,14 +143,22 @@ export default function IdCard2({ item, bookmarks, showImage }) {
         >
           <div className="flex flex-col justify-around h-full ">
             <div>
-              <h2 className="font-bold text-[16px] mt-4 text-h1-color flex gap-2">
-                {item?.title} {services[item?.service - 1]?.icon}
+              <h2 className="font-bold text-[16px] mt-4 text-h1-color flex gap-2 ">
+                {item?.title}
+                <span className="relative flex">
+                  <Tooltip
+                    className=" text-header"
+                    content={`${services[item?.service - 1]?.title1}`}
+                  >
+                    <span>{services[item?.service - 1]?.icon}</span>
+                  </Tooltip>
+                </span>
               </h2>
 
               <span className="font-shabnam text-[8px] mt-1 text-h2-color text-right">
                 {DateToString(item?.createdAt)}
               </span>
-             
+
               <div
                 className={`flex items-center justify-start gap-1  border-blue-100 ${
                   showImage ? "mt-6" : "mt-9"

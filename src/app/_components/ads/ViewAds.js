@@ -261,8 +261,9 @@ function ViewAds({ ads }) {
                 <span className="text-h1-color text-responsive">
                   سرویس درخواستی
                 </span>
-                <span className="text-h2-color text-responsive">
+                <span className="flex items-center justify-center gap-2 text-h2-color text-responsive  text-left">
                   {services[ads?.service - 1]?.title1}
+                  {services[ads?.service - 1]?.icon}
                 </span>
               </div>
               <Divider />

@@ -9,7 +9,6 @@ export async function POST(req, { params, searchParams }) {
     types = [],
     subjects = [];
   let idsCard = [];
-  console.log("ownerIdCard--->", service);
 
   const formData = await req.formData();
 
