@@ -28,7 +28,7 @@ export default function IdListInfinite({
   const [bookmarks, setIsBookmarks] = useState([]);
   const [ids, setIds] = useState([]);
   const [userBookmarks, setUserBookmarks] = useState([]);
-  const [hasMoreData, setHasMoreData] = useState(true);
+  const [hasMoreData, setHasMoreData] = useState(false);
   const scrollTrigger = useRef(null);
   const { filterList, isAuthUser, search } = useAppProvider();
   const [showImage, setShowImage] = useState(true);
