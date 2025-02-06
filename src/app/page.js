@@ -21,7 +21,7 @@ export default function Home() {
   const [initialIds, setinitialIds] = useState([]);
   const [bookmarks, setIsBookmarks] = useState([]);
   const [sort, setSort] = useState(0);
-  const [service, setService] = useState(1);
+  const [service, setService] = useState(0);
   const [firstFetch, setFirstFetch] = useState(false);
   const [isErrorService, setIsErrorService] = useState(false);
   const {
