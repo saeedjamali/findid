@@ -1,8 +1,11 @@
-import { Button } from "@nextui-org/react";
-import React from "react";
+import { Button, Tooltip } from "@nextui-org/react";
+import React, { useState } from "react";
+import { CiCircleInfo } from "react-icons/ci";
 import { ImCancelCircle } from "react-icons/im";
 
 function ServiceCard({ services, server, setService, current }) {
+  const [showTooltip, setShowTooltip] = useState(false);
+
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-2 flex-grow justify-start ">
       {services?.map((item) => (

@@ -21,7 +21,7 @@ export default function Home() {
   const [initialIds, setinitialIds] = useState([]);
   const [bookmarks, setIsBookmarks] = useState([]);
   const [sort, setSort] = useState(0);
-  const [service, setService] = useState(0);
+  const [service, setService] = useState();
   const [firstFetch, setFirstFetch] = useState(false);
   const [isErrorService, setIsErrorService] = useState(false);
   const {
@@ -36,11 +36,12 @@ export default function Home() {
   useEffect(() => {
     setFilterList([]);
   }, []);
+  
   return (
     <div className="relative">
       <Toaster />
       {/* <IdListInfinite initialIds={initialIds} /> */}
-      <Aside show={isFilter} />
+      <Aside  />
       {/* <Nav /> */}
       <div className="lg:container p-5 mx-auto  rounded-lg h-full ">
         <div className="w-full flex items-center justify-center my-16   gap-4 ">
