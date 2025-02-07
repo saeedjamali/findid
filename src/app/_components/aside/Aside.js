@@ -115,7 +115,7 @@ function Aside() {
                 ادمین ، درخواست تبادل و ارائه بستر برای درج تبلیغات می باشد.
               </h3>
             </div>
-            <div className="relative ring-header ring-1 p-4 rounded-lg mt-8 overflow-y-auto">
+            <div className="relative ring-header ring-1 p-4 rounded-lg mt-8">
               <h2 className="text-h1-color text-[14px] font-shabnamBold text-right my-4 absolute -top-7 right-4 px-4 bg-slate-50 rounded-lg z-50">
                 امکانات
               </h2>
@@ -139,7 +139,7 @@ function Aside() {
               </h3>
             </div>
 
-            <div className="relative ring-header ring-1 p-4 rounded-lg mt-8 gap-4 overflow-y-auto ">
+            <div className="relative ring-header ring-1 p-4 rounded-lg mt-8">
               <h2 className="text-h1-color text-[14px] font-shabnamBold text-right my-4 absolute -top-7 right-4 px-4 bg-slate-50 rounded-lg z-50">
                 ارتباط با پشتیبان
               </h2>
