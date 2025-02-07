@@ -75,7 +75,7 @@ function Aside() {
       </div>
 
       <aside
-        className={`w-[85%] md:w-1/2 lg:w-1/3 fixed top-0 left-0 min-h-screen  z-50    transition-all delay-150000 duration-300 ease-in-out  overflow-y-auto flex justify-end ${
+        className={`w-[85%] md:w-1/2 lg:w-1/3 fixed top-0 left-0 min-h-screen  z-50  transition-all delay-150000 duration-300 ease-in-out  overflow-y-auto flex justify-end ${
           !isFilter && "hidden"
         }`}
         ref={boxRef}
@@ -97,11 +97,11 @@ function Aside() {
 
       {showHelper && (
         <aside
-          className={`w-[85%] md:w-1/2 lg:w-1/3 fixed top-0 left-0 min-h-screen  z-50    transition-all delay-150000 duration-300 ease-in-out  overflow-y-auto flex justify-end `}
+          className={`w-[85%] md:w-1/2 lg:w-1/3 fixed top-0 left-0 min-h-screen  z-50  overflow-y-auto overflow-scroll  transition-all delay-150000 duration-300 ease-in-out  flex justify-end `}
           ref={boxHelperRef}
         >
           <div
-            className={`w-full min-h-screen gap-4 bg-glass-dark overflow-y-auto rounded-l-none p-4  `}
+            className={`w-full min-h-screen gap-4 bg-glass-dark   rounded-l-none p-4  `}
           >
             <div className="relative ring-header ring-1 p-4 rounded-lg mt-8">
               <h2 className="text-h1-color text-[14px] font-shabnamBold text-right my-4 absolute -top-7 right-4 px-4 bg-slate-50 rounded-lg z-50">

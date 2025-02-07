@@ -18,11 +18,11 @@ export default async function RootLayout({ children }) {
   // const initialIds = await getIds(0, Id_PER_PAGE);
 
   return (
-    <html lang="fa" dir="rtl">
+    <html lang="fa" dir="rtl" className="scroll-smooth">
       <head>
         <link
           rel="icon"
-          href="/images/logo.png"
+          href="/images/logo.ico"
           sizes="any"
           className="h-64 w-64"
         />

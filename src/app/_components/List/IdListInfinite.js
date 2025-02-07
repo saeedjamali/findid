@@ -166,7 +166,7 @@ export default function IdListInfinite({
       </div>
 
       <div
-        className={`grid grid-cols-1  w-full gap-2 xl:gap-4 container mx-auto ${
+        className={`grid grid-cols-1  w-full gap-2 xl:gap-4 container mx-auto  scroll-smooth ${
           showImage ? "lg:grid-cols-2 " : "lg:grid-cols-3 "
         } `}
       >
