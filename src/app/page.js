@@ -60,18 +60,18 @@ export default function Home() {
           />
           <h1
             className=" text-header font-shabnamBold text-[20px]  text-center  [text-shadow:_0_4px_8px_#182B54] 
-                            text-xl  md:text-2xl lg:text-3xl leading-10 font-manrope 
+                            text-xl  md:text-2xl lg:text-3xl leading-10  
                             font-extrabold hidden md:flex"
-          >
-            مرجع تبادل، تبلیغ و جذب ادمین شناسه های اینترنتی
-          </h1>
-          <h1
-            className=" text-header font-shabnamBold text-[20px]  text-center  [text-shadow:_0_4px_8px_#182B54] 
-                            text-xl  md:text-2xl lg:text-3xl leading-10 font-manrope 
-                            font-extrabold md:hidden"
           >
             مرجع تبادل شناسه های اینترنتی
           </h1>
+          {/* <h1
+            className=" text-header font-shabnamBold text-[20px]  text-center  [text-shadow:_0_4px_8px_#182B54] 
+                            text-xl  md:text-2xl lg:text-3xl leading-10  
+                            font-extrabold md:hidden"
+          >
+            مرجع تبادل شناسه های اینترنتی
+          </h1> */}
         </div>
         <div className={`w-full  p-2 my-4`}>
           <ServiceCard
