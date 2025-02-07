@@ -75,7 +75,7 @@ function Aside() {
       </div>
 
       <aside
-        className={`w-[85%] md:w-1/2 lg:w-1/3 fixed top-0 left-0 min-h-screen  z-50  transition-all delay-150000 duration-300 ease-in-out  overflow-y-auto flex justify-end ${
+        className={`w-[85%] md:w-1/2 lg:w-1/3 fixed top-0 left-0 bottom-0 min-h-screen  z-50  overflow-y-auto   transition-all delay-150000 duration-300 ease-in-out   ${
           !isFilter && "hidden"
         }`}
         ref={boxRef}
@@ -97,7 +97,7 @@ function Aside() {
 
       {showHelper && (
         <aside
-          className={`w-[85%] md:w-1/2 lg:w-1/3 fixed top-0 left-0 min-h-screen  z-50  overflow-y-auto overflow-scroll  transition-all delay-150000 duration-300 ease-in-out  flex justify-end `}
+          className={`w-[85%] md:w-1/2 lg:w-1/3 fixed top-0 left-0 bottom-0 min-h-screen  z-50  overflow-y-auto   transition-all delay-150000 duration-300 ease-in-out  `}
           ref={boxHelperRef}
         >
           <div
@@ -186,6 +186,8 @@ function Aside() {
                 </span>
               </div>
             </div>
+
+        
           </div>
         </aside>
       )}
