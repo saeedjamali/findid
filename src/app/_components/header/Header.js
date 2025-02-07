@@ -193,9 +193,9 @@ function Header({ isAuthenticateUser }) {
           }}
         />
 
-        <h1 className=" text-white font-shabnam text-[16px] mr-8 hidden md:flex">
+        {/* <h1 className=" text-white font-shabnam text-[16px] mr-8 hidden md:flex">
           مرجع تبادل شناسه های اینترنتی
-        </h1>
+        </h1> */}
         <div className="mr-auto flex items-center gap-2 text-xl text-font-light-color font-shabnamBold">
           {pathname != "/new" && (
             <>

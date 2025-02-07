@@ -12,7 +12,7 @@ function ServiceCard({ services, server, setService, current }) {
         <div
           key={item?.id}
           className={`${
-            item?.id == current ? "bg-cyan-700" : "bg-cyan-900"
+            item?.id == current ? "bg-cyan-700" : "bg-header"
           } text-white flex items-center justify-center flex-col gap-2 p-2 rounded-lg w-full cursor-pointer relative`}
           onClick={() => {
             item?.id == current ? setService(0) : setService(item?.id);

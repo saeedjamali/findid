@@ -36,12 +36,12 @@ export default function Home() {
   useEffect(() => {
     setFilterList([]);
   }, []);
-  
+
   return (
     <div className="relative">
       <Toaster />
       {/* <IdListInfinite initialIds={initialIds} /> */}
-      <Aside  />
+      <Aside />
       {/* <Nav /> */}
       <div className="lg:container p-5 mx-auto  rounded-lg h-full ">
         <div className="w-full flex items-center justify-center my-16   gap-4 ">
@@ -50,7 +50,7 @@ export default function Home() {
             width={220}
             height={100}
             alt="logo-findid"
-            className="cursor-pointer h-8 w-8"
+            className="cursor-pointer md:h-12 md:w-12 h-8 w-8"
             onClick={() => {
               setRefresh((prev) => !prev);
               router.push("/", { scroll: true });
@@ -60,7 +60,7 @@ export default function Home() {
           />
           <h1
             className=" text-header font-shabnamBold text-[20px]  text-center  [text-shadow:_0_4px_8px_#182B54] 
-                            text-xl  md:text-2xl lg:text-3xl leading-10  
+                            text-2xl  md:text-3xl lg:text-4xl leading-10  
                             font-extrabold "
           >
             مرجع تبادل شناسه های اینترنتی
