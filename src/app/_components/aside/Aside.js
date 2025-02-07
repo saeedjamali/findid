@@ -104,7 +104,7 @@ function Aside() {
             className={`w-full min-h-screen gap-4 bg-glass-dark overflow-y-auto rounded-l-none p-4  `}
           >
             <div className="relative ring-header ring-1 p-4 rounded-lg mt-8">
-              <h2 className="text-h1-color text-[14px] font-shabnamBold text-right my-4 absolute -top-7 right-4 px-4 bg-slate-50 rounded-lg">
+              <h2 className="text-h1-color text-[14px] font-shabnamBold text-right my-4 absolute -top-7 right-4 px-4 bg-slate-50 rounded-lg z-50">
                 اهداف و تعاریف
               </h2>
               <h3 className="text-h2-color text-justify text-[12px]">
@@ -116,7 +116,7 @@ function Aside() {
               </h3>
             </div>
             <div className="relative ring-header ring-1 p-4 rounded-lg mt-8 overflow-y-auto">
-              <h2 className="text-h1-color text-[14px] font-shabnamBold text-right my-4 absolute -top-7 right-4 px-4 bg-slate-50 rounded-lg">
+              <h2 className="text-h1-color text-[14px] font-shabnamBold text-right my-4 absolute -top-7 right-4 px-4 bg-slate-50 rounded-lg z-50">
                 امکانات
               </h2>
               <h3 className="text-h2-color text-justify text-[12px]">
@@ -140,7 +140,7 @@ function Aside() {
             </div>
 
             <div className="relative ring-header ring-1 p-4 rounded-lg mt-8 gap-4 overflow-y-auto ">
-              <h2 className="text-h1-color text-[14px] font-shabnamBold text-right my-4 absolute -top-7 right-4 px-4 bg-slate-50 rounded-lg">
+              <h2 className="text-h1-color text-[14px] font-shabnamBold text-right my-4 absolute -top-7 right-4 px-4 bg-slate-50 rounded-lg z-50">
                 ارتباط با پشتیبان
               </h2>
               <div className="flex justify-between items-center w-full text-[12px]">
