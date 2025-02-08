@@ -22,7 +22,7 @@ export default async function RootLayout({ children }) {
   // const initialIds = await getIds(0, Id_PER_PAGE);
 
   return (
-    <html lang="fa" dir="rtl" >
+    <html lang="fa" dir="rtl">
       <head>
         <link
           rel="icon"
@@ -31,8 +31,12 @@ export default async function RootLayout({ children }) {
           className="h-64 w-64"
         />
         <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-
+        {/* <meta name="viewport" content="width=device-width, initial-scale=1" /> */}
+        <meta
+          name="viewport"
+          content="user-scalable=no, width=device-width, initial-scale=1.0"
+        />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
         <title>مرجع تبادل شناسه های اینترنتی FindId</title>
         <meta
           name="description"
@@ -60,7 +64,6 @@ export default async function RootLayout({ children }) {
       {/* <!-- Google tag (gtag.js) --> */}
 
       <body>
-       
         <div>
           <AppProvider
             isAuthenticateUser={JSON.parse(JSON.stringify(isAuthenticateUser))}

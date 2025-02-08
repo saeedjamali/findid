@@ -12,9 +12,17 @@
 }
 
 
+html,
 body {
   overflow-x: hidden;
 }
+
+body {
+  position: relative;
+  width: 100%;
+
+}
+
 
 /* width */
 ::-webkit-scrollbar {
