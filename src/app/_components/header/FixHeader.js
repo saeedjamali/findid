@@ -161,7 +161,7 @@ function FixHeader({ isAuthenticateUser }) {
     <header className=" w-full h-20  bg-header pr-4 pl-12">
       <div className="container flex justify-between items-center h-full mx-auto">
         <Image
-          src={"/images/logo-text-right.png"}
+          src={"/images/logo-text-right.webp"}
           width={220}
           height={100}
           alt="logo-findid"

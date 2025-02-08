@@ -80,14 +80,20 @@ export default function SwiperTop10() {
           </span>
         </div>
         <Image
-          src={"/images/top10.png"}
+          src={"/images/top10.webp"}
           width={100}
           height={100}
           alt="Top10"
           className="w-8 h-8 mt-4"
         />
       </div>
-     <SwiperCp ids={topTen} action={action} isLoaded={isLoaded} counter={true} location={1}/>
+      <SwiperCp
+        ids={topTen}
+        action={action}
+        isLoaded={isLoaded}
+        counter={true}
+        location={1}
+      />
     </div>
   );
 }

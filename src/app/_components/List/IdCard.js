@@ -53,7 +53,7 @@ export default function IdCard({ ads, action, isLoaded, rate, counter }) {
               ) : (
                 <>
                   <Image
-                    src={"/images/logo.png"}
+                    src={"/images/logo.webp"}
                     className=" h-8 w-8 rounded-full object-fill p-1 opacity-25"
                     width={100}
                     height={100}

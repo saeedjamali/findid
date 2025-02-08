@@ -15,7 +15,7 @@ export function addSiteJsonLd() {
                 "logo": {
                    "@type": "ImageObject",
                    "@id": "https://findid.ir/#logo",
-                   "url": "https://findid.ir/_next/image?url=%2Fimages%2Flogo-text-right.png&w=256&q=75",
+                   "url": "https://findid.ir/_next/image?url=%2Fimages%2Flogo-text-right.webp&w=256&q=75",
                    "width": 350,
                    "height": 350,
                    "caption": "FindId"

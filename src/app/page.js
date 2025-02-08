@@ -46,7 +46,7 @@ export default function Home() {
       <div className="lg:container p-5 mx-auto  rounded-lg h-full ">
         <div className="w-full flex items-center justify-center my-16   gap-4 ">
           <Image
-            src={"/images/logo.png"}
+            src={"/images/logo.webp"}
             width={220}
             height={100}
             alt="logo-findid"

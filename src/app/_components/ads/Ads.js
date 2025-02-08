@@ -563,7 +563,7 @@ export default function Ads({ action, ad }) {
               alt="findid_logo"
               height={40}
               radius="sm"
-              src="/images/logo.png"
+              src="/images/logo.webp"
               width={40}
               className=""
             />

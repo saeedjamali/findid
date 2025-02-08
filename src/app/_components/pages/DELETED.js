@@ -7,7 +7,7 @@ function DELETED() {
     <div class="min-h-[90vh] flex flex-grow items-center justify-center ">
       <div class="rounded-lg bg-white p-8 text-center shadow-xl">
         <Image
-          src={"/images/removed.jpg"}
+          src={"/images/removed.webp"}
           width={100}
           height={100}
           alt="trash"

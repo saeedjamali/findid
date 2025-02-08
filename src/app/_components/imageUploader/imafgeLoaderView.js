@@ -53,7 +53,7 @@ function ImageLoaderView({ imageUrl, code, size }) {
         className={` rounded-t-lg md:rounded-lg   object-fill md:max-w-[360px]   ${
           size ? `h-[${size}] w-[${size}]` : "h-64 w-screen "
         }  `}
-        width={100}
+        width={1000}
         height={100}
         alt="profile"
       />

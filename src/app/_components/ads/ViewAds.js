@@ -180,7 +180,7 @@ function ViewAds({ ads }) {
                 alt="findid logo"
                 height={40}
                 radius="sm"
-                src="/images/logo.png"
+                src="/images/logo.webp"
                 width={40}
               />
               <div className="flex flex-col gap-2">
@@ -474,7 +474,7 @@ function ViewAds({ ads }) {
               ) : (
                 <>
                   <LazyLoadImage
-                    src={"/images/logo.png"}
+                    src={"/images/logo.webp"}
                     className=" h-64 w-96 rounded-lg object-fill opacity-10"
                     width={100}
                     height={100}

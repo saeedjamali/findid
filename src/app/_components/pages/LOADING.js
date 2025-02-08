@@ -14,7 +14,7 @@ function LOADING() {
           alt="logo"
         /> */}
         <Image
-          src="/images/logo.png"
+          src="/images/logo.webp"
           class="rounded-full h-28 w-28 m-2"
           width={100}
           height={100}

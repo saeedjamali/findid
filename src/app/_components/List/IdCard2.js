@@ -40,6 +40,7 @@ import { useEffect, useState } from "react";
 import { useAppProvider } from "@/app/context/AppProvider";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import ImageLoader from "../imageUploader/imageLoader";
+import Link from "next/link";
 export default function IdCard2({ item, bookmarks, showImage }) {
   const router = useRouter();
   const { isAuthUser } = useAppProvider();
@@ -124,7 +125,7 @@ export default function IdCard2({ item, bookmarks, showImage }) {
               ) : (
                 <>
                   <Image
-                    src={"/images/logo.png"}
+                    src={"/images/logo.webp"}
                     className=" h-64 w-96 rounded-lg object-fill opacity-10 p-8"
                     width={100}
                     height={100}
@@ -281,13 +282,12 @@ export default function IdCard2({ item, bookmarks, showImage }) {
                 </span>
               </Tooltip>
               <Tooltip className="bg-header text-white" content="مشاهده جزییات">
-                <span className="rounded-full w-8 h-8 bg-header flex items-center justify-center text-[16px] text-white cursor-pointer ">
-                  <CgDetailsMore
-                    onClick={() =>
-                      router.push(`/view/${item?.title}?id=${item?._id}`)
-                    }
-                  />
-                </span>
+                <Link
+                  href={`/view/${item?.title}?id=${item?._id}`}
+                  className="rounded-full w-8 h-8 bg-header flex items-center justify-center text-[16px] text-white cursor-pointer "
+                >
+                  <CgDetailsMore />
+                </Link>
               </Tooltip>
             </div>
           </div>

@@ -53,7 +53,23 @@ export default async function RootLayout({ children }) {
         />
         <meta property="og:url" content="https://findid.ir/" />
       </head>
+      {/* <!-- Google tag (gtag.js) --> */}
+
       <body>
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-VWTB22NHTE"
+        ></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-VWTB22NHTE');
+            `,
+          }}
+        ></script>
         <div>
           <AppProvider
             isAuthenticateUser={JSON.parse(JSON.stringify(isAuthenticateUser))}

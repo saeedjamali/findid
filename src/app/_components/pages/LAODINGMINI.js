@@ -14,7 +14,7 @@ function LOADINGMINI() {
           alt="logo"
         /> */}
         <Image
-          src="/images/logo.png"
+          src="/images/logo.webp"
           class="rounded-full h-20 w-20 m-2"
           width={100}
           height={100}
