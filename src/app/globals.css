@@ -12,6 +12,10 @@
 }
 
 
+body {
+  overflow-x: hidden;
+}
+
 /* width */
 ::-webkit-scrollbar {
   direction: rtl;

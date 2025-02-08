@@ -22,7 +22,7 @@ export default async function RootLayout({ children }) {
   // const initialIds = await getIds(0, Id_PER_PAGE);
 
   return (
-    <html lang="fa" dir="rtl" className="scroll-smooth overflow-x-hidden">
+    <html lang="fa" dir="rtl" >
       <head>
         <link
           rel="icon"
@@ -60,20 +60,7 @@ export default async function RootLayout({ children }) {
       {/* <!-- Google tag (gtag.js) --> */}
 
       <body>
-        <script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=G-VWTB22NHTE"
-        ></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-VWTB22NHTE');
-            `,
-          }}
-        ></script>
+       
         <div>
           <AppProvider
             isAuthenticateUser={JSON.parse(JSON.stringify(isAuthenticateUser))}

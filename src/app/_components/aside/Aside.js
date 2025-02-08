@@ -75,7 +75,7 @@ function Aside() {
       </div>
 
       <aside
-        className={`w-[85%] md:w-1/2 lg:w-1/3 fixed top-0 left-0 bottom-0 min-h-screen  z-50  overflow-y-auto   transition-all delay-150000 duration-300 ease-in-out   ${
+        className={`w-[85%] md:w-1/2 lg:w-1/3 fixed top-0 left-0 bottom-0 min-h-screen  z-50 overflow-x-hidden overflow-y-auto   transition-all delay-150000 duration-300 ease-in-out   ${
           !isFilter && "hidden"
         }`}
         ref={boxRef}
