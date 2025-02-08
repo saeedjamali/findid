@@ -204,15 +204,23 @@ function Header({ isAuthenticateUser }) {
                 onClick={handleNewAds}
               >
                 <IoMdAdd className="font-iranSans md:ml-2 text-2xl" />
-                <span className="hidden md:flex">درج آیدی</span>
+                <span className="hidden md:flex">آگهی جدید</span>
               </button>
               <button
-                className={` fixed bottom-10 right-12 z-50 text-white  text-[18px]   bg-btn-orange px-1  py-1 rounded-full items-center justify-between hover:text-header  ${
-                  outScroll ? "flex" : "md:hidden"
+                className={`w-16 fixed bottom-10 right-12 z-50 flex flex-col items-center justify-center  ${
+                  outScroll && "md:hidden"
                 }`}
                 onClick={handleNewAds}
               >
-                <IoMdAdd className="font-iranSans text-3xl" />
+                <span
+                  className={`bg-btn-orange  text-[10px] text-white font-shabnamBold rounded-lg px-2 mb-1 ${
+                    outScroll && "hidden"
+                  }`}
+                >
+                  آگهی جدید
+                </span>
+
+                <IoMdAdd className="font-iranSans text-3xl text-white  text-[18px]   bg-btn-orange  rounded-full items-center justify-center hover:text-header h-10 w-10 p-1" />
               </button>
             </>
           )}
