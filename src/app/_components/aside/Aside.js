@@ -122,9 +122,12 @@ function Aside() {
               <h3 className="text-h2-color text-justify text-[12px]">
                 در این بستر ما سرویس های زیر را ارائه خواهیم داد:
                 <ul>
-                  {services.map((item) => {
+                  {services.map((item, index) => {
                     return (
-                      <li className="flex flex-col items-start justify-start text-right text-[12px] gap-2 mt-4">
+                      <li
+                        key={index}
+                        className="flex flex-col items-start justify-start text-right text-[12px] gap-2 mt-4"
+                      >
                         <span className="flex justify-start items-start gap-2">
                           <span className="text-md">{item?.icon}</span>
                           <h2 className="text-header text-nowrap">
@@ -186,8 +189,6 @@ function Aside() {
                 </span>
               </div>
             </div>
-
-        
           </div>
         </aside>
       )}
