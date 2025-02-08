@@ -8,10 +8,14 @@ import { Id_PER_PAGE } from "@/config/constants";
 import { authenticateUser } from "@/utils/authenticateMe";
 import { addSiteJsonLd } from "@/utils/schemasSeo";
 
-// export const metadata = {
-//   title: "مرجع تبادل شناسه های  اینترنتی FindId",
-//   description: "بزرگترین بستر تبادل آیدی و صفحات اینترنتی ",
-// };
+export const metadata = {
+  openGraph: {
+    title: "مرجع تبادل شناسه های اینترنتی FindId",
+    description: "بزرگترین بستر تبادل آیدی و صفحات اینترنتی",
+  },
+};
+
+export const openGraphImage = { images: "./images/logo.png" };
 
 export default async function RootLayout({ children }) {
   const isAuthenticateUser = await authenticateUser();
