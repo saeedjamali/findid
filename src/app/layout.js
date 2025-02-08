@@ -15,7 +15,7 @@ export const metadata = {
   },
 };
 
-export const openGraphImage = { images: "./images/logo.png" };
+export const openGraphImage = { images: "/images/logo.png" };
 
 export default async function RootLayout({ children }) {
   const isAuthenticateUser = await authenticateUser();
