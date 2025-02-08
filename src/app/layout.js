@@ -22,7 +22,7 @@ export default async function RootLayout({ children }) {
   // const initialIds = await getIds(0, Id_PER_PAGE);
 
   return (
-    <html lang="fa" dir="rtl" className="scroll-smooth">
+    <html lang="fa" dir="rtl" className="scroll-smooth overflow-x-hidden">
       <head>
         <link
           rel="icon"
