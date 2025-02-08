@@ -74,7 +74,7 @@ export default async function RootLayout({ children }) {
               )}
             />
             <main className="p-4 bg-header min-h-screen ">
-              <div className="bg-[url('/images/bg-nav.svg')] bg-fixed rounded-2xl  ">
+              <div className="bg-[url('/images/bg-nav.svg')]  rounded-2xl bg-repeat ">
                 {children}
               </div>
             </main>
