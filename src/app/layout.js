@@ -22,7 +22,7 @@ export default async function RootLayout({ children }) {
       <head>
         <link
           rel="icon"
-          href="/images/logo.ico"
+          href="/favicon.ico"
           sizes="any"
           className="h-64 w-64"
         />
