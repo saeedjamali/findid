@@ -115,15 +115,10 @@ export default function Ads({ action, ad }) {
   const [isErrorService, setIsErrorService] = useState(false);
   const [isDisable, seIisDisable] = useState(true);
 
-
   useEffect(() => {
     setAds(ad);
     setTitle(ad?.title);
-
   }, []);
-
-
-
 
   useEffect(() => {
     if (type == 3) {
@@ -576,509 +571,514 @@ export default function Ads({ action, ad }) {
           </CardHeader>
           <Divider />
           <CardBody className="mx-auto lg:w-1/2 md:w-full gap-4 py-8 ">
-            <Form
-              className="w-full justify-center items-center  space-y-4"
-              validationBehavior="native"
-              validationErrors={errors}
-              onReset={() => setSubmitted(null)}
+            <div
+              className={`w-full border-1 border-dashed rounded-lg p-2 ${
+                isErrorService ? "ring-rose-950" : "ring-cyan-950"
+              }`}
             >
-              <div
-                className={`w-full ring-1  rounded-lg p-2 ${
-                  isErrorService ? "ring-rose-950" : "ring-cyan-950"
-                }`}
+              <h2 className="w-full text-right text-[12px] mb-3 ">
+                سرویس مورد نظر را انتخاب نمایید
+              </h2>
+              <ServiceCard
+                services={services}
+                server={true} //? برای نمایش عنوان در سرویس اsj
+                setService={setService}
+                current={service}
+                isErrorService={isErrorService}
+              />
+            </div>
+            {service != 0 && (
+              <Form
+                className="w-full justify-center items-center  space-y-4"
+                validationBehavior="native"
+                validationErrors={errors}
+                onReset={() => setSubmitted(null)}
               >
-                <h2 className="w-full text-right text-[12px] mb-3 ">
-                  سرویس درخواستی
-                </h2>
-                <ServiceCard
-                  services={services}
-                  server={true} //? برای نمایش عنوان در سرویس اsj
-                  setService={setService}
-                  current={service}
-                  isErrorService={isErrorService}
-                />
-              </div>
-
-              {isAdmin && action != 3 && (
-                <Input
-                  // label="شناسه (آیدی) "
-                  errorMessage="شماره مالک آگهی"
-                  description="این شماره توسط ادمین تکمیل می شود"
-                  color={isInvalid?.ownerIdCardPhone ? "danger" : "primary"}
-                  isInvalid={isInvalid?.ownerIdCardPhone}
-                  labelPlacement="outside"
-                  name="phone"
-                  type="phone"
-                  placeholder="شماره ای که آیدی بر روی آن تعریف شده است"
-                  value={ownerIdCardPhone}
-                  onValueChange={(key) => {
-                    validateValue(
-                      !valiadtePhone(key?.trim()),
-                      setIsInvalid,
-                      "ownerIdCardPhone",
-                      setIsError
-                    );
-                    setOwnerIdCardPhone(key?.trim());
-                    setContactWithPhone(key?.trim());
-                  }}
-                />
-              )}
-              <Input
-                dir="ltr"
-                className="text-right py-4 "
-                errorMessage={"حداقل سه کاراکتر انگلیسی بدون فاصله"}
-                isInvalid={isInvalid?.id}
-                color={isInvalid?.id ? "danger" : "primary"}
-                // isInvalid={isInvalid?.id}
-                isDisabled={action == 3}
-                isRequired
-                description={
-                  "پس از انتشار آگهی ،شناسه(آیدی) امکان ویرایش ندارد."
-                }
-                label="شناسه (آیدی) "
-                labelPlacement="outside"
-                name="id"
-                placeholder="ID"
-                endContent=" @ "
-                value={id}
-                variant="flat"
-                onValueChange={(value) => {
-                  setId(value?.trim());
-                  validateValue(
-                    !value ||
-                      value == "" ||
-                      value?.length < 3 ||
-                      !validateEngStr(value?.trim()),
-                    setIsInvalid,
-                    "id",
-                    setIsError
-                  );
-                }}
-              />
-              <AutoComplete
-                isRequired
-                className=""
-                errorMessage={"پیام رسان را انتخاب نمایید"}
-                isInvalid={isInvalid?.messenger}
-                isDisabled={action == 3}
-                label="پیام رسان"
-                placeholder="آیدی در کدام پیام رسان است"
-                defaultValue={messenger}
-                arr={messengers}
-                selectedKey={messenger}
-                setSelectedKey={setMessenger}
-              />
-              <AutoComplete
-                isRequired
-                errorMessage="نوع فعالیت را مشخص نمایید"
-                isInvalid={isInvalid?.type}
-                isDisabled={action == 3}
-                label="نوع"
-                placeholder="آیدی مربوط به کانال ، گروه،پیج یا ... است"
-                arr={types}
-                selectedKey={type}
-                setSelectedKey={setType}
-              />
-              <AutoComplete
-                isRequired
-                errorMessage="موضوع را مشخص نمایید"
-                isInvalid={isInvalid?.subject}
-                isDisabled={action == 3}
-                label="موضوع"
-                placeholder="یک موضوع مرتبط انتخاب کنید"
-                arr={subjects}
-                selectedKey={subject}
-                setSelectedKey={setSubject}
-              />
-
-              <Input
-                isClearable
-                className="text-right"
-                isRequired
-                description={` ${title ? title?.length + " کاراکتر  " : ""}  `}
-                errorMessage="یک عنوان وارد نمایید(حداقل 3 و حداکثر 20 کاراکتر)"
-                color={isInvalid.title ? "danger" : "primary"}
-                isInvalid={isInvalid?.title}
-                name="title"
-                placeholder="یک عنوان برای شناسه"
-                value={title}
-                onValueChange={(key) => {
-                  validateValue(
-                    !key || key?.length < 3 || key?.length > 20,
-                    setIsInvalid,
-                    "title",
-                    setIsError
-                  );
-                  setTitle(key);
-                }}
-                label="عنوان"
-                labelPlacement={"inside"}
-              />
-              <Textarea
-                isClearable
-                className="text-right"
-                isRequired
-                description={` ${
-                  description ? description?.length + " کاراکتر  " : ""
-                }  `}
-                errorMessage="حداقل 20 کاراکتر درباره آیدی"
-                color={isInvalid?.description ? "danger" : "primary"}
-                isInvalid={isInvalid?.description}
-                label="توضیحات"
-                placeholder=""
-                value={description}
-                onValueChange={(key) => {
-                  validateValue(
-                    !key || key?.length < 20,
-                    setIsInvalid,
-                    "description",
-                    setIsError
-                  );
-                  setDescription(key);
-                }}
-              />
-              <Input
-                isClearable
-                isDisabled={isDisable}
-                isRequired
-                label="تعداد اعضا"
-                labelPlacement="inside"
-                errorMessage="تعداد اعضا وارد نمایید"
-                color={isInvalid?.member ? "danger" : "primary"}
-                isInvalid={isInvalid?.member}
-                name="member"
-                type="Number"
-                // placeholder="تعداد اعضا کانال / گروه"
-                value={member}
-                onValueChange={(key) => {
-                  validateValue(
-                    !key || key == 0,
-                    setIsInvalid,
-                    "member",
-                    setIsError
-                  );
-                  setMember(key);
-                }}
-              />
-              <div className="bg-gray-100 rounded-lg w-full py-2 space-y-4 px-2">
-                <CheckBox
-                  label={"قیمت توافقی"}
-                  state={agreedPrice}
-                  set={(key) => {
-                    setAgreedPrice(key);
-                    validateValue(
-                      !key && (!price || price == 0),
-                      setIsInvalid,
-                      "price",
-                      setIsError
-                    );
-                  }}
-                />
-
-                {!agreedPrice && (
+                {isAdmin && action != 3 && (
                   <Input
-                    isClearable
-                    errorMessage="قیمت وارد نمایید"
-                    color={isInvalid?.price ? "danger" : "primary"}
-                    isInvalid={isInvalid?.price}
                     // label="شناسه (آیدی) "
-                    labelPlacement="outside"
-                    name="price"
-                    type="Number"
-                    placeholder="قیمت پیشنهادی"
-                    value={price}
-                    onValueChange={(p) => {
-                      setPrice(null);
-                      validateValue(
-                        !agreedPrice && (!p || p == 0),
-                        setIsInvalid,
-                        "price",
-                        setIsError
-                      );
-                      setPrice(p);
-                    }}
-                    description={
-                      discount == 0 || !discount
-                        ? price?.toString().num2persian() + " تومان"
-                        : `با احتساب تخفیف ${(price * (1 - discount / 100))
-                            .toFixed(0)
-                            .toString()
-                            .num2persian()} تومان`
-                    }
-                  />
-                )}
-                {(action == 3 || action == 4) && !agreedPrice && price != 0 && (
-                  <Slider
-                    isDisabled={agreedPrice}
-                    classNames={{
-                      base: "gap-3 bg-header p-8 rounded-lg text-white",
-                      track: "border-s-secondary-100",
-                      filler:
-                        "bg-gradient-to-r from-secondary-100 to-secondary-500",
-                    }}
-                    defaultValue={0}
-                    label="تخفیف بر روی آگهی اعمال شود؟"
-                    value={discount}
-                    onChange={setDiscount}
-                    marks={[
-                      {
-                        value: 20,
-                        label: "20%",
-                      },
-                      {
-                        value: 50,
-                        label: "50%",
-                      },
-                      {
-                        value: 80,
-                        label: "80%",
-                      },
-                    ]}
-                    renderThumb={(props) => (
-                      <div
-                        {...props}
-                        className="group p-1 top-1/2 bg-background border-small border-default-200 dark:border-default-400/50 shadow-medium rounded-full cursor-grab data-[dragging=true]:cursor-grabbing"
-                      >
-                        <span className="transition-transform bg-gradient-to-br shadow-small from-secondary-100 to-secondary-500 rounded-full w-5 h-5 block group-data-[dragging=true]:scale-80" />
-                      </div>
-                    )}
-                    size="sm"
-                  />
-                )}
-              </div>
-              <div className="bg-gray-100 rounded-lg w-full py-2 space-y-4 px-2 text-right">
-                <CheckBox
-                  className="text-right"
-                  label={`شناسه (آیدی) بر روی  شماره ${phone} تعریف شده است`}
-                  state={isOwnerId}
-                  set={(key) => {
-                    validateValue(
-                      !key && !valiadtePhone(ownerIdPhone?.trim()),
-                      setIsInvalid,
-                      "ownerIdPhone",
-                      setIsError
-                    );
-
-                    setIsOwnerId(key);
-                  }}
-                />
-                {!isOwnerId && (
-                  <Input
-                    isClearable
-                    // label="شناسه (آیدی) "
-                    errorMessage="شماره را صحیح وارد نمایید"
-                    description="این شماره در آگهی نمایش داده نمی شود"
-                    color={isInvalid?.ownerIdPhone ? "danger" : "primary"}
-                    isInvalid={isInvalid?.ownerIdPhone}
+                    errorMessage="شماره مالک آگهی"
+                    description="این شماره توسط ادمین تکمیل می شود"
+                    color={isInvalid?.ownerIdCardPhone ? "danger" : "primary"}
+                    isInvalid={isInvalid?.ownerIdCardPhone}
                     labelPlacement="outside"
                     name="phone"
                     type="phone"
                     placeholder="شماره ای که آیدی بر روی آن تعریف شده است"
-                    value={ownerIdPhone}
+                    value={ownerIdCardPhone}
                     onValueChange={(key) => {
                       validateValue(
-                        !isOwnerId && !valiadtePhone(key?.trim()),
+                        !valiadtePhone(key?.trim()),
+                        setIsInvalid,
+                        "ownerIdCardPhone",
+                        setIsError
+                      );
+                      setOwnerIdCardPhone(key?.trim());
+                      setContactWithPhone(key?.trim());
+                    }}
+                  />
+                )}
+                <Input
+                  dir="ltr"
+                  className="text-right py-4 "
+                  errorMessage={"حداقل سه کاراکتر انگلیسی بدون فاصله"}
+                  isInvalid={isInvalid?.id}
+                  color={isInvalid?.id ? "danger" : "primary"}
+                  // isInvalid={isInvalid?.id}
+                  isDisabled={action == 3}
+                  isRequired
+                  description={
+                    "پس از انتشار آگهی ،شناسه(آیدی) امکان ویرایش ندارد."
+                  }
+                  label="شناسه (آیدی) "
+                  labelPlacement="outside"
+                  name="id"
+                  placeholder="ID"
+                  endContent=" @ "
+                  value={id}
+                  variant="flat"
+                  onValueChange={(value) => {
+                    setId(value?.trim());
+                    validateValue(
+                      !value ||
+                        value == "" ||
+                        value?.length < 3 ||
+                        !validateEngStr(value?.trim()),
+                      setIsInvalid,
+                      "id",
+                      setIsError
+                    );
+                  }}
+                />
+                <AutoComplete
+                  isRequired
+                  className=""
+                  errorMessage={"پیام رسان را انتخاب نمایید"}
+                  isInvalid={isInvalid?.messenger}
+                  isDisabled={action == 3}
+                  label="پیام رسان"
+                  placeholder="آیدی در کدام پیام رسان است"
+                  defaultValue={messenger}
+                  arr={messengers}
+                  selectedKey={messenger}
+                  setSelectedKey={setMessenger}
+                />
+                <AutoComplete
+                  isRequired
+                  errorMessage="نوع فعالیت را مشخص نمایید"
+                  isInvalid={isInvalid?.type}
+                  isDisabled={action == 3}
+                  label="نوع"
+                  placeholder="آیدی مربوط به کانال ، گروه،پیج یا ... است"
+                  arr={types}
+                  selectedKey={type}
+                  setSelectedKey={setType}
+                />
+                <AutoComplete
+                  isRequired
+                  errorMessage="موضوع را مشخص نمایید"
+                  isInvalid={isInvalid?.subject}
+                  isDisabled={action == 3}
+                  label="موضوع"
+                  placeholder="یک موضوع مرتبط انتخاب کنید"
+                  arr={subjects}
+                  selectedKey={subject}
+                  setSelectedKey={setSubject}
+                />
+
+                <Input
+                  isClearable
+                  className="text-right"
+                  isRequired
+                  description={` ${
+                    title ? title?.length + " کاراکتر  " : ""
+                  }  `}
+                  errorMessage="یک عنوان وارد نمایید(حداقل 3 و حداکثر 20 کاراکتر)"
+                  color={isInvalid.title ? "danger" : "primary"}
+                  isInvalid={isInvalid?.title}
+                  name="title"
+                  placeholder="یک عنوان برای شناسه"
+                  value={title}
+                  onValueChange={(key) => {
+                    validateValue(
+                      !key || key?.length < 3 || key?.length > 20,
+                      setIsInvalid,
+                      "title",
+                      setIsError
+                    );
+                    setTitle(key);
+                  }}
+                  label="عنوان"
+                  labelPlacement={"inside"}
+                />
+                <Textarea
+                  isClearable
+                  className="text-right"
+                  isRequired
+                  description={` ${
+                    description ? description?.length + " کاراکتر  " : ""
+                  }  `}
+                  errorMessage="حداقل 20 کاراکتر درباره آیدی"
+                  color={isInvalid?.description ? "danger" : "primary"}
+                  isInvalid={isInvalid?.description}
+                  label="توضیحات"
+                  placeholder=""
+                  value={description}
+                  onValueChange={(key) => {
+                    validateValue(
+                      !key || key?.length < 20,
+                      setIsInvalid,
+                      "description",
+                      setIsError
+                    );
+                    setDescription(key);
+                  }}
+                />
+                <Input
+                  isClearable
+                  isDisabled={isDisable}
+                  isRequired
+                  label="تعداد اعضا"
+                  labelPlacement="inside"
+                  errorMessage="تعداد اعضا وارد نمایید"
+                  color={isInvalid?.member ? "danger" : "primary"}
+                  isInvalid={isInvalid?.member}
+                  name="member"
+                  type="Number"
+                  // placeholder="تعداد اعضا کانال / گروه"
+                  value={member}
+                  onValueChange={(key) => {
+                    validateValue(
+                      !key || key == 0,
+                      setIsInvalid,
+                      "member",
+                      setIsError
+                    );
+                    setMember(key);
+                  }}
+                />
+                <div className="bg-gray-100 rounded-lg w-full py-2 space-y-4 px-2">
+                  <CheckBox
+                    label={"قیمت توافقی"}
+                    state={agreedPrice}
+                    set={(key) => {
+                      setAgreedPrice(key);
+                      validateValue(
+                        !key && (!price || price == 0),
+                        setIsInvalid,
+                        "price",
+                        setIsError
+                      );
+                    }}
+                  />
+
+                  {!agreedPrice && (
+                    <Input
+                      isClearable
+                      errorMessage="قیمت وارد نمایید"
+                      color={isInvalid?.price ? "danger" : "primary"}
+                      isInvalid={isInvalid?.price}
+                      // label="شناسه (آیدی) "
+                      labelPlacement="outside"
+                      name="price"
+                      type="Number"
+                      placeholder="قیمت پیشنهادی"
+                      value={price}
+                      onValueChange={(p) => {
+                        setPrice(null);
+                        validateValue(
+                          !agreedPrice && (!p || p == 0),
+                          setIsInvalid,
+                          "price",
+                          setIsError
+                        );
+                        setPrice(p);
+                      }}
+                      description={
+                        discount == 0 || !discount
+                          ? price?.toString().num2persian() + " تومان"
+                          : `با احتساب تخفیف ${(price * (1 - discount / 100))
+                              .toFixed(0)
+                              .toString()
+                              .num2persian()} تومان`
+                      }
+                    />
+                  )}
+                  {(action == 3 || action == 4) &&
+                    !agreedPrice &&
+                    price != 0 && (
+                      <Slider
+                        isDisabled={agreedPrice}
+                        classNames={{
+                          base: "gap-3 bg-header p-8 rounded-lg text-white",
+                          track: "border-s-secondary-100",
+                          filler:
+                            "bg-gradient-to-r from-secondary-100 to-secondary-500",
+                        }}
+                        defaultValue={0}
+                        label="تخفیف بر روی آگهی اعمال شود؟"
+                        value={discount}
+                        onChange={setDiscount}
+                        marks={[
+                          {
+                            value: 20,
+                            label: "20%",
+                          },
+                          {
+                            value: 50,
+                            label: "50%",
+                          },
+                          {
+                            value: 80,
+                            label: "80%",
+                          },
+                        ]}
+                        renderThumb={(props) => (
+                          <div
+                            {...props}
+                            className="group p-1 top-1/2 bg-background border-small border-default-200 dark:border-default-400/50 shadow-medium rounded-full cursor-grab data-[dragging=true]:cursor-grabbing"
+                          >
+                            <span className="transition-transform bg-gradient-to-br shadow-small from-secondary-100 to-secondary-500 rounded-full w-5 h-5 block group-data-[dragging=true]:scale-80" />
+                          </div>
+                        )}
+                        size="sm"
+                      />
+                    )}
+                </div>
+                <div className="bg-gray-100 rounded-lg w-full py-2 space-y-4 px-2 text-right">
+                  <CheckBox
+                    className="text-right"
+                    label={`شناسه (آیدی) بر روی  شماره ${phone} تعریف شده است`}
+                    state={isOwnerId}
+                    set={(key) => {
+                      validateValue(
+                        !key && !valiadtePhone(ownerIdPhone?.trim()),
                         setIsInvalid,
                         "ownerIdPhone",
                         setIsError
                       );
 
-                      setOwnerIdPhone(key?.trim());
+                      setIsOwnerId(key);
                     }}
                   />
-                )}
-              </div>
-              <div className="bg-gray-100 rounded-lg w-full py-2 space-y-4 px-2 text-right">
-                <CheckBox
-                  className="text-right"
-                  label={"شماره آگهی دهنده نمایش داده شود."}
-                  state={isShowPhoneOwnerIdCard}
-                  set={setIsShowPhoneOwnerIdCard}
-                />
-
-                {isShowPhoneOwnerIdCard && (
-                  <Input
-                    isClearable
-                    isRequired
-                    errorMessage="شماره همراه وارد نمایید"
-                    color={isInvalid.phone ? "danger" : "primary"}
-                    isInvalid={isInvalid.phone}
-                    labelPlacement="outside"
-                    name="phone"
-                    type="phone"
-                    isDisabled
-                    placeholder="شماره مالک جهت نمایش در آگهی و تماس"
-                    value={contactWithPhone}
-                    onValueChange={setContactWithPhone}
-                  />
-                )}
-              </div>
-              <div className="bg-gray-100 rounded-lg w-full py-2 space-y-4 px-2 text-right">
-                <CheckBox
-                  className="text-right"
-                  label={"آیدی یک پیامرسان برای پاسخگویی نمایش داده شود؟"}
-                  state={isContactWithId}
-                  set={(key) => {
-                    validateValue(
-                      key &&
-                        (!contactWithId ||
-                          contactWithId == "" ||
-                          contactWithId?.length < 3 ||
-                          !validateEngStr(contactWithId?.trim())),
-                      setIsInvalid,
-                      "contactWithId",
-                      setIsError
-                    );
-                    validateValue(
-                      key && contactTypeMessenger == 0,
-                      setIsInvalid,
-                      "contactTypeMessenger",
-                      setIsError
-                    );
-
-                    setIsContactWithId(key);
-                  }}
-                />
-
-                {isContactWithId && (
-                  <div className="w-full gap-4 space-y-4">
-                    <AutoComplete
-                      errorMessage="پیام رسان را مشخص نمایید"
-                      isInvalid={isInvalid?.contactTypeMessenger}
-                      placeholder="آیدی در کدام پیام رسان است"
-                      arr={messengers}
-                      selectedKey={contactTypeMessenger}
-                      setSelectedKey={(value) => {
-                        setContactTypeMessenger(value);
-                        // validateValue(
-                        //   isContactWithId,
-                        //   setIsInvalid,
-                        //   "contactTypeMessenger",
-                        //   setIsError
-                        // );
-                      }}
-                    />
-
+                  {!isOwnerId && (
                     <Input
-                      // isClearable
-                      dir="ltr"
-                      className="text-right py-4"
-                      endContent="@"
-                      errorMessage=" یک آیدی معتبر وارد نمایید"
-                      color={isInvalid?.contactWithId ? "danger" : "primary"}
-                      isInvalid={isInvalid?.contactWithId}
+                      isClearable
+                      // label="شناسه (آیدی) "
+                      errorMessage="شماره را صحیح وارد نمایید"
+                      description="این شماره در آگهی نمایش داده نمی شود"
+                      color={isInvalid?.ownerIdPhone ? "danger" : "primary"}
+                      isInvalid={isInvalid?.ownerIdPhone}
                       labelPlacement="outside"
-                      name="contactId"
-                      type="text"
-                      description="آیدی جهت نمایش در آگهی برای پاسخگویی"
-                      value={contactWithId}
-                      onValueChange={(value) => {
-                        setContactWithId(value);
+                      name="phone"
+                      type="phone"
+                      placeholder="شماره ای که آیدی بر روی آن تعریف شده است"
+                      value={ownerIdPhone}
+                      onValueChange={(key) => {
                         validateValue(
-                          isContactWithId &&
-                            (!contactWithId ||
-                              contactWithId == "" ||
-                              contactWithId?.length < 3 ||
-                              !validateEngStr(contactWithId?.trim())),
+                          !isOwnerId && !valiadtePhone(key?.trim()),
                           setIsInvalid,
-                          "contactWithId",
+                          "ownerIdPhone",
                           setIsError
                         );
+
+                        setOwnerIdPhone(key?.trim());
                       }}
                     />
-                  </div>
-                )}
-              </div>
-
-              <AutoComplete
-                isRequired
-                errorMessage="یک سال انتخاب کنید"
-                isInvalid={isInvalid?.createDate}
-                label="سال ایجاد(تقریبی)"
-                // placeholder="یک موضوع مرتبط انتخاب کنید"
-                arr={years}
-                selectedKey={createDate}
-                setSelectedKey={setCreateDate}
-              />
-              <AutoComplete
-                label="استان"
-                // placeholder="یک موضوع مرتبط انتخاب کنید"
-                arr={provinces}
-                selectedKey={province}
-                setSelectedKey={setProvince}
-              />
-              <AutoComplete
-                label="شهر"
-                arr={filterCity || city}
-                selectedKey={city}
-                setSelectedKey={setCity}
-              />
-              <div className="w-full p-2 bg-header rounded-lg  ">
-                <p className="text-right text-gray-50 text-[14px] font-bold p-2">
-                  تصویر منتخب پروفایل
-                </p>
-                <div className="gap-2 mt-4 flex justify-center bg-slate-100 rounded-md p-4 ">
-                  <div className="flex gap-2 flex-col md:flex-row ">
-                    <ImageUploader
-                      imageItems={idImage}
-                      onChange={onChangeImage}
-                      maxNumber={1}
-                      acceptType={acceptType}
-                      maxFileSize={maxFileSize}
-                      // user={user}
-                    />
-
-                    {/* typeof ads?.profile != "undefined" || */}
-                    {ads && ads?.profile.length == 1 && (
-                      <div className="relative">
-                        <ImageLoader
-                          imageUrl={ads?.profile[0]}
-                          code={"profile"}
-                          size={"24px"}
-                        />
-                        {(action == 3 || action == 4 || action == 2) && (
-                          <span
-                            className="absolute top-2 left-2 text-red-500 font-bold w-5 h-5 cursor-pointer"
-                            // onClick={handleDeleteProfile}
-                            onClick={() => {
-                              setAds((prev) => {
-                                return { ...prev, profile: [] };
-                              });
-                            }}
-                          >
-                            {<FaTrashAlt />}
-                          </span>
-                        )}{" "}
-                      </div>
-                    )}
-                  </div>
+                  )}
                 </div>
-                <p className="text-[10px] text-gray-100 mt-1">
-                  حجم تصویر حداکثر 2 مگابایت باشد.
-                </p>
-                <p className="text-[10px] text-gray-100">
-                  پسوند فایل Jpg باشد.
-                </p>
-              </div>
+                <div className="bg-gray-100 rounded-lg w-full py-2 space-y-4 px-2 text-right">
+                  <CheckBox
+                    className="text-right"
+                    label={"شماره آگهی دهنده نمایش داده شود."}
+                    state={isShowPhoneOwnerIdCard}
+                    set={setIsShowPhoneOwnerIdCard}
+                  />
 
-              {(action == 3 || action == 4) && (
-                <Select
-                  defaultSelectedKeys={[0]}
-                  // description="The second most popular pet in the world"
-                  label="وضعیت آگهی"
-                  // placeholder="Select an animal"
-                  labelPlacement="inside"
-                  selectedKeys={statusAds}
-                  variant="bordered"
-                  // onSelectionChange={setStatusAds}
-                  onChange={(e) => setStatusAds(e.target.value)}
-                >
-                  {status.map((st) => (
-                    <SelectItem key={st.id}>{st.title}</SelectItem>
-                  ))}
-                </Select>
-              )}
-            </Form>
+                  {isShowPhoneOwnerIdCard && (
+                    <Input
+                      isClearable
+                      isRequired
+                      errorMessage="شماره همراه وارد نمایید"
+                      color={isInvalid.phone ? "danger" : "primary"}
+                      isInvalid={isInvalid.phone}
+                      labelPlacement="outside"
+                      name="phone"
+                      type="phone"
+                      isDisabled
+                      placeholder="شماره مالک جهت نمایش در آگهی و تماس"
+                      value={contactWithPhone}
+                      onValueChange={setContactWithPhone}
+                    />
+                  )}
+                </div>
+                <div className="bg-gray-100 rounded-lg w-full py-2 space-y-4 px-2 text-right">
+                  <CheckBox
+                    className="text-right"
+                    label={"آیدی یک پیامرسان برای پاسخگویی نمایش داده شود؟"}
+                    state={isContactWithId}
+                    set={(key) => {
+                      validateValue(
+                        key &&
+                          (!contactWithId ||
+                            contactWithId == "" ||
+                            contactWithId?.length < 3 ||
+                            !validateEngStr(contactWithId?.trim())),
+                        setIsInvalid,
+                        "contactWithId",
+                        setIsError
+                      );
+                      validateValue(
+                        key && contactTypeMessenger == 0,
+                        setIsInvalid,
+                        "contactTypeMessenger",
+                        setIsError
+                      );
+
+                      setIsContactWithId(key);
+                    }}
+                  />
+
+                  {isContactWithId && (
+                    <div className="w-full gap-4 space-y-4">
+                      <AutoComplete
+                        errorMessage="پیام رسان را مشخص نمایید"
+                        isInvalid={isInvalid?.contactTypeMessenger}
+                        placeholder="آیدی در کدام پیام رسان است"
+                        arr={messengers}
+                        selectedKey={contactTypeMessenger}
+                        setSelectedKey={(value) => {
+                          setContactTypeMessenger(value);
+                          // validateValue(
+                          //   isContactWithId,
+                          //   setIsInvalid,
+                          //   "contactTypeMessenger",
+                          //   setIsError
+                          // );
+                        }}
+                      />
+
+                      <Input
+                        // isClearable
+                        dir="ltr"
+                        className="text-right py-4"
+                        endContent="@"
+                        errorMessage=" یک آیدی معتبر وارد نمایید"
+                        color={isInvalid?.contactWithId ? "danger" : "primary"}
+                        isInvalid={isInvalid?.contactWithId}
+                        labelPlacement="outside"
+                        name="contactId"
+                        type="text"
+                        description="آیدی جهت نمایش در آگهی برای پاسخگویی"
+                        value={contactWithId}
+                        onValueChange={(value) => {
+                          setContactWithId(value);
+                          validateValue(
+                            isContactWithId &&
+                              (!contactWithId ||
+                                contactWithId == "" ||
+                                contactWithId?.length < 3 ||
+                                !validateEngStr(contactWithId?.trim())),
+                            setIsInvalid,
+                            "contactWithId",
+                            setIsError
+                          );
+                        }}
+                      />
+                    </div>
+                  )}
+                </div>
+
+                <AutoComplete
+                  isRequired
+                  errorMessage="یک سال انتخاب کنید"
+                  isInvalid={isInvalid?.createDate}
+                  label="سال ایجاد(تقریبی)"
+                  // placeholder="یک موضوع مرتبط انتخاب کنید"
+                  arr={years}
+                  selectedKey={createDate}
+                  setSelectedKey={setCreateDate}
+                />
+                <AutoComplete
+                  label="استان"
+                  // placeholder="یک موضوع مرتبط انتخاب کنید"
+                  arr={provinces}
+                  selectedKey={province}
+                  setSelectedKey={setProvince}
+                />
+                <AutoComplete
+                  label="شهر"
+                  arr={filterCity || city}
+                  selectedKey={city}
+                  setSelectedKey={setCity}
+                />
+                <div className="w-full p-2 bg-header rounded-lg  ">
+                  <p className="text-right text-gray-50 text-[14px] font-bold p-2">
+                    تصویر منتخب پروفایل
+                  </p>
+                  <div className="gap-2 mt-4 flex justify-center bg-slate-100 rounded-md p-4 ">
+                    <div className="flex gap-2 flex-col md:flex-row ">
+                      <ImageUploader
+                        imageItems={idImage}
+                        onChange={onChangeImage}
+                        maxNumber={1}
+                        acceptType={acceptType}
+                        maxFileSize={maxFileSize}
+                        // user={user}
+                      />
+
+                      {/* typeof ads?.profile != "undefined" || */}
+                      {ads && ads?.profile.length == 1 && (
+                        <div className="relative">
+                          <ImageLoader
+                            imageUrl={ads?.profile[0]}
+                            code={"profile"}
+                            size={"24px"}
+                          />
+                          {(action == 3 || action == 4 || action == 2) && (
+                            <span
+                              className="absolute top-2 left-2 text-red-500 font-bold w-5 h-5 cursor-pointer"
+                              // onClick={handleDeleteProfile}
+                              onClick={() => {
+                                setAds((prev) => {
+                                  return { ...prev, profile: [] };
+                                });
+                              }}
+                            >
+                              {<FaTrashAlt />}
+                            </span>
+                          )}{" "}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  <p className="text-[10px] text-gray-100 mt-1">
+                    حجم تصویر حداکثر 2 مگابایت باشد.
+                  </p>
+                  <p className="text-[10px] text-gray-100">
+                    پسوند فایل Jpg باشد.
+                  </p>
+                </div>
+
+                {(action == 3 || action == 4) && (
+                  <Select
+                    defaultSelectedKeys={[0]}
+                    // description="The second most popular pet in the world"
+                    label="وضعیت آگهی"
+                    // placeholder="Select an animal"
+                    labelPlacement="inside"
+                    selectedKeys={statusAds}
+                    variant="bordered"
+                    // onSelectionChange={setStatusAds}
+                    onChange={(e) => setStatusAds(e.target.value)}
+                  >
+                    {status.map((st) => (
+                      <SelectItem key={st.id}>{st.title}</SelectItem>
+                    ))}
+                  </Select>
+                )}
+              </Form>
+            )}
           </CardBody>
           <Divider />
           <CardFooter className="w-full flex justify-end items-center gap-2">
@@ -1100,7 +1100,7 @@ export default function Ads({ action, ad }) {
                 حذف پیش نویس
               </Button>
             )}
-            {(action == 3 || action == 4) && (
+            {(action == 3 || action == 4 || service != 0) && (
               <Button
                 className={"text-white"}
                 color="success"
@@ -1110,7 +1110,7 @@ export default function Ads({ action, ad }) {
                 ذخیره تغییرات
               </Button>
             )}
-            {(action == 1 || action == 2) && (
+            {(action == 1 || action == 2) && service != 0 && (
               <Button
                 className={"text-white"}
                 color="success"
