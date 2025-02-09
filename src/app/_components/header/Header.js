@@ -24,6 +24,7 @@ import { CiEdit } from "react-icons/ci";
 import Countdown from "react-countdown";
 import { BiLogOutCircle } from "react-icons/bi";
 import { useAppProvider } from "@/app/context/AppProvider";
+import Link from "next/link";
 const timeInterval = Date.now() + 120000;
 function Header({ isAuthenticateUser }) {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
@@ -179,19 +180,21 @@ function Header({ isAuthenticateUser }) {
   return (
     <header className=" w-full h-20  bg-header pr-4 pl-12">
       <div className="container flex justify-between items-center h-full mx-auto">
-        <Image
-          src={"/images/logo-text-right.webp"}
-          width={220}
-          height={100}
-          alt="logo-findid"
-          className="cursor-pointer"
-          onClick={() => {
-            setRefresh((prev) => !prev);
-            router.push("/", { scroll: true });
-            // router.refresh();
-            // location.reload();
-          }}
-        />
+        <Link href={"/"}>
+          <Image
+            src={"/images/logo-text-right.webp"}
+            width={220}
+            height={100}
+            alt="logo-findid"
+            className="cursor-pointer"
+            onClick={() => {
+              setRefresh((prev) => !prev);
+              // router.push("/", { scroll: true });
+              // router.refresh();
+              // location.reload();
+            }}
+          />
+        </Link>
 
         {/* <h1 className=" text-white font-shabnam text-[16px] mr-8 hidden md:flex">
           مرجع تبادل شناسه های اینترنتی
