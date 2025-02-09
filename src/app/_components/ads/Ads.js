@@ -999,7 +999,7 @@ export default function Ads({ action, ad }) {
                   selectedKey={createDate}
                   setSelectedKey={setCreateDate}
                 />
-                <AutoComplete
+                {/* <AutoComplete
                   label="استان"
                   // placeholder="یک موضوع مرتبط انتخاب کنید"
                   arr={provinces}
@@ -1011,7 +1011,7 @@ export default function Ads({ action, ad }) {
                   arr={filterCity || city}
                   selectedKey={city}
                   setSelectedKey={setCity}
-                />
+                /> */}
                 <div className="w-full p-2 bg-header rounded-lg  ">
                   <p className="text-right text-gray-50 text-[14px] font-bold p-2">
                     تصویر منتخب پروفایل

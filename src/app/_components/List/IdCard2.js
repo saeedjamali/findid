@@ -396,7 +396,7 @@ export default function IdCard2({ item, bookmarks, showImage }) {
                 {item?.isShowPhoneOwnerIdCard && (
                   <div className="flex justify-between items-center w-full h-12 bg-slate-400 rounded-md px-2">
                     <span>شماره تماس </span>
-                    <span className="flex items-center gap-4">
+                    <span className="flex items-center gap-2">
                       {item?.contactWithPhone}
                       <IoCopy
                         className="cursor-pointer w-3 h-3"
@@ -421,10 +421,10 @@ export default function IdCard2({ item, bookmarks, showImage }) {
                       } solid 1px`,
                     }}
                   >
-                    <span>آیدی شبکه اجتماعی </span>
-                    <span className="flex items-center gap-4 ">
+                    <span className="text-[12px]">آیدی شبکه اجتماعی </span>
+                    <span className="flex items-center gap-2 text-[12px] ">
                       {item?.contactWithId} در{""}
-                      {messengers[item?.contactTypeMessenger - 1]?.name}
+                      {messengers[item?.contactTypeMessenger - 1]?.title}
                       <IoCopy
                         className="cursor-pointer w-3 h-3"
                         onClick={() =>

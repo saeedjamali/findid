@@ -12,7 +12,7 @@ function ServiceCard({ services, server, setService, current }) {
         <div
           key={item?.id}
           className={`${
-            item?.id == current ? "bg-cyan-700" : "bg-header"
+            item?.id == current ? "bg-sky-500" : "bg-header"
           } text-white flex items-center justify-center flex-col gap-2 p-2 rounded-lg w-full cursor-pointer relative`}
           onClick={() => {
             item?.id == current ? setService(0) : setService(item?.id);
@@ -23,7 +23,7 @@ function ServiceCard({ services, server, setService, current }) {
             {server ? item?.title1 : item?.title2}
           </h3>
           {item?.id == current && (
-            <ImCancelCircle className="absolute top-1 left-1 text-rose-900 " />
+            <ImCancelCircle className="absolute top-1 left-1 text-rose-600 " />
           )}
         </div>
       ))}
