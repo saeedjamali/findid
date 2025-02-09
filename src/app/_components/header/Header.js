@@ -208,13 +208,13 @@ function Header({ isAuthenticateUser }) {
               </button>
               <button
                 className={`w-16 fixed bottom-10 right-12 z-50 flex flex-col items-center justify-center  ${
-                  outScroll && "md:hidden"
+                  !outScroll && "md:hidden"
                 }`}
                 onClick={handleNewAds}
               >
                 <span
                   className={`bg-btn-orange  text-[10px] text-white font-shabnamBold rounded-lg px-2 mb-1 ${
-                    outScroll && "hidden"
+                    outScroll && "hidden md:flex"
                   }`}
                 >
                   آگهی جدید

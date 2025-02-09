@@ -120,7 +120,7 @@ function Aside() {
                 امکانات
               </h2>
               <h3 className="text-h2-color text-justify text-[12px]">
-                در این بستر ما سرویس های زیر را ارائه خواهیم داد:
+                در این بستر سرویس های زیر را ارائه می شود::
                 <ul>
                   {services.map((item, index) => {
                     return (
