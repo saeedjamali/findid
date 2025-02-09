@@ -16,7 +16,8 @@ function AppProvider({ children, isAuthenticateUser }) {
   const [signData, setSignData] = useState("");
   const [search, setSearch] = useState("");
   const [isFilter, setIsFilter] = useState(false);
-  
+  const [counter, setCounter] = useState([]);
+
   useEffect(() => {
     setIsAuthUser(isAuthenticateUser);
   }, [isAuthUser]);
@@ -25,6 +26,8 @@ function AppProvider({ children, isAuthenticateUser }) {
     <>
       <AppContext.Provider
         value={{
+          counter,
+          setCounter,
           isFilter,
           setIsFilter,
           search,

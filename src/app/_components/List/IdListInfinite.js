@@ -30,7 +30,7 @@ export default function IdListInfinite({
   const [userBookmarks, setUserBookmarks] = useState([]);
   const [hasMoreData, setHasMoreData] = useState(true);
   const scrollTrigger = useRef(null);
-  const { filterList, isAuthUser, search } = useAppProvider();
+  const { filterList, isAuthUser, search, setCounter } = useAppProvider();
   const [showImage, setShowImage] = useState(true);
 
   useEffect(() => {
@@ -53,10 +53,11 @@ export default function IdListInfinite({
           }
         );
         const data = await response.json();
-        // console.log("Running Page 1 data--->", data);
+        // console.log("counter--->", data);
         if (data.status == 201) {
           setIds(data.idsCard);
           setIsBookmarks(data.bookmarksId);
+          setCounter(data?.counter);
           setHasMoreData(true);
           setOffset(Id_PER_PAGE);
         } else {

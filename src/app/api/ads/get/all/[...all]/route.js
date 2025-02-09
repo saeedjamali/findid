@@ -78,6 +78,15 @@ export async function POST(req, { params, searchParams }) {
         .populate("counter");
     }
 
+    const counter = await idCardModel.aggregate([
+      {
+        $group: {
+          _id: '$service',
+          count: { $sum: 1 } // this means that the count will increment by 1
+        }
+      }
+    ]);
+
     let bookmarksId = [];
     if (mongoose.Types.ObjectId.isValid(userId)) {
       bookmarksId = await bookmarkModel.find({ user: userId });
@@ -88,6 +97,7 @@ export async function POST(req, { params, searchParams }) {
       status: 201,
       idsCard,
       bookmarksId,
+      counter
     });
   } catch (error) {
     console.log("error in get ids --->", error);
