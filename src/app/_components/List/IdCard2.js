@@ -320,7 +320,7 @@ export default function IdCard2({ item, bookmarks, showImage }) {
             style={{
               border: `${messengers[item?.messenger - 1].color} solid 3px`,
             }}
-            onClick={() => copyToClipboard(item?.id)}
+            // onClick={() => copyToClipboard(item?.id)}
           >
             {item?.id}
           </div>
