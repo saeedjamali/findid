@@ -585,6 +585,7 @@ export default function Ads({ action, ad }) {
                 setService={setService}
                 current={service}
                 isErrorService={isErrorService}
+                isCounter={false}
               />
             </div>
             {service != 0 && (

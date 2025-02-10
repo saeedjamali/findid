@@ -56,6 +56,7 @@ function ImageLoader({ imageUrl, code, size }) {
         width={1000}
         height={100}
         alt="profile"
+        // format="webp"
       />
     </div>
   );

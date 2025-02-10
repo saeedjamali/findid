@@ -47,6 +47,11 @@ const schema = mongoose.Schema(
       default: [],
       required: false,
     },
+    thumbnail: {
+      type: [String],
+      default: [],
+      required: false,
+    },
     province: {
       type: Number,
       required: false,

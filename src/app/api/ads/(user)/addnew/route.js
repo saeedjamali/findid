@@ -8,7 +8,8 @@ import userModel from "@/models/base/User";
 
 import { writeFile } from "fs/promises";
 import path from "path";
-
+import sharp from "sharp";
+import fs from "fs";
 export async function POST(req) {
   const { isConnected, message } = await connectToDB();
   const isAuth = await authenticateUser();
@@ -139,15 +140,31 @@ export async function POST(req) {
       const buffer = Buffer.from(await img.arrayBuffer());
       const filename =
         Date.now() + "" + getRndInteger(10000, 100000) + img.name;
+      const outputName = filename.replace(".jpg", ".webp");
       const imgPath = path.join(process.cwd(), "upload/profile/" + filename);
-      await writeFile(imgPath, buffer);
 
+      await writeFile(imgPath, buffer);
+      // await writeFile(thumbnailpath, buffer);
+      if (fs.existsSync(imgPath)) {
+        const outputPath = path.join(
+          process.cwd(),
+          "upload/thumbnail/" + outputName
+        );
+        const out = await sharp(imgPath)
+          .resize(640, 480)
+          .toFormat("webp")
+          .toFile(outputPath);
+
+        console.log("outputPath", outputPath);
+        console.log("out", out);
+      }
       await idCardModel.updateOne(
         { _id: newAds._id },
         {
           $push: {
             // imageContractList: `${process.env.LOCAL_URL}/upload/contract/${filename}`,
             profile: `${filename}`,
+            thumbnail: `${outputName}`,
           },
         }
       );
@@ -157,7 +174,7 @@ export async function POST(req) {
       const findFraft = await idDraftModel.findOneAndDelete({ ownerIdCard });
       return Response.json({
         message: " آگهی با موفقیت ثبت شد",
-        status: 201,
+        status: 205,
       });
     }
   } catch (error) {

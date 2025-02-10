@@ -120,8 +120,8 @@ export default function IdCard2({ item, bookmarks, showImage }) {
               src={"/images/2.jpg"}
               className="g-cover bg-center bg-no-repeat w-full h-full"
             ></Image> */}
-              {item?.profile?.length != 0 ? (
-                <ImageLoader imageUrl={item?.profile[0]} code={"profile"} />
+              {item?.thumbnail?.length != 0 ? (
+                <ImageLoader imageUrl={item?.thumbnail[0]} code={"thumbnail"} />
               ) : (
                 <>
                   <Image
@@ -240,12 +240,12 @@ export default function IdCard2({ item, bookmarks, showImage }) {
                 !showImage && "mt-6 "
               }`}
             >
-              {!showImage && item?.profile?.length != 0 && (
+              {!showImage && item?.thumbnail?.length != 0 && (
                 <Tooltip className="bg-header text-white" content="تصویر">
                   <span className="rounded-full w-8 h-8 bg-header flex items-center justify-center text-[16px] text-white cursor-pointer overflow-hidden object-fill">
                     <ImageLoader
-                      imageUrl={item?.profile[0]}
-                      code={"profile"}
+                      imageUrl={item?.thumbnail[0]}
+                      code={"thumbnail"}
                       size={"48px"}
                     />
                   </span>
