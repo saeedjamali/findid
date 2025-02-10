@@ -5,6 +5,8 @@ import idDraftModel from "@/models/IDCard/Draft";
 
 import { writeFile } from "fs/promises";
 import path from "path";
+import sharp from "sharp";
+import fs from "fs";
 
 export async function PUT(req) {
   if (!(await authenticateUser())) {
@@ -111,13 +113,28 @@ export async function PUT(req) {
         Date.now() + "" + getRndInteger(10000, 100000) + img.name;
       const imgPath = path.join(process.cwd(), "upload/profile/" + filename);
       await writeFile(imgPath, buffer);
+      const webpName = filename.replace(".jpg", ".webp");
+      // await writeFile(thumbnailpath, buffer);
+      if (fs.existsSync(imgPath)) {
+        const outputPath = path.join(
+          process.cwd(),
+          "upload/thumbnail/" + webpName
+        );
+        const out = await sharp(imgPath)
+          .resize(640, 480)
+          .toFormat("webp")
+          .toFile(outputPath);
 
+       
+      }
       await idDraftModel.updateOne(
         { _id: foundId._id },
         {
           $push: {
             // imageContractList: `${process.env.LOCAL_URL}/upload/contract/${filename}`,
             profile: `${filename}`,
+            thumbnail: `${webpName}`,
+
           },
         }
       );
