@@ -81,10 +81,11 @@ export async function POST(req, { params, searchParams }) {
     const counter = await idCardModel.aggregate([
       {
         $group: {
-          _id: '$service',
-          count: { $sum: 1 } // this means that the count will increment by 1
-        }
-      }
+          _id: "$service",
+          // isShow: true,
+          count: { $sum:  { $cond: { if: { $eq: ["$isShow", true] }, then: 1, else: 0 } }}, // this means that the count will increment by 1
+        },
+      },
     ]);
 
     let bookmarksId = [];
@@ -97,7 +98,7 @@ export async function POST(req, { params, searchParams }) {
       status: 201,
       idsCard,
       bookmarksId,
-      counter
+      counter,
     });
   } catch (error) {
     console.log("error in get ids --->", error);
