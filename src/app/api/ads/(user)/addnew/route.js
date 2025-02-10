@@ -173,7 +173,7 @@ export async function POST(req) {
       const findFraft = await idDraftModel.findOneAndDelete({ ownerIdCard });
       return Response.json({
         message: " آگهی با موفقیت ثبت شد",
-        status: 205,
+        status: 201,
       });
     }
   } catch (error) {

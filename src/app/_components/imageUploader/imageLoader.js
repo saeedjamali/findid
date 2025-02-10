@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { FaCloudDownloadAlt } from "react-icons/fa";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
-function ImageLoader({ imageUrl, code, size }) {
+function ImageLoader({ imageUrl, code, size, rounded }) {
   const [image, setImage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
@@ -50,7 +50,7 @@ function ImageLoader({ imageUrl, code, size }) {
           objectFit: "fill",
         }}
         src={image}
-        className={` rounded-t-lg md:rounded-tr-lg md:rounded-br-lg md:rounded-t-none  object-fill  ${
+        className={` rounded-t-lg md:rounded-tr-lg md:rounded-br-lg md:rounded-t-none  object-fill ${rounded}  ${
           size ? `h-[${size}] w-[${size}]` : "h-64 w-screen "
         }  `}
         width={1000}

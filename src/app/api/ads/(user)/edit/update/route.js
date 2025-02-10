@@ -5,6 +5,8 @@ import { authenticateUser } from "@/utils/authenticateMe";
 import { getRndInteger } from "@/utils/random";
 import { writeFile } from "fs/promises";
 import path from "path";
+import sharp from "sharp";
+import fs from "fs";
 export async function PUT(req) {
   const { isConnected, message } = await connectToDB();
   const isAuth = await authenticateUser();

@@ -401,7 +401,7 @@ export default function Ads({ action, ad }) {
       }
 
       // console.log("InInvalid 2", isInvalid);
-      formData.append("service", ads?.service);
+      formData.append("service", service);
       formData.append("adsId", ads?._id);
       formData.append("isAdmin", isAdmin);
       formData.append("ownerIdCardPhone", ownerIdCardPhone);
@@ -588,7 +588,7 @@ export default function Ads({ action, ad }) {
                 isCounter={false}
               />
             </div>
-            {(service != 0 || action != 1) && (
+            {(service || service != 0 || action != 1) && (
               <Form
                 className="w-full justify-center items-center  space-y-4"
                 validationBehavior="native"
@@ -1029,16 +1029,17 @@ export default function Ads({ action, ad }) {
                       />
 
                       {/* typeof ads?.profile != "undefined" || */}
-                      {ads && ads?.profile.length == 1 && (
+                      {ads && ads?.thumbnail.length == 1 && (
                         <div className="relative">
                           <ImageLoader
-                            imageUrl={ads?.profile[0]}
-                            code={"profile"}
-                            size={"24px"}
+                            imageUrl={ads?.thumbnail[0]}
+                            code={"thumbnail"}
+                            size={"48px"}
+                            rounded={"rounded-lg"}
                           />
                           {(action == 3 || action == 4 || action == 2) && (
                             <span
-                              className="absolute top-2 left-2 text-red-500 font-bold w-5 h-5 cursor-pointer"
+                              className="absolute top-1 left-1 text-red-500 font-bold w-5 h-5 cursor-pointer"
                               // onClick={handleDeleteProfile}
                               onClick={() => {
                                 setAds((prev) => {
