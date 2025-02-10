@@ -548,8 +548,7 @@ export default function Ads({ action, ad }) {
     setIdImage(imageList);
   };
 
-  console.log("service", service);
-  console.log(action);
+
   return (
     <div>
       <Toaster />
@@ -1046,8 +1045,9 @@ export default function Ads({ action, ad }) {
                               className="absolute top-1 left-1 text-red-500 font-bold w-5 h-5 cursor-pointer"
                               // onClick={handleDeleteProfile}
                               onClick={() => {
+                                
                                 setAds((prev) => {
-                                  return { ...prev, profile: [] };
+                                  return { ...prev, profile: [],thumbnail:[] };
                                 });
                               }}
                             >
