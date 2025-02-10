@@ -98,6 +98,7 @@ export default function Ads({ action, ad }) {
   );
   const [draft, setDraft] = useState(ads?.draft);
   const [idImage, setIdImage] = useState([]);
+  const [removedImage, setRemovedImage] = useState(false);
   const [province, setProvince] = useState(ads?.province || 1);
   const [service, setService] = useState(0 || ads?.service);
   const [city, setCity] = useState(ads?.city || 0);
@@ -424,6 +425,7 @@ export default function Ads({ action, ad }) {
       formData.append("statusAds", statusAds || 0);
       // formData.append("id", id);
       formData.append("createDate", createDate);
+      formData.append("removedImage", removedImage);
       formData.append("isShowPhoneOwnerIdCard", isShowPhoneOwnerIdCard);
       formData.append(
         "contactWithPhone",
@@ -539,7 +541,7 @@ export default function Ads({ action, ad }) {
     }
     setIsLoadingDeleteDraft(false);
   };
-  const onChangeImage = (imageList) => { 
+  const onChangeImage = (imageList) => {
     // data for submit
     if (imageList.length > 1) {
       toast.info("صرفا امکان بارگذاری یک تصویر وجود دارد");
@@ -547,7 +549,6 @@ export default function Ads({ action, ad }) {
     }
     setIdImage(imageList);
   };
-
 
   return (
     <div>
@@ -589,8 +590,7 @@ export default function Ads({ action, ad }) {
                 isCounter={false}
               />
             </div>
-            {((typeof service !== "undefined" && service!=0) ||
-              
+            {((typeof service !== "undefined" && service != 0) ||
               action != 1) && (
               <Form
                 className="w-full justify-center items-center  space-y-4"
@@ -1045,9 +1045,13 @@ export default function Ads({ action, ad }) {
                               className="absolute top-1 left-1 text-red-500 font-bold w-5 h-5 cursor-pointer"
                               // onClick={handleDeleteProfile}
                               onClick={() => {
-                                
+                                setRemovedImage(true);
                                 setAds((prev) => {
-                                  return { ...prev, profile: [],thumbnail:[] };
+                                  return {
+                                    ...prev,
+                                    profile: [],
+                                    thumbnail: [],
+                                  };
                                 });
                               }}
                             >
@@ -1116,16 +1120,18 @@ export default function Ads({ action, ad }) {
                 ذخیره تغییرات
               </Button>
             )}
-            {(action == 1 || action == 2) && typeof service !== "undefined" && service!=0  && (
-              <Button
-                className={"text-white"}
-                color="success"
-                onPress={handleNewAds}
-                isLoading={isLoading}
-              >
-                ثبت آگهی
-              </Button>
-            )}
+            {(action == 1 || action == 2) &&
+              typeof service !== "undefined" &&
+              service != 0 && (
+                <Button
+                  className={"text-white"}
+                  color="success"
+                  onPress={handleNewAds}
+                  isLoading={isLoading}
+                >
+                  ثبت آگهی
+                </Button>
+              )}
           </CardFooter>
         </Card>
       </div>

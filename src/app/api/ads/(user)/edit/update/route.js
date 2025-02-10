@@ -43,9 +43,12 @@ export async function PUT(req) {
   //   const id = formData.get("id");
   const isShowPhoneOwnerIdCard = formData.get("isShowPhoneOwnerIdCard");
   const contactWithPhone = formData.get("contactWithPhone");
+  const removedImage = formData.get("removedImage");
   const isContactWithId = formData.get("isContactWithId");
   const contactWithId = formData.get("contactWithId");
   const contactTypeMessenger = formData.get("contactTypeMessenger");
+  console.log("removedImage------>", removedImage);
+
   try {
     if (!isConnected) {
       return Response.json({ message: "خطا در اتصال به پایگاه", status: 500 });
@@ -66,7 +69,7 @@ export async function PUT(req) {
           description,
           members,
           agreedPrice,
-          profile: profile.length == 0 && [],
+
           price: agreedPrice == "true" ? 0 : price,
           createDate,
           isShowPhoneOwnerIdCard,
@@ -80,6 +83,15 @@ export async function PUT(req) {
           isShow: statusAds == 2 || statusAds == 3 ? false : true,
         }
       );
+      if (removedImage=="true") {
+        updateAds = await idCardModel.findOneAndUpdate(
+          { _id: adsId },   
+          {
+            profile: [],
+            thumbnail: [],
+          }
+        );
+      }
     }
 
     if (userFound.role == "USER" && userFound.phone == isAuth.phone) {
@@ -95,7 +107,7 @@ export async function PUT(req) {
           title,
           description,
           members,
-          profile: profile?.length == 0 && [],
+
           agreedPrice,
           price: agreedPrice == "true" ? 0 : price,
           createDate,
@@ -110,7 +122,18 @@ export async function PUT(req) {
           isShow: statusAds == 2 || statusAds == 3 ? false : true,
         }
       );
+
+      if (removedImage=="true") {
+        updateAds = await idCardModel.findOneAndUpdate(
+          { $and: [{ _id: adsId }, { ownerIdCard: userFound._id }] },
+          {
+            profile: [],
+            thumbnail: [],
+          }
+        );
+      }
     }
+
     profile?.map(async (img, index) => {
       const buffer = Buffer.from(await img.arrayBuffer());
       const filename =
