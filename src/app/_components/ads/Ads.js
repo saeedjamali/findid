@@ -300,7 +300,7 @@ export default function Ads({ action, ad }) {
       if (data.status == 201) {
         toast.success(data.message);
         setRefresh((prev) => !prev);
-        router.push("/", { scroll: true });
+        window.open("/");
       } else {
         toast.error(data.message);
       }

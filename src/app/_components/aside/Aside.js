@@ -103,7 +103,7 @@ function Aside() {
           <div
             className={`w-full min-h-screen gap-4 bg-glass-dark   rounded-l-none p-4  `}
           >
-            <div className="relative ring-header ring-1 p-4 rounded-lg mt-8">
+            <div className="relative border-header border-1 border-dashed p-4 rounded-lg mt-8">
               <h2 className="text-h1-color text-[14px] font-shabnamBold text-right my-4 absolute -top-7 right-4 px-4 bg-slate-50 rounded-lg z-50">
                 اهداف و تعاریف
               </h2>
@@ -115,7 +115,7 @@ function Aside() {
                 ادمین ، درخواست تبادل و ارائه بستر برای درج تبلیغات می باشد.
               </h3>
             </div>
-            <div className="relative ring-header ring-1 p-4 rounded-lg mt-8">
+            <div className="relative border-header border-1 border-dashed  p-4 rounded-lg mt-8">
               <h2 className="text-h1-color text-[14px] font-shabnamBold text-right my-4 absolute -top-7 right-4 px-4 bg-slate-50 rounded-lg z-50">
                 امکانات
               </h2>
@@ -142,7 +142,7 @@ function Aside() {
               </h3>
             </div>
 
-            <div className="relative ring-header ring-1 p-4 rounded-lg mt-8">
+            <div className="relative border-header border-1 border-dashed  p-4 rounded-lg mt-8">
               <h2 className="text-h1-color text-[14px] font-shabnamBold text-right my-4 absolute -top-7 right-4 px-4 bg-slate-50 rounded-lg z-50">
                 ارتباط با پشتیبان
               </h2>
