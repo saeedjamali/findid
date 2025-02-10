@@ -16,6 +16,8 @@ export async function PUT(req) {
   const formData = await req.formData();
 
   const profile = formData.getAll("profile");
+  console.log("profile------>", profile);
+
   const service = formData.get("service");
   const isAdmin = formData.get("isAdmin");
   const ownerIdCardPhone = formData.get("ownerIdCardPhone"); //? ثبت کننده آگهی
@@ -126,8 +128,6 @@ export async function PUT(req) {
           // .resize(640, 480)
           .toFormat("webp")
           .toFile(outputPath);
-
-       
       }
       await idCardModel.updateOne(
         { _id: adsId },

@@ -539,7 +539,7 @@ export default function Ads({ action, ad }) {
     }
     setIsLoadingDeleteDraft(false);
   };
-  const onChangeImage = (imageList) => {
+  const onChangeImage = (imageList) => { 
     // data for submit
     if (imageList.length > 1) {
       toast.info("صرفا امکان بارگذاری یک تصویر وجود دارد");
@@ -589,7 +589,7 @@ export default function Ads({ action, ad }) {
                 isCounter={false}
               />
             </div>
-            {(typeof service !== "undefined" ||
+            {((typeof service !== "undefined" && service!=0) ||
               
               action != 1) && (
               <Form
@@ -1116,7 +1116,7 @@ export default function Ads({ action, ad }) {
                 ذخیره تغییرات
               </Button>
             )}
-            {(action == 1 || action == 2) && service != 0 && (
+            {(action == 1 || action == 2) && typeof service !== "undefined" && service!=0  && (
               <Button
                 className={"text-white"}
                 color="success"

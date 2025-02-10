@@ -44,7 +44,7 @@ export default function IdCard({ ads, action, isLoaded, rate, counter }) {
         <div className=" w-full relative flex items-center justify-center ">
           <Skeleton className="rounded-full h-12" isLoaded={isLoaded}>
             <span className="rounded-full w-12 h-12 flex items-center justify-center  cursor-pointer overflow-hidden object-fill relative">
-              {ads?.profile?.length != 0 ? (
+              {ads?.thumbnail?.length != 0 ? (
                 <ImageLoader
                   imageUrl={ads?.thumbnail[0]}
                   code={"thumbnail"}
