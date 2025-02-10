@@ -588,7 +588,7 @@ export default function Ads({ action, ad }) {
                 isCounter={false}
               />
             </div>
-            {service != 0 && (
+            {service != 0 && action == 1 && (
               <Form
                 className="w-full justify-center items-center  space-y-4"
                 validationBehavior="native"
@@ -1101,7 +1101,7 @@ export default function Ads({ action, ad }) {
                 حذف پیش نویس
               </Button>
             )}
-            {(action == 3 || action == 4 || service != 0) && (
+            {((action == 3 || action == 4) && service != 0) && (
               <Button
                 className={"text-white"}
                 color="success"
