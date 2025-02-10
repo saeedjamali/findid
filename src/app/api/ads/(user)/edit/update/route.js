@@ -123,7 +123,7 @@ export async function PUT(req) {
           "upload/thumbnail/" + webpName
         );
         const out = await sharp(imgPath)
-          .resize(640, 480)
+          // .resize(640, 480)
           .toFormat("webp")
           .toFile(outputPath);
 
