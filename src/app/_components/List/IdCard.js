@@ -84,15 +84,20 @@ export default function IdCard({ ads, action, isLoaded, rate, counter }) {
         </span> */}
         </div>
         <Skeleton className="rounded-md mt-1 h-5" isLoaded={isLoaded}>
-          <div className="w-full flex flex-col items-center justify-center">
-            <h2 className="font-semibold text-header flex items-center justify-center mt-2 text-[12px] h-4 w-4">
-              {ads?.id}
+          <div
+            className="w-full flex items-center justify-center px-2 gap-1 mt-2 "
+            dir="ltr"
+          >
+            <span className="w-4 h-4 flex items-center justify-center">
               <Image
                 alt="1"
                 width={20}
                 height={20}
                 src={messengers[ads?.messenger - 1]?.icon}
               ></Image>
+            </span>
+            <h2 className="font-semibold text-header flex items-center justify-center text-[12px] h-4 text-left">
+              {(ads?.id).length < 11 ? ads?.id : (ads?.id).slice(0, 10) + "..."}
             </h2>
           </div>
         </Skeleton>

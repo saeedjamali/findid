@@ -239,284 +239,279 @@ function ViewAds({ ads }) {
             </div>
           </CardHeader>
           <Divider />
-          <CardBody className=" w-full gap-4 py-8 flex flex-col-reverse lg:flex-row">
-            <div className="w-full col-span-1  lg:flex-1 rounded-lg mt-4 lg:mt-0">
-              <div className="flex justify-between items-center p-2">
-                <span className="text-h1-color text-responsive">
-                  شناسه (آیدی){" "}
-                </span>
-                <div className="text-h2-color text-responsive  flex items-center justify-center gap-3 font-semibold text-center">
-                  <span className="flex items-center justify-center h-ful">
-                    {" "}
-                    {ads?.id}
-                  </span>{" "}
-                  <IoCopy
-                    className="cursor-pointer w-3 h-3"
-                    onClick={() => copyToClipboard(ads?.id, "آیدی کپی شد")}
-                  />
-                </div>
-              </div>
-              <Divider />
-              <div className="flex justify-between items-center p-2">
-                <span className="text-h1-color text-responsive">
-                  سرویس درخواستی
-                </span>
-                <span className="flex items-center justify-center gap-2 text-h2-color text-responsive  text-left">
-                  {services[ads?.service - 1]?.title1}
-                  {services[ads?.service - 1]?.icon}
-                </span>
-              </div>
-              <Divider />
-              <div className="flex justify-between items-center p-2">
-                <span className="text-h1-color text-responsive">پیام رسان</span>
-                <span className="flex items-center justify-center gap-2 text-[12px] font-semibold">
-                  {messengers[ads?.messenger - 1]?.latin}
-                  <Image
-                    src={`${messengers[ads?.messenger - 1]?.icon}`}
-                    width={100}
-                    height={100}
-                    alt="messenger icon"
-                    className="w-6 h-6 "
-                  />
-                </span>
-              </div>
-              <Divider />
-              <div className="flex justify-between items-center p-2">
-                <span className="text-h1-color text-responsive">نوع رسانه</span>
-                <span className="text-h2-color text-responsive">
-                  {types[ads?.type - 1]?.title}
-                </span>
-              </div>
-              <Divider />
-              <div className="flex justify-between items-center p-2">
-                <span className="text-h1-color text-responsive">موضوع</span>
-                <span className="text-h2-color text-responsive">
-                  {subjects[ads?.subject - 1]?.title}
-                </span>
-              </div>
-              <Divider />
-              <div className="flex justify-between items-center p-2">
-                <span className="text-h1-color text-responsive text-right">
-                  قیمت{" "}
-                  <span className="text-[12px] text-green-600">
-                    {ads?.discount == 0 || !ads?.discount
-                      ? ""
-                      : `(تخفیف ${ads?.discount} درصد)`}
+          <CardBody>
+            <div className=" w-full gap-4 py-8 flex flex-col-reverse lg:flex-row">
+              <div className="w-full col-span-1  lg:flex-1 rounded-lg mt-4 lg:mt-0">
+                <div className="flex justify-between items-center p-2">
+                  <span className="text-h1-color text-responsive">
+                    شناسه (آیدی){" "}
                   </span>
-                </span>
-                <span>
-                  {ads?.discount != 0 && (
-                    <span className="text-responsive mx-2 text-green-600 no-underline">
-                      {(
-                        ads?.price *
-                        (1 - ads?.discount / 100)
-                      )?.toLocaleString()}
-                      {/* <span className="text-[8px] "> تومان</span> */}
+                  <div className="text-h2-color text-responsive  flex items-center justify-center gap-3 font-semibold text-center">
+                    <span className="flex items-center justify-center h-ful">
+                      {" "}
+                      {ads?.id}
+                    </span>{" "}
+                    <IoCopy
+                      className="cursor-pointer w-3 h-3"
+                      onClick={() => copyToClipboard(ads?.id, "آیدی کپی شد")}
+                    />
+                  </div>
+                </div>
+                <Divider />
+                <div className="flex justify-between items-center p-2">
+                  <span className="text-h1-color text-responsive">
+                    سرویس درخواستی
+                  </span>
+                  <span className="flex items-center justify-center gap-2 text-h2-color text-responsive  text-left">
+                    {services[ads?.service - 1]?.title1}
+                    {services[ads?.service - 1]?.icon}
+                  </span>
+                </div>
+                <Divider />
+                <div className="flex justify-between items-center p-2">
+                  <span className="text-h1-color text-responsive">
+                    پیام رسان
+                  </span>
+                  <span className="flex items-center justify-center gap-2 text-[12px] font-semibold">
+                    {messengers[ads?.messenger - 1]?.latin}
+                    <Image
+                      src={`${messengers[ads?.messenger - 1]?.icon}`}
+                      width={100}
+                      height={100}
+                      alt="messenger icon"
+                      className="w-6 h-6 "
+                    />
+                  </span>
+                </div>
+                <Divider />
+                <div className="flex justify-between items-center p-2">
+                  <span className="text-h1-color text-responsive">
+                    نوع رسانه
+                  </span>
+                  <span className="text-h2-color text-responsive">
+                    {types[ads?.type - 1]?.title}
+                  </span>
+                </div>
+                <Divider />
+                <div className="flex justify-between items-center p-2">
+                  <span className="text-h1-color text-responsive">موضوع</span>
+                  <span className="text-h2-color text-responsive">
+                    {subjects[ads?.subject - 1]?.title}
+                  </span>
+                </div>
+                <Divider />
+                <div className="flex justify-between items-center p-2">
+                  <span className="text-h1-color text-responsive text-right">
+                    قیمت{" "}
+                    <span className="text-[12px] text-green-600">
+                      {ads?.discount == 0 || !ads?.discount
+                        ? ""
+                        : `(تخفیف ${ads?.discount} درصد)`}
                     </span>
-                  )}
-
-                  {ads?.agreedPrice ? (
-                    <span className="text-h1-color text-responsive  gap-2">
-                      توافقی
-                    </span>
-                  ) : (
-                    <>
-                      <span
-                        className={
-                          ads?.discount != 0
-                            ? "`text-red-600 text-responsive text-danger line-through  gap-2"
-                            : "text-h1-color text-responsive  gap-2"
-                        }
-                      >
-                        {Number(ads?.price).toLocaleString()}
+                  </span>
+                  <span>
+                    {ads?.discount != 0 && (
+                      <span className="text-responsive mx-2 text-green-600 no-underline">
+                        {(
+                          ads?.price *
+                          (1 - ads?.discount / 100)
+                        )?.toLocaleString()}
+                        {/* <span className="text-[8px] "> تومان</span> */}
                       </span>
-                      <span className="text-[8px] text-h1-color no-underline ">
-                        {" "}
-                        تومان
+                    )}
+
+                    {ads?.agreedPrice ? (
+                      <span className="text-h1-color text-responsive  gap-2">
+                        توافقی
                       </span>
-                    </>
-                  )}
-                </span>
-              </div>
-              <Divider />
-              <div className="flex justify-between items-center p-2">
-                <span className="text-h1-color text-responsive text-right">
-                  تعداد اعضا
-                </span>
-                <span className="flex items-center justify-center gap-2 text-h2-color text-responsive text-left">
-                  {(ads?.members).toLocaleString()}
-                  <PiUser />
-                </span>
-              </div>
-              <Divider />
-              <div className="flex justify-between items-center p-2">
-                <span className="text-h1-color text-responsive text-right">
-                  سال ساخت
-                </span>
-                <span className="flex items-center justify-center gap-2 text-h2-color text-responsive text-left">
-                  {years[ads?.createDate - 1].title}
-                  <MdUpdate />
-                </span>
-              </div>
+                    ) : (
+                      <>
+                        <span
+                          className={
+                            ads?.discount != 0
+                              ? "`text-red-600 text-responsive text-danger line-through  gap-2"
+                              : "text-h1-color text-responsive  gap-2"
+                          }
+                        >
+                          {Number(ads?.price).toLocaleString()}
+                        </span>
+                        <span className="text-[8px] text-h1-color no-underline ">
+                          {" "}
+                          تومان
+                        </span>
+                      </>
+                    )}
+                  </span>
+                </div>
+                <Divider />
+                <div className="flex justify-between items-center p-2">
+                  <span className="text-h1-color text-responsive text-right">
+                    تعداد اعضا
+                  </span>
+                  <span className="flex items-center justify-center gap-2 text-h2-color text-responsive text-left">
+                    {(ads?.members).toLocaleString()}
+                    <PiUser />
+                  </span>
+                </div>
+                <Divider />
+                <div className="flex justify-between items-center p-2">
+                  <span className="text-h1-color text-responsive text-right">
+                    سال ساخت
+                  </span>
+                  <span className="flex items-center justify-center gap-2 text-h2-color text-responsive text-left">
+                    {years[ads?.createDate - 1].title}
+                    <MdUpdate />
+                  </span>
+                </div>
 
-              <Divider />
-              <div className="flex justify-between items-center p-2">
-                <span className="text-h1-color text-responsive text-right">
-                  تعداد بازدید این صفحه
-                </span>
-                <span className="flex items-center justify-center gap-2 text-h2-color text-responsive text-left">
-                  {memberToK(ads?.counter?.views)}
-                  <MdOutlineRemoveRedEye />
-                </span>
-              </div>
-              <Divider />
-              <div className="flex justify-between items-center p-2">
-                <span className="text-h1-color text-responsive text-right">
-                  تعداد بوک مارک شده ها
-                </span>
-                <span className=" flex items-center justify-center gap-2 text-h2-color text-responsive text-left">
-                  {ads?.counter?.bookmarks?.toLocaleString()}
-                  <FaRegBookmark />
-                </span>
-              </div>
-              <Divider />
-              <div className="flex justify-between items-center p-2 ">
-                <span className="text-h1-color text-responsive text-right">
-                  زمان انتشار آگهی
-                </span>
-                <span className="text-h2-color text-responsive text-left">
-                  {new Date(ads?.createdAt).toLocaleDateString("fa-IR")}
-                </span>
-              </div>
-              <Divider />
-              <div className="flex justify-between items-center p-2 ">
-                <span className="text-h1-color text-responsive text-right">
-                  زمان بروزرسانی آگهی
-                </span>
-                <span className="text-h2-color text-responsive text-left">
-                  {new Date(ads?.updatedAt).toLocaleDateString("fa-IR")}
-                </span>
-              </div>
+                <Divider />
+                <div className="flex justify-between items-center p-2">
+                  <span className="text-h1-color text-responsive text-right">
+                    تعداد بازدید این صفحه
+                  </span>
+                  <span className="flex items-center justify-center gap-2 text-h2-color text-responsive text-left">
+                    {memberToK(ads?.counter?.views)}
+                    <MdOutlineRemoveRedEye />
+                  </span>
+                </div>
+                <Divider />
+                <div className="flex justify-between items-center p-2">
+                  <span className="text-h1-color text-responsive text-right">
+                    تعداد بوک مارک شده ها
+                  </span>
+                  <span className=" flex items-center justify-center gap-2 text-h2-color text-responsive text-left">
+                    {ads?.counter?.bookmarks?.toLocaleString()}
+                    <FaRegBookmark />
+                  </span>
+                </div>
+                <Divider />
+                <div className="flex justify-between items-center p-2 ">
+                  <span className="text-h1-color text-responsive text-right">
+                    زمان انتشار آگهی
+                  </span>
+                  <span className="text-h2-color text-responsive text-left">
+                    {new Date(ads?.createdAt).toLocaleDateString("fa-IR")}
+                  </span>
+                </div>
+                <Divider />
+                <div className="flex justify-between items-center p-2 ">
+                  <span className="text-h1-color text-responsive text-right">
+                    زمان بروزرسانی آگهی
+                  </span>
+                  <span className="text-h2-color text-responsive text-left">
+                    {new Date(ads?.updatedAt).toLocaleDateString("fa-IR")}
+                  </span>
+                </div>
 
-              {/* //? توضیحات */}
-              {/* <Divider />
+                {/* //? توضیحات */}
+                {/* <Divider />
               <div className="flex flex-col justify-start items-start p-2 ">
                 <span className="text-h1-color text-responsive">توضیحات</span>
                 <p className="text-h2-color text-[12px] mt-2 p-2">
                   {ads?.description}
                 </p>
               </div> */}
-              <Divider />
-              {ads?.isShowPhoneOwnerIdCard && (
-                <>
-                  <div className="flex  justify-between items-center p-2 ">
-                    <span className="text-h1-color text-responsive text-right">
-                      شماره تماس
-                    </span>
-                    <p className=" flex items-center justify-center text-h2-color text-[12px] mt-2 gap-3 text-left">
-                      {ads?.contactWithPhone}
-                      <IoCopy
-                        className="text-small cursor-pointer"
-                        onClick={() =>
-                          copyToClipboard(
-                            ads?.contactWithPhone,
-                            "شماره همراه کپی شد"
-                          )
-                        }
-                      />
-                    </p>
-                  </div>
-                  <Divider />
-                </>
-              )}
-              {ads?.isContactWithId && (
-                <>
-                  <div className="flex  justify-between items-center p-2 ">
-                    <span className="text-h1-color text-responsive text-right">
-                      آیدی جهت ارتباط با مالک
-                    </span>
-                    <p className="flex items-center justify-center text-h2-color text-[12px] mt-2  gap-3 text-left">
-                      {ads?.contactWithId} در پیام رسان{" "}
-                      {messengers[ads?.messenger - 1]?.title}
-                      <IoCopy
-                        className="text-small cursor-pointer"
-                        onClick={() =>
-                          copyToClipboard(ads?.contactWithId, "آیدی کپی شد")
-                        }
-                      />
-                    </p>
-                  </div>
-                  <Divider />
-                </>
-              )}
-              <div className="flex w-full lg:hidden flex-col mt-4 justify-start items-start p-2 bg-slate-100 rounded-lg ">
-                <span className="text-h1-color text-responsive text-right">
-                  توضیحات
-                </span>
-                <p className="text-h2-color text-[12px] mt-2 p-2 text-right">
-                  {ads?.description}
-                </p>
+                <Divider />
+                {ads?.isShowPhoneOwnerIdCard && (
+                  <>
+                    <div className="flex  justify-between items-center p-2 ">
+                      <span className="text-h1-color text-responsive text-right">
+                        شماره تماس
+                      </span>
+                      <p className=" flex items-center justify-center text-h2-color text-[12px] mt-2 gap-3 text-left">
+                        {ads?.contactWithPhone}
+                        <IoCopy
+                          className="text-small cursor-pointer"
+                          onClick={() =>
+                            copyToClipboard(
+                              ads?.contactWithPhone,
+                              "شماره همراه کپی شد"
+                            )
+                          }
+                        />
+                      </p>
+                    </div>
+                    <Divider />
+                  </>
+                )}
+                {ads?.isContactWithId && (
+                  <>
+                    <div className="flex  justify-between items-center p-2 ">
+                      <span className="text-h1-color text-responsive text-right">
+                        آیدی جهت ارتباط با مالک
+                      </span>
+                      <p className="flex items-center justify-center text-h2-color text-[12px] mt-2  gap-3 text-left">
+                        {ads?.contactWithId} در پیام رسان{" "}
+                        {messengers[ads?.messenger - 1]?.title}
+                        <IoCopy
+                          className="text-small cursor-pointer"
+                          onClick={() =>
+                            copyToClipboard(ads?.contactWithId, "آیدی کپی شد")
+                          }
+                        />
+                      </p>
+                    </div>
+                    <Divider />
+                  </>
+                )}
+                <div className="flex w-full lg:hidden flex-col mt-4 justify-start items-start p-2 bg-slate-100 rounded-lg ">
+                  <span className="text-h1-color text-responsive text-right">
+                    توضیحات
+                  </span>
+                  <p className="text-h2-color text-[12px] mt-2 p-2 text-right">
+                    {ads?.description}
+                  </p>
+                </div>
               </div>
-              <div className=" w-full lg:hidden  mt-4 ">
-                <h3 className="p-2 font-iranyekanBold text-[12px] w-full text-right">
-                  آگهی های مرتبط
-                </h3>
 
-                <div className=" w-full flex  lg:hidden items-center justify-center bg-gray-50 mt-4 rounded-lg">
-                  <SwiperCp
-                    ids={relatedAds}
-                    isLoaded={isLoaded}
-                    counter={false}
-                    location={2}
+              <div className="w-full col-span-1 lg:flex-1  md:p-0 flex flex-col items-center  ">
+                {ads?.profile?.length != 0 ? (
+                  <ImageLoaderView
+                    imageUrl={ads?.profile[0]}
+                    code={"profile"}
                   />
+                ) : (
+                  <>
+                    <LazyLoadImage
+                      src={"/images/logo.webp"}
+                      className=" h-64 w-96 rounded-lg object-fill opacity-10"
+                      width={100}
+                      height={100}
+                      alt="profile"
+                      // effect="blur"
+                      // wrapperProps={{
+                      //   // If you need to, you can tweak the effect transition using the wrapper style.
+                      //   style: {
+                      //     transitionDelay: "1s",
+                      //   },
+                      // }}
+                    />
+                    {/* <p className="absolute font-shabnam text-3xl text-gray-700 opacity-40">
+                    تصویر یافت نشد
+                  </p> */}
+                  </>
+                )}
+                <div className="hidden w-full lg:flex flex-col mt-8 justify-start items-start p-2 bg-slate-100 rounded-lg">
+                  <span className="text-h1-color text-[14px]">توضیحات</span>
+                  <p className="text-h2-color text-[12px] mt-2 p-2">
+                    {ads?.description}
+                  </p>
                 </div>
               </div>
             </div>
 
-            <div className="w-full col-span-1 lg:flex-1  md:p-0 flex flex-col items-center  ">
-              {ads?.profile?.length != 0 ? (
-                <ImageLoaderView imageUrl={ads?.profile[0]} code={"profile"} />
-              ) : (
-                <>
-                  <LazyLoadImage
-                    src={"/images/logo.webp"}
-                    className=" h-64 w-96 rounded-lg object-fill opacity-10"
-                    width={100}
-                    height={100}
-                    alt="profile"
-                    // effect="blur"
-                    // wrapperProps={{
-                    //   // If you need to, you can tweak the effect transition using the wrapper style.
-                    //   style: {
-                    //     transitionDelay: "1s",
-                    //   },
-                    // }}
-                  />
-                  {/* <p className="absolute font-shabnam text-3xl text-gray-700 opacity-40">
-                    تصویر یافت نشد
-                  </p> */}
-                </>
-              )}
-              <div className="hidden w-full lg:flex flex-col mt-8 justify-start items-start p-2 bg-slate-100 rounded-lg">
-                <span className="text-h1-color text-[14px]">توضیحات</span>
-                <p className="text-h2-color text-[12px] mt-2 p-2">
-                  {ads?.description}
-                </p>
-              </div>
+            <div className=" w-full   flex-col items-start justify-start bg-gray-50 mt-4  rounded-lg p-4 ">
+              <h3 className="font-iranyekanBold text-[12px] w-full text-right">
+                آگهی های مرتبط
+              </h3>
 
-              <div className=" w-full  hidden  lg:flex flex-col items-start justify-start bg-gray-50 mt-4  rounded-lg ">
-                <h3 className="p-2 font-iranyekanBold text-[12px] w-full text-right">
-                  آگهی های مرتبط
-                </h3>
-
-                <div className=" w-full flex   items-center justify-center bg-gray-50 mt-4 rounded-lg overflow-x-auto">
-                  <SwiperCp
-                    ids={relatedAds}
-                    isLoaded={isLoaded}
-                    counter={false}
-                    location={2}
-                  />
-                </div>
+              <div className=" w-full flex   items-center justify-center bg-gray-50 mt-2 rounded-lg overflow-x-auto">
+                <SwiperCp
+                  ids={relatedAds}
+                  isLoaded={isLoaded}
+                  counter={false}
+                  location={2}
+                />
               </div>
             </div>
           </CardBody>
