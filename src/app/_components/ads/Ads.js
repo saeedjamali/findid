@@ -99,7 +99,7 @@ export default function Ads({ action, ad }) {
   const [draft, setDraft] = useState(ads?.draft);
   const [idImage, setIdImage] = useState([]);
   const [province, setProvince] = useState(ads?.province || 1);
-  const [service, setService] = useState(0);
+  const [service, setService] = useState(0 || ads?.service);
   const [city, setCity] = useState(ads?.city || 0);
   const [discount, setDiscount] = useState(ads?.discount);
   const [statusAds, setStatusAds] = useState(ads?.statusAds || 0);
@@ -588,7 +588,7 @@ export default function Ads({ action, ad }) {
                 isCounter={false}
               />
             </div>
-            {service != 0 && action == 1 && (
+            {(service != 0 || action != 1) && (
               <Form
                 className="w-full justify-center items-center  space-y-4"
                 validationBehavior="native"
@@ -1101,7 +1101,7 @@ export default function Ads({ action, ad }) {
                 حذف پیش نویس
               </Button>
             )}
-            {((action == 3 || action == 4) && service != 0) && (
+            {(action == 3 || action == 4) && service != 0 && (
               <Button
                 className={"text-white"}
                 color="success"
