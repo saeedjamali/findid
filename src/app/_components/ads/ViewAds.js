@@ -463,7 +463,12 @@ function ViewAds({ ads }) {
                 </h3>
 
                 <div className=" w-full flex  lg:hidden items-center justify-center bg-gray-50 mt-4 rounded-lg">
-                  <SwiperCp ids={relatedAds} isLoaded={isLoaded} />
+                  <SwiperCp
+                    ids={relatedAds}
+                    isLoaded={isLoaded}
+                    counter={false}
+                    location={2}
+                  />
                 </div>
               </div>
             </div>
@@ -499,14 +504,19 @@ function ViewAds({ ads }) {
                 </p>
               </div>
 
-              <div className="w-full hidden  lg:flex items-center justify-center bg-gray-50 mt-4  rounded-lg ">
-                <SwiperCp
-                  ids={relatedAds}
-                  isLoaded={isLoaded}
-                  counter={false}
-                  location={2}
-                />{" "}
-                {/* //? location show page */}
+              <div className=" w-full  hidden  lg:flex flex-col items-start justify-start bg-gray-50 mt-4  rounded-lg ">
+                <h3 className="p-2 font-iranyekanBold text-[12px] w-full text-right">
+                  آگهی های مرتبط
+                </h3>
+
+                <div className=" w-full flex   items-center justify-center bg-gray-50 mt-4 rounded-lg overflow-x-auto">
+                  <SwiperCp
+                    ids={relatedAds}
+                    isLoaded={isLoaded}
+                    counter={false}
+                    location={2}
+                  />
+                </div>
               </div>
             </div>
           </CardBody>

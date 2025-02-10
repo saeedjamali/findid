@@ -19,13 +19,14 @@ import LOADINGMINI from "../pages/LAODINGMINI";
 function SwiperCp({ ids, action, isLoaded, counter, location }) {
   const [swiperRef, setSwiperRef] = useState(null);
   return (
-    <div className="w-full h-full flex items-center justify-center">
+    <div className="w-full h-full flex items-center justify-center ">
       {!isLoaded ? (
         <LOADINGMINI />
       ) : ids?.length == 0 ? (
         <span className="font-iranyekanBold text-header py-4"> یافت نشد</span>
       ) : (
         <Swiper
+        
           loop
           onSwiper={setSwiperRef}
           slidesPerView={location == 1 ? 6 : 3} //? location 1: main page ----- 2 : view page
@@ -36,60 +37,61 @@ function SwiperCp({ ids, action, isLoaded, counter, location }) {
           }}
           freeMode={true}
           // centeredSlides={true}
-          spaceBetween={50}
+          // spaceBetween={50}
           pagination={{
             clickable: true,
             type: "bullets",
           }}
-          breakpoints={
-            location == 1
-              ? {
-                  0: {
-                    slidesPerView: 1,
-                    spaceBetween: 5,
-                  },
-                  320: {
-                    slidesPerView: 2,
-                    spaceBetween: 5,
-                  },
-                  540: {
-                    slidesPerView: 3,
-                    spaceBetween: 5,
-                  },
-                  768: {
-                    slidesPerView: 4,
-                    spaceBetween: 5,
-                  },
-                  960: {
-                    slidesPerView: 5,
-                    spaceBetween: 5,
-                  },
-                  1024: {
-                    slidesPerView: 5,
-                    spaceBetween: 5,
-                  },
-                  1280: {
-                    slidesPerView: 6,
-                    spaceBetween: 5,
-                  },
-                }
-              : {
-                  0: {
-                    slidesPerView: 1,
-                    spaceBetween: 5,
-                  },
-                  320: {
-                    slidesPerView: 2,
-                    spaceBetween: 5,
-                  },
-                  1320: {
-                    slidesPerView: 3,
-                    spaceBetween: 5,
-                  },
-                }
-          }
+          // breakpoints={
+          //   location == 1
+          //     ? {
+          //         0: {
+          //           slidesPerView: 1,
+          //           spaceBetween: 5,
+          //         },
+          //         320: {
+          //           slidesPerView: 2,
+          //           spaceBetween: 5,
+          //         },
+          //         540: {
+          //           slidesPerView: 3,
+          //           spaceBetween: 5,
+          //         },
+          //         768: {
+          //           slidesPerView: 4,
+          //           spaceBetween: 5,
+          //         },
+          //         960: {
+          //           slidesPerView: 5,
+          //           spaceBetween: 5,
+          //         },
+          //         1024: {
+          //           slidesPerView: 5,
+          //           spaceBetween: 5,
+          //         },
+          //         1280: {
+          //           slidesPerView: 6,
+          //           spaceBetween: 5,
+          //         },
+          //       }
+          //     : {
+          //         0: {
+          //           slidesPerView: 1,
+          //           spaceBetween: 5,
+          //         },
+          //         320: {
+          //           slidesPerView: 2,
+          //           spaceBetween: 5,
+          //         },
+          //         1320: {
+          //           slidesPerView: 3,
+          //           spaceBetween: 5,
+          //         },
+          //       }
+          // }
           // navigation={true}
           modules={[Autoplay, Navigation]}
+          className="overflow-auto w-full"
         >
           {ids?.map((item, index) => {
             return (

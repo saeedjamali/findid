@@ -548,6 +548,8 @@ export default function Ads({ action, ad }) {
     setIdImage(imageList);
   };
 
+  console.log("service", service);
+  console.log(action);
   return (
     <div>
       <Toaster />
@@ -588,7 +590,9 @@ export default function Ads({ action, ad }) {
                 isCounter={false}
               />
             </div>
-            {(service || service != 0 || action != 1) && (
+            {(typeof service !== "undefined" ||
+              
+              action != 1) && (
               <Form
                 className="w-full justify-center items-center  space-y-4"
                 validationBehavior="native"
