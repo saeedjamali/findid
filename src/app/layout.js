@@ -28,10 +28,6 @@ export default async function RootLayout({ children }) {
     <html lang="fa" dir="rtl">
       <head>
         <link
-          href="https://unpkg.com/aos@2.3.1/dist/aos.css"
-          rel="stylesheet"
-        />
-        <link
           rel="icon"
           href="/favicon.ico"
           sizes="any"
@@ -90,9 +86,6 @@ export default async function RootLayout({ children }) {
           dangerouslySetInnerHTML={addSiteJsonLd()}
           key="site-jsonld"
         />
-
-        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-        <script>AOS.init();</script>
       </body>
     </html>
   );

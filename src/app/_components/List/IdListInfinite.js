@@ -15,6 +15,8 @@ import { Switch } from "@heroui/switch";
 import { MoonIcon, SunIcon } from "@heroicons/react/24/outline";
 import { CiImageOff, CiImageOn } from "react-icons/ci";
 import { Select, SelectSection, SelectItem } from "@heroui/select";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 export default function IdListInfinite({
   // initialIds,
@@ -34,6 +36,7 @@ export default function IdListInfinite({
   const [showImage, setShowImage] = useState(true);
 
   useEffect(() => {
+    AOS.init();
     const getAds = async () => {
       const url = getApiUrl(0, Id_PER_PAGE);
       // /api/ads/get/all/${offset}/${limit}
@@ -167,7 +170,7 @@ export default function IdListInfinite({
       </div>
 
       <div
-        data-aos="fade-in"
+        data-aos="fade-up"
         className={`grid grid-cols-1  w-full gap-2 xl:gap-4 container mx-auto  scroll-smooth ${
           showImage ? "lg:grid-cols-2 " : "lg:grid-cols-3 "
         } `}
