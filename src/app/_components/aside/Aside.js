@@ -158,7 +158,7 @@ function Aside() {
 
                   <span className="w-6 h-6">
                     <Image
-                      src={"/images/messengers/icons/telegram-ic.png"}
+                      src={"/images/messengers/icons/telegram-ic.ico"}
                       width={100}
                       height={100}
                       alt="telegram"
@@ -179,7 +179,7 @@ function Aside() {
 
                   <span className="w-6 h-6">
                     <Image
-                      src={"/images/messengers/icons/bale-ic.png"}
+                      src={"/images/messengers/icons/bale-ic.ico"}
                       width={100}
                       height={100}
                       alt="telegram"

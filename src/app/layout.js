@@ -7,6 +7,9 @@ import AppProvider from "./context/AppProvider";
 import { Id_PER_PAGE } from "@/config/constants";
 import { authenticateUser } from "@/utils/authenticateMe";
 import { addSiteJsonLd } from "@/utils/schemasSeo";
+import { FaHeart } from "react-icons/fa";
+import Image from "next/image";
+import Footer from "./_components/footer/Footer";
 
 export const metadata = {
   openGraph: {
@@ -77,6 +80,7 @@ export default async function RootLayout({ children }) {
               <div className="bg-[url('/images/bg-nav.svg')]  rounded-2xl bg-repeat ">
                 {children}
               </div>
+              <Footer />
             </main>
           </AppProvider>
         </div>
