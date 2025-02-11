@@ -14,11 +14,11 @@ async function sitemap() {
 
   return [
     {
-      url: `https://findid.ir/view`,
+      url: `https://findid.ir`,
       lastModified: new Date(),
     },
     {
-      url: `https://findid.ir/view/view`,
+      url: `https://findid.ir/view`,
       lastModified: new Date(),
     },
     ...ids,
