@@ -16,7 +16,6 @@ export async function PUT(req) {
   const formData = await req.formData();
 
   const profile = formData.getAll("profile");
-  console.log("profile------>", profile);
 
   const service = formData.get("service");
   const isAdmin = formData.get("isAdmin");
@@ -153,11 +152,11 @@ export async function PUT(req) {
           "upload/thumbnail/" + webpName
         );
         const out = await sharp(imgPath)
-        .resize(newWidth, newHeight) // Resize based on percentage
-        .toFormat("webp", {
-          quality: 75, // Reduce quality to get a smaller size
-          effort: 6, // Compression effort (1-6, higher is better)
-        })
+          .resize(newWidth, newHeight) // Resize based on percentage
+          .toFormat("webp", {
+            quality: 75, // Reduce quality to get a smaller size
+            effort: 6, // Compression effort (1-6, higher is better)
+          })
           .toFile(outputPath);
       }
       await idCardModel.updateOne(

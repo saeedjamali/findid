@@ -146,7 +146,7 @@ export async function POST(req) {
 
       // Get original image metadata
       const metadata = await sharp(imgPath).metadata();
-      let percent = metadata.width > 1000 ? 40 : 50;
+      let percent = metadata.width > 1000 ? 20 : 40;
       // Calculate new dimensions
       const newWidth = Math.round(metadata.width * (percent / 100));
       const newHeight = Math.round(metadata.height * (percent / 100));
@@ -160,7 +160,7 @@ export async function POST(req) {
         const out = await sharp(imgPath)
           .resize(newWidth, newHeight) // Resize based on percentage
           .toFormat("webp", {
-            quality: 75, // Reduce quality to get a smaller size
+            quality: 60, // Reduce quality to get a smaller size
             effort: 6, // Compression effort (1-6, higher is better)
           })
           .toFile(outputPath);
