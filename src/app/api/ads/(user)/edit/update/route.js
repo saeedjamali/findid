@@ -83,9 +83,9 @@ export async function PUT(req) {
           isShow: statusAds == 2 || statusAds == 3 ? false : true,
         }
       );
-      if (removedImage=="true") {
+      if (removedImage == "true") {
         updateAds = await idCardModel.findOneAndUpdate(
-          { _id: adsId },   
+          { _id: adsId },
           {
             profile: [],
             thumbnail: [],
@@ -123,7 +123,7 @@ export async function PUT(req) {
         }
       );
 
-      if (removedImage=="true") {
+      if (removedImage == "true") {
         updateAds = await idCardModel.findOneAndUpdate(
           { $and: [{ _id: adsId }, { ownerIdCard: userFound._id }] },
           {
@@ -140,6 +140,11 @@ export async function PUT(req) {
         Date.now() + "" + getRndInteger(10000, 100000) + img.name;
       const imgPath = path.join(process.cwd(), "upload/profile/" + filename);
       await writeFile(imgPath, buffer);
+      const metadata = await sharp(imgPath).metadata();
+      let percent = metadata.width > 1000 ? 40 : 50;
+      // Calculate new dimensions
+      const newWidth = Math.round(metadata.width * (percent / 100));
+      const newHeight = Math.round(metadata.height * (percent / 100));
       const webpName = filename.replace(".jpg", ".webp");
       // await writeFile(thumbnailpath, buffer);
       if (fs.existsSync(imgPath)) {
@@ -148,8 +153,11 @@ export async function PUT(req) {
           "upload/thumbnail/" + webpName
         );
         const out = await sharp(imgPath)
-          // .resize(640, 480)
-          .toFormat("webp")
+        .resize(newWidth, newHeight) // Resize based on percentage
+        .toFormat("webp", {
+          quality: 75, // Reduce quality to get a smaller size
+          effort: 6, // Compression effort (1-6, higher is better)
+        })
           .toFile(outputPath);
       }
       await idCardModel.updateOne(
