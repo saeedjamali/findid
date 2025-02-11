@@ -7,7 +7,7 @@ function Footer() {
   return (
     <div>
       <div className="w-full bg-header text-white text-center text-[12px] my-4 flex items-center justify-center gap-2 h-4">
-        <Link href="" className="w-6 h-6" target="_blank">
+        <Link href="https://web.bale.ai/@findid" className="w-6 h-6" target="_blank">
           <Image
             src={"/images/messengers/icons/bale-ic.ico"}
             width={100}
