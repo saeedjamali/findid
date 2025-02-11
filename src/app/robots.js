@@ -5,6 +5,6 @@ export default function robots() {
       allow: "/",
       disallow: "/private/",
     },
-    sitemap: ` ${process.env.NEXT_PUBLIC_BASE_URL}/sitemap.xml`,
+    sitemap: ` https://findid.ir/sitemap.xml`,
   };
 }
