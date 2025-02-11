@@ -143,6 +143,13 @@ export async function POST(req) {
       const imgPath = path.join(process.cwd(), "upload/profile/" + filename);
 
       await writeFile(imgPath, buffer);
+
+      // Get original image metadata
+      const metadata = await sharp(imgPath).metadata();
+      let percent = metadata.width > 1000 ? 40 : 50;
+      // Calculate new dimensions
+      const newWidth = Math.round(metadata.width * (percent / 100));
+      const newHeight = Math.round(metadata.height * (percent / 100));
       const webpName = filename.replace(".jpg", ".webp");
       // await writeFile(thumbnailpath, buffer);
       if (fs.existsSync(imgPath)) {
@@ -151,11 +158,12 @@ export async function POST(req) {
           "upload/thumbnail/" + webpName
         );
         const out = await sharp(imgPath)
-          // .resize(640, 480)
-          .toFormat("webp")
+          .resize(newWidth, newHeight) // Resize based on percentage
+          .toFormat("webp", {
+            quality: 75, // Reduce quality to get a smaller size
+            effort: 6, // Compression effort (1-6, higher is better)
+          })
           .toFile(outputPath);
-
-      
       }
       await idCardModel.updateOne(
         { _id: newAds._id },

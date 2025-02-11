@@ -301,7 +301,8 @@ export default function Ads({ action, ad }) {
       if (data.status == 201) {
         toast.success(data.message);
         setRefresh((prev) => !prev);
-        window.open("/");
+        // window.open("/");
+        router.push("/");
       } else {
         toast.error(data.message);
       }

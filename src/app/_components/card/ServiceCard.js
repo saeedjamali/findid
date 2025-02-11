@@ -40,9 +40,9 @@ function ServiceCard({ services, server, setService, current, isCounter }) {
           }}
         >
           <span className="text-2xl">{item?.icon}</span>
-          <h3 className="text-center text-[10px]">
+          <h2 className="text-center text-[10px]">
             {server ? item?.title1 : item?.title2}
-          </h3>
+          </h2>
           {isCounter && (
             <span className="absolute top-2 right-4 text-[10px] ">
               <CountUp

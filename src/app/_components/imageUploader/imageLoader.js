@@ -53,7 +53,7 @@ function ImageLoader({ imageUrl, code, size, rounded }) {
         className={` rounded-t-lg md:rounded-tr-lg md:rounded-br-lg md:rounded-t-none  object-fill ${rounded}  ${
           size ? `h-[${size}] w-[${size}]` : "h-64 w-screen "
         }  `}
-        width={1000}
+        width={100}
         height={100}
         alt="profile"
         // format="webp"
