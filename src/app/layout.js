@@ -28,6 +28,10 @@ export default async function RootLayout({ children }) {
     <html lang="fa" dir="rtl">
       <head>
         <link
+          href="https://unpkg.com/aos@2.3.1/dist/aos.css"
+          rel="stylesheet"
+        />
+        <link
           rel="icon"
           href="/favicon.ico"
           sizes="any"
@@ -35,10 +39,7 @@ export default async function RootLayout({ children }) {
         />
         <meta charSet="utf-8" />
         {/* <meta name="viewport" content="width=device-width, initial-scale=1" /> */}
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1.0"
-        />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <title>مرجع تبادل شناسه های اینترنتی FindId</title>
         <meta
@@ -89,6 +90,9 @@ export default async function RootLayout({ children }) {
           dangerouslySetInnerHTML={addSiteJsonLd()}
           key="site-jsonld"
         />
+
+        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+        <script>AOS.init();</script>
       </body>
     </html>
   );
