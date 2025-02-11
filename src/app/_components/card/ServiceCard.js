@@ -1,14 +1,32 @@
+"use client";
 import { useAppProvider } from "@/app/context/AppProvider";
 import { Button, Tooltip } from "@nextui-org/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CountUp from "react-countup";
 import { CiCircleInfo } from "react-icons/ci";
 import { ImCancelCircle } from "react-icons/im";
 
 function ServiceCard({ services, server, setService, current, isCounter }) {
   const [showTooltip, setShowTooltip] = useState(false);
-  const { counter } = useAppProvider();
+  const { counter, setCounter } = useAppProvider();
+  const [isLoading, setIsLoading] = useState(false);
 
+  useEffect(() => {
+    const fetchserviceCounter = async () => {
+      // setIsLoading(true);
+      try {
+        const response = await fetch(`/api/ads/get/servicecounter`);
+        const data = await response.json();
+        if (data?.status == 201) {
+          setCounter(data?.counter);
+        }
+      } catch (error) {
+        console.log("error from get service counter");
+      }
+      // setIsLoading(false);
+    };
+    fetchserviceCounter();
+  }, []);
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-2 flex-grow justify-start ">
       {services?.map((item) => (
@@ -26,7 +44,7 @@ function ServiceCard({ services, server, setService, current, isCounter }) {
             {server ? item?.title1 : item?.title2}
           </h3>
           {isCounter && (
-            <span className="absolute top-1 right-2 text-[10px] ">
+            <span className="absolute top-2 right-4 text-[10px] ">
               <CountUp
                 start={0}
                 delay={2}

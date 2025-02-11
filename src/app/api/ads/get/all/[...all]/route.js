@@ -78,15 +78,15 @@ export async function POST(req, { params, searchParams }) {
         .populate("counter");
     }
 
-    const counter = await idCardModel.aggregate([
-      {
-        $group: {
-          _id: "$service",
-          // isShow: true,
-          count: { $sum:  { $cond: { if: { $eq: ["$isShow", true] }, then: 1, else: 0 } }}, // this means that the count will increment by 1
-        },
-      },
-    ]);
+    // const counter = await idCardModel.aggregate([
+    //   {
+    //     $group: {
+    //       _id: "$service",
+    //       // isShow: true,
+    //       count: { $sum:  { $cond: { if: { $eq: ["$isShow", true] }, then: 1, else: 0 } }}, // this means that the count will increment by 1
+    //     },
+    //   },
+    // ]);
 
     let bookmarksId = [];
     if (mongoose.Types.ObjectId.isValid(userId)) {
@@ -98,7 +98,7 @@ export async function POST(req, { params, searchParams }) {
       status: 201,
       idsCard,
       bookmarksId,
-      counter,
+      // counter,
     });
   } catch (error) {
     console.log("error in get ids --->", error);
