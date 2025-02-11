@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import React from "react";
 
 async function sitemap() {
-  const response = await fetch(`/api/ads/get/smap/0/50`, { cache: "no-store" });
+  const response = await fetch(`https://findid.ir/api/ads/get/smap/0/50`, { cache: "no-store" });
   const data = await response.json();
   let ids = [];
   ids = data?.idsCard.map((item) => {
