@@ -23,7 +23,7 @@ export default function IdCard({ ads, action, isLoaded, rate, counter }) {
     setIsShow(action);
   }, [action]);
 
-  console.log("ads thumbnail---------->", ads);
+  // console.log("ads thumbnail---------->", ads);
   return (
     <article className="p-2 relative">
       {counter && (

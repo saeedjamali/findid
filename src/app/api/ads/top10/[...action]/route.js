@@ -31,7 +31,7 @@ export async function GET(req, { params, searchParams }) {
         };
       });
 
-      console.log("counters---->", idsCard);
+      // console.log("counters---->", idsCard);
       return Response.json({
         message: "با موفقیت دریافت شد",
         status: 201,

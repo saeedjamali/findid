@@ -32,7 +32,7 @@ export default function SwiperTop10() {
       //  console.log("Datazzz--->",data);
       if (data.status == 201) {
 
-        console.log("ads s----->",action ,"--------", data?.idsCard);
+        // console.log("ads s----->",action ,"--------", data?.idsCard);
         setTopTen(data?.idsCard);
         setIsLoaded(true);
       } else {
