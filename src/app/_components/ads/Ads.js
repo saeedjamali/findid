@@ -81,7 +81,7 @@ export default function Ads({ action, ad }) {
   const [createDate, setCreateDate] = useState(ads?.createDate || 0);
   const [price, setPrice] = useState(ads?.price || 0);
   const [isOwnerId, setIsOwnerId] = useState(ads?.isOwnerId || true);
-  const [ownerIdPhone, setOwnerIdPhone] = useState(ads?.ownerIdPhone);
+  const [ownerIdPhone, setOwnerIdPhone] = useState(ads?.ownerIdPhone || phone);
   const [isShowPhoneOwnerIdCard, setIsShowPhoneOwnerIdCard] = useState(
     ads?.isShowPhoneOwnerIdCard || true
   );
@@ -270,7 +270,7 @@ export default function Ads({ action, ad }) {
       formData.append("registerId", registerId);
       formData.append("ownerIdCard", ownerIdCard);
       formData.append("isOwnerId", isOwnerId);
-      formData.append("ownerIdPhone", ownerIdPhone || "");
+      formData.append("ownerIdPhone", !isOwnerId ? ownerIdPhone : "");
       // formData.append("code", code); Define in Backend
       formData.append("province", province);
       formData.append("city", city);
@@ -410,7 +410,7 @@ export default function Ads({ action, ad }) {
       formData.append("registerId", registerId);
       formData.append("ownerIdCard", ownerIdCard);
       formData.append("isOwnerId", isOwnerId);
-      formData.append("ownerIdPhone", ownerIdPhone || "");
+      formData.append("ownerIdPhone", !isOwnerId ? ownerIdPhone : "");
       // // formData.append("code", code); Define in Backend
       formData.append("province", province);
       formData.append("city", city);
@@ -447,8 +447,8 @@ export default function Ads({ action, ad }) {
       const data = await res.json();
       if (data.status == 200) {
         toast.success(data.message);
+        router.replace("/");
         setRefresh((prev) => !prev);
-        router.push("/", { scroll: true });
       } else {
         toast.error(data.message);
       }
@@ -482,7 +482,7 @@ export default function Ads({ action, ad }) {
       formData.append("registerId", registerId);
       formData.append("ownerIdCard", ownerIdCard);
       formData.append("isOwnerId", isOwnerId);
-      formData.append("ownerIdPhone", ownerIdPhone || "");
+      formData.append("ownerIdPhone", !isOwnerId ? ownerIdPhone : "");
       // formData.append("code", code); Define in Backend
       formData.append("province", province);
       formData.append("city", city);
@@ -553,7 +553,7 @@ export default function Ads({ action, ad }) {
 
   return (
     <div>
-      <Toaster />
+      {/* <Toaster /> */}
       <div className=" container p-5 mx-auto mt-4  rounded-lg   ">
         <Card className=" mx-auto">
           <CardHeader className="flex gap-3">

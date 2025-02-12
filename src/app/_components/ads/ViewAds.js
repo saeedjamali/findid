@@ -384,6 +384,7 @@ function ViewAds({ ads }) {
                     <FaRegBookmark />
                   </span>
                 </div>
+
                 <Divider />
                 <div className="flex justify-between items-center p-2 ">
                   <span className="text-h1-color text-responsive text-right">

@@ -46,7 +46,6 @@ export async function PUT(req) {
   const isContactWithId = formData.get("isContactWithId");
   const contactWithId = formData.get("contactWithId");
   const contactTypeMessenger = formData.get("contactTypeMessenger");
-  console.log("removedImage------>", removedImage);
 
   try {
     if (!isConnected) {
