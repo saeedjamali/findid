@@ -21,9 +21,11 @@ export async function GET(req, { params }) {
     //   console.log("ownerIdCard--->", ownerIdCard);
     const userAdmin = await userModel.findOne({ _id: ownerIdCard });
     if (userAdmin.role == "ADMIN" && userAdmin.level == 1) {
-      idsCard = await idCardModel.find({ registerId: _id }).populate({
-        path: "ownerIdCard",
-      });
+      idsCard = await idCardModel
+        .find({ $or: [{ registerId: _id }, { ownerIdCard }] })
+        .populate({
+          path: "ownerIdCard",
+        });
     } else if (userAdmin.role == "USER") {
       // idsCard = await idCardModel.find( { $and: [{ isShow: true }, { ownerIdCard}] });
       idsCard = await idCardModel.find({ ownerIdCard });
