@@ -33,7 +33,7 @@ export default function IdListInfinite({
   const [hasMoreData, setHasMoreData] = useState(true);
   const scrollTrigger = useRef(null);
   const { filterList, isAuthUser, search } = useAppProvider();
-  const [showImage, setShowImage] = useState(true);
+  const [showImage, setShowImage] = useState(false);
 
   useEffect(() => {
     AOS.init();
@@ -170,7 +170,7 @@ export default function IdListInfinite({
       </div>
 
       <div
-        data-aos="fade-up"
+        // data-aos="fade-in"
         className={`grid grid-cols-1  w-full gap-2 xl:gap-4 container mx-auto  scroll-smooth ${
           showImage ? "lg:grid-cols-2 " : "lg:grid-cols-3 "
         } `}
