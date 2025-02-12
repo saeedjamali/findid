@@ -177,20 +177,20 @@ function Header({ isAuthenticateUser }) {
     };
   }, []);
   // const [otpReceived, setOtpReceived] = useState("");
-  useEffect(() => {
-    toast("inside use effect   : ", otp);
-    if ("OTPCredential" in window) {
-      toast("before if   : ", otp);
-      navigator.credentials
-        .get({ otp: { transport: ["sms"] } })
-        .then((otp) => {
-          toast.success("Otp---->", otp);
-          setOtp(otp.code);
-        })
-        .catch((err) => toast.error("OTP Retrieval Error: ", err));
-      toast("inside if   : ", otp);
-    }
-  },[window]);
+  // useEffect(() => {
+  //   toast("inside use effect   : ", otp);
+  //   if ("OTPCredential" in window) {
+  //     toast("before if   : ", otp);
+  //     navigator.credentials
+  //       .get({ otp: { transport: ["sms"] } })
+  //       .then((otp) => {
+  //         toast.success("Otp---->", otp);
+  //         setOtp(otp.code);
+  //       })
+  //       .catch((err) => toast.error("OTP Retrieval Error: ", err));
+  //     toast("inside if   : ", otp);
+  //   }
+  // },[window]);
   const fetchOtp = () => {
     if ("OTPCredential" in window) {
       navigator.credentials
