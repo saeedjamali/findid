@@ -179,14 +179,29 @@ function Header({ isAuthenticateUser }) {
   // const [otpReceived, setOtpReceived] = useState("");
   useEffect(() => {
     if ("OTPCredential" in window) {
+      console.log("input otp");
       navigator.credentials
         .get({ otp: { transport: ["sms"] } })
-        .then((otp) => setOtp(otp.code))
-        .catch((err) => console.log("OTP Retrieval Error: ", err));
+        .then((otp) => {
+          toast.success("Otp---->", otp);
+          setOtp(otp.code);
+        })
+        .catch((err) => toast.error("OTP Retrieval Error: ", err));
     }
 
     toast("کد دریافت شد   : ", otp);
   }, [view]);
+  const fetchOtp = () => {
+    if ("OTPCredential" in window) {
+      navigator.credentials
+        .get({ otp: { transport: ["sms"] } })
+        .then((otp) => {
+          console.log("OTP Received:", otp.code);
+          setOtp(otp.code);
+        })
+        .catch((err) => console.log("OTP Retrieval Error:", err));
+    }
+  };
   return (
     <header className=" w-full h-20  bg-header pr-4 pl-12">
       <div className="container flex justify-between items-center h-full mx-auto">
@@ -344,6 +359,7 @@ function Header({ isAuthenticateUser }) {
                           className=""
                           autoComplete="one-time-code"
                           inputMode="numeric"
+                          onFocus={fetchOtp} // Fetch OTP when input is focused
                         />
                       </div>
                       <p className="text-[12px] text-header font-iranSans">
