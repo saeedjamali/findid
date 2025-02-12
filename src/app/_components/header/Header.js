@@ -190,7 +190,7 @@ function Header({ isAuthenticateUser }) {
         .catch((err) => toast.error("OTP Retrieval Error: ", err));
       toast("inside if   : ", otp);
     }
-  });
+  },[window]);
   const fetchOtp = () => {
     if ("OTPCredential" in window) {
       navigator.credentials
