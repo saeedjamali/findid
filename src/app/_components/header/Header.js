@@ -181,7 +181,7 @@ function Header({ isAuthenticateUser }) {
     if ("OTPCredential" in window) {
       navigator.credentials
         .get({ otp: { transport: ["sms"] } })
-        .then((otp) => setOtp(otpReceived.code))
+        .then((otp) => setOtp(otp.code))
         .catch((err) => console.log("OTP Retrieval Error: ", err));
     }
 
