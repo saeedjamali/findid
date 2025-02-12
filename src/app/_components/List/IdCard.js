@@ -23,7 +23,7 @@ export default function IdCard({ ads, action, isLoaded, rate, counter }) {
     setIsShow(action);
   }, [action]);
 
-  console.log("ads---------->", ads?._id);
+  console.log("ads thumbnail---------->", ads);
   return (
     <article className="p-2 relative">
       {counter && (
@@ -46,7 +46,7 @@ export default function IdCard({ ads, action, isLoaded, rate, counter }) {
         <div className=" w-full relative flex items-center justify-center ">
           <Skeleton className="rounded-full h-12" isLoaded={isLoaded}>
             <span className="rounded-full w-12 h-12 flex items-center justify-center  cursor-pointer overflow-hidden object-fill relative">
-              {ads?.thumbnail?.length != 0 ? (
+              {(ads?.thumbnail && ads?.thumbnail.length != 0) ? (
                 <ImageLoader
                   imageUrl={ads?.thumbnail[0]}
                   code={"thumbnail"}
@@ -125,7 +125,7 @@ export default function IdCard({ ads, action, isLoaded, rate, counter }) {
                 isShow == 3 && "font-extrabold "
               }`}
             >
-              <p className="my-auto h-3"> {memberToK(ads?.counter.views)}</p>
+              <p className="my-auto h-3"> {memberToK(ads?.counter?.views)}</p>
               <GrView />
             </div>
           </div>

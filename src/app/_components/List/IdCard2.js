@@ -356,7 +356,7 @@ export default function IdCard2({ item, bookmarks, showImage }) {
               </span>
 
               <div className=" rounded-r-full flex items-center justify-center   font-thin text-[10px]">
-                {memberToK(item?.counter.views)}
+                {memberToK(item?.counter?.views)}
               </div>
             </div>
             <span className="relative w-6 h-6 rounded-full text-btn-orange">

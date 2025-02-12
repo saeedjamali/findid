@@ -5,8 +5,8 @@ const mongoose = require("mongoose");
 
 export async function GET(req, { params, searchParams }) {
   const [action, offset, limit] = await params?.action;
-  const actions = ["members", "price", "counter.views"];
-
+  const actions = ["members", "price", "counter?.views"];
+  console.log("counter-------------------------------", action);
   try {
     const { isConnected, message } = await connectToDB();
     if (!isConnected) {
@@ -23,13 +23,15 @@ export async function GET(req, { params, searchParams }) {
         .limit(limit)
         .populate("idCard")
         .lean();
-      // console.log("counters---->", counters);
+
       idsCard = counters.map((item) => {
         return {
           ...item.idCard,
           counter: { views: item.views },
         };
       });
+
+      console.log("counters---->", idsCard);
       return Response.json({
         message: "با موفقیت دریافت شد",
         status: 201,
