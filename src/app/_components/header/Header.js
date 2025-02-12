@@ -176,7 +176,17 @@ function Header({ isAuthenticateUser }) {
       window.removeEventListener("scroll", onScroll, { passive: true });
     };
   }, []);
+  // const [otpReceived, setOtpReceived] = useState("");
+  useEffect(() => {
+    if ("OTPCredential" in window) {
+      navigator.credentials
+        .get({ otp: { transport: ["sms"] } })
+        .then((otp) => setOtp(otpReceived.code))
+        .catch((err) => console.log("OTP Retrieval Error: ", err));
+    }
 
+    toast("کد دریافت شد   : ", otp);
+  }, []);
   return (
     <header className=" w-full h-20  bg-header pr-4 pl-12">
       <div className="container flex justify-between items-center h-full mx-auto">
@@ -332,6 +342,8 @@ function Header({ isAuthenticateUser }) {
                           value={otp}
                           onValueChange={setOtp}
                           className=""
+                          autoComplete="one-time-code"
+                          inputMode="numeric"
                         />
                       </div>
                       <p className="text-[12px] text-header font-iranSans">
