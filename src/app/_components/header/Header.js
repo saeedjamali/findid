@@ -178,8 +178,9 @@ function Header({ isAuthenticateUser }) {
   }, []);
   // const [otpReceived, setOtpReceived] = useState("");
   useEffect(() => {
+    toast("inside use effect   : ", otp);
     if ("OTPCredential" in window) {
-      console.log("input otp");
+      toast("before if   : ", otp);
       navigator.credentials
         .get({ otp: { transport: ["sms"] } })
         .then((otp) => {
@@ -187,10 +188,9 @@ function Header({ isAuthenticateUser }) {
           setOtp(otp.code);
         })
         .catch((err) => toast.error("OTP Retrieval Error: ", err));
+      toast("inside if   : ", otp);
     }
-
-    toast("کد دریافت شد   : ", otp);
-  }, [view]);
+  });
   const fetchOtp = () => {
     if ("OTPCredential" in window) {
       navigator.credentials
@@ -359,7 +359,7 @@ function Header({ isAuthenticateUser }) {
                           className=""
                           autoComplete="one-time-code"
                           inputMode="numeric"
-                          onFocus={fetchOtp} // Fetch OTP when input is focused
+                          // onFocus={fetchOtp} // Fetch OTP when input is focused
                         />
                       </div>
                       <p className="text-[12px] text-header font-iranSans">
