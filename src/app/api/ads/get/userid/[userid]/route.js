@@ -20,13 +20,18 @@ export async function GET(req, { params }) {
     let idsCard = [];
     //   console.log("ownerIdCard--->", ownerIdCard);
     const userAdmin = await userModel.findOne({ _id: ownerIdCard });
-    if (userAdmin.role == "ADMIN") {
+    if (userAdmin.role == "ADMIN" && userAdmin.level == 1) {
+      idsCard = await idCardModel.find({ registerId: _id }).populate({
+        path: "ownerIdCard",
+      });
+    } else if (userAdmin.role == "USER") {
+      // idsCard = await idCardModel.find( { $and: [{ isShow: true }, { ownerIdCard}] });
+      idsCard = await idCardModel.find({ ownerIdCard });
+    } else if (userAdmin.role == "ADMIN" && userAdmin.level == 99) {
+      // idsCard = await idCardModel.find( { $and: [{ isShow: true }, { ownerIdCard}] });
       idsCard = await idCardModel.find().populate({
         path: "ownerIdCard",
       });
-    } else {
-      // idsCard = await idCardModel.find( { $and: [{ isShow: true }, { ownerIdCard}] });
-      idsCard = await idCardModel.find({ ownerIdCard });
     }
 
     // const len = admins.length;

@@ -10,10 +10,17 @@ const schema = new mongoose.Schema(
       type: String,
       required: false,
     },
-    role: { 
+    role: {
       //?  manager - admin - user
       type: String,
       default: "USER",
+    },
+    level: {
+      type: Number,
+      default: 1,
+      // 1 : کاربر عادی // ادمین عادی
+      // 2 : تایید
+      // 99 : ادمین فول
     },
     identifier: {
       type: String,

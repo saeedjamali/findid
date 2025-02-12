@@ -135,7 +135,7 @@ function Report({ ownerIdCard, goToAds }) {
     //     ? "/api/ads/bookmark/get/"
     //     : "";
     const fetchAds = async () => {
-      if (isAuthUser.role != "ADMIN") {
+      if (isAuthUser.role != "ADMIN" ) {
         toast.error("خطا دسترسی غیرمجاز");
         return;
       }
