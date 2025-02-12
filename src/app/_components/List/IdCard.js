@@ -22,6 +22,8 @@ export default function IdCard({ ads, action, isLoaded, rate, counter }) {
   useEffect(() => {
     setIsShow(action);
   }, [action]);
+
+  console.log("ads---------->", ads?._id);
   return (
     <article className="p-2 relative">
       {counter && (

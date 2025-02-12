@@ -17,12 +17,13 @@ export async function GET(req, { params, searchParams }) {
 
     if (action == 3) {
       counters = await counterModel
-        .find({})
+        .find({ idCard: { $ne: null } })
         .sort({ views: -1 })
         .skip(offset)
         .limit(limit)
-        .populate("idCard").lean();
-
+        .populate("idCard")
+        .lean();
+      // console.log("counters---->", counters);
       idsCard = counters.map((item) => {
         return {
           ...item.idCard,
@@ -32,7 +33,7 @@ export async function GET(req, { params, searchParams }) {
       return Response.json({
         message: "با موفقیت دریافت شد",
         status: 201,
-        idsCard
+        idsCard,
       });
     }
     idsCard = await idCardModel
