@@ -186,7 +186,7 @@ function Header({ isAuthenticateUser }) {
     }
 
     toast("کد دریافت شد   : ", otp);
-  }, []);
+  }, [view]);
   return (
     <header className=" w-full h-20  bg-header pr-4 pl-12">
       <div className="container flex justify-between items-center h-full mx-auto">
