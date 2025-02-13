@@ -50,7 +50,10 @@ export default async function RootLayout({ children }) {
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://findid.ir" />
 
-        <meta property="og:image" content="/images/logo-text-right.webp" />
+        <meta
+          property="og:image"
+          content="https://findid.ir/images/logo-text-right.webp"
+        />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" value="Findid" />
         <meta
