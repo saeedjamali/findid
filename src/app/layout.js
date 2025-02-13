@@ -52,7 +52,7 @@ export default async function RootLayout({ children }) {
 
         <meta
           property="og:image"
-          content="https://findid.ir/images/logo-text-right.png"
+          content="https://findid.ir/images/logo.png"
         />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" value="Findid" />

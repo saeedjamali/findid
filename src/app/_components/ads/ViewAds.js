@@ -1,6 +1,7 @@
 "use client";
 import {
   BASE_URL,
+  GLOBAL_URL,
   messengers,
   services,
   subjects,
