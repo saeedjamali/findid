@@ -7,6 +7,7 @@ import NOTFOUND from "@/app/_components/pages/NOTFOUND";
 import { useAppProvider } from "@/app/context/AppProvider";
 import { addss } from "@/config/constants";
 import { addBreadCrumbsJsonLd, addProductJsonLd } from "@/utils/schemasSeo";
+import Head from "next/head";
 import { useParams, usePathname, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
@@ -45,28 +46,7 @@ function View() {
   return (
     <div className="min-h-screen w-full ">
       <>
-        <title>FindId : {"ads?.title"}</title>
-        <meta
-          name="description"
-          content={`مرجع تبادل شناسه های  اینترنتی FindId ${"ads?.description"}`}
-        />
-
-        <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://findid.ir/view" />
-
-        <meta property="og:site_name" value="Findid" />
-        <meta
-          property="og:title"
-          content={`مرجع تبادل شناسه های  اینترنتی FindId ${"ads?.id"}`}
-        />
-        <meta
-          property="og:description"
-          content={`بزرگترین بستر تبادل آیدی و صفحات اینترنتی ${"ads?.description"}`}
-        />
-        <meta
-          property="og:url"
-          content={`https://findid.ir/${"ads?.title"}?id=${"ads._id"}`}
-        />
+     
       </>
       {isLoading ? (
         !ads || ads == null ? (
@@ -82,8 +62,6 @@ function View() {
       ) : (
         <LOADING />
       )}
-
-     
     </div>
   );
 }
