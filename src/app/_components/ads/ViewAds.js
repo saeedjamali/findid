@@ -172,18 +172,7 @@ function ViewAds({ ads }) {
   };
   return (
     <div className="container w-full  mx-auto">
-      <NextSeo
-        title={ads?.title}
-        description={ads?.description}
-        openGraph={{
-          title: ads?.title,
-          description: ads?.description,
-          url: ` ${GLOBAL_URL}/view/${ads?.title}?id=${ads?._id}`,
-          images: [
-            { url: `https://findid.ir/api/ads/image/${ads?.profile}/profile` },
-          ],
-        }}
-      />
+     
       <Toaster />
 
       <div className=" container p-5 mx-auto mt-2  rounded-lg   ">
@@ -231,7 +220,7 @@ function ViewAds({ ads }) {
                     className="font-bold cursor-pointer w-full h-full p-1 flex justify-center items-center"
                     onClick={() =>
                       copyToClipboard(
-                        GLOBAL_URL + `view/${ads?.title}?id=${ads?._id}`,
+                        GLOBAL_URL+`/view/${ads?.title}?id=${ads?._id}`,
                         "لینک آگهی کپی شد"
                       )
                     }

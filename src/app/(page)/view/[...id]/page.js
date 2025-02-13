@@ -44,7 +44,18 @@ function View() {
   }, [searchParams]);
   return (
     <div className="min-h-screen w-full ">
-    
+     <NextSeo
+        title={ads?.title}
+        description={ads?.description}
+        openGraph={{
+          title: ads?.title,
+          description: ads?.description,
+          url: ` ${GLOBAL_URL}/view/${ads?.title}?id=${ads?._id}`,
+          images: [
+            { url: `https://findid.ir/api/ads/image/${ads?.profile}/profile` },
+          ],
+        }}
+      />
          {isLoading ? (
         !ads || ads == null ? (
           <NOTFOUND />
