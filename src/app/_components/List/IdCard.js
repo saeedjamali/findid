@@ -28,7 +28,7 @@ export default function IdCard({ ads, action, isLoaded, rate, counter }) {
     <article className="p-2 relative">
       {counter && (
         <span
-          className="absolute top-1 right-1 w-5 h-5 z-40 rounded-full bg-white flex items-center justify-center text-center font-bold text-header text-[10px]"
+          className="absolute top-4 left-4 w-5 h-5 z-50 rounded-full bg-header-hover flex items-center justify-center text-center font-bold text-header text-[10px]"
           // style={{
           //   boxShadow: `2px 2px  5px ${messengers[ads?.messenger - 1]?.color}`,
           // }}
@@ -93,8 +93,8 @@ export default function IdCard({ ads, action, isLoaded, rate, counter }) {
         <Skeleton className="rounded-md mt-1 h-16" isLoaded={isLoaded}>
           <div className="flex items-center justify-between text-header flex-grow">
             <span
-              className={`flex items-center justify-center gap-1  text-[10px] bg-blue-100 rounded-lg p-2 min-w-0 md:min-w-16 w-auto ${
-                isShow == 1 && "font-extrabold "
+              className={`flex items-center justify-center gap-1  text-[10px]  rounded-lg p-2 min-w-0 md:min-w-16 w-auto ${
+                isShow == 1 ? "font-extrabold bg-blue-100" : "bg-header-hover"
               }`}
             >
               <p className="my-auto h-3"> {memberToK(ads?.members)}</p>
@@ -102,8 +102,8 @@ export default function IdCard({ ads, action, isLoaded, rate, counter }) {
             </span>
 
             <div
-              className={`flex items-center justify-center gap-1 mt-1 text-[10px] bg-blue-100 rounded-lg p-2 min-w-0 md:min-w-16 w-auto ${
-                isShow == 3 && "font-extrabold "
+              className={`flex items-center justify-center gap-1 mt-1 text-[10px] rounded-lg p-2 min-w-0 md:min-w-16 w-auto ${
+                isShow == 3 ? "font-extrabold bg-blue-100" : "bg-header-hover"
               }`}
             >
               <p className="my-auto h-3 text-[#1B3264]">
@@ -114,8 +114,8 @@ export default function IdCard({ ads, action, isLoaded, rate, counter }) {
             </div>
           </div>
           <div
-            className={`flex items-center justify-center gap-1  text-[10px] bg-blue-100 rounded-lg p-1  w-auto mt-1 ${
-              isShow == 2 && "font-extrabold "
+            className={`flex items-center justify-center gap-1  text-[10px]  rounded-lg p-1  w-auto mt-1 ${
+              isShow == 2 ? "font-extrabold bg-blue-100" : "bg-header-hover"
             }`}
           >
             <p className="my-auto h-3">

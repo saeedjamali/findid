@@ -183,6 +183,7 @@ function Header({ isAuthenticateUser }) {
   //     toast("before if   : ", otp);
   //     navigator.credentials
   //       .get({ otp: { transport: ["sms"] } })
+
   //       .then((otp) => {
   //         toast.success("Otp---->", otp);
   //         setOtp(otp.code);
@@ -224,14 +225,15 @@ function Header({ isAuthenticateUser }) {
         {/* <h1 className=" text-white font-shabnam text-[16px] mr-8 hidden md:flex">
           مرجع تبادل شناسه های اینترنتی
         </h1> */}
-        <div className="mr-auto flex items-center gap-2 text-xl text-font-light-color font-shabnamBold">
+        <div className="mr-auto flex items-center  gap-2 text-xl text-font-light-color  ">
           {pathname != "/new" && (
             <>
+              {/* <span className="text-[]">بلاگ</span> */}
               <button
                 className="hidden text-white  text-[14px] mx-4 md:ml-8 bg-btn-orange px-2 md:px-4 py-1 rounded-md md:flex items-center justify-between hover:text-header"
                 onClick={handleNewAds}
               >
-                <IoMdAdd className="font-iranSans md:ml-2 text-2xl" />
+                <IoMdAdd className="md:ml-2 text-2xl" />
                 <span className="hidden md:flex">آگهی جدید</span>
               </button>
               <button
@@ -241,14 +243,14 @@ function Header({ isAuthenticateUser }) {
                 onClick={handleNewAds}
               >
                 <span
-                  className={`bg-btn-orange  text-[10px] text-white font-shabnamBold rounded-lg px-2 mb-1 ${
+                  className={`bg-btn-orange  text-[10px] text-white  rounded-lg px-2 mb-1 ${
                     outScroll && "hidden md:flex"
                   }`}
                 >
                   آگهی جدید
                 </span>
 
-                <IoMdAdd className="font-iranSans text-3xl text-white  text-[18px]   bg-btn-orange  rounded-full items-center justify-center hover:text-header h-10 w-10 p-1" />
+                <IoMdAdd className=" text-3xl text-white  text-[18px]   bg-btn-orange  rounded-full items-center justify-center hover:text-header h-10 w-10 p-1" />
               </button>
             </>
           )}
