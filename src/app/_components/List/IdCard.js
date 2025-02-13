@@ -37,7 +37,7 @@ export default function IdCard({ ads, action, isLoaded, rate, counter }) {
         </span>
       )}
       <div
-        className={` w-full col-span-1 h-[180px]   shadow-2xl relative bg-glass bg-white cursor-pointer`}
+        className={` w-full col-span-1 h-[180px]   relative bg-glass bg-white cursor-pointer`}
         style={{
           boxShadow: `2px 2px  5px ${messengers[ads?.messenger - 1]?.color}`,
         }}
