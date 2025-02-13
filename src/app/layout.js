@@ -20,7 +20,7 @@ import Footer from "./_components/footer/Footer";
 
 // export const openGraphImage = { images: "/images/logo.png" };
 
-export default async function RootLayout({ children }) {
+export default async function RootLayout({ children, ads }) {
   const isAuthenticateUser = await authenticateUser();
   // const initialIds = await getIds(0, Id_PER_PAGE);
 
@@ -37,7 +37,7 @@ export default async function RootLayout({ children }) {
         {/* <meta name="viewport" content="width=device-width, initial-scale=1" /> */}
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <title>مرجع تبادل شناسه های اینترنتی </title>
+        <title>{ads?.title}--------------- </title>
         <meta
           name="description"
           content="- بزرگترین بستر تبادل آیدی و صفحات اینترنتی- خرید و فروش کانال،پیج،گروه و آیدی های پیامرسان های مختلف - فایند آیدی بستری برای
@@ -50,10 +50,7 @@ export default async function RootLayout({ children }) {
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://findid.ir" />
 
-        <meta
-          property="og:image"
-          content="https://findid.ir/images/logo.png"
-        />
+        <meta property="og:image" content="https://findid.ir/images/logo.png" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" value="Findid" />
         <meta

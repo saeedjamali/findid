@@ -45,9 +45,7 @@ function View() {
   }, [searchParams]);
   return (
     <div className="min-h-screen w-full ">
-      <>
-     
-      </>
+      <></>
       {isLoading ? (
         !ads || ads == null ? (
           <NOTFOUND />
@@ -57,6 +55,7 @@ function View() {
           <NOTACTIVE />
         ) : (
           // : "zfsdfsd"
+
           <ViewAds ads={ads} />
         )
       ) : (
