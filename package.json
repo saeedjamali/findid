@@ -34,6 +34,7 @@
     "mongoose": "^8.3.1",
     "mongoose-sequence": "^6.0.1",
     "next": "15.0.3",
+    "next-seo": "^6.6.0",
     "nextui-cli": "^0.5.0",
     "num2persian": "^3.2.2",
     "path-to-regexp": "^6.2.2",

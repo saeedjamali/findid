@@ -49,6 +49,7 @@ import ImageLoader from "../imageUploader/imageLoader";
 import ImageLoaderView from "../imageUploader/imafgeLoaderView";
 import { addBreadCrumbsJsonLd, addProductJsonLd } from "@/utils/schemasSeo";
 import SwiperCp from "../swiper/SwiperCp";
+import { NextSeo } from "next-seo";
 function ViewAds({ ads }) {
   const [isReportSend, setIsReportSend] = useState(false);
   const [isBookmarkSend, setIsBookmarkSend] = useState(false);
@@ -171,6 +172,18 @@ function ViewAds({ ads }) {
   };
   return (
     <div className="container w-full  mx-auto">
+      <NextSeo
+        title={ads?.title}
+        description={ads?.description}
+        openGraph={{
+          title: ads?.title,
+          description: ads?.description,
+          url: ` ${GLOBAL_URL}/view/${ads?.title}?id=${ads?._id}`,
+          images: [
+            { url: `https://findid.ir/api/ads/image/${ads?.profile}/profile` },
+          ],
+        }}
+      />
       <Toaster />
 
       <div className=" container p-5 mx-auto mt-2  rounded-lg   ">

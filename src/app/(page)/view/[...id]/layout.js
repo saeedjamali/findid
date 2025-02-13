@@ -9,8 +9,10 @@ export const metadata = {
   description:
     "بزرگترین بستر تبادل آیدی و صفحات اینترنتی- خرید و فروش کانال،پیج،گروه و آیدی های پیامرسان های مختلف",
 };
-export default async function RootLayout({ children }) {
+export default async function RootLayout({ children, searchParams }) {
   const isAuthenticateUser = await authenticateUser();
+
+
   // const initialIds = await getIds(0, Id_PER_PAGE);
   return (
     <>
