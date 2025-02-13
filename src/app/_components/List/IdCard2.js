@@ -328,14 +328,13 @@ export default function IdCard2({ item, bookmarks, showImage }) {
 
         {showImage ? (
           <div className="flex items-center justify-center absolute right-4 top-0  mt-4 gap-2">
-            <div className="flex items-center justify-center bg-font-light-color rounded-lg px-2">
-              <span className=" w-6 h-6 rounded-full ">
-                <MdOutlineRemoveRedEye className="w-5 h-5" />
-              </span>
-
+            <div className="flex items-center justify-center bg-font-light-color rounded-lg px-2 gap-2">
               <h3 className=" rounded-r-full flex items-center justify-center   font-thin text-[10px]">
                 {memberToK(item?.counter?.views)}
               </h3>
+              <span className=" w-5 h-5 rounded-full ">
+                <MdOutlineRemoveRedEye className="w-5 h-5" />
+              </span>
             </div>
             <span className="relative w-6 h-6 rounded-full text-btn-orange">
               <Tooltip
@@ -350,14 +349,13 @@ export default function IdCard2({ item, bookmarks, showImage }) {
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center absolute left-4 top-6 md:top-14  mt-4 gap-2">
-            <div className="flex items-center justify-center bg-font-light-color rounded-lg px-2">
-              <span className=" w-6 h-6 rounded-full ">
-                <MdOutlineRemoveRedEye className="w-5 h-5" />
-              </span>
-
-              <div className=" rounded-r-full flex items-center justify-center   font-thin text-[10px]">
+            <div className="flex items-center justify-center bg-font-light-color rounded-lg px-2 gap-2 h-6">
+              <div className=" rounded-r-full flex items-center justify-center   font-thin text-[10px] h-6">
                 {memberToK(item?.counter?.views)}
               </div>
+              <span className=" w-5 h-5 rounded-full ">
+                <MdOutlineRemoveRedEye className="w-5 h-5" />
+              </span>
             </div>
             <span className="relative w-6 h-6 rounded-full text-btn-orange">
               <Tooltip
