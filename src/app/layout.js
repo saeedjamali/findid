@@ -88,7 +88,7 @@ export default async function RootLayout({ children }) {
         </div>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={addSiteJsonLd()}
+          // dangerouslySetInnerHTML={addSiteJsonLd()}
           key="site-jsonld"
         />
       </body>
