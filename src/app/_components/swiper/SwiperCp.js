@@ -73,7 +73,7 @@ function SwiperCp({ ids, action, isLoaded, counter, location }) {
           }}
           // navigation={true}
           modules={[Autoplay, Navigation]}
-          className="overflow-auto w-full"
+          className="overflow-auto w-full h-[210px]"
         >
           {ids?.map((item, index) => {
             return (

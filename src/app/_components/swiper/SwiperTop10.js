@@ -31,7 +31,6 @@ export default function SwiperTop10() {
       const data = await response.json();
       //  console.log("Datazzz--->",data);
       if (data.status == 201) {
-
         // console.log("ads s----->",action ,"--------", data?.idsCard);
         setTopTen(data?.idsCard);
         setIsLoaded(true);
@@ -44,13 +43,11 @@ export default function SwiperTop10() {
     getTop10();
   }, [action]);
   return (
-    <div className="bg-header/10 rounded-lg pb-4 px-4">
+    <div className="bg-header/5 rounded-lg pb-4 px-4">
       <div className="flex justify-between items-center ">
         <div className="flex flex-grow gap-1  mr-4 md:mr-8 ">
           <span
-            className={` text-white bg-btn-orange cursor-pointer p-2 md:px-4 text-[12px] rounded-b-lg ${
-              action != 1 && "bg-btn-orange/60"
-            }`}
+            className={`${action == 1 ? "bg-header-hover text-header":"bg-header text-white" }    cursor-pointer p-2 md:px-4 text-[12px] rounded-b-lg `}
             onClick={() => setAction(1)}
           >
             <span className="hidden md:flex">کاربران</span>
@@ -59,9 +56,7 @@ export default function SwiperTop10() {
             </span>
           </span>
           <span
-            className={` text-white bg-btn-orange cursor-pointer p-2 md:px-4 text-[12px] rounded-b-lg ${
-              action != 2 && "bg-btn-orange/60"
-            }`}
+            className={`${action == 2 ? "bg-header-hover text-header":"bg-header text-white" }  cursor-pointer p-2 md:px-4 text-[12px] rounded-b-lg `}
             onClick={() => setAction(2)}
           >
             <span className="hidden md:flex">قیمت</span>
@@ -70,9 +65,7 @@ export default function SwiperTop10() {
             </span>
           </span>
           <span
-            className={`  text-white bg-btn-orange cursor-pointer p-2 md:px-4 text-[12px] rounded-b-lg ${
-              action != 3 && "bg-btn-orange/60 "
-            }`}
+            className={`${action == 3 ? "bg-header-hover text-header":"bg-header text-white" }   cursor-pointer p-2 md:px-4 text-[12px] rounded-b-lg `}
             onClick={() => setAction(3)}
           >
             <span className="hidden md:flex">مشاهده</span>

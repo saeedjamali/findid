@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 
-const {nextui} = require("@nextui-org/react");
+const { nextui } = require("@nextui-org/react");
 
 module.exports = {
   content: [
@@ -32,7 +32,8 @@ module.exports = {
       },
       colors: {
         //just add this below and your all other tailwind colors willwork
-        header: "#182B54",
+        header: "#182c58",
+        "header-hover": "#D3DDF3",
         "btn-orange": "#ff431e",
         "font-light-color": "#F5F6FF",
         "tag-right-orange": "#ff8d00",

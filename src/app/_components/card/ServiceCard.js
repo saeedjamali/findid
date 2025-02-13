@@ -34,8 +34,10 @@ function ServiceCard({ services, server, setService, current, isCounter }) {
         <div
           key={item?.id}
           className={`${
-            item?.id == current ? "bg-blue-900" : "bg-header"
-          } text-white flex flex-col md:flex-row items-center justify-center gap-4 p-2 rounded-lg w-full cursor-pointer relative `}
+            item?.id == current
+              ? "bg-header-hover text-header"
+              : "bg-header text-white"
+          }  flex flex-col md:flex-row items-center justify-center gap-2 p-2 rounded-lg w-full cursor-pointer relative `}
           onClick={() => {
             item?.id == current ? setService(0) : setService(item?.id);
           }}
@@ -57,7 +59,7 @@ function ServiceCard({ services, server, setService, current, isCounter }) {
           </h2>
 
           {item?.id == current && (
-            <ImCancelCircle className="absolute top-1 left-1 text-rose-600 " />
+            <ImCancelCircle className="absolute top-1 left-1 text-blue-900 " />
           )}
         </div>
       ))}

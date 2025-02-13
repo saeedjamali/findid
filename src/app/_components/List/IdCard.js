@@ -28,25 +28,25 @@ export default function IdCard({ ads, action, isLoaded, rate, counter }) {
     <article className="p-2 relative">
       {counter && (
         <span
-          className="absolute top-1 right-1 w-5 h-5 z-40 rounded-full bg-white flex items-center justify-center ring-1 text-center font-bold text-header text-[10px]"
-          style={{
-            boxShadow: `2px 2px  5px ${messengers[ads?.messenger - 1]?.color}`,
-          }}
+          className="absolute top-1 right-1 w-5 h-5 z-40 rounded-full bg-white flex items-center justify-center text-center font-bold text-header text-[10px]"
+          // style={{
+          //   boxShadow: `2px 2px  5px ${messengers[ads?.messenger - 1]?.color}`,
+          // }}
         >
           {rate}
         </span>
       )}
       <div
-        className={` w-full col-span-1 h-[180px]   relative bg-glass bg-white cursor-pointer`}
-        style={{
-          boxShadow: `2px 2px  5px ${messengers[ads?.messenger - 1]?.color}`,
-        }}
+        className={` w-full col-span-1 h-[200px]   relative bg-glass bg-white cursor-pointer  box-border py-4`}
+        // style={{
+        //   boxShadow: `2px 2px  5px ${messengers[ads?.messenger - 1]?.color}`,
+        // }}
         onClick={() => router.push(`/view/${ads?.title}?id=${ads?._id}`)}
       >
         <div className=" w-full relative flex items-center justify-center ">
           <Skeleton className="rounded-full h-12" isLoaded={isLoaded}>
             <span className="rounded-full w-12 h-12 flex items-center justify-center  cursor-pointer overflow-hidden object-fill relative">
-              {(ads?.thumbnail && ads?.thumbnail.length != 0) ? (
+              {ads?.thumbnail && ads?.thumbnail.length != 0 ? (
                 <ImageLoader
                   imageUrl={ads?.thumbnail[0]}
                   code={"thumbnail"}
@@ -60,30 +60,11 @@ export default function IdCard({ ads, action, isLoaded, rate, counter }) {
                     width={100}
                     height={100}
                     alt="profile"
-                    // effect="blur"
-                    // wrapperProps={{
-                    //   // If you need to, you can tweak the effect transition using the wrapper style.
-                    //   style: {
-                    //     transitionDelay: "1s",
-                    //   },
-                    // }}
                   />
-                  {/* <p className="absolute font-shabnam text-3xl text-gray-700 opacity-40">
-                  تصویر یافت نشد
-                </p> */}
                 </>
               )}
             </span>
           </Skeleton>
-          {/* <span className="absolute top-4 right-3  w-6 h-6 rounded-full ">
-          <FaEye className="w-6 h-6"/>
-        </span>
-        <span className="absolute top-4 left-3  w-6 h-6 rounded-full ">
-          <FaRegHeart className="w-6 h-6"/>
-        </span> */}
-          {/* <span className="absolute bottom-4 left-3  w-6 h-6 rounded-full ">
-          <RiDiscountPercentFill className="w-6 h-6"/>
-        </span> */}
         </div>
         <Skeleton className="rounded-md mt-1 h-5" isLoaded={isLoaded}>
           <div
@@ -125,7 +106,10 @@ export default function IdCard({ ads, action, isLoaded, rate, counter }) {
                 isShow == 3 && "font-extrabold "
               }`}
             >
-              <p className="my-auto h-3"> {memberToK(ads?.counter?.views)}</p>
+              <p className="my-auto h-3 text-[#1B3264]">
+                {" "}
+                {memberToK(ads?.counter?.views)}
+              </p>
               <GrView />
             </div>
           </div>
