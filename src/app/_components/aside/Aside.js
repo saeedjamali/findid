@@ -182,7 +182,7 @@ function Aside() {
                       src={"/images/messengers/icons/bale-ic.ico"}
                       width={100}
                       height={100}
-                      alt="telegram"
+                      alt="bale"
                     />
                   </span>
                   <IoCopy />

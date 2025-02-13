@@ -68,7 +68,7 @@ export default function IdCard({ ads, action, isLoaded, rate, counter }) {
         </div>
         <Skeleton className="rounded-md mt-1 h-5" isLoaded={isLoaded}>
           <div
-            className="w-full flex items-center justify-center px-2 gap-1 mt-2 "
+            className="w-full flex items-center justify-center px-1 gap-1 mt-2 "
             dir="ltr"
           >
             <span className="w-4 h-4 flex items-center justify-center">

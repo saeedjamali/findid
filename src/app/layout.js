@@ -11,14 +11,14 @@ import { FaHeart } from "react-icons/fa";
 import Image from "next/image";
 import Footer from "./_components/footer/Footer";
 
-export const metadata = {
-  openGraph: {
-    title: "مرجع تبادل شناسه های اینترنتی FindId",
-    description: "بزرگترین بستر تبادل آیدی و صفحات اینترنتی",
-  },
-};
+// export const metadata = {
+//   openGraph: {
+//     title: "مرجع تبادل شناسه های اینترنتی",
+//     description: "بزرگترین بستر تبادل آیدی و صفحات اینترنتی",
+//   },
+// };
 
-export const openGraphImage = { images: "/images/logo.png" };
+// export const openGraphImage = { images: "/images/logo.png" };
 
 export default async function RootLayout({ children }) {
   const isAuthenticateUser = await authenticateUser();
@@ -37,10 +37,10 @@ export default async function RootLayout({ children }) {
         {/* <meta name="viewport" content="width=device-width, initial-scale=1" /> */}
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <title>مرجع تبادل شناسه های اینترنتی FindId</title>
+        <title>مرجع تبادل شناسه های اینترنتی </title>
         <meta
           name="description"
-          content="- بزرگترین بستر تبادل آیدی و صفحات اینترنتی- خرید و فروش کانال،پیج،گروه و آیدی های پیامرسان های مختلف - هدف از پیاده سازی سامانه فایند آیدی فراهم آوردن بستری برای
+          content="- بزرگترین بستر تبادل آیدی و صفحات اینترنتی- خرید و فروش کانال،پیج،گروه و آیدی های پیامرسان های مختلف - فایند آیدی بستری برای
                 ارتباط بین خریداران محتوی شامل کانال ، گروه ، پیج و صفحات
                 اینترنتی و تولید کنندگان و صاحبان رسانه می باشد. آگهی های مندرج
                 در سایت شامل آگهی فروش محتوی(کانال،پیج،گروه و ...) ، درخواست
@@ -50,6 +50,8 @@ export default async function RootLayout({ children }) {
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://findid.ir" />
 
+        <meta property="og:image" content="/images/logo-text-right.webp" />
+        <meta property="og:type" content="website" />
         <meta property="og:site_name" value="Findid" />
         <meta
           property="og:title"

@@ -6,13 +6,7 @@ function LOADING() {
     <div className="min-h-[90vh] flex items-center justify-center flex-col">
       <div class="relative flex justify-center items-center ">
         <div class="absolute animate-spin rounded-full h-36 w-36 border-t-4 border-b-4 border-orange-500 p-2"></div>
-        {/* <Image
-          src="https://www.svgrepo.com/show/509001/avatar-thinking-9.svg"
-          class="rounded-full h-28 w-28"
-          width={100}
-          height={100}
-          alt="logo"
-        /> */}
+      
         <Image
           src="/images/logo.webp"
           class="rounded-full h-28 w-28 m-2"

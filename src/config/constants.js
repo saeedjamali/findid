@@ -9,6 +9,7 @@ import { TbExchange } from "react-icons/tb";
 
 export const API_URL = "/api/ads/get/all";
 export const BASE_URL = "http://localhost:3000/";
+export const GLOBAL_URL = "https://findid.ir";
 export const Id_PER_PAGE = 50;
 export const messengers = [
   {
