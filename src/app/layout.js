@@ -22,12 +22,12 @@ import Footer from "./_components/footer/Footer";
 
 export function generateMetadata() {
   return {
-    title: "My Awesome Website",
-    description: "Discover amazing content on our site.",
+    title: "global title ",
+    description: "global description.",
     openGraph: {
-      title: "My Awesome Website",
-      description: "Explore our latest articles and insights.",
-      url: "https://example.com",
+      title: " opengraph global title",
+      description: "opengraph global title description",
+      url: "https://findid.ir",
       images: [
         {
           url: "https://findid.ir/api/ads/image/173930052196860090profile%20(1).jpg/profile",

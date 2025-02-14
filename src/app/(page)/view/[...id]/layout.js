@@ -11,6 +11,27 @@ import { headers } from "next/headers";
 //   description:
 //     "بزرگترین بستر تبادل آیدی و صفحات اینترنتی- خرید و فروش کانال،پیج،گروه و آیدی های پیامرسان های مختلف",
 // };
+
+export function generateMetadata() {
+  return {
+    title: "inline title ",
+    description: "inline description.",
+    openGraph: {
+      title: " opengraph inline title",
+      description: "opengraph inline title description",
+      url: "https://findid.ir",
+      images: [
+        {
+          url: "https://findid.ir/api/ads/image/173930052196860090profile%20(1).jpg/profile",
+          width: 1200,
+          height: 630,
+        },
+      ],
+    },
+  };
+}
+
+
 export default async function ViewLayout({ children, params }) {
   const isAuthenticateUser = await authenticateUser();
   // const initialIds = await getIds(0, Id_PER_PAGE);
@@ -25,20 +46,7 @@ export default async function ViewLayout({ children, params }) {
   console.log("searchParams------------------>", value);
   return (
     <>
-      <head>
-        <meta property="og:image" content="https://findid.ir/images/logo.png" />
-        <meta property="og:type" content="website" />
-        <meta property="og:site_name" value="Findid" />
-        <meta
-          property="og:title"
-          content="مرجع تبادل شناسه های  اینترنتی FindId"
-        />
-        <meta
-          property="og:description"
-          content="بزرگترین بستر تبادل آیدی و صفحات اینترنتی"
-        />
-        <meta property="og:url" content="https://findid.ir/" />
-      </head>
+     
       {/* <Head>
         <title>FindId : {"ads?.title"}</title>
         <meta
