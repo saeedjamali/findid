@@ -14,15 +14,14 @@ let idsCard = {};
 
 export function generateMetadata({ params }) {
   return {
-    title: idsCard?.title,
-    description: idsCard?.description,
+    
     openGraph: {
       title: idsCard?.title,
       description: idsCard?.description,
       url: "https://findid.ir",
       images: [
         {
-          url: `https://findid.ir/api/ads/image/${idsCard?.thumbnail}/profile`,
+          url: `https://findid.ir/api/ads/image/profile/${idsCard?.thumbnail}`,
           width: 1200,
           height: 630,
         },

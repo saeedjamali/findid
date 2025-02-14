@@ -32,7 +32,7 @@ export function generateMetadata() {
       url: "https://findid.ir",
       images: [
         {
-          url: "https://findid.ir/images/logo.png",
+          url: "https://findid.ir/images/logo.webp",
           width: 1200,
           height: 630,
         },
