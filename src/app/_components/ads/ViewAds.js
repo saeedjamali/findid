@@ -172,7 +172,6 @@ function ViewAds({ ads }) {
   };
   return (
     <div className="container w-full  mx-auto">
-     
       <Toaster />
 
       <div className=" container p-5 mx-auto mt-2  rounded-lg   ">
@@ -220,7 +219,7 @@ function ViewAds({ ads }) {
                     className="font-bold cursor-pointer w-full h-full p-1 flex justify-center items-center"
                     onClick={() =>
                       copyToClipboard(
-                        BASE_URL+`/view/${ads?._id}?id=${ads?.id}`,
+                        GLOBAL_URL+ `/view/${ads?._id}?id=${ads?.id}`,
                         "لینک آگهی کپی شد"
                       )
                     }
