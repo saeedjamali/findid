@@ -41,7 +41,7 @@ export default function IdCard({ ads, action, isLoaded, rate, counter }) {
         // style={{
         //   boxShadow: `2px 2px  5px ${messengers[ads?.messenger - 1]?.color}`,
         // }}
-        onClick={() => router.push(`/view/${ads?.id}?id=${ads?._id}`)}
+        onClick={() => router.push(`/view/${ads?._id}?id=${ads?.id}`)}
       >
         <div className=" w-full relative flex items-center justify-center ">
           <Skeleton className="rounded-full h-12" isLoaded={isLoaded}>

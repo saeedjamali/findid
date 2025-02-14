@@ -27,7 +27,7 @@ function Dashboard() {
   }
 
   const goToAds = async (id, title) => {
-    window.open(`/view/${title}?id=${id}`, "_blank");
+    window.open(`/view/${id}?id=${title}`, "_blank");
     // router.push(`/view/${title}?id=${id}`);
   };
   return (

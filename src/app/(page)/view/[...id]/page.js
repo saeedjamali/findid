@@ -12,17 +12,20 @@ import { useParams, usePathname, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 function View() {
-  const [ads, setAds] = useState([]);
+  const { currentAd } = useAppProvider();
+  const [ads, setAds] = useState(currentAd);
   const searchParams = useSearchParams();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(ads ? true : false);
   // const pathname = usePathname();
   // const params = useParams();
 
   // console.log("searchParams--->", searchParams.get("id"));
   // console.log("pathname--->", pathname);
   // console.log("params--->", params.id);
+  // console.log("ads------------------->", ads);
 
   useEffect(() => {
+    setAds(currentAd);
     const getAds = async (id) => {
       try {
         const response = await fetch(`/api/ads/get/adsid/${id}`);
@@ -41,7 +44,7 @@ function View() {
       }
     };
 
-    getAds(searchParams.get("id"));
+    // getAds(searchParams.get("id"));
   }, [searchParams]);
   return (
     <div className="min-h-screen w-full ">

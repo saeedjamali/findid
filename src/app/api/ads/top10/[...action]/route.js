@@ -6,7 +6,6 @@ const mongoose = require("mongoose");
 export async function GET(req, { params, searchParams }) {
   const [action, offset, limit] = await params?.action;
   const actions = ["members", "price", "counter?.views"];
-  console.log("counter-------------------------------", action);
   try {
     const { isConnected, message } = await connectToDB();
     if (!isConnected) {

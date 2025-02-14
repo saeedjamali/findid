@@ -3,11 +3,11 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 const AppContext = createContext();
-function AppProvider({ children, isAuthenticateUser }) {
+function AppProvider({ children, isAuthenticateUser, viewAd }) {
   const [phone, setPhone] = useState("");
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
-  const [currentAd, setCurrentAd] = useState({});
+  const [currentAd, setCurrentAd] = useState(viewAd);
   const [isAuthUser, setIsAuthUser] = useState(isAuthenticateUser);
   const [filterList, setFilterList] = useState([]);
   const [refresh, setRefresh] = useState(false);
@@ -20,7 +20,8 @@ function AppProvider({ children, isAuthenticateUser }) {
 
   useEffect(() => {
     setIsAuthUser(isAuthenticateUser);
-  }, [isAuthUser]);
+    setCurrentAd(viewAd);
+  }, [isAuthUser, viewAd]);
 
   return (
     <>

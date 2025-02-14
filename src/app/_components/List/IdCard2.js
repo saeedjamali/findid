@@ -283,7 +283,7 @@ export default function IdCard2({ item, bookmarks, showImage }) {
               </Tooltip>
               <Tooltip className="bg-header text-white" content="مشاهده جزییات">
                 <Link
-                  href={`/view/${item?.id}?id=${item?._id}`}
+                  href={`/view/${item?._id}?id=${item?.id}`}
                   className="rounded-full w-8 h-8 bg-header flex items-center justify-center text-[16px] text-white cursor-pointer "
                 >
                   <CgDetailsMore />

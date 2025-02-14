@@ -1,6 +1,6 @@
 import { getIds } from "@/actions/getIds";
 import AppProvider from "@/app/context/AppProvider";
-import { Id_PER_PAGE } from "@/config/constants";
+import { BASE_URL, GLOBAL_URL, Id_PER_PAGE } from "@/config/constants";
 import { authenticateUser } from "@/utils/authenticateMe";
 import { addSiteJsonLd } from "@/utils/schemasSeo";
 import Head from "next/head";
@@ -12,67 +12,60 @@ import { headers } from "next/headers";
 //     "بزرگترین بستر تبادل آیدی و صفحات اینترنتی- خرید و فروش کانال،پیج،گروه و آیدی های پیامرسان های مختلف",
 // };
 
-export function generateMetadata() {
-  return {
-    title: "inline title ",
-    description: "inline description.",
-    openGraph: {
-      title: " opengraph inline title",
-      description: "opengraph inline title description",
-      url: "https://findid.ir",
-      images: [
-        {
-          url: "https://findid.ir/api/ads/image/173930052196860090profile%20(1).jpg/profile",
-          width: 1200,
-          height: 630,
-        },
-      ],
-    },
-  };
-}
-
+// export function generateMetadata({ params }) {
+//   console.log("params-------------->", params);
+//   return {
+//     title: "inline title ",
+//     description: "inline description.",
+//     openGraph: {
+//       title: " opengraph inline title",
+//       description: "opengraph inline title description",
+//       url: "https://findid.ir",
+//       images: [
+//         {
+//           url: "https://findid.ir/api/ads/image/173930052196860090profile%20(1).jpg/profile",
+//           width: 1200,
+//           height: 630,
+//         },
+//       ],
+//     },
+//   };
+// }
 
 export default async function ViewLayout({ children, params }) {
   const isAuthenticateUser = await authenticateUser();
-  // const initialIds = await getIds(0, Id_PER_PAGE);
-  const headersList = headers();
-  const fullUrl = headersList.get("referer") || ""; // Get the full URL
-  const pathname = new URL(fullUrl).pathname;
-  const searchParams = new URL(fullUrl, "https://findid.ir/view").search;
+  const [id] = await params?.id;
 
-  // console.log("params------------------>", fullUrl);
-  // console.log("pathname------------------>", pathname);
-  let value = searchParams.split("=")[1];
-  console.log("searchParams------------------>", value);
+  const response = await fetch(`${GLOBAL_URL}/api/ads/get/adsid/${id}`, {
+    cache: "no-store",
+  });
+  const { idsCard } = await response.json();
   return (
     <>
-     
-      {/* <Head>
-        <title>FindId : {"ads?.title"}</title>
+      <Head>
+        <title>FindId : {idsCard?.title}</title>
         <meta
           name="description"
-          content={`مرجع تبادل شناسه های  اینترنتی FindId ${"ads?.description"}`}
+          content={`مرجع تبادل شناسه های  اینترنتی FindId ${idsCard?.description}`}
         />
-
-        <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://findid.ir/view" />
 
         <meta property="og:site_name" value="Findid" />
         <meta
           property="og:title"
-          content={`مرجع تبادل شناسه های  اینترنتی FindId ${"ads?.id"}`}
+          content={`مرجع تبادل شناسه های  اینترنتی FindId ${idsCard?.id}`}
         />
         <meta
           property="og:description"
-          content={`بزرگترین بستر تبادل آیدی و صفحات اینترنتی ${"ads?.description"}`}
+          content={`بزرگترین بستر تبادل آیدی و صفحات اینترنتی ${idsCard?.description}`}
         />
         <meta
           property="og:url"
-          content={`https://findid.ir/${"ads?.title"}?id=${"ads._id"}`}
+          content={`https://findid.ir/${idsCard?._id}?id=${idsCard.id}`}
         />
-      </Head> */}
+      </Head>
       <AppProvider
         isAuthenticateUser={JSON.parse(JSON.stringify(isAuthenticateUser))}
+        viewAd={idsCard}
       >
         {children}
       </AppProvider>

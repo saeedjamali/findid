@@ -7,7 +7,7 @@ async function sitemap() {
   let ids = [];
   ids = data?.idsCard.map((item) => {
     return {
-      url: `https://findid.ir/view/${item?.title}?id=${item?._id}`,
+      url: `https://findid.ir/view/${item?._id}?id=${item?.id}`,
       lastModified: item?.updatedAt,
     };
   });
