@@ -283,11 +283,17 @@ export default function IdCard2({ item, bookmarks, showImage }) {
               </Tooltip>
               <Tooltip className="bg-header text-white" content="مشاهده جزییات">
                 <Link
-                  href={`/view/${item?._id}?id=${item?.id}`}
-                  scroll={false}
-                  prefetch={false}
+                  // href={`/view/${item?._id}?id=${item?.id}`}
+                  // scroll={false}
+                  // prefetch={false}
                   target="_self"
                   className="rounded-full w-8 h-8 bg-header flex items-center justify-center text-[16px] text-white cursor-pointer "
+                  onClick={(e) => {
+                    e.preventDefault();
+                    router
+                      .push(`/view/${item?._id}?id=${item?.id}`)
+                      .then(() => window.location.reload());
+                  }}
                 >
                   <CgDetailsMore />
                 </Link>

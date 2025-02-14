@@ -22,15 +22,17 @@ import Footer from "./_components/footer/Footer";
 
 export function generateMetadata() {
   return {
-    title: "global title ",
-    description: "global description.",
+    title: "مرکز تبادل شناسه های اینترنتی",
+    description:
+      "بزرگترین بستر تبادل آیدی و صفحات اینترنتی، خرید و فروش ، ارائه بستر تبلیغات و جذب ادمین",
     openGraph: {
-      title: " opengraph global title",
-      description: "opengraph global title description",
+      title: " مرکز تبادل شناسه های اینترنتی",
+      description:
+        "بزرگترین بستر تبادل آیدی و صفحات اینترنتی، خرید و فروش ، ارائه بستر تبلیغات و جذب ادمین",
       url: "https://findid.ir",
       images: [
         {
-          url: "https://findid.ir/api/ads/image/173930052196860090profile%20(1).jpg/profile",
+          url: "https://findid.ir/images/logo.png",
           width: 1200,
           height: 630,
         },
@@ -38,7 +40,6 @@ export function generateMetadata() {
     },
   };
 }
-
 
 export default async function RootLayout({ children, ads }) {
   const isAuthenticateUser = await authenticateUser();
