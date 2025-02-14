@@ -12,23 +12,28 @@ let idsCard = {};
 //     "بزرگترین بستر تبادل آیدی و صفحات اینترنتی- خرید و فروش کانال،پیج،گروه و آیدی های پیامرسان های مختلف",
 // };
 
-export async function generateMetadata({ params }) {
-  let [id] = await params?.id;
+async function getAds(id) {
   const response = await fetch(`${GLOBAL_URL}/api/ads/get/adsid/${id}`, {
     cache: "no-store",
   });
   const data = await response.json();
-  idsCard = data?.idsCard;
+  const idsCard = data?.idsCard;
+  return idsCard;
+}
+
+export async function generateMetadata({ params }) {
+  let [id] = await params?.id;
+  const ads = await getAds(id);
   return {
-    title: idsCard?.title,
-    description: idsCard?.description,
+    title: ads?.title,
+    description: ads?.description,
     openGraph: {
-      title: idsCard?.title,
-      description: idsCard?.description,
+      title: ads?.title,
+      description: ads?.description,
       url: "https://findid.ir",
       images: [
         {
-          url: `https://findid.ir/api/ads/image/profile/${idsCard?.thumbnail}/`,
+          url: `https://findid.ir/api/ads/image/profile/${ads?.thumbnail}/`,
           width: 1200,
           height: 630,
         },
@@ -40,12 +45,7 @@ export async function generateMetadata({ params }) {
 export default async function ViewLayout({ children, params }) {
   const isAuthenticateUser = await authenticateUser();
   let [id] = await params?.id;
-
-  const response = await fetch(`${GLOBAL_URL}/api/ads/get/adsid/${id}`, {
-    cache: "no-store",
-  });
-  const data = await response.json();
-  idsCard = data?.idsCard;
+  const ads = await getAds(id);
   return (
     <>
       {/* <head>
@@ -71,7 +71,7 @@ export default async function ViewLayout({ children, params }) {
       </head> */}
       <AppProvider
         isAuthenticateUser={JSON.parse(JSON.stringify(isAuthenticateUser))}
-        viewAd={idsCard}
+        viewAd={ads}
       >
         {children}
       </AppProvider>
