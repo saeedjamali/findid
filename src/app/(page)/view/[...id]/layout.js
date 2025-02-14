@@ -12,9 +12,9 @@ let idsCard = {};
 //     "بزرگترین بستر تبادل آیدی و صفحات اینترنتی- خرید و فروش کانال،پیج،گروه و آیدی های پیامرسان های مختلف",
 // };
 
-export function generateMetadata({ params }) {
+export function generateMetadata() {
   return {
-    
+    title: idsCard?.title,
     openGraph: {
       title: idsCard?.title,
       description: idsCard?.description,
