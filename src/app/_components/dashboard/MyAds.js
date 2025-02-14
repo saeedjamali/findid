@@ -401,7 +401,7 @@ function MyAds({ ownerIdCard, goToAds }) {
             <Tooltip color="primary" content="نمایش آگهی">
               <span
                 className="text-lg text-primary cursor-pointer active:opacity-50"
-                onClick={() => goToAds(ads?._id, ads?.title)}
+                onClick={() => goToAds(ads?._id, ads?.id)}
               >
                 <EyeIcon />
               </span>

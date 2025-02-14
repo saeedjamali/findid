@@ -266,7 +266,7 @@ function MyBookmarks({ ownerIdCard, goToAds }) {
             <Tooltip color="primary" content="نمایش آگهی">
               <span
                 className="text-lg text-primary cursor-pointer active:opacity-50"
-                onClick={() => goToAds(ad?._id, ad?.title)}
+                onClick={() => goToAds(ad?._id, ad?.id)}
               >
                 <EyeIcon />
               </span>

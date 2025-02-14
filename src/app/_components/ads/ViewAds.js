@@ -220,7 +220,7 @@ function ViewAds({ ads }) {
                     className="font-bold cursor-pointer w-full h-full p-1 flex justify-center items-center"
                     onClick={() =>
                       copyToClipboard(
-                        GLOBAL_URL+`/view/${ads?.title}?id=${ads?._id}`,
+                        GLOBAL_URL+`/view/${ads?.id}?id=${ads?._id}`,
                         "لینک آگهی کپی شد"
                       )
                     }
