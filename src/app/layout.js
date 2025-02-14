@@ -20,13 +20,33 @@ import Footer from "./_components/footer/Footer";
 
 // export const openGraphImage = { images: "/images/logo.png" };
 
+export function generateMetadata() {
+  return {
+    title: "My Awesome Website",
+    description: "Discover amazing content on our site.",
+    openGraph: {
+      title: "My Awesome Website",
+      description: "Explore our latest articles and insights.",
+      url: "https://example.com",
+      images: [
+        {
+          url: "https://findid.ir/api/ads/image/173930052196860090profile%20(1).jpg/profile",
+          width: 1200,
+          height: 630,
+        },
+      ],
+    },
+  };
+}
+
+
 export default async function RootLayout({ children, ads }) {
   const isAuthenticateUser = await authenticateUser();
   // const initialIds = await getIds(0, Id_PER_PAGE);
 
   return (
     <html lang="fa" dir="rtl">
-      <head>
+      {/* <head>
         <link
           rel="icon"
           href="/favicon.ico"
@@ -34,7 +54,7 @@ export default async function RootLayout({ children, ads }) {
           className="h-64 w-64"
         />
         <meta charSet="utf-8" />
-        {/* <meta name="viewport" content="width=device-width, initial-scale=1" /> */}
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <title>{ads?.title}--------------- </title>
@@ -62,7 +82,8 @@ export default async function RootLayout({ children, ads }) {
           content="بزرگترین بستر تبادل آیدی و صفحات اینترنتی"
         />
         <meta property="og:url" content="https://findid.ir/" />
-      </head>
+      </head> */}
+
       {/* <!-- Google tag (gtag.js) --> */}
 
       <body>

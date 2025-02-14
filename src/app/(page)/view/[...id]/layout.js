@@ -4,27 +4,28 @@ import { Id_PER_PAGE } from "@/config/constants";
 import { authenticateUser } from "@/utils/authenticateMe";
 import { addSiteJsonLd } from "@/utils/schemasSeo";
 import Head from "next/head";
+import { headers } from "next/headers";
 
 // export const metadata = {
 //   title: "مشاهده آگهی",
 //   description:
 //     "بزرگترین بستر تبادل آیدی و صفحات اینترنتی- خرید و فروش کانال،پیج،گروه و آیدی های پیامرسان های مختلف",
 // };
-export default async function ViewLayout({ children }) {
+export default async function ViewLayout({ children, params }) {
   const isAuthenticateUser = await authenticateUser();
   // const initialIds = await getIds(0, Id_PER_PAGE);
+  const headersList = headers();
+  const fullUrl = headersList.get("referer") || ""; // Get the full URL
+  const pathname = new URL(fullUrl).pathname;
+  const searchParams = new URL(fullUrl, "https://findid.ir/view").search;
+
+  // console.log("params------------------>", fullUrl);
+  // console.log("pathname------------------>", pathname);
+  let value = searchParams.split("=")[1];
+  console.log("searchParams------------------>", value);
   return (
     <>
       <head>
-       
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <title>مرجع تبادل شناسه های اینترنتی </title>
-        <meta
-          name="description"
-          content="- ----------------------------------------راشد."
-        />
-
-      
         <meta property="og:image" content="https://findid.ir/images/logo.png" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" value="Findid" />
