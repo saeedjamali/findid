@@ -61,11 +61,14 @@ function ViewAds({ ads }) {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const { phone, _id, role } = isAuthUser;
   const pathname = usePathname();
+ 
+
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]); // Runs when route changes
 
+ 
   const copyToClipboard = (value, label) => {
     try {
       navigator.clipboard.writeText(value);
@@ -223,7 +226,7 @@ function ViewAds({ ads }) {
                     className="font-bold cursor-pointer w-full h-full p-1 flex justify-center items-center"
                     onClick={() =>
                       copyToClipboard(
-                        GLOBAL_URL + `/view/${ads?._id}?id=${ads?.id}`,
+                        GLOBAL_URL+ `/view/${ads?._id}?id=${ads?.id}`,
                         "لینک آگهی کپی شد"
                       )
                     }

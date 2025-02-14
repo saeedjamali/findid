@@ -12,16 +12,23 @@ let idsCard = {};
 //     "بزرگترین بستر تبادل آیدی و صفحات اینترنتی- خرید و فروش کانال،پیج،گروه و آیدی های پیامرسان های مختلف",
 // };
 
-export function generateMetadata() {
+export async function generateMetadata({ params }) {
+  let [id] = await params?.id;
+  const response = await fetch(`${GLOBAL_URL}/api/ads/get/adsid/${id}`, {
+    cache: "no-store",
+  });
+  const data = await response.json();
+  idsCard = data?.idsCard;
   return {
     title: idsCard?.title,
+    description: idsCard?.description,
     openGraph: {
       title: idsCard?.title,
       description: idsCard?.description,
       url: "https://findid.ir",
       images: [
         {
-          url: `https://findid.ir/api/ads/image/profile/${idsCard?.thumbnail}`,
+          url: `https://findid.ir/api/ads/image/profile/${idsCard?.thumbnail}/`,
           width: 1200,
           height: 630,
         },

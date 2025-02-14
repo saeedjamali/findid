@@ -24,28 +24,28 @@ function View() {
   // console.log("params--->", params.id);
   // console.log("ads------------------->", ads);
 
-  useEffect(() => {
-    setAds(currentAd);
-    const getAds = async (id) => {
-      try {
-        const response = await fetch(`/api/ads/get/adsid/${id}`);
-        const data = await response.json();
-        if (data.status == 201) {
-          setAds(data?.idsCard);
-        } else {
-          setAds(null);
-        }
+  // useEffect(() => {
+  //   setAds(currentAd);
+  //   const getAds = async (id) => {
+  //     try {
+  //       const response = await fetch(`/api/ads/get/adsid/${id}`);
+  //       const data = await response.json();
+  //       if (data.status == 201) {
+  //         setAds(data?.idsCard);
+  //       } else {
+  //         setAds(null);
+  //       }
 
-        setIsLoading(true);
-        // console.log("data--->", data);
-      } catch (error) {
-        console.log("error from getAds by id--->", error);
-        setIsLoading(true);
-      }
-    };
+  //       setIsLoading(true);
+  //       // console.log("data--->", data);
+  //     } catch (error) {
+  //       console.log("error from getAds by id--->", error);
+  //       setIsLoading(true);
+  //     }
+  //   };
 
-    // getAds(searchParams.get("id"));
-  }, [searchParams]);
+  //   // getAds(searchParams.get("id"));
+  // }, [searchParams]);
   return (
     <div className="min-h-screen w-full ">
       <></>
