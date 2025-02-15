@@ -23,8 +23,7 @@ import Footer from "./_components/footer/Footer";
 export function generateMetadata() {
   return {
     title: "مرکز تبادل شناسه های اینترنتی",
-    description:
-      "بزرگترین بستر تبادل آیدی و صفحات اینترنتی، خرید و فروش ، ارائه بستر تبلیغات و جذب ادمین",
+    description:"- بزرگترین بستر تبادل آیدی و صفحات اینترنتی- خرید و فروش کانال،پیج،گروه و آیدی های پیامرسان های مختلف - فایند آیدی بستری برای ارتباط بین خریداران محتوی شامل کانال ، گروه ، پیج و صفحات اینترنتی و تولید کنندگان و صاحبان رسانه می باشد. آگهی های مندرج در سایت شامل آگهی فروش محتوی(کانال،پیج،گروه و ...) ، درخواست ادمین ، درخواست تبادل و ارائه بستر برای درج تبلیغات می باشد. بزرگترین بستر تبادل آیدی و صفحات اینترنتی، خرید و فروش ، ارائه بستر تبلیغات و جذب ادمین",
     openGraph: {
       title: " مرکز تبادل شناسه های اینترنتی",
       description:
@@ -47,7 +46,7 @@ export default async function RootLayout({ children, ads }) {
 
   return (
     <html lang="fa" dir="rtl">
-      {/* <head>
+      <head>
         <link
           rel="icon"
           href="/favicon.ico"
@@ -56,22 +55,21 @@ export default async function RootLayout({ children, ads }) {
         />
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <title>{ads?.title}--------------- </title>
-        <meta
+        
+        {/* <meta
           name="description"
           content="- بزرگترین بستر تبادل آیدی و صفحات اینترنتی- خرید و فروش کانال،پیج،گروه و آیدی های پیامرسان های مختلف - فایند آیدی بستری برای
                 ارتباط بین خریداران محتوی شامل کانال ، گروه ، پیج و صفحات
                 اینترنتی و تولید کنندگان و صاحبان رسانه می باشد. آگهی های مندرج
                 در سایت شامل آگهی فروش محتوی(کانال،پیج،گروه و ...) ، درخواست
                 ادمین ، درخواست تبادل و ارائه بستر برای درج تبلیغات می باشد."
-        />
+        /> */}
 
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://findid.ir" />
 
-        <meta property="og:image" content="https://findid.ir/images/logo.png" />
+        {/* <meta property="og:image" content="https://findid.ir/images/logo.png" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" value="Findid" />
         <meta
@@ -82,8 +80,8 @@ export default async function RootLayout({ children, ads }) {
           property="og:description"
           content="بزرگترین بستر تبادل آیدی و صفحات اینترنتی"
         />
-        <meta property="og:url" content="https://findid.ir/" />
-      </head> */}
+        <meta property="og:url" content="https://findid.ir/" /> */}
+      </head>
 
       {/* <!-- Google tag (gtag.js) --> */}
 
