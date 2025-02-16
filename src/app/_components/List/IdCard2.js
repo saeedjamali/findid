@@ -282,7 +282,7 @@ export default function IdCard2({ item, bookmarks, showImage }) {
                 </span>
               </Tooltip>
               <Tooltip className="bg-header text-white" content="مشاهده جزییات">
-                <Link
+                <a
                   href={`/view/${item?._id}?id=${item?.id}`}
                   scroll={true}
                   // scroll={false}
@@ -297,7 +297,7 @@ export default function IdCard2({ item, bookmarks, showImage }) {
                   // }}
                 >
                   <CgDetailsMore />
-                </Link>
+                </a>
               </Tooltip>
             </div>
           </div>
