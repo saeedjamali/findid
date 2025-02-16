@@ -282,11 +282,11 @@ export default function IdCard2({ item, bookmarks, showImage }) {
                 </span>
               </Tooltip>
               <Tooltip className="bg-header text-white" content="مشاهده جزییات">
-                {/* <a
+                <Link
                   href={`/view/${item?._id}?id=${item?.id}`}
                   scroll={true}
                   // scroll={false}
-                  // prefetch={false}
+                  prefetch={false}
                   //target="_self"
                   className="rounded-full w-8 h-8 bg-header flex items-center justify-center text-[16px] text-white cursor-pointer "
                   // onClick={(e) => {
@@ -297,7 +297,7 @@ export default function IdCard2({ item, bookmarks, showImage }) {
                   // }}
                 >
                   <CgDetailsMore />
-                </a> */}
+                </Link>
               </Tooltip>
             </div>
           </div>
