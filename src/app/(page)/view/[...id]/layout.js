@@ -14,7 +14,7 @@ let idsCard = {};
 
 async function getAds(id) {
   const response = await fetch(`${GLOBAL_URL}/api/ads/get/adsid/${id}`, {
-    cache: "no-store",
+    next: { revalidate: 3600 },
   });
   const data = await response.json();
   const idsCard = data?.idsCard;
