@@ -21,7 +21,7 @@ export const metadata = {
 
 export function generateMetadata() {
   return {
-    title: "مرکز تبادل شناسه های اینترنتی",
+    title: "مرکز تبادل شناسه های(آیدی) اینترنتی",
     description:
       "- بزرگترین بستر تبادل آیدی و صفحات اینترنتی- خرید و فروش کانال،پیج،گروه و آیدی های پیامرسان های مختلف - فایند آیدی بستری برای ارتباط بین خریداران محتوی شامل کانال ، گروه ، پیج و صفحات اینترنتی و تولید کنندگان و صاحبان رسانه می باشد. آگهی های مندرج در سایت شامل آگهی فروش محتوی(کانال،پیج،گروه و ...) ، درخواست ادمین ، درخواست تبادل و ارائه بستر برای درج تبلیغات می باشد. بزرگترین بستر تبادل آیدی و صفحات اینترنتی، خرید و فروش ، ارائه بستر تبلیغات و جذب ادمین",
     openGraph: {
@@ -105,7 +105,7 @@ export default async function RootLayout({ children, ads }) {
         </div>
         <script
           type="application/ld+json"
-          // dangerouslySetInnerHTML={addSiteJsonLd()}
+          dangerouslySetInnerHTML={addSiteJsonLd()}
           key="site-jsonld"
         />
       </body>
