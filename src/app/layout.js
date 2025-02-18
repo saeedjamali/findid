@@ -11,11 +11,11 @@ import { FaHeart } from "react-icons/fa";
 import Image from "next/image";
 import Footer from "./_components/footer/Footer";
 
-export const metadata = {
-  title: "مرجع تبادل شناسه های اینترنتی",
-  description:
-    "بزرگترین بستر تبادل آیدی و صفحات اینترنتی، خرید و فروش ، ارائه بستر تبلیغات و جذب ادمین",
-};
+// export const metadata = {
+//   title: "مرجع تبادل شناسه های اینترنتی",
+//   description:
+//     "بزرگترین بستر تبادل آیدی و صفحات اینترنتی، خرید و فروش ، ارائه بستر تبلیغات و جذب ادمین",
+// };
 
 // export const openGraphImage = { images: "/images/logo.png" };
 
