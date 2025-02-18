@@ -208,7 +208,7 @@ function Header({ isAuthenticateUser }) {
       <div className="container flex justify-between items-center h-full mx-auto">
         <Link href={"/"}>
           <Image
-            src={"https://findid.ir/images/logo-text-right.webp"}
+            src={"/images/logo-text-right.webp"}
             width={220}
             height={100}
             alt="logo-findid"
