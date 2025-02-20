@@ -59,7 +59,12 @@ export default function Home() {
             }}
           />
           <h1 className=" text-header  text-[20px] text-2xl  md:text-3xl lg:text-4xl leading-10  font-extrabold ">
-            مرجع تبادل شناسه های اینترنتی
+            مرجع تبادل شناسه(آیدی) اینترنتی
+          </h1>
+
+          <h1 className="hidden  ">
+            مرجع تبادل شناسه(آیدی) اینترنتی کانال های تلگرامی و پیج های
+            اینستاگرامی
           </h1>
         </div>
         <div className={`w-full  p-2 my-4`}>
