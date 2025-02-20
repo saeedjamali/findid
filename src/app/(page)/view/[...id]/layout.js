@@ -13,9 +13,12 @@ let idsCard = {};
 // };
 
 async function getAds(id) {
-  const response = await fetch(`${GLOBAL_URL}/api/ads/get/adsid/${id}`, {
-    next: { revalidate: 3600 },
-  });
+  const response = await fetch(`${GLOBAL_URL}/api/ads/get/adsid/${id}`
+
+    // , {
+    //   next: { revalidate: 3600 },
+    // }
+  );
   const data = await response.json();
   const idsCard = data?.idsCard;
   return idsCard;
